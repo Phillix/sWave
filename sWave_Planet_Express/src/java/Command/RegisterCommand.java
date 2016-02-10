@@ -3,6 +3,7 @@ package Command;
 import Daos.UsersDao;
 import Dtos.User;
 import Security.MuhSecurity;
+import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -39,8 +40,7 @@ public class RegisterCommand implements Command {
         //In case the textboxes were empty, should be checked by js but this is an extra check
         if (email != null && username != null && ud.checkDetails(email, username) == -5 && password != null && fname != null && lname != null && add1 != null && city != null && county != null) {
             //Make the user registering
-            String[] hashsalt = ms.hash(password.toCharArray()).split("$");
-            password = hashsalt[1];
+            password = ms.hash(password.toCharArray());
             User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, false);
             int check = ud.register(userRegistering);
             

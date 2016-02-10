@@ -3,6 +3,7 @@
     Created on : Feb 8, 2016, 10:26:50 PM
     Author     : Brian Millar
 --%>
+<%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -93,11 +94,17 @@
             <img id="logo" src="images/logo.png"/>
             <img style="margin-top: 7px; margin-left: 210px;" src="images/knob.png" width="45" height="45"/>
             <img style="margin-top: 7px; margin-left: 0px;" src="images/knob.png" width="45" height="45"/>
+            <a href="login.jsp">Log In</a>
             <input id="searchBox" type="search" placeholder="Search"/>
         </header>
         <aside>
         </aside>
         <section>
+            Registration Failed: <%=request.getParameter("regFail")%>
+            <% if (session.getAttribute("user") != null) {%>
+                    Welcome <%=((User)session.getAttribute("user")).getFname()%>
+                <%}
+            %>
             <h2>Library</h2>
             <label>Import Tracks </label><input id="fopen" type="file" accept=".mp3" multiple onchange="playNext()"/>
             <button onclick="playNext()">Next</button><button onclick="playPrevious()">Previous</button>

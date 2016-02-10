@@ -13,5 +13,14 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="UserActionServlet" method="post">
+            <input type="hidden" name="action" value="login"/>
+            <input type="text" name="email"/>
+            <input type="password" name="password"/>
+            <input type="submit"/>
+        </form>
+        <br/>
+        Don't Have an Account Yet?
+        <a href="register.jsp">Register</a>
     </body>
 </html>

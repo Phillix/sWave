@@ -47,7 +47,6 @@ public class MuhSecurity {
      * @return             = true : passwords match, false : no match
      */
     public boolean checkPassword(char[] password, String correctHash){
-        
         String[] splitHash = correctHash.split("\\$");
         byte[] salt = fromHex(splitHash[0]);
         String hash = splitHash[1];

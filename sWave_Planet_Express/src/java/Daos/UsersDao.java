@@ -14,19 +14,21 @@ import java.sql.SQLException;
  */
 
 public class UsersDao extends Dao {
+    
+    private final boolean DEBUG = true;
 
-    private final String TABLE_NAME = "users";
-    private final String USERID     = "id";
-    private final String FNAME      = "fname";
-    private final String LNAME      = "lname";
-    private final String USER_NAME  = "username";
-    private final String EMAIL      = "email";
-    private final String PASSWORD   = "password";
-    private final String ADD1       = "add1";
-    private final String ADD2       = "add2";
-    private final String CITY       = "city";
-    private final String COUNTY     = "county";
-    private final String ADMIN      = "isadmin";
+    private final String TABLE_NAME = "USERS";
+    private final String USERID     = "USERID";
+    private final String FNAME      = "FNAME";
+    private final String LNAME      = "LNAME";
+    private final String USER_NAME  = "USERNAME";
+    private final String EMAIL      = "EMAIL";
+    private final String PASSWORD   = "PASSWD";
+    private final String ADD1       = "ADD1";
+    private final String ADD2       = "ADD2";
+    private final String CITY       = "CITY";
+    private final String COUNTY     = "COUNTY";
+    private final String ADMIN      = "ADMIN";
 
 
     /**
@@ -73,6 +75,8 @@ public class UsersDao extends Dao {
 
             }
             catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
                return CONNCLOSEFAIL;
             }
         }
@@ -91,9 +95,9 @@ public class UsersDao extends Dao {
         try {
 
             con = getConnection();
-            String query = "INSERT INTO" + TABLE_NAME + "("
+            String query = "INSERT INTO " + TABLE_NAME + " ("
                     + EMAIL + "," + PASSWORD + "," + USER_NAME + "," + FNAME + "," + LNAME + "," + ADD1 + "," + ADD2 + "," + CITY + "," + COUNTY + "," + ADMIN + ")"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getPassword());
@@ -106,14 +110,18 @@ public class UsersDao extends Dao {
             ps.setString(9, u.getCounty());
             ps.setBoolean(10, u.isIsAdmin());
 
-            if (ps.executeUpdate() > 0) {
+            if (ps.executeUpdate() > 0) {    
                 return SUCCESS; //It successfully inserted into the database
             }
         }
         catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
             return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
             return SQLEX;
         }
         finally {
@@ -127,6 +135,8 @@ public class UsersDao extends Dao {
 
             }
             catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
                return CONNCLOSEFAIL;
             }
         }
@@ -177,7 +187,8 @@ public class UsersDao extends Dao {
             }
         }
         catch(Exception e) {
-            e.printStackTrace();
+            if (DEBUG)
+                e.printStackTrace();
         }
         finally {
 
@@ -228,10 +239,13 @@ public class UsersDao extends Dao {
 
         }
         catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
             return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
-            ex2.printStackTrace();
+            if (DEBUG)
+                ex2.printStackTrace();
             return SQLEX;
         }
         finally {
@@ -248,6 +262,8 @@ public class UsersDao extends Dao {
 
             }
             catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
                return CONNCLOSEFAIL;
             }
         }

@@ -22,7 +22,6 @@ public class UsersDao extends Dao {
     private final String USER_NAME  = "username";
     private final String EMAIL      = "email";
     private final String PASSWORD   = "password";
-    private final String SALT       = "salt";
     private final String ADD1       = "add1";
     private final String ADD2       = "add2";
     private final String CITY       = "city";
@@ -93,7 +92,7 @@ public class UsersDao extends Dao {
 
             con = getConnection();
             String query = "INSERT INTO" + TABLE_NAME + "("
-                    + EMAIL + "," + PASSWORD + "," + USER_NAME + "," + FNAME + "," + LNAME + "," + ADD1 + "," + ADD2 + "," + SALT + "," + CITY + "," + COUNTY + "," + ADMIN + ")"
+                    + EMAIL + "," + PASSWORD + "," + USER_NAME + "," + FNAME + "," + LNAME + "," + ADD1 + "," + ADD2 + "," + CITY + "," + COUNTY + "," + ADMIN + ")"
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
@@ -103,10 +102,9 @@ public class UsersDao extends Dao {
             ps.setString(5, u.getLname());
             ps.setString(6, u.getAdd1());
             ps.setString(7, u.getAdd2());
-            ps.setString(8, u.getSalt());
-            ps.setString(9, u.getCity());
-            ps.setString(10, u.getCounty());
-            ps.setBoolean(11, u.isIsAdmin());
+            ps.setString(8, u.getCity());
+            ps.setString(9, u.getCounty());
+            ps.setBoolean(10, u.isIsAdmin());
 
             if (ps.executeUpdate() > 0) {
                 return SUCCESS; //It successfully inserted into the database
@@ -164,7 +162,6 @@ public class UsersDao extends Dao {
                     u = new Users();
                     u.setUserId(rs.getInt(USERID));
                     u.setPassword("uh-uh-uh! you didnt say the magic word!");
-                    u.setSalt("pepper?");
                     u.setEmail(rs.getString(EMAIL));
                     u.setFname(rs.getString(FNAME));
                     u.setLname(rs.getString(LNAME));

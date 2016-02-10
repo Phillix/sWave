@@ -1,0 +1,195 @@
+/* 
+    Created on : Feb 8, 2016, 9:58:39 PM
+    Author     : Brian Millar
+*/
+    
+body {
+    background-color: #e3e3e3;
+    font-family:      sans-serif;
+}
+
+header {
+    position:         fixed;
+    top:              0%;
+    left:             0%;
+    right:            0%;
+    height:           60px;
+    background-color: #1F1D26;
+}
+
+aside {
+    position:         fixed;
+    top:              60px;
+    bottom:           60px;
+    left:             0px;
+    width:            200px;
+    background-color: #1F1D26;
+}
+
+section {
+    position:         fixed;
+    top:              60px;
+    bottom:           60px;
+    left:             200px;
+    right:            0px;
+    background-color: transparent;
+    box-shadow:       inset 0px 0px 20px #000;
+    padding:          0px;
+    overflow-x:       hidden;
+    overflow-y:       scroll;
+}
+
+footer {
+    position:         fixed;
+    bottom:           0px;
+    left:             0px;
+    right:            0px;
+    height:           60px;
+    background-color: #1F1D26;
+}
+
+#logo {
+    height:   60px;
+    position: fixed;
+    top:      0px;
+    left:     0px;
+}
+
+#searchBox {
+    background-color: #e3e3e3;
+    color:            #000;
+    border:           0px;
+    width:            150px;
+    position:         absolute;
+    top:              25%;
+    height:           20px;
+    bottom:           25%;
+    right:            2%;
+    padding-top:      4px;
+    padding-bottom:   4px;
+    padding-left:     8px;
+    padding-right:    8px;
+}
+
+li {
+    left:            0%;
+    right:           0%;
+    text-decoration: none;
+    display:         block;
+    color:           #000;
+    font-size:       16px;
+    padding-top:     10px;
+    padding-bottom:  10px;
+    margin:          0px;
+}
+
+li.sec {
+    background-color: #1F1D26;
+    color: #e3e3e3;
+}
+
+li img {
+    margin:     0px;
+    height:     38px;
+    width:      38px;
+    position:   absolute;
+    margin-top: -10px;
+}
+
+li span {
+    margin-left: 60px;
+}
+
+ul {
+    position: absolute;
+    padding: 0px;
+    left:0px;
+    right:0px;
+    margin: 0px;
+    z-index: -1;
+}
+
+button {
+    float: right;
+    margin-right: 10px;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+table {
+    width:   100%;
+    margin:  0px;
+    padding: 0px;
+    border:  none;
+}
+
+tr {
+    color:  #000;
+    margin: 0px;
+    border: none;
+}
+
+tr.sec {
+    color:            #e3e3e3;
+    background-color: #1F1D26;
+}
+
+td {
+    margin:  0px;
+    margin:  0px;
+    border:  none;
+    padding: 0px;
+}
+
+td.move {
+    height: 40px;
+    width:  18px;
+    cursor: grab;
+}
+
+td.move img {
+    display: block;
+    height:  100%;
+    width:   100%;
+}
+
+td.art {
+    width:  40px;
+    height: 40px;
+}
+
+td.art img {
+    display: block;
+    height:  100%;
+    width:   100%;
+}
+
+td.trackTitle {
+    width:         480px;
+    padding-left:  10px;
+    padding-right: 10px;
+}
+
+td.albumName {
+    width: auto;
+}
+
+td.artistName {
+    width: auto;
+}
+
+td.buyButton {
+    width:      50px;
+    text-align: center;
+}
+
+td.playButton {
+    width:      50px;
+    text-align: center;
+}
+
+td.spacer {
+    width: auto;
+}

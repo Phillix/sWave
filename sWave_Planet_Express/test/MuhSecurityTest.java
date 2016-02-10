@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package amazeclasses;
 
-
-import Security.MuhSecurity;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -52,6 +51,21 @@ public class MuhSecurityTest {
         assertEquals(expResult, result);
     }
 
+     /**
+     * Test of hash method, of class MuhSecurity.
+     */
+    @Test
+    public void testHash2() throws Exception {
+       
+        String password = "password";
+        MuhSecurity instance = new MuhSecurity();
+        String hashed = instance.hash(password.toCharArray());
+        String hashed2 = instance.hash(password.toCharArray());
+        boolean expResult = false;
+        boolean result = hashed.equalsIgnoreCase(hashed2);
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of validatePassword method, of class MuhSecurity.
      */

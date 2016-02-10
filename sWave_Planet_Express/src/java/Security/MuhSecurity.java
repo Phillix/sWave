@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Security;
+package amazeclasses;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -50,12 +50,12 @@ public class MuhSecurity {
         
         String[] splitHash = correctHash.split("\\$");
         byte[] salt = fromHex(splitHash[0]);
-        byte[] hash = fromHex(splitHash[1]);
+        String hash = splitHash[1];
         
         try {
             
             byte[] compareHash = pbkdf2(password, salt);
-            return (toHex(hash).equals(toHex(compareHash)));
+            return hash.equals(toHex(compareHash));
         }
         catch(Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package Command;
 
 import Daos.UsersDao;
-import Dtos.Users;
+import Dtos.User;
 import Security.MuhSecurity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +41,7 @@ public class RegisterCommand implements Command {
             //Make the user registering
             String[] hashsalt = ms.hash(password.toCharArray()).split("$");
             password = hashsalt[1];
-            Users userRegistering = new Users(email, password, username, fname, lname, add1, add2, city, county, false);
+            User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, false);
             int check = ud.register(userRegistering);
             
             //If registering was successful log the user in

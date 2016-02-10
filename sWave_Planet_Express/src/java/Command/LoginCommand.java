@@ -1,7 +1,7 @@
 package Command;
 
 import Daos.UsersDao;
-import Dtos.Users;
+import Dtos.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,7 +22,7 @@ public class LoginCommand implements Command {
         //In case the textboxes were empty, should be checked by js but this is an extra check
         if (email != null && password != null) {
             //Make the user logging in
-            Users userLoggingIn = ud.logIn(email, password);
+            User userLoggingIn = ud.logIn(email, password);
             
             //If the users credentials are correct
             if (userLoggingIn != null) {

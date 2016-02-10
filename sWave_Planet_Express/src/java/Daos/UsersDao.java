@@ -1,6 +1,6 @@
 package Daos;
 
-import Dtos.Users;
+import Dtos.User;
 import Security.MuhSecurity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -84,7 +84,7 @@ public class UsersDao extends Dao {
      * @param u The user we wish to register
      * @return 0 if it inserted fine; -5 if it didn't insert; -1 through -4 for errors
      */
-    public int register(Users u) {
+    public int register(User u) {
         Connection con       = null;
         PreparedStatement ps = null;
 
@@ -139,12 +139,12 @@ public class UsersDao extends Dao {
      * @param password  = String password to check against the database
      * @return          = user object based on successful login, returns null Users object if not found
      */
-    public Users logIn(String email, String password) {
+    public User logIn(String email, String password) {
 
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Users u = null;
+        User u = null;
         MuhSecurity ms = new MuhSecurity();
 
         try{
@@ -159,7 +159,7 @@ public class UsersDao extends Dao {
                 String dbPass = rs.getString(PASSWORD);
                 if(ms.checkPassword(password.toCharArray(), dbPass)) {
 
-                    u = new Users();
+                    u = new User();
                     u.setUserId(rs.getInt(USERID));
                     u.setPassword("uh-uh-uh! you didnt say the magic word!");
                     u.setEmail(rs.getString(EMAIL));

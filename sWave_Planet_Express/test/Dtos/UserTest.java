@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package Dtos;
 
-
-import Dtos.Users;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +11,9 @@ import static org.junit.Assert.*;
  *
  * @author Phillix
  */
-public class UsersTest {
+public class UserTest {
     
-    public UsersTest() {
+    public UserTest() {
     }
     
     @BeforeClass
@@ -44,7 +38,7 @@ public class UsersTest {
     @Test
     public void testGetUserId() {
         
-        Users instance = new Users();
+        User instance = new User();
         int expResult = 0;
         int result = instance.getUserId();
         assertEquals(expResult, result);
@@ -57,7 +51,7 @@ public class UsersTest {
     public void testSetUserId() {
         
         int userId = 0;
-        Users instance = new Users();
+        User instance = new User();
         instance.setUserId(userId);
         assertEquals(userId, instance.getUserId());
     }
@@ -68,7 +62,7 @@ public class UsersTest {
     @Test
     public void testGetEmail() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "email";
         String result = instance.getEmail();
         assertEquals(expResult, result);
@@ -81,7 +75,7 @@ public class UsersTest {
     public void testSetEmail() {
         
         String email = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setEmail(email);
         assertEquals(email, instance.getEmail());
     }
@@ -92,7 +86,7 @@ public class UsersTest {
     @Test
     public void testGetPassword() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "password";
         String result = instance.getPassword();
         assertEquals(expResult, result);
@@ -106,7 +100,7 @@ public class UsersTest {
     public void testSetPassword() {
         
         String password = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setPassword(password);
         assertEquals(password, instance.getPassword());
     }
@@ -117,7 +111,7 @@ public class UsersTest {
     @Test
     public void testGetUsername() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "username";
         String result = instance.getUsername();
         assertEquals(expResult, result);
@@ -130,7 +124,7 @@ public class UsersTest {
     public void testSetUsername() {
         
         String username = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setUsername(username);
         assertEquals(username, instance.getUsername());
     }
@@ -141,7 +135,7 @@ public class UsersTest {
     @Test
     public void testGetFname() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "fname";
         String result = instance.getFname();
         assertEquals(expResult, result);
@@ -154,7 +148,7 @@ public class UsersTest {
     public void testSetFname() {
         
         String fname = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setFname(fname);
         assertEquals(fname, instance.getFname());
     }
@@ -165,7 +159,7 @@ public class UsersTest {
     @Test
     public void testGetLname() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "lname";
         String result = instance.getLname();
         assertEquals(expResult, result);
@@ -178,7 +172,7 @@ public class UsersTest {
     public void testSetLname() {
         
         String lname = "";
-        Users instance = new Users();
+        User instance = new User();
         instance.setLname(lname);
         assertEquals(lname, instance.getLname());
     }
@@ -189,7 +183,7 @@ public class UsersTest {
     @Test
     public void testGetAdd1() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "add1";
         String result = instance.getAdd1();
         assertEquals(expResult, result);
@@ -202,7 +196,7 @@ public class UsersTest {
     public void testSetAdd1() {
        
         String add1 = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setAdd1(add1);
         assertEquals(add1, instance.getAdd1());
     }
@@ -213,7 +207,7 @@ public class UsersTest {
     @Test
     public void testGetAdd2() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "add2";
         String result = instance.getAdd2();
         assertEquals(expResult, result);
@@ -227,7 +221,7 @@ public class UsersTest {
     public void testSetAdd2() {
         
         String add2 = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setAdd2(add2);
         assertEquals(add2, instance.getAdd2());
     }
@@ -238,7 +232,7 @@ public class UsersTest {
     @Test
     public void testGetCity() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "city";
         String result = instance.getCity();
         assertEquals(expResult, result);
@@ -251,7 +245,7 @@ public class UsersTest {
     public void testSetCity() {
         
         String city = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setCity(city);
         assertEquals(city, instance.getCity());
     }
@@ -262,7 +256,7 @@ public class UsersTest {
     @Test
     public void testGetCounty() {
         
-        Users instance = new Users();
+        User instance = new User();
         String expResult = "county";
         String result = instance.getCounty();
         assertEquals(expResult, result);
@@ -276,7 +270,7 @@ public class UsersTest {
     public void testSetCounty() {
         
         String county = "new";
-        Users instance = new Users();
+        User instance = new User();
         instance.setCounty(county);
         assertEquals(county, instance.getCounty());
     }
@@ -287,7 +281,7 @@ public class UsersTest {
     @Test
     public void testIsIsAdmin() {
         
-        Users instance = new Users();
+        User instance = new User();
         boolean expResult = false;
         boolean result = instance.isIsAdmin();
         assertEquals(expResult, result);
@@ -300,7 +294,7 @@ public class UsersTest {
     public void testSetIsAdmin() {
         
         boolean isAdmin = true;
-        Users instance = new Users();
+        User instance = new User();
         instance.setIsAdmin(isAdmin);
         assertEquals(isAdmin, instance.isIsAdmin());
     }
@@ -311,8 +305,8 @@ public class UsersTest {
     @Test
     public void testToString() {
         
-        Users instance = new Users();
-        String expResult = "Users{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, salt=salt, city=city, county=county, isAdmin=false}";
+        User instance = new User();
+        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=county, isAdmin=false}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

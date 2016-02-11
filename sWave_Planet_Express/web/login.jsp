@@ -9,18 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <form action="UserActionServlet" method="post">
+        <img id="overlay_logo" src="images/logo_black.png"/>
+        <form id="loginForm" action="UserActionServlet" method="post">
+            <h1>Login</h1>
             <input type="hidden" name="action" value="login"/>
-            <input type="text" name="email"/>
-            <input type="password" name="password"/>
-            <input type="submit"/>
+            <input required type="text" name="email"/><br/>
+            <input required type="password" name="password"/><br/>
+            Don't Have an Account Yet?
+            <a href="register.jsp">Register</a><a href="index.jsp">Cancel</a><br/>
+            <input type="submit" value="Login"/>
         </form>
-        <br/>
-        Don't Have an Account Yet?
-        <a href="register.jsp">Register</a>
+        <img id="wallpaper" src="images/bg.jpg"/>
     </body>
 </html>

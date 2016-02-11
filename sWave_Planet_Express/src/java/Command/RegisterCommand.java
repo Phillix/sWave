@@ -3,7 +3,6 @@ package Command;
 import Daos.UsersDao;
 import Dtos.User;
 import Security.MuhSecurity;
-import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

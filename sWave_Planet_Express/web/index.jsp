@@ -109,22 +109,36 @@
         <header>
             <img id="logo" src="images/logo.png"/>
             <span style="float: left; margin-left: 220px; margin-top:20px;">
-                <input id="fopen" type="file" accept=".mp3" multiple onchange="playNext()"/>
+                <input id="fopen" type="file" accept="audio" multiple onchange="playNext()"/>
                 <button onclick="playNext()">Next</button>
                 <button id="playPause" onclick="playPause()">Play</button>
                 <button onclick="playPrevious()">Previous</button>
                 <button onclick="$('fopen').click()">Import</button>
             </span>
             <input id="searchBox" type="search" placeholder="Search"/>
-            <a href="register.jsp">Register</a>
-            <a href="login.jsp">Log In</a>
+            <% if (session.getAttribute("user") == null) {%>
+                <a style="margin-right:10px; margin-top:20px;" href="register.jsp">Register</a>
+                <a style="margin-top:20px;" href="login.jsp">Log In</a>
+            <%} else {%>
+                <form action="UserActionServlet" method="post">
+                    <input type="hidden" name="action" value="logout"/>
+                    <input type="submit" value="Log Out"/>
+                </form>
+                <h5 style="float:right; margin-top:20px;">Welcome <%=((User)session.getAttribute("user")).getUsername()%></h5>
+            <%}%>
             <input style="background-color: transparent;" id="volCtrl" type="range" min="0" max="10" step="1" value="10" onmousemove="setVol(this.value)"/>
         </header>
         <aside>
         </aside>
         <section>
-            <table id="trackList" cellspacing="0">
-            </table>
+            <% if ((request.getParameter("regFail")) != null && (request.getParameter("regFail")).equals("yes")) {%>
+                <h1 style="margin-left: 30px; color: #000;">Registration Failed</h1>
+                <p style="margin-left: 30px; color: #000;">A user with your credentials may already exist.</p>
+                <a style="margin-left: 30px; text-shadow:1px 1px 0px #000" href="register.jsp">Try Again</a>
+            <%} else {%>
+                <table id="trackList" cellspacing="0">
+                </table>
+            <%}%>
         </section>
         <footer>
             <label id="fileName"></label><br/>

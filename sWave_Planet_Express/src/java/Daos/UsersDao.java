@@ -19,6 +19,7 @@ public class UsersDao extends Dao {
 
     private final String TABLE_NAME = "USERS";
     private final String USERID     = "USERID";
+    private final String UNAME      = "USERNAME";
     private final String FNAME      = "FNAME";
     private final String LNAME      = "LNAME";
     private final String USER_NAME  = "USERNAME";
@@ -171,6 +172,7 @@ public class UsersDao extends Dao {
 
                     u = new User();
                     u.setUserId(rs.getInt(USERID));
+                    u.setUsername(rs.getString(UNAME));
                     u.setPassword("uh-uh-uh! you didnt say the magic word!");
                     u.setEmail(rs.getString(EMAIL));
                     u.setFname(rs.getString(FNAME));

@@ -8,6 +8,16 @@ body {
     font-family:      sans-serif;
 }
 
+a {
+    color:           #e3e3e3;
+    text-decoration: none;
+}
+
+a:hover {
+    color:           #fff;
+    text-decoration: underline;
+}
+
 header {
     position:         fixed;
     top:              0%;
@@ -206,27 +216,39 @@ td.spacer {
 }
 
 #loginForm {
+    color:            #e3e3e3;
     position:         fixed;
     bottom:           100px;
     left:             100px;
     padding:          20px;
-    background-color: rgba(31, 29, 38, 0.7);
+    background-color: rgba(31, 29, 38, 0.8);
     box-shadow:       0px 0px 10px #000;
+    animation:        fadeRight 1s;
+    -moz-animation:   fadeRight 1s;
+    -webkit-animation:fadeRight 1s;
 }
 
 #regForm {
+    color:            #e3e3e3;
     position:         fixed;
     bottom:           100px;
     left:             100px;
     padding:          20px;
-    background-color: rgba(31, 29, 38, 0.7);
+    background-color: rgba(31, 29, 38, 0.8);
     box-shadow:       0px 0px 10px #000;
+    animation:        fadeRight 1s;
+    -moz-animation:   fadeRight 1s;
+    -webkit-animation:fadeRight 1s;
+}
+
+#loginForm input {
+    width: 100%;
 }
 
 #overlay_logo {
     position: fixed;
-    bottom:      10px;
-    right:       10px;
+    bottom:   10px;
+    right:    10px;
 }
 
 input {
@@ -262,4 +284,25 @@ header input {
 
 footer {
     padding: 10px;
+}
+
+@keyframes fadeRight {
+    0% {
+        left:    0px;
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes fadeRight {
+    0% {
+        left:    0px;
+        opacity: 0.0;
+    }
+}
+
+@-webkit-keyframes fadeRight {
+    0% {
+        left:    0px;
+        opacity: 0.0;
+    }
 }

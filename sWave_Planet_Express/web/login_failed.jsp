@@ -17,6 +17,7 @@
         <form id="loginForm" action="UserActionServlet" method="post">
             <h1>Login</h1>
             <input type="hidden" name="action" value="login"/>
+            <h5 style="color:pink;">Invalid Credentials, Please Try Again</h5>
             <input required type="text" name="email"/><br/>
             <input required type="password" name="password"/><br/>
             <h5>Don't Have an Account Yet?&#160;&#160;<a href="register.jsp">Register</a>&#160;&#160;<a href="index.jsp">Cancel</a></h5>

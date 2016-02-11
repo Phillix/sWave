@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class UsersDao extends Dao {
     
-    private final boolean DEBUG = true;
+    private final boolean DEBUG = false;
 
     private final String TABLE_NAME = "USERS";
     private final String USERID     = "USERID";
@@ -57,9 +57,13 @@ public class UsersDao extends Dao {
 
         }
         catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
             return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
             return SQLEX;
         }
         finally {

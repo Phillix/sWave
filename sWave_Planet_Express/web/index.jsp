@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : register
     Created on : Feb 8, 2016, 10:26:50 PM
     Author     : Brian Millar
@@ -57,10 +57,10 @@
             /*
              * This code is not a real implementation, it is only
              * a mockup for testing purposes
-             * 
+             *
              */
             var play = 0;
-            
+
             function playNext() {
 
                 $("trackList").innerHTML = "";
@@ -86,19 +86,19 @@
             function setVol(x) {
                 $("player").volume = x / 10;
             }
-            
+
             function playPrevious() {
                 play -= 2;
                 playNext();
             }
-            
+
             function playPause() {
                 if ($("playPause").innerHTML == "Pause")
                     $("player").pause();
                 else
                     $("player").play();
             }
-            
+
             function playing() {
                 $("volCtrl").value = this.volume * 10;
                 $("playPause").innerHTML = "Pause";

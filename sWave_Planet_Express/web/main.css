@@ -1,11 +1,12 @@
-/* 
+/*
     Created on : Feb 8, 2016, 9:58:39 PM
     Author     : Brian Millar
 */
-    
+
 body {
     background-color: #e3e3e3;
     font-family:      sans-serif;
+    color:            #e3e3e3;
 }
 
 a {

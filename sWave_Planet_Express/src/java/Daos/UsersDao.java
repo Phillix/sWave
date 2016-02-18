@@ -1,7 +1,7 @@
 package Daos;
 
 import Dtos.User;
-import Security.MuhSecurity;
+import Security.UserSecurity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -160,7 +160,7 @@ public class UsersDao extends Dao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         User u = null;
-        MuhSecurity ms = new MuhSecurity();
+        UserSecurity ms = new UserSecurity();
 
         try{
             con = getConnection();

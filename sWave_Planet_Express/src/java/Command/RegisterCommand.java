@@ -2,7 +2,7 @@ package Command;
 
 import Daos.UsersDao;
 import Dtos.User;
-import Security.MuhSecurity;
+import Security.UserSecurity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,7 +34,7 @@ public class RegisterCommand implements Command {
         String city       = request.getParameter("city");
         String county     = request.getParameter("county");
         boolean isAdmin   = false;
-        MuhSecurity ms = new MuhSecurity();
+        UserSecurity ms = new UserSecurity();
         
         //In case the textboxes were empty, should be checked by js but this is an extra check
         if (email != null && username != null && ud.checkDetails(email, username) == -5 && password != null && fname != null && lname != null && add1 != null && city != null && county != null) {

@@ -16,7 +16,7 @@ import javax.crypto.spec.PBEKeySpec;
  *
  * @author Phillix
  */
-public class MuhSecurity {
+public class UserSecurity {
     
     /**
      * 

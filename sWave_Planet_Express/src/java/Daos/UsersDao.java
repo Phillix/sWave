@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author austi_000
  */
 
-public class UsersDao extends Dao {
+public class UsersDao extends Dao implements UserDaoInterface {
     
     private final boolean DEBUG = false;
 

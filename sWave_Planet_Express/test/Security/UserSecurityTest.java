@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
  *
  * @author Phillix
  */
-public class MuhSecurityTest {
+public class UserSecurityTest {
     
-    public MuhSecurityTest() {
+    public UserSecurityTest() {
     }
     
     @BeforeClass
@@ -33,13 +33,13 @@ public class MuhSecurityTest {
     }
 
     /**
-     * Test of hash method, of class MuhSecurity.
+     * Test of hash method, of class UserSecurity.
      */
     @Test
     public void testHash() throws Exception {
        
         String password = "password";
-        MuhSecurity instance = new MuhSecurity();
+        UserSecurity instance = new UserSecurity();
         String hashed = instance.hash(password.toCharArray());
         boolean expResult = false;
         boolean result = hashed.equalsIgnoreCase(password);
@@ -47,13 +47,13 @@ public class MuhSecurityTest {
     }
 
      /**
-     * Test of hash method, of class MuhSecurity.
+     * Test of hash method, of class UserSecurity.
      */
     @Test
     public void testHash2() throws Exception {
        
         String password = "password";
-        MuhSecurity instance = new MuhSecurity();
+        UserSecurity instance = new UserSecurity();
         String hashed = instance.hash(password.toCharArray());
         String hashed2 = instance.hash(password.toCharArray());
         boolean expResult = false;
@@ -62,12 +62,12 @@ public class MuhSecurityTest {
     }
     
     /**
-     * Test of validatePassword method, of class MuhSecurity.
+     * Test of validatePassword method, of class UserSecurity.
      */
     @Test
     public void testValidatePassword() throws Exception {
         
-        MuhSecurity ms = new MuhSecurity();
+        UserSecurity ms = new UserSecurity();
         String password = "password";
         String correctHash = ms.hash(password.toCharArray());
         boolean expResult = true;

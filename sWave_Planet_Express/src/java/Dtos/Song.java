@@ -5,13 +5,14 @@ package Dtos;
  * @author Austin
  */
 public class Song {
-    private int songId;
+    private int    songId;
     private String title;
     private String artist;
     private String genre;
-    private int relYear;
+    private int    relYear;
     private double price;
     private String licence;
+    private byte[] songdata;
 
     /**
      * Default constructor to initialize a default song
@@ -22,7 +23,7 @@ public class Song {
         genre   = "genre";
         relYear = 2000;
         price   = 0.00;
-        licence = "licence;";
+        licence = "licence";
     }
 
     /**
@@ -97,6 +98,14 @@ public class Song {
 
     public void setLicence(String licence) {
         this.licence = licence;
+    }
+
+    public byte[] getSongdata() {
+        return songdata;
+    }
+
+    public void setSongdata(byte[] songdata) {
+        this.songdata = songdata;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package Daos;
 
 import Dtos.Song;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Austin
+ * @author Brian Millar
  */
 public class SongDao extends Dao implements SongDaoInterface {
     
@@ -73,6 +75,33 @@ public class SongDao extends Dao implements SongDaoInterface {
             }
         }
         return null;
+    }
+
+    public void addNewSong(byte[] buffer) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+        Song s               = null;
+        
+        try {
+            con = getConnection();
+            
+        }
+        catch(ClassNotFoundException | SQLException e) {
+            if (DEBUG)
+                e.printStackTrace();
+        }
+        finally {
+            try {
+                if(rs  != null) rs.close();
+                if(ps  != null) ps.close();
+                if(con != null) freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
     }
     
 }

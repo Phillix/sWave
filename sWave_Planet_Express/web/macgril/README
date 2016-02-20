@@ -1,0 +1,19 @@
+Macgril Web Framework
+=====================
+Version: 0.2
+Copyright 2015, 2016 Brian Millar
+
+About Macgril
+=====================
+Welcome to Macgril, a general purpose web framework.
+While developing the eXastum project I realised a lot of the 
+functionality I was building could be useful for other web projects and 
+did not need to be tied down and locked into the eXastum desktop. For 
+this reason I decided to take most of that functionality and break it 
+out into its own framework, that is what the Macgril Framework now is. 
+My goal with the Macgril project is not just to make my own web projects 
+easier but also to allow my work on eXastum and the discoveries I made 
+during its development to benefit others regardless of whether or not 
+the eXastum project itself is useful to them as now almost any feature 
+found in eXastum can be quickly recreated in your own projects or websites 
+simply by pulling in the Macgril Web Framework. Happy Hacking!

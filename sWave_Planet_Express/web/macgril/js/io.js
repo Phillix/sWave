@@ -1,5 +1,5 @@
 /*
-    Copyright 2015 Brian Millar
+    Copyright 2015, 2016 Brian Millar
     This file is part of Macgril.
     Macgril is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -13,18 +13,21 @@
     along with eXastum.  If not, see <http://www.gnu.org/licenses/>
 */
 
-function lStore(x,y) {
-        if (y == "del")     window.localStorage.removeItem(x);
-        else if (y != null) window.localStorage.setItem(x,y);
-        else                return window.localStorage.getItem(x);
+function lStore(x, y) {
+    if (y == "del")     window.localStorage.removeItem(x);
+    else if (y != null) window.localStorage.setItem(x, y);
+    else                return window.localStorage.getItem(x);
 }
 
 function fOpen(accept) {
-        if (($("fOpen") != 0) && ($("fOpen") != undefined)) $("macgril").removeChild($("fOpen"));
-        generate("input","macgril","fOpen");
-        $("fOpen").setAttribute("type","file");
-        if ((accept != null) && (accept != undefined)) $("fOpen").setAttribute("accept", accept);
+        if (($("fOpen") != 0) && ($("fOpen") != undefined))
+            $("macgril").removeChild($("fOpen"));
+        generate("input", "macgril", "fOpen");
+        $("fOpen").setAttribute("type", "file");
+        if ((accept != null) && (accept != undefined))
+            $("fOpen").setAttribute("accept", accept);
         $("fOpen").click();
         var x = window.confirm("Are you sure you want to load this file from disk?");
-        if (x) if ($('fOpen').files[0] != undefined) return window.URL.createObjectURL($('fOpen').files[0]);
+        if (x) if ($('fOpen').files[0] != undefined)
+            return window.URL.createObjectURL($('fOpen').files[0]);
 }

@@ -1,5 +1,5 @@
 /*
-    Copyright 2015 Brian Millar
+    Copyright 2015, 2016 Brian Millar
     This file is part of Macgril.
     Macgril is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,19 +22,17 @@ function initAudioSystem() {
     sysAudioAnalyser.smoothingTimeConstant = 0.4;
     sysAudioAnalyser.connect(sysAudioGain);
     sysAudioGain.connect(sysAudioContext.destination);
-    addAudioSource($("testTrack"));
-    startAudioVisualization();
 }
 
 function addAudioSource(src) {
-    var audio = sysAudioContext.createMediaElementSource(src);
-    audio.connect(sysAudioAnalyser);
+    (sysAudioContext.createMediaElementSource(src)).connect(sysAudioAnalyser);
 }
 
 function setSysVol(level) {
     sysAudioGain.gain.value = (level + 120) * 0.004166667;
 }
 
+//This code is eXastum-specific and should be made generic ASAP
 
 function startAudioVisualization() {
     scene  = new THREE.Scene();
@@ -104,3 +102,5 @@ function testAudio(x) {
         $("audioTestButton").setAttribute("onclick","testAudio()");
     }
 }
+
+//End of eXastum-specific code

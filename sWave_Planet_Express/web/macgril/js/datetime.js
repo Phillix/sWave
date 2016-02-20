@@ -77,6 +77,7 @@ function genCal(dateObj,cal) {
     $(cal).innerHTML = calStr;
 }
 
+//May be incorrect, please revisit
 function isLeapYear(year) {
     if (year % 4 == 0) {
         if (year % 100 == 0 && year % 400 == 0) return true;
@@ -86,27 +87,27 @@ function isLeapYear(year) {
 }
 
 function formatTime(s) {
-	var timeModFloor = Math.floor(s % 60);
-	var timeDiv      = s / 60;
+    var timeModFloor = Math.floor(s % 60);
+    var timeDiv      = s / 60;
 
-	var mins = Math.floor(timeDiv);
-	var secs = timeModFloor;
-	var hours = null;
+    var mins  = Math.floor(timeDiv);
+    var secs  = timeModFloor;
+    var hours = null;
 
-	if (mins > 60) {
-		hours = Math.floor(timeDiv / 60);
-		mins  = Math.floor(timeDiv % 60);
-	}
+    if (mins > 60) {
+        hours = Math.floor(timeDiv / 60);
+        mins  = Math.floor(timeDiv % 60);
+    }
 
-	if (secs < 10) secs = "0" + secs;
-	if (mins < 10) mins = "0" + mins;
+    if (secs < 10) secs = "0" + secs;
+    if (mins < 10) mins = "0" + mins;
 
-	if (isNaN(mins) || isNaN(secs))
-		return "00:00";
-	else {
-		if (hours != null)
-			return hours + ":" + mins + ":" + secs;
-		else
-			return mins + ":" + secs;
+    if (isNaN(mins) || isNaN(secs))
+        return "00:00";
+    else {
+        if (hours != null)
+            return hours + ":" + mins + ":" + secs;
+        else
+            return mins + ":" + secs;
     }
 }

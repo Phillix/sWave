@@ -1,5 +1,5 @@
 /*
-    Copyright 2015 Brian Millar
+    Copyright 2015, 2016 Brian Millar
     This file is part of Macgril.
     Macgril is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,32 +16,30 @@
 function $(name) {
     var id = document.getElementById(name);
     if ((id != null) && (id != undefined))
-		return id;
-	else {
-		
-		//switch these orders
-		
-		id = document.getElementsByTagName(name);
-		if ((id[0] != null) && (id[0] != undefined))
-			return id;
-		else {
-			id = [];
-			var arr2 = document.body.childNodes;
-			var j = 0;
-			for (var i = 0; i < arr2.length; i++) {
-				if (arr2[i].nodeType == 1) {
-					matcher = new RegExp("(" + x + ")"); //needs work
-					if (matcher.test(arr2[i].getAttribute("class"))) {
-						id[j] = arr2[i];
-						j++;
-					}
-				}
-			}
-			if ((id[0] != null) && (id[0] != undefined))
-				return id;
-		}
-	}
-	return null;
+        return id;
+    else {
+        //switch these orders
+        id = document.getElementsByTagName(name);
+        if ((id[0] != null) && (id[0] != undefined))
+            return id;
+        else {
+            id = [];
+            var arr2 = document.body.childNodes;
+            var j = 0;
+            for (var i = 0; i < arr2.length; i++) {
+                if (arr2[i].nodeType == 1) {
+                    matcher = new RegExp("(" + x + ")"); //needs work
+                    if (matcher.test(arr2[i].getAttribute("class"))) {
+                        id[j] = arr2[i];
+                        j++;
+                    }
+                }
+            }
+            if ((id[0] != null) && (id[0] != undefined))
+                return id;
+        }
+    }
+    return null;
 }
 
 function generate(x,y,z) {
@@ -66,7 +64,7 @@ function showHideIDs(idArray,x) {
     }
 }
 
-function quickShake(element,passTwo) {
+function quickShake(element, passTwo) {
     $(element).style.transition       = "0.1s transform";
     $(element).style.MozTransition    = "0.1s transform";
     $(element).style.WebkitTransition = "0.1s transform";
@@ -89,7 +87,7 @@ function quickShake(element,passTwo) {
                     $(element).style.WebkitTransform = "translateX(0px)";
                     $(element).style.msTransform     = "translateX(0px)";
                     clearTimeout(timer2);
-                    if(!passTwo) quickShake(element,true);
-                },100);
-        },100);
+                    if(!passTwo) quickShake(element, true);
+                }, 100);
+        }, 100);
 }

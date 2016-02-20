@@ -1,5 +1,5 @@
 /*
-    Copyright 2015 Brian Millar
+    Copyright 2015, 2016 Brian Millar
     This file is part of Macgril.
     Macgril is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -13,6 +13,7 @@
     along with eXastum.  If not, see <http://www.gnu.org/licenses/>
 */
 
-function randNum(x,y) {
+//Check Behaviour
+function randNum(x, y) {
     return (Math.random() * x).toFixed(y);
 }

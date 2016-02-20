@@ -1,5 +1,5 @@
 /*
-    Copyright 2015 Brian Millar
+    Copyright 2015, 2016 Brian Millar
     This file is part of Macgril.
     Macgril is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,8 +14,7 @@
 */
 
 function consoleInit(console) {
-	alert(console);
-    $(console).setAttribute("onkeypress","onStrikeEnter('runConsoleCommand($(\\'" + console + "\\').value, $(\\'" + console + "\\'))',event,true);");
+    $(console).setAttribute("onkeypress", "onStrikeEnter('runConsoleCommand($(\\'" + console + "\\').value, $(\\'" + console + "\\'))',event,true);");
     $(console).focus();
 }
 
@@ -24,7 +23,7 @@ function consoleOut(msg,console) {
 }
 
 function runConsoleCommand(cmd,console) {
-	eval(cmd);
-	console.value = console.value + "\n";
-	console.focus();
+    eval(cmd);
+    console.value = console.value + "\n";
+    console.focus();
 }

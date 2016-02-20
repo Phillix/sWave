@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import sWaveEngine.ID3v2;
 
 /**
  *
@@ -77,7 +78,7 @@ public class SongDao extends Dao implements SongDaoInterface {
         return null;
     }
 
-    public void addNewSong(byte[] buffer) {
+    public void addNewSong(ID3v2 metadata, byte[] buffer) {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
@@ -102,6 +103,10 @@ public class SongDao extends Dao implements SongDaoInterface {
                     e.printStackTrace();
             }
         }
+    }
+
+    public Song getSongById(int songid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

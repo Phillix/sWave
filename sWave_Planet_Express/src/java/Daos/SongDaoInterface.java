@@ -2,6 +2,7 @@ package Daos;
 
 import Dtos.Song;
 import java.util.ArrayList;
+import sWaveEngine.ID3v2;
 
 /**
  *
@@ -10,5 +11,6 @@ import java.util.ArrayList;
  */
 public interface SongDaoInterface {
     public ArrayList<Song> getAllSongs();
-    public void addNewSong(byte[] buffer);
+    public void addNewSong(ID3v2 metadata, byte[] buffer);
+    public Song getSongById(int songid);
 }

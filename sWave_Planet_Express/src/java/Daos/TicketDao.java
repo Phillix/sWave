@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Phillix
  */
-public class TicketDao extends Dao {
+public class TicketDao extends Dao implements TicketDaoInterface {
     
      private final boolean DEBUG = false;
     

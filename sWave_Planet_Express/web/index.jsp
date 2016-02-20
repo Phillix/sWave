@@ -52,7 +52,8 @@
                 }
             }
 	</style>
-        <script src="js/macgril.js"></script>
+        <script src="macgril/js/dom.js"></script>
+        <script src="macgril/js/datetime.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/visualizer.js"></script>
         <script>

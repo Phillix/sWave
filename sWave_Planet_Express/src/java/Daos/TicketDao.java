@@ -19,16 +19,23 @@ import java.util.ArrayList;
  */
 public class TicketDao extends Dao implements TicketDaoInterface {
     
-     private final boolean DEBUG = false;
+    private final boolean DEBUG = false;
     
-     private final String TABLE_NAME = "TICKETS";
-     private final String ID = "TICKETID";
-     private final String USERID = "USERID";
-     private final String ISSUE = "ISSUE";
-     private final String DATE = "DATERAISED";
-     private final String RESOLVED = "RESOLVED";
+    private final String TABLE_NAME = "TICKETS";
+    private final String ID = "TICKETID";
+    private final String USERID = "USERID";
+    private final String ISSUE = "ISSUE";
+    private final String DATE = "DATERAISED";
+    private final String RESOLVED = "RESOLVED";
     
-     public int createTicket(Ticket t) {
+    
+    /**
+     * 
+     * @param t the Ticket to create
+     * @return int to indicate result (see Dao class)
+     */
+    @Override
+    public int createTicket(Ticket t) {
         
         Connection con = null;
         PreparedStatement ps = null;
@@ -81,8 +88,13 @@ public class TicketDao extends Dao implements TicketDaoInterface {
             }
         }
     }
-     
-      public ArrayList<Ticket> getCurrTickets() {
+    
+    /**
+     * 
+     * @return arrayList of all currently unresolved tickets 
+     */
+    @Override
+    public ArrayList<Ticket> getCurrTickets() {
         
         Connection con = null;
         PreparedStatement ps = null;

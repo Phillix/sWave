@@ -1,6 +1,5 @@
 <%-- 
     Document   : register
-    Created on : Feb 8, 2016, 10:26:50 PM
     Author     : Brian Millar
 --%>
 

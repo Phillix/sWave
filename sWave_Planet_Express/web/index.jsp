@@ -1,6 +1,5 @@
 <%--
     Document   : register
-    Created on : Feb 8, 2016, 10:26:50 PM
     Author     : Brian Millar
 --%>
 <%@page import="Dtos.User"%>
@@ -9,7 +8,6 @@
 <html>
     <head>
         <title>Welcome to sWave</title>
-        <meta author="Brian Millar">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="main.css"/>

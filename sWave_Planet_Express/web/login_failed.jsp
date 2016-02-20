@@ -1,6 +1,5 @@
 <%-- 
     Document   : login
-    Created on : Feb 8, 2016, 10:26:37 PM
     Author     : Brian Millar
 --%>
 
@@ -9,7 +8,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta author="Brian Millar">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="main.css"/>
     </head>

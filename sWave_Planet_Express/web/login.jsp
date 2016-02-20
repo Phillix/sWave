@@ -1,6 +1,5 @@
 <%-- 
     Document   : login
-    Created on : Feb 8, 2016, 10:26:37 PM
     Author     : Brian Millar
 --%>
 

@@ -17,8 +17,8 @@
         <form id="loginForm" action="UserActionServlet" method="post">
             <h1>Login</h1>
             <input type="hidden" name="action" value="login"/>
-            <input required type="text" name="email"/><br/>
-            <input required type="password" name="password"/><br/>
+            <input required type="text" name="email" placeholder="Email"/><br/>
+            <input required type="password" name="password" placeholder="Password"/><br/>
             <h5>Don't Have an Account Yet?&#160;&#160;<a href="register.jsp">Register</a>&#160;&#160;<a href="index.jsp">Cancel</a></h5>
             <input type="submit" value="Login"/>
         </form>

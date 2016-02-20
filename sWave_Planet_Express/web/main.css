@@ -4,13 +4,12 @@
 */
 
 body {
-    background-color: #e3e3e3;
+    background-color: #000;
     font-family:      sans-serif;
-    color:            #e3e3e3;
+    color:            #2E84B1;
 }
 
 a {
-    color:           #e3e3e3;
     text-decoration: none;
 }
 
@@ -25,26 +24,28 @@ header {
     left:             0%;
     right:            0%;
     height:           60px;
-    background-color: #1F1D26;
+    background-image: URL("images/bg.png");
+    background-size:  100% 100%;
+    box-shadow:       0px 0px 20px #000;
 }
 
 aside {
     position:         fixed;
     top:              60px;
-    bottom:           60px;
+    bottom:           70px;
     left:             0px;
     width:            200px;
-    background-color: #1F1D26;
+    background-color: rgba(0,0,0,0.7);
 }
 
 section {
     position:         fixed;
     top:              60px;
-    bottom:           60px;
+    bottom:           70px;
     left:             200px;
     right:            0px;
     background-color: transparent;
-    box-shadow:       inset 0px 0px 20px #000;
+    /*box-shadow:       inset 0px 0px 10px;*/
     padding:          0px;
     overflow-x:       hidden;
     overflow-y:       scroll;
@@ -55,8 +56,10 @@ footer {
     bottom:           0px;
     left:             0px;
     right:            0px;
-    height:           60px;
-    background-color: #1F1D26;
+    height:           70px;
+    background-image: URL("images/bg.png");
+    background-size:  100% 100%;
+    box-shadow:       0px 0px 20px #000;
 }
 
 #logo {
@@ -125,11 +128,23 @@ ul {
 button {
     float: right;
     margin-right: 10px;
+    background-image: URL("images/button_default.png");
+    background-size:  100% 100%;
+    background-color: transparent;
+    border: none;
+    color: #e3e3e3;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px;
 }
 
 h2 {
     margin-left: 10px;
 }
+
 
 table {
     width:   100%;
@@ -139,14 +154,15 @@ table {
 }
 
 tr {
-    color:  #000;
+    text-shadow: 0px 0px 4px;
     margin: 0px;
     border: none;
+    background-image: URL("images/bg.png");
+    background-size:  100% 100%;
 }
 
 tr.sec {
-    color:            #e3e3e3;
-    background-color: #1F1D26;
+    
 }
 
 td {
@@ -213,7 +229,7 @@ td.spacer {
     height:   100%;
     top:      0px;
     left:     0px;
-    z-index:  -1;
+    z-index:  -2;
 }
 
 #loginForm {
@@ -283,10 +299,6 @@ header input {
     display: none;
 }
 
-footer {
-    padding: 10px;
-}
-
 @keyframes fadeRight {
     0% {
         left:    0px;
@@ -305,5 +317,64 @@ footer {
     0% {
         left:    0px;
         opacity: 0.0;
+    }
+}
+
+#progress		{
+    -moz-animation: glow 3s; -moz-animation-iteration-count: infinite; -moz-transition:0.5s;
+    position:fixed; box-shadow: 0px 0px 10px; bottom:9px; left:12px; width:0px; height:7px; border-radius:5px; background-image:URL("images/progress.png"); background-size: 100% 100%; background-color:#2E84B1;}
+#progressBG		{border-style:inset; box-shadow: 0px 0px 3px #000; border-width:1px; position:fixed; bottom:7px; left:10px; right:10px; height:9px; border-radius:5px;  background-image:URL("images/progress_bg.png"); background-size: 100% 100%;}
+#scrubber		{border-radius:20px; left:2px; box-shadow:0px 0px 10px #000; width:20px; height:20px; position:fixed; bottom:3px; -moz-transform:scale(0.0); -moz-transition:0.4s;}
+
+#controls {
+    margin-left:  auto;
+    margin-right: auto;
+    width:        200px;
+    display:      block;
+    margin-top:   5px;
+}
+
+#controls img {
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #000;
+    cursor: pointer;
+}
+
+#trackTimer {
+    text-shadow: 0px 0px 4px;
+    position:    fixed;
+    bottom:      25px;
+    right:       15px;
+}
+
+#playerStatus {
+    text-shadow: 0px 0px 4px;
+    position:    fixed;
+    bottom:      25px;
+    left:        15px;
+}
+
+#visualizer {
+    position: fixed;
+    background-color: rgba(0,0,0,0.7);
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: -1;
+}
+
+@-moz-keyframes glow {
+    0% {
+        box-shadow: 0px 0px 3px;
+    }
+    
+    50% {
+        box-shadow: 0px 0px 10px;
+    }
+    
+    100% {
+        box-shadow: 0px 0px 3px;
     }
 }

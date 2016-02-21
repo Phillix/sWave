@@ -25,11 +25,9 @@ public class Ticket {
         resolved   = false;
     }
 
-    public Ticket(int ticketId, int userId, String issue, String dateRaised, boolean resolved) {
-        this.ticketId   = ticketId;
+    public Ticket(int userId, String issue, boolean resolved) {
         this.userId     = userId;
         this.issue      = issue;
-        this.dateRaised = dateRaised;
         this.resolved   = resolved;
     }
 

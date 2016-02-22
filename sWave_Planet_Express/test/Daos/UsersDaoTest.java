@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.User;
+import Security.UserSecurity;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,14 +12,22 @@ import static org.junit.Assert.*;
 /**
  *
  * @author d00159732
+ * @author AustinFoley96
  */
 public class UsersDaoTest {
+    static User u;
+    static User u2;
+    static UsersDao ud;
+    static UserSecurity us = new UserSecurity();
     
     public UsersDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        u = new User("junit@junit.com", us.hash("Password123".toCharArray()), "junitsquad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", false);
+        u2 = new User("junit2@junit.com", us.hash("Password123".toCharArray()), "junit2squad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", false);
+        ud = new UsersDao();
     }
     
     @AfterClass
@@ -32,6 +36,8 @@ public class UsersDaoTest {
     
     @Before
     public void setUp() {
+        ud.deleteUser(u.getEmail());
+        ud.deleteUser(u2.getEmail());
     }
     
     @After
@@ -42,15 +48,23 @@ public class UsersDaoTest {
      * Test of checkUname method, of class UsersDao.
      */
     @Test
-    public void testCheckUname() {
-        System.out.println("checkUname");
-        String username = "";
-        UsersDao instance = new UsersDao();
-        int expResult = 0;
-        int result = instance.checkUname(username);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckUnameValid() {
+        int result = ud.checkUname(u2.getUsername());
+        
+        //Expecting the result to be -5, meaning the query returned OTHER, meaning it didn't find the username in the database
+        assertEquals(-5, result);
+    }
+    
+    /**
+     * Test of checkUnameInvalid method, of class UsersDao.
+     */
+    @Test
+    public void testCheckUnameInValid() {
+        ud.register(u2);
+        int result = ud.checkUname(u2.getUsername());
+        
+        //Expecting the result to be 0 as it will return SUCCESS because the username has been registered beforehand
+        assertEquals(0, result);
     }
 
     /**
@@ -58,14 +72,9 @@ public class UsersDaoTest {
      */
     @Test
     public void testRegister() {
-        System.out.println("register");
-        User u = null;
-        UsersDao instance = new UsersDao();
         int expResult = 0;
-        int result = instance.register(u);
+        int result = ud.register(u);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -73,31 +82,34 @@ public class UsersDaoTest {
      */
     @Test
     public void testLogIn() {
-        System.out.println("logIn");
-        String email = "";
-        String password = "";
-        UsersDao instance = new UsersDao();
-        User expResult = null;
-        User result = instance.logIn(email, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ud.register(u);
+        User u1 = ud.logIn(u.getEmail(), "Password123");
+        assertEquals(true, u.equals(u1));
     }
 
     /**
      * Test of checkDetails method, of class UsersDao.
      */
     @Test
-    public void testCheckDetails() {
-        System.out.println("checkDetails");
-        String email = "";
-        String username = "";
-        UsersDao instance = new UsersDao();
-        int expResult = 0;
-        int result = instance.checkDetails(email, username);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckDetailsValid() {
+        ud.register(u);
+        int result = ud.checkDetails("junit3@junit.com", "junit3squad");
+        
+        //Expecting it to be -5 as it will have returned OTHER because they don't exist
+        assertEquals(-5, result);
     }
+    
+    /**
+     * Test of checkDetails method, of class UsersDao.
+     */
+    @Test
+    public void testCheckDetailsInValid() {
+        ud.register(u);
+        int result = ud.checkDetails("junit@junit.com", "junitsquad");
+        
+        //Expecting it to be 0 as it will have returned SUCCESS as they exist because we just registered those details
+        assertEquals(0, result);
+    }
+    
     
 }

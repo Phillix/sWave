@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * The UsersDao class is used for communicating with the user table in the database
  * @author Phillix
- * @author austi_000
+ * @author AustinFoley96
  */
 
 public class UsersDao extends Dao implements UserDaoInterface {
@@ -37,6 +37,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param username The username we wish to check is in the database
      * @return 0 if it is in the database; -5 if it isn't in the database; -1 through -4 for errors
      */
+    @Override
     public int checkUname(String username) {
 
         Connection con       = null;
@@ -93,6 +94,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param u The user we wish to register
      * @return 0 if it inserted fine; -5 if it didn't insert; -1 through -4 for errors
      */
+    @Override
     public int register(User u) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -150,10 +152,11 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
     /**
      *
-     * @param email     = String email to check against the database
-     * @param password  = String password to check against the database
-     * @return          = user object based on successful login, returns null Users object if not found
+     * @param email String email to check against the database
+     * @param password String password to check against the database
+     * @return user object based on successful login, returns null Users object if not found
      */
+    @Override
     public User logIn(String email, String password) {
 
         Connection con = null;
@@ -219,10 +222,11 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
     /**
      * for use at registration form
-     * @param email    = String email to check if already exists
-     * @param username = String username to check if already exists
-     * @return         = return integer value indicating result: 0 = one or both already exists in the database
+     * @param email String email to check if already exists
+     * @param username String username to check if already exists
+     * @return return integer value indicating result: 0 = one or both already exists in the database
      */
+    @Override
     public int checkDetails(String email, String username) {
 
         Connection con = null;
@@ -276,5 +280,51 @@ public class UsersDao extends Dao implements UserDaoInterface {
         return OTHER;
     }
 
+    /**
+     * A method for deleting a user from the users table based on email
+     * @param email The email of the user you wish to delete
+     * @return 0 if the email was there and got deleted; -5 if it didn't exist; -1 through -4 for errors
+     */
+    public int deleteUser(String email) {
+        Connection con = null;
+        PreparedStatement ps = null;
 
+        try{
+            con = getConnection();
+            String query = "DELETE FROM " + TABLE_NAME + " WHERE " + EMAIL + " = ?";
+            ps =  con.prepareStatement(query);
+            ps.setString(1, email);
+            boolean check = ps.executeUpdate() > 0;
+
+            if (check) return SUCCESS;
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+
+            try {
+                
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return SQLEX;
+            }
+        }
+        return OTHER;
+    }
 }

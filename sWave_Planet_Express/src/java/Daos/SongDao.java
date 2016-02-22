@@ -27,6 +27,10 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String LICENCE    = "LICENCE";
     
     
+    /**
+     * This method returns an ArrayList of all of the songs in the songs table
+     * @return Return an ArrayList of all of the songs, or else null if the table is empty
+     */
     @Override
     public ArrayList<Song> getAllSongs() {
         Connection con        = null;
@@ -41,19 +45,20 @@ public class SongDao extends Dao implements SongDaoInterface {
             String query = "SELECT * FROM " + TABLE_NAME;
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-
             
-
+            while (rs.next()) {
+                Song s = new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE));
+                songs.add(s);
+            }
+            return songs;
         }
         catch (ClassNotFoundException ex1) {
             if (DEBUG)
                 ex1.printStackTrace();
-            return null;
         }
         catch (SQLException ex2) {
             if (DEBUG)
                 ex2.printStackTrace();
-            return null;
         }
         finally {
             try {
@@ -71,12 +76,16 @@ public class SongDao extends Dao implements SongDaoInterface {
             catch(SQLException e) {
                 if (DEBUG)
                     e.printStackTrace();
-               return null;
             }
         }
         return null;
     }
 
+    /**
+     * 
+     * @param metadata
+     * @param buffer 
+     */
     public void addNewSong(ID3v2 metadata, byte[] buffer) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -104,8 +113,55 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
     }
 
+    /**
+     * This method is used to get a song by its id
+     * @param songid The id of the song we want to return
+     * @return Returns a song if the id exists, or else null if it doesn't exist
+     */
     public Song getSongById(int songid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con        = null;
+        PreparedStatement ps  = null;
+        ResultSet rs          = null;
+
+        try {
+
+            con = getConnection();
+            String query = "SELECT " + SONGID + " FROM " + TABLE_NAME + "WHERE " + SONGID + "=?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, songid);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                return new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE));
+            }
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+        }
+        finally {
+            try {
+                if(rs != null) {
+                    rs.close();
+                }
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return null;
     }
     
 }

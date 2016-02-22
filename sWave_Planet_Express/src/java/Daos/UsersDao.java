@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * The UsersDao class is used for communicating with the user table in the database
  * @author Phillix
- * @author austi_000
+ * @author AustinFoley96
  */
 
 public class UsersDao extends Dao implements UserDaoInterface {
@@ -37,6 +37,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param username The username we wish to check is in the database
      * @return 0 if it is in the database; -5 if it isn't in the database; -1 through -4 for errors
      */
+    @Override
     public int checkUname(String username) {
 
         Connection con       = null;
@@ -93,6 +94,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param u The user we wish to register
      * @return 0 if it inserted fine; -5 if it didn't insert; -1 through -4 for errors
      */
+    @Override
     public int register(User u) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -154,6 +156,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param password  = String password to check against the database
      * @return          = user object based on successful login, returns null Users object if not found
      */
+    @Override
     public User logIn(String email, String password) {
 
         Connection con = null;
@@ -223,6 +226,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param username = String username to check if already exists
      * @return         = return integer value indicating result: 0 = one or both already exists in the database
      */
+    @Override
     public int checkDetails(String email, String username) {
 
         Connection con = null;

@@ -36,8 +36,8 @@ public class RegisterCommand implements Command {
         boolean isAdmin   = false;
         UserSecurity ms = new UserSecurity();
         
-        //In case the textboxes were empty, should be checked by js but this is an extra check
-        if (email != null && username != null && ud.checkDetails(email, username) == -5 && password != null && fname != null && lname != null && add1 != null && city != null && county != null) {
+        //In case the textboxes were empty, should be checked by js but this is an extra check, check details returns -5 for other meaning it is ok to use email and username
+        if (email != null && !email.isEmpty() && username != null && !username.isEmpty() && ud.checkDetails(email, username) == -5 && password != null && !password.isEmpty() && fname != null && !fname.isEmpty() && lname != null && !lname.isEmpty()) {
             //Make the user registering
             password = ms.hash(password.toCharArray());
             User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, false);

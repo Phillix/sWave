@@ -1,6 +1,7 @@
 package Daos;
 
 import Dtos.Song;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String RELYEAR    = "RELYEAR";
     private final String PRICE      = "PRICE";
     private final String LICENCE    = "LICENCE";
+    private final String SONGDATA   = "DATA";
     
     
     /**
@@ -47,7 +49,8 @@ public class SongDao extends Dao implements SongDaoInterface {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                Song s = new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE));
+                Blob songDataBlob = rs.getObject(SONGDATA, );
+                Song s = new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE), songdata);
                 songs.add(s);
             }
             return songs;

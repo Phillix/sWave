@@ -28,7 +28,7 @@ public class SongTest {
     @Before
     public void setUp() {
         instance1 = new Song();
-        instance2 = new Song("Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU");
+        instance2 = new Song("Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", null);
     }
     
     @After

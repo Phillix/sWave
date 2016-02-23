@@ -18,12 +18,12 @@ public class Song {
      * Default constructor to initialize a default song
      */
     public Song() {
-        title   = "title";
-        artist  = "artist";
-        genre   = "genre";
-        relYear = 2000;
-        price   = 0.00;
-        licence = "licence";
+        title    = "title";
+        artist   = "artist";
+        genre    = "genre";
+        relYear  = 2000;
+        price    = 0.00;
+        licence  = "licence";
     }
 
     /**
@@ -35,13 +35,14 @@ public class Song {
      * @param price How much the song costs
      * @param licence The licence for the song
      */
-    public Song(String title, String artist, String genre, int relYear, double price, String licence) {
-        this.title   = title;
-        this.artist  = artist;
-        this.genre   = genre;
-        this.relYear = relYear;
-        this.price   = price;
-        this.licence = licence;
+    public Song(String title, String artist, String genre, int relYear, double price, String licence, byte[] songdata) {
+        this.title    = title;
+        this.artist   = artist;
+        this.genre    = genre;
+        this.relYear  = relYear;
+        this.price    = price;
+        this.licence  = licence;
+        this.songdata = songdata;
     }
 
     public int getSongId() {

@@ -38,7 +38,6 @@ public class SongDao extends Dao implements SongDaoInterface {
         Connection con        = null;
         PreparedStatement ps  = null;
         ResultSet rs          = null;
-        
         ArrayList<Song> songs = null;
 
         try {
@@ -47,12 +46,12 @@ public class SongDao extends Dao implements SongDaoInterface {
             String query = "SELECT * FROM " + TABLE_NAME;
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Blob songDataBlob = rs.getBlob(SONGDATA);
                 byte songdata[]   = new byte[(int)songDataBlob.length()];
                 songdata = songDataBlob.getBytes(0, (int)songDataBlob.length());
-                Song s = new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE), songdata);
+                Song s   = new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE), songdata);
                 songs.add(s);
             }
             return songs;
@@ -91,6 +90,7 @@ public class SongDao extends Dao implements SongDaoInterface {
      * @param metadata
      * @param buffer 
      */
+    @Override
     public void addNewSong(ID3v2 metadata, byte[] buffer) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -99,7 +99,6 @@ public class SongDao extends Dao implements SongDaoInterface {
         
         try {
             con = getConnection();
-            
         }
         catch(ClassNotFoundException | SQLException e) {
             if (DEBUG)
@@ -123,6 +122,7 @@ public class SongDao extends Dao implements SongDaoInterface {
      * @param songid The id of the song we want to return
      * @return Returns a song if the id exists, or else null if it doesn't exist
      */
+    @Override
     public Song getSongById(int songid) {
         Connection con        = null;
         PreparedStatement ps  = null;

@@ -32,6 +32,8 @@ public class UsersDaoTest {
     
     @AfterClass
     public static void tearDownClass() {
+        ud.deleteUser(u.getEmail());
+        ud.deleteUser(u2.getEmail());
     }
     
     @Before

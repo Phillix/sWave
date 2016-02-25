@@ -17,6 +17,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("logout") ) {
             //Logs out the user by invalidating the session and returns to the home page
             command = new LogoutCommand();
+        } else if ( action.equalsIgnoreCase("createTicket") ) {
+            //Creates ticket
+            command = new CreateTicketCommand();
         } else {
             command = new DummyCommand();
         }

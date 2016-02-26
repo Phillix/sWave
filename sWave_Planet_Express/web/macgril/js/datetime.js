@@ -64,7 +64,7 @@ function genCal(dateObj,cal) {
         calStr += "<tr>";
         for (var j = 1; j <= 7; j++) {
             var tempDay = j + (7 * i);
-            if (tempDay <== monthDays[dateObj.getMonth()]) {
+            if (tempDay <= monthDays[dateObj.getMonth()]) {
                 calStr += "<td";
                 if (dateObj.getDate() === tempDay)
                     calStr += " style='border-width:1px; border-style:solid;' ";

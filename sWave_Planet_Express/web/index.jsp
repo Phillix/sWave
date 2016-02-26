@@ -13,41 +13,14 @@
         <link rel="stylesheet" type="text/css" href="main.css"/>
         <style>
             @media screen and (max-width: 800px) {
-                aside {
-                    display: none;
-                }
 
-                #searchBox {
-                    position:         fixed;
-                    top:              60px;
-                    right:            30px;
-                    background-color: #1F1D26;
-                    color:            #e3e3e3;
-                }
-
-                section {
-                    left: 0px;
-                }
-
-                td.spacer {
-                    display: none;
-                }
-
-                td.albumName {
-                    display: none;
-                }
             }
 
             @media screen and (max-width: 600px) {
-                td.art {
-                    display: none;
-                }
             }
 
             @media screen and (max-width: 400px) {
-                td.artistName {
-                    display: none;
-                }
+                
             }
 	</style>
         <script src="macgril/js/dom.js"></script>
@@ -141,6 +114,13 @@
             <input style="background-color: transparent;" id="volCtrl" type="range" min="0" max="10" step="1" value="10" onmousemove="setVol(this.value)"/>
         </header>
         <aside>
+            <h2>Tracks</h2>
+            <h2>Playlists</h2>
+            <h2>Account</h2>
+            <h2>Tickets</h2>
+            <h2>About</h2>
+            <div id="visualizer">
+            </div>
         </aside>
         <section>
             <div id="hmm"></div>
@@ -153,8 +133,6 @@
                 </table>
             <%}%>
         </section>
-        <div id="visualizer">
-        </div>
         <footer>
             <span id="playerStatus">No Data</span>
             <span id="controls">

@@ -1,21 +1,10 @@
-/*
-    Created on : Feb 8, 2016, 9:58:39 PM
-    Author     : Brian Millar
-*/
+/* The general Look and Feel of sWave is determined by the skin file selected 
+   from macgril/css/skins/ NOT this file */
 
 body {
     background-color: #000;
     font-family:      sans-serif;
     color:            #2E84B1;
-}
-
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    color:           #fff;
-    text-decoration: underline;
 }
 
 header {
@@ -358,11 +347,10 @@ header input {
 #visualizer {
     position: fixed;
     background-color: rgba(0,0,0,0.7);
-    top: 0px;
+    bottom: 70px;
     left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: -1;
+    width: 200px;
+    height: 200px;
 }
 
 @-moz-keyframes glow {

@@ -18,7 +18,7 @@ function addAudioSource(src) {
 
 function startAudioVisualization() {
     scene  = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,100);
+    camera = new THREE.PerspectiveCamera(45,200/200,1,100);
 
     camera.position.set(0,0,50);
     camera.lookAt(scene.position);
@@ -26,7 +26,7 @@ function startAudioVisualization() {
 
     renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
 	
-    renderer.setSize(window.innerWidth,window.innerHeight);
+    renderer.setSize(200,200);
     $("visualizer").appendChild(renderer.domElement);
 
     bars = new Array(new Array(40), new Array(40));

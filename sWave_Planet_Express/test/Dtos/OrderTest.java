@@ -110,6 +110,32 @@ public class OrderTest {
         instance.setDateOrdered(dateOrdered);
         assertEquals(dateOrdered, instance.getDateOrdered());
     }
+    
+    /**
+     * Test of getOrderId method, of class Order.
+     */
+    @Test
+    public void testGetTotal() {
+        
+        instance = new Order();
+        double expResult = 0.0;
+        double result = instance.getTotal();
+        assertEquals(expResult, result,.2);
+        
+    }
+
+    /**
+     * Test of setOrderId method, of class Order.
+     */
+    @Test
+    public void testSetTotal() {
+        
+        double total = 9.99;
+        instance = new Order();
+        instance.setTotal(total);
+        assertEquals(total, instance.getTotal(),.2);
+    }
+
 
     /**
      * Test of toString method, of class Order.
@@ -118,7 +144,7 @@ public class OrderTest {
     public void testToString() {
         
         instance = new Order();
-        String expResult = "Order{orderId=0, userId=0, dateOrdered=enter date}";
+        String expResult = "Order{orderId=0, userId=0, dateOrdered=enter date, total=0.0}";
         String result = instance.toString();
         assertEquals(expResult, result);
       

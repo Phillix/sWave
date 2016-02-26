@@ -1,0 +1,44 @@
+body {
+	background-image: URL("images/wallpaper.jpg");
+}
+
+button {
+	border: none;
+	border-radius: 3px;
+	color: #000;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-image: URL("images/button_default.png");
+	background-size: 100% 100%;
+}
+
+button:hover {
+	background-image: URL("images/button_hover.png");
+}
+
+button:active {
+	background-image: URL("images/button_press.png");
+}
+
+input {
+	border: none;
+	border-radius: 3px;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-image: URL("images/input_text.png");
+	background-size: 100% 100%;
+}
+
+input:focus {
+	background-image: URL("images/input_text_focused.png");
+}
+
+.panel {
+	background-image: URL("images/panel_bg.png");
+}

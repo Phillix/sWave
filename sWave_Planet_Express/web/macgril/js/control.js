@@ -48,7 +48,7 @@ function knobLogic(knob, ev, func) {
         //Add cross-browser support here
         knob.style.MozTransform   = "rotate(" + newPos + "deg)";
         rotation = 0;
-        if ((func != null) && (func != undefined))
+        if ((func !== null) && (func !== undefined))
             eval(func(newPos));
         document.onmouseup = function(ev) {
             newPos   = null;

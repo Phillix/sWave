@@ -49,7 +49,7 @@ function startAudioVisualization() {
 
     bars = new Array(new Array(40), new Array(40));
 
-	var j = 0;
+    var j = 0;
     for (var i = 0; i < 40; i++) {
         bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0xC22828}));
         //bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0x838383}));

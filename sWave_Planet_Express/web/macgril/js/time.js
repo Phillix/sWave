@@ -31,7 +31,7 @@ function updateAnalogClock() {
     if (hrs == 0) hrs = 12;
     min *= 6;
     hrs *= 30;
-    if (min > 180) hrs += 15;	
+    if (min > 180) hrs += 15;
     $("minsHand").style.Transform       = "rotate(" + min + "deg)";
     $("minsHand").style.WebkitTransform = "rotate(" + min + "deg)";
     $("minsHand").style.MozTransform    = "rotate(" + min + "deg)";

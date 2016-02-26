@@ -15,12 +15,12 @@
 
 function $(name) {
     var id = document.getElementById(name);
-    if ((id != null) && (id != undefined))
+    if ((id !== null) && (id !== undefined))
         return id;
     else {
         //switch these orders
         id = document.getElementsByTagName(name);
-        if ((id[0] != null) && (id[0] != undefined))
+        if ((id[0] !== null) && (id[0] !== undefined))
             return id;
         else {
             id = [];
@@ -35,32 +35,32 @@ function $(name) {
                     }
                 }
             }
-            if ((id[0] != null) && (id[0] != undefined))
+            if ((id[0] !== null) && (id[0] !== undefined))
                 return id;
         }
     }
     return null;
 }
 
-function generate(x,y,z) {
+function generate(x, y, z) {
     var el = document.createElement(x);
     var id;
-    if (z != null) id = z;
+    if (z !== null) id = z;
     else id = "macgrilID" + (mgID++);
     el.setAttribute("id",id);
     $(y).appendChild(el);
     return id;
 }
 
-function switchTabs(id1,id2) {
+function switchTabs(id1, id2) {
     $(id1).style.display = "none";
     $(id2).style.display = "block";
 }
 
-function showHideIDs(idArray,x) {
+function showHideIDs(idArray, x) {
     for (var i = 0; i < idArray.length; i++) {
-        if (x == "show") $(idArray[i]).style.display = "block";
-        else             $(idArray[i]).style.display = "none";
+        if (x === "show") $(idArray[i]).style.display = "block";
+        else              $(idArray[i]).style.display = "none";
     }
 }
 

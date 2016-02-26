@@ -14,20 +14,24 @@
 */
 
 function lStore(x, y) {
-    if (y == "del")     window.localStorage.removeItem(x);
-    else if (y != null) window.localStorage.setItem(x, y);
-    else                return window.localStorage.getItem(x);
+    if (y === "del")
+        window.localStorage.removeItem(x);
+    else if (y !== null)
+        window.localStorage.setItem(x, y);
+    else
+        return window.localStorage.getItem(x);
 }
 
 function fOpen(accept) {
-        if (($("fOpen") != 0) && ($("fOpen") != undefined))
+        if (($("fOpen") !== 0) && ($("fOpen") !== undefined))
             $("macgril").removeChild($("fOpen"));
         generate("input", "macgril", "fOpen");
         $("fOpen").setAttribute("type", "file");
-        if ((accept != null) && (accept != undefined))
+        if ((accept !== null) && (accept !== undefined))
             $("fOpen").setAttribute("accept", accept);
         $("fOpen").click();
         var x = window.confirm("Are you sure you want to load this file from disk?");
-        if (x) if ($('fOpen').files[0] != undefined)
-            return window.URL.createObjectURL($('fOpen').files[0]);
+        if (x)
+            if ($('fOpen').files[0] != undefined)
+                return window.URL.createObjectURL($('fOpen').files[0]);
 }

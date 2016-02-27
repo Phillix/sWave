@@ -11,17 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import Command.Command;
 import Command.CommandFactory;
+import javax.servlet.annotation.MultipartConfig;
 /*
     Functionality:
     Login
     Register
     Logout
+    Upload
 */
 
 /**
  * Servlet implementation class checkLoginServlet
  */
 @WebServlet(urlPatterns={"/UserActionServlet"})
+@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024*16, maxFileSize=1024*1024*16, maxRequestSize=1024*1024*5*5)
 public class UserActionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
        

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class UsersDao extends Dao implements UserDaoInterface {
     
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = Debugging.Debug.debug;
 
     private final String TABLE_NAME = "USERS";
     private final String USERID     = "USERID";

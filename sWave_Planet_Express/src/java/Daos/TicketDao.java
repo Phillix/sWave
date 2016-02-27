@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class TicketDao extends Dao implements TicketDaoInterface {
     
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = Debugging.Debug.debug;
     
     private final String TABLE_NAME = "TICKETS";
     private final String ID = "TICKETID";

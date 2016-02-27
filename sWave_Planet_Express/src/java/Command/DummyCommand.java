@@ -11,6 +11,6 @@ public class DummyCommand implements Command {
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
-        return "/home.jsp";
+        return "/index.jsp";
     }
 }

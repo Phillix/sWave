@@ -42,6 +42,7 @@ input:focus {
 
 .panel {
     background-image: URL("images/panel_bg.png");
+    border-radius:    3px;
 }
 
 #wallpaper {

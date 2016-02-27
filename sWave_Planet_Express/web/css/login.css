@@ -4,8 +4,7 @@
     margin-right:      auto;
     margin-top:        100px;
     padding:           20px;
-    box-shadow:        0px 0px 20px #000;
-    border-radius:     3px;
+    box-shadow:        0px 0px 4px #000;
 
     animation:         fadeUp 1s;
     -moz-animation:    fadeUp 1s;

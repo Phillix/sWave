@@ -1,11 +1,10 @@
 body {
-    color: cyan;
+    color: #000;
     font-family: sans-serif;
 }
 
 a {
-    text-decoration: none;
-    text-shadow: 1px 1px 1px cyan;
+    text-decoration: #000;
 }
 
 a:hover {
@@ -33,9 +32,8 @@ button:active {
 }
 
 input {
-    color: cyan;
+    color: #000;
 	border: none;
-	border-radius: 20px;
 	font-size: 12px;
 	padding-top: 4px;
 	padding-bottom: 4px;
@@ -50,10 +48,10 @@ input:focus {
 }
 
 .panel {
-	background-image: URL("images/panel_bg.png");
+	background-color: rgba(255, 255, 255, 0.7);
 }
 
 #wallpaper {
-    background-image: URL("images/wallpaper.png");
+    background-image: URL("images/wallpaper.jpg");
     background-size:  100% 100%;
 }

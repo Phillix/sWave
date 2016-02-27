@@ -22,44 +22,12 @@
         <!-- Custom skin not possible until after login, using 'nova' by default -->
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=currentSkin%>/<%=currentSkin%>.css"/>
         <link rel="stylesheet" type="text/css" href="css/login.css"/>
-        <style>
-            @media screen and (max-width: 400px) {
-                div.panel {
-                    position: fixed;
-                    margin:   0px;
-                    top:      0px;
-                    left:     0px;
-                    width:    100%;
-                    height:   100%;
-                    padding:  0px;
-                }
-                
-                input.text {
-                    width:    calc(100% - 32px);
-                    margin:   8px;
-                }
-                
-                #signupButton {
-                    display: block;
-                }
-                
-                #loginButton {
-                    width:  calc(100% - 16px);
-                    margin: 8px;
-                }
-                
-                #cancelButton {
-                    width:  calc(100% - 16px);
-                    margin: 8px;
-                }
-                
-                #noAccount {
-                    display: none;
-                }
-            }
-        </style>
     </head>
     <body>
+        Switch Skin:
+        <a href="login.jsp?skin=quantum">Quantum</a>
+        <a href="login.jsp?skin=nova">Nova</a>
+        <a href="login.jsp?skin=flat">Flat</a>
         <div class="panel">
             <form action="UserActionServlet" method="post">
                 <img id="logo" src="images/logo_black.png"/><br/>
@@ -68,7 +36,7 @@
                 <input class="text" required type="password" name="password" placeholder="Password"/><br/><br/>
                 <span id="noAccount">Don't Have an Account Yet?&#160;&#160;<a href="register.jsp">Register</a><br/><br/></span>
                 <input id="signupButton" type="button" value="Sign Up" onclick="window.location='register.jsp';"/>
-                <input id="loginButton" type="submit" value="Login"/>
+                <input id="loginButton"  type="submit" value="Login"/>
                 <input id="cancelButton" type="button" value="Cancel" onclick="window.location='index.jsp';"/>
             </form>
         </div>

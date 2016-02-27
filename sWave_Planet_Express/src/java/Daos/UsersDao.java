@@ -29,6 +29,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
     private final String ADD2       = "ADD2";
     private final String CITY       = "CITY";
     private final String COUNTY     = "COUNTY";
+    private final String SKIN       = "SKIN";
     private final String ADMIN      = "ADMIN";
 
 
@@ -103,8 +104,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             con = getConnection();
             String query = "INSERT INTO " + TABLE_NAME + " ("
-                    + EMAIL + "," + PASSWORD + "," + USER_NAME + "," + FNAME + "," + LNAME + "," + ADD1 + "," + ADD2 + "," + CITY + "," + COUNTY + "," + ADMIN + ")"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + EMAIL + "," + PASSWORD + "," + USER_NAME + "," + FNAME + "," + LNAME + "," + ADD1 + "," + ADD2 + "," + CITY + "," + COUNTY + "," + SKIN + "," + ADMIN + ")"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getPassword());
@@ -115,9 +116,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(7, u.getAdd2());
             ps.setString(8, u.getCity());
             ps.setString(9, u.getCounty());
-            ps.setBoolean(10, u.isIsAdmin());
+            ps.setString(10, u.getSkin());
+            ps.setBoolean(11, u.isIsAdmin());
 
-            if (ps.executeUpdate() > 0) {    
+            if (ps.executeUpdate() > 0) {
                 return SUCCESS; //It successfully inserted into the database
             }
         }
@@ -188,6 +190,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
                     u.setAdd2(rs.getString(ADD2));
                     u.setCity(rs.getString(CITY));
                     u.setCounty(rs.getString(COUNTY));
+                    u.setSkin(rs.getString(SKIN));
                     u.setIsAdmin(rs.getBoolean(ADMIN));
 
                     return u;

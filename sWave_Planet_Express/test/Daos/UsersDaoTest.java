@@ -25,8 +25,8 @@ public class UsersDaoTest {
     
     @BeforeClass
     public static void setUpClass() {
-        u = new User("junit@junit.com", us.hash("Password123".toCharArray()), "junitsquad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", false);
-        u2 = new User("junit2@junit.com", us.hash("Password123".toCharArray()), "junit2squad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", false);
+        u = new User("junit@junit.com", us.hash("Password123".toCharArray()), "junitsquad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", "flat", false);
+        u2 = new User("junit2@junit.com", us.hash("Password123".toCharArray()), "junit2squad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", "flat", false);
         ud = new UsersDao();
     }
     

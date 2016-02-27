@@ -13,16 +13,17 @@ import java.util.Objects;
  */
 public class User {
 
-    private int userId;
-    private String email;
-    private String password;
-    private String username;
-    private String fname;
-    private String lname;
-    private String add1;
-    private String add2;
-    private String city;
-    private String county;
+    private int     userId;
+    private String  email;
+    private String  password;
+    private String  username;
+    private String  fname;
+    private String  lname;
+    private String  add1;
+    private String  add2;
+    private String  city;
+    private String  county;
+    private String  skin;
     private boolean isAdmin;
 
     public User() {
@@ -35,10 +36,11 @@ public class User {
         add2     = "add2";
         city     = "city";
         county   = "county";
+        skin     = "flat";
         isAdmin  = false;
     }
 
-    public User(String email, String password, String username, String fname, String lname, String add1, String add2, String city, String county, boolean isAdmin) {
+    public User(String email, String password, String username, String fname, String lname, String add1, String add2, String city, String county, String skin, boolean isAdmin) {
         this.email    = email;
         this.password = password;
         this.username = username;
@@ -48,6 +50,7 @@ public class User {
         this.add2     = add2;
         this.city     = city;
         this.county   = county;
+        this.skin     = skin;
         this.isAdmin  = isAdmin;
     }
 
@@ -132,6 +135,14 @@ public class User {
         this.county = county;
     }
 
+    public String getSkin() {
+        return skin;
+    }
+
+    public void setSkin(String skin) {
+        this.skin = skin;
+    }
+
     public boolean isIsAdmin() {
         return isAdmin;
     }
@@ -142,7 +153,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId + ", email=" + email + ", password=" + password + ", username=" + username + ", fname=" + fname + ", lname=" + lname + ", add1=" + add1 + ", add2=" + add2 + ", city=" + city + ", county=" + county + ", isAdmin=" + isAdmin + '}';
+        return "User{" + "userId=" + userId + ", email=" + email + ", password=" + password + ", username=" + username + ", fname=" + fname + ", lname=" + lname + ", add1=" + add1 + ", add2=" + add2 + ", city=" + city + ", county=" + county + ", skin=" + skin + ", isAdmin=" + isAdmin + '}';
     }
 
     @Override

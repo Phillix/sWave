@@ -33,6 +33,7 @@ public class RegisterCommand implements Command {
         String add2       = request.getParameter("address2");
         String city       = request.getParameter("city");
         String county     = request.getParameter("county");
+        String skin       = request.getParameter("skin");
         boolean isAdmin   = false;
         UserSecurity ms = new UserSecurity();
         
@@ -40,7 +41,7 @@ public class RegisterCommand implements Command {
         if (email != null && !email.isEmpty() && username != null && !username.isEmpty() && ud.checkDetails(email, username) == -5 && password != null && !password.isEmpty() && fname != null && !fname.isEmpty() && lname != null && !lname.isEmpty()) {
             //Make the user registering
             password = ms.hash(password.toCharArray());
-            User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, false);
+            User userRegistering = new User(email, password, username, fname, lname, add1, add2, city, county, skin, false);
             int check = ud.register(userRegistering);
             
             //If registering was successful log the user in

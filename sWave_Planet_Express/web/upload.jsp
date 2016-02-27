@@ -12,5 +12,10 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="UserActionServlet" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="upload"/>
+            <input type="file" name="songBlob"/>
+            <input type="submit"/>
+        </form>
     </body>
 </html>

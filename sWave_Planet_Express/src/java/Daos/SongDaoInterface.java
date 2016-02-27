@@ -11,6 +11,6 @@ import sWaveEngine.ID3v2;
  */
 public interface SongDaoInterface {
     public ArrayList<Song> getAllSongs();
-    public void addNewSong(ID3v2 metadata, byte[] buffer);
+    public int addNewSong(ID3v2 metadata, byte[] buffer);
     public Song getSongById(int songid);
 }

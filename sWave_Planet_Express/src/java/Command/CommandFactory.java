@@ -17,6 +17,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("logout") ) {
             //Logs out the user by invalidating the session and returns to the home page
             command = new LogoutCommand();
+        } else if ( action.equalsIgnoreCase("upload") ) {
+            //Uploads a file and sends to user to a success or failure page
+            command = new UploadCommand();
         } else {
             command = new DummyCommand();
         }

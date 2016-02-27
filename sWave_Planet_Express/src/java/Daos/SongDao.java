@@ -16,7 +16,7 @@ import sWaveEngine.ID3v2;
  */
 public class SongDao extends Dao implements SongDaoInterface {
     
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = Debugging.Debug.debug;
     
     private final String TABLE_NAME = "SONGS";
     private final String SONGID     = "SONGID";
@@ -91,14 +91,44 @@ public class SongDao extends Dao implements SongDaoInterface {
      * @param buffer 
      */
     @Override
-    public void addNewSong(ID3v2 metadata, byte[] buffer) {
+    public int addNewSong(ID3v2 metadata, byte[] buffer) {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
-        Song s               = null;
+        Song s               = new Song();
+        s.setSongdata(buffer);
         
         try {
             con = getConnection();
+            Blob b = con.createBlob();
+            try {
+                b.setBytes(1, buffer);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            String query = "INSERT INTO " +
+                           TABLE_NAME     + " (" +
+                           SONGID         + ", " +
+                           TITLE          + ", " +
+                           ARTIST         + ", " +
+                           GENRE          + ", " +
+                           RELYEAR        + ", " +
+                           PRICE          + ", " +
+                           LICENCE        + ", " +
+                           SONGDATA +
+                           ") VALUES (1, ?, ?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(query);
+            ps.setString(1, s.getTitle());
+            ps.setString(2, s.getArtist());
+            ps.setString(3, s.getGenre());
+            ps.setInt(4, s.getRelYear());
+            ps.setDouble(5, s.getPrice());
+            ps.setString(6, s.getLicence());
+            ps.setBlob(7, b);
+            if (ps.executeUpdate() > 0) {
+                return SUCCESS; //It successfully inserted into the database
+            }
         }
         catch(ClassNotFoundException | SQLException e) {
             if (DEBUG)
@@ -115,6 +145,8 @@ public class SongDao extends Dao implements SongDaoInterface {
                     e.printStackTrace();
             }
         }
+        //to be removed
+        return 0;
     }
 
     /**

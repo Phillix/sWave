@@ -47,7 +47,7 @@ public class TicketDaoTest {
     @Test
     public void testCreateTicket() {
         
-        Ticket t = new Ticket(1,"test 1",false);
+        Ticket t = new Ticket(-1,"test 1",false);
         instance = new TicketDao();
         int expResult = 0;
         int result = instance.createTicket(t);

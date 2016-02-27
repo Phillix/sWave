@@ -274,6 +274,31 @@ public class UserTest {
         instance.setCounty(county);
         assertEquals(county, instance.getCounty());
     }
+    
+    /**
+     * Test of getCounty method, of class Users.
+     */
+    @Test
+    public void testGetSkin() {
+        
+        User instance = new User();
+        String expResult = "flat";
+        String result = instance.getSkin();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of setCounty method, of class Users.
+     */
+    @Test
+    public void testSetSkin() {
+        
+        String skin = "quantum";
+        User instance = new User();
+        instance.setSkin(skin);
+        assertEquals(skin, instance.getSkin());
+    }
 
     /**
      * Test of isIsAdmin method, of class Users.
@@ -306,7 +331,7 @@ public class UserTest {
     public void testToString() {
         
         User instance = new User();
-        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=county, isAdmin=false}";
+        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=county, skin=flat, isAdmin=false}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

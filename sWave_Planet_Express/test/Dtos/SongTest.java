@@ -28,7 +28,13 @@ public class SongTest {
     @Before
     public void setUp() {
         instance1 = new Song();
-        instance2 = new Song("Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", null);
+        byte songdata[] = new byte[5];
+        songdata[0] = 5;
+        songdata[1] = 4;
+        songdata[2] = 3;
+        songdata[3] = 2;
+        songdata[4] = 1;
+        instance2 = new Song("Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", songdata);
     }
     
     @After
@@ -173,6 +179,36 @@ public class SongTest {
         String expResult = "MIT";
         instance2.setLicence("MIT");
         assertEquals("The songs licences do not match after setting", expResult, instance2.getLicence());
+    }
+
+    /**
+     * Test of getSongdata method, of class Song.
+     */
+    @Test
+    public void testGetSongdata() {
+        byte expResult[] = new byte[5];
+        expResult[0] = 5;
+        expResult[1] = 4;
+        expResult[2] = 3;
+        expResult[3] = 2;
+        expResult[4] = 1;
+        byte result[] = instance2.getSongdata();
+        assertArrayEquals("The songdata does not match after getting", expResult, result);
+    }
+
+    /**
+     * Test of setSongdata method, of class Song.
+     */
+    @Test
+    public void testSetSongdata() {
+        byte expResult[] = new byte[5];
+        expResult[0] = 1;
+        expResult[1] = 2;
+        expResult[2] = 3;
+        expResult[3] = 4;
+        expResult[4] = 5;
+        instance2.setSongdata(expResult);
+        assertArrayEquals("The songdata does not match after setting", expResult, instance2.getSongdata());
     }
 
     /**

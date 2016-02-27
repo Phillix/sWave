@@ -25,6 +25,7 @@
         <form action="UserActionServlet" method="POST" enctype="multipart/form-data">
             <h3>Upload Tracks</h3>
             <h5><u>Note: Only MP3 format files under 16MB can be uploaded.</u></h5>
+            <h5><u>Note: To prevent overloading the server only 100MB of uploading is allowed at a time</u></h5>
             <input type="hidden" name="action" value="upload"/>
             <div>
                 <p>Drag & Drop Files Here

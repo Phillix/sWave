@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Admin Panel</h1>
-        <a href="upload.jsp">Upload</a>
+        <a href="upload.jsp">Upload</a><br/>
+        <a href="/sWave.log" download>Download Log</a>
     </body>
 </html>

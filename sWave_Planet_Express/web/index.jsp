@@ -25,6 +25,7 @@
 	</style>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/datetime.js"></script>
+        <script src="macgril/js/windowing.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/visualizer.js"></script>
         <script>
@@ -97,6 +98,7 @@
             <span style="float: left; margin-left: 220px; margin-top:20px;">
                 <input id="fopen" type="file" accept="audio/*" multiple onchange="playNext()"/>
                 <button onclick="$('fopen').click()">Import</button>
+                <button onclick="newWindow(400, 300, 'Admin Panel', 'admin_panel.jsp', false, false, false)">Admin Panel</button>
                 <img style="position:fixed; top:5px; left:300px;" src="images/knob_ring.png" width="50" height="50"/>
                 <img id="theKnob" style="-moz-transform:rotate('0deg'); position:fixed; top:5px; left:300px;" onmousedown="knobLogic($('theKnob'),event)" src="images/knob_inside.png" width="50" height="50"/>
             </span>
@@ -113,6 +115,7 @@
             <%}%>
             <input style="background-color: transparent;" id="volCtrl" type="range" min="0" max="10" step="1" value="10" onmousemove="setVol(this.value)"/>
         </header>
+        <div id="windowSystem"></div>
         <aside>
             <h2>Tracks</h2>
             <h2>Playlists</h2>

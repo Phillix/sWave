@@ -4,6 +4,8 @@ import Daos.SongDao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +25,7 @@ public class UploadCommand implements Command {
         ArrayList<Part> songs = new ArrayList<>();
         long uploadSize = 0;
         int count = 0;
-        
+
         try {
             songs = (ArrayList<Part>)request.getParts();
         } catch (IOException | ServletException ex) {
@@ -65,7 +67,7 @@ public class UploadCommand implements Command {
             dao.addNewSong(metadata, buffer);
             uploadSize += buffer.length;
             count++;
-            System.out.println(count + " Files Uploaded using " + (double)uploadSize/1024.0/1024.0 + "MB");
+            Logging.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize/1024.0/1024.0 + "MB");
         }
         return "/uploadComplete.jsp";
     }

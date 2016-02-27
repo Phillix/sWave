@@ -54,7 +54,7 @@ function visualize() {
         bars[0][i].scale.y = (visualData[0][i] - 128) / 4;
         bars[1][i].scale.y = visualData[1][i] / 8;
     }
-    
+
     setTimeout(requestAnimationFrame(visualize));
     renderer.render(scene,camera);
 }

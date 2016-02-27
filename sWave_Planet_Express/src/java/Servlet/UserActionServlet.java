@@ -24,7 +24,8 @@ import javax.servlet.annotation.MultipartConfig;
  * Servlet implementation class checkLoginServlet
  */
 @WebServlet(urlPatterns={"/UserActionServlet"})
-@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024*16, maxFileSize=1024*1024*16, maxRequestSize=1024*1024*5*5)
+//Only allow files under 16mb to be uploaded and no more than 100mb of uploading in a single request
+@MultipartConfig(location="/tmp", fileSizeThreshold=16777216, maxFileSize=16777216, maxRequestSize=104857600)
 public class UserActionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
        

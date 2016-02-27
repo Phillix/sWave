@@ -109,7 +109,6 @@ public class SongDao extends Dao implements SongDaoInterface {
             }
             String query = "INSERT INTO " +
                            TABLE_NAME     + " (" +
-                           SONGID         + ", " +
                            TITLE          + ", " +
                            ARTIST         + ", " +
                            GENRE          + ", " +
@@ -117,7 +116,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                            PRICE          + ", " +
                            LICENCE        + ", " +
                            SONGDATA +
-                           ") VALUES (1, ?, ?, ?, ?, ?, ?, ?)";
+                           ") VALUES (?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, s.getTitle());
             ps.setString(2, s.getArtist());

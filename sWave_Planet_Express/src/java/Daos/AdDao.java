@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author Phillix
  */
-public class AdDao extends Dao {
+public class AdDao extends Dao implements AdDaoInterface {
     
     private final boolean DEBUG = false;
     
@@ -80,5 +80,58 @@ public class AdDao extends Dao {
         }
         
         return ad;
+    }
+    
+    /**
+     * 
+     * @return max id for use in creating random id for getAd method
+     */
+    public int getMaxAdId() {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            
+            con = getConnection();
+            ps = con.prepareStatement("SELECT MAX(" + ID + ") FROM " + TABLE_NAME);
+            rs = ps.executeQuery();
+            
+
+            if(rs.next()) {
+                
+                int maxId = rs.getInt("MAX("+ID+")");
+                return maxId;
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG) {
+                e.printStackTrace();
+            }
+            return SQLEX;
+        }
+        finally {
+            
+            try {
+                
+                if(rs != null) {
+                    rs.close();
+                }
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+            }
+            catch(Exception e) {
+                if(DEBUG) {
+                e.printStackTrace();
+                }
+               return CONNCLOSEFAIL;
+            }
+        }
+        return OTHER;
     }
 }

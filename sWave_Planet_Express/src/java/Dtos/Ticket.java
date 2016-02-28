@@ -24,7 +24,13 @@ public class Ticket {
         dateRaised = "Insert date";
         resolved   = false;
     }
-
+    
+    /**
+     * 
+     * @param userId users id 
+     * @param issue what their problem is
+     * @param resolved is it resolved
+     */
     public Ticket(int userId, String issue, boolean resolved) {
         this.userId     = userId;
         this.issue      = issue;

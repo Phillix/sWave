@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author austin
+ * @author Austin
  */
 public class RegisterCommand implements Command {
     

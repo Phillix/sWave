@@ -1,8 +1,3 @@
-<%-- 
-    Document   : login
-    Author     : Brian Millar
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String currentSkin;

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * The UsersDao class is used for communicating with the user table in the database
  * @author Phillix
- * @author AustinFoley96
+ * @author Austin
  */
 
 public class UsersDao extends Dao implements UserDaoInterface {

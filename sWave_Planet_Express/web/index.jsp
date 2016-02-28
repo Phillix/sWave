@@ -1,7 +1,3 @@
-<%--
-    Document   : register
-    Author     : Brian Millar
---%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

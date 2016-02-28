@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author austi_000
+ * @author Austin
  */
 public class DummyCommand implements Command {
 

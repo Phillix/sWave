@@ -11,8 +11,8 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author d00159732
- * @author AustinFoley96
+ * @author Phillix
+ * @author Austin
  */
 public class UsersDaoTest {
     static User u;

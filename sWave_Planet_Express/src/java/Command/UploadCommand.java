@@ -4,8 +4,6 @@ import Daos.SongDao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +20,7 @@ public class UploadCommand implements Command {
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
-        ArrayList<Part> songs = new ArrayList<>();
+        ArrayList<Part> songs;
         long uploadSize = 0;
         int count = 0;
 

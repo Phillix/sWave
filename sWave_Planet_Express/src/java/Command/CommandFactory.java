@@ -2,12 +2,12 @@ package Command;
 
 /**
  *
- * @author austin
+ * @author Austin
  */
 public class CommandFactory {
     public Command createCommand(String action) {
         Command command = null;
-        
+
         if ( action.equalsIgnoreCase("login") ) {
             //Logging a user in and storing in the session
             command = new LoginCommand();

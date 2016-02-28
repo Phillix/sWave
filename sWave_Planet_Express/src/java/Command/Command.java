@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author austin
+ * @author Austin
  */
 public interface Command {
     public String executeCommand(HttpServletRequest request, HttpServletResponse response);

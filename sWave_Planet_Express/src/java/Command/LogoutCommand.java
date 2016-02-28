@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author austi_000
+ * @author Austin
  */
 public class LogoutCommand implements Command {
     

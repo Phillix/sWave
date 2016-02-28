@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.Ad;
@@ -17,7 +12,7 @@ import java.sql.SQLException;
  */
 public class AdDao extends Dao implements AdDaoInterface {
     
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = Debugging.Debug.debug;
     
     private final String TABLE_NAME = "ADS";
     private final String ID = "ADID";

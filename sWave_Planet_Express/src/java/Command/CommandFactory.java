@@ -20,6 +20,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("createTicket") ) {
             //Creates ticket
             command = new CreateTicketCommand();
+        } else if ( action.equalsIgnoreCase("upload") ) {
+            //Allows User to Upload Files
+            command = new UploadCommand();
         } else {
             command = new DummyCommand();
         }

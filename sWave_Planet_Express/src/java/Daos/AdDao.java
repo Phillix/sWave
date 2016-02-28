@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class AdDao extends Dao {
     
-     private final boolean DEBUG = Debugging.Debug.debug;
+    private final boolean DEBUG = false;
     
     private final String TABLE_NAME = "ADS";
     private final String ID = "ADID";

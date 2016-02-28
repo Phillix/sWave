@@ -21,7 +21,7 @@ public class CommandFactory {
             //Creates ticket
             command = new CreateTicketCommand();
         } else if ( action.equalsIgnoreCase("upload") ) {
-            //Allows User to Upload Files
+            //Allows File Uploading
             command = new UploadCommand();
         } else {
             command = new DummyCommand();

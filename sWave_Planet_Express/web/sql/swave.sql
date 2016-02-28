@@ -36,7 +36,7 @@ CREATE TABLE SONGS (
     RELYEAR INT(4),
     PRICE   DOUBLE(3,2)  NOT NULL,
     LICENCE VARCHAR(300) NOT NULL,
-    DATA    MEDIUMBLOB   NOT NULL,
+    DATA    MEDIUMBLOB,
     CONSTRAINT PK_SONGID PRIMARY KEY(SONGID)
 );
 
@@ -107,4 +107,13 @@ CREATE TABLE PLAYTRACKS (
 );
 
 
+
+/* TEST DATA */
+
 INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", false);
+
+INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Genre", 1970, 2.99, "Public Domain", NULL);
+
+INSERT INTO ORDERS VALUES (-1, -1, '1970-1-1', 15.50);
+
+INSERT INTO ADS VALUES (-1, "/testData");

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
-import Dtos.Ad;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,10 +39,10 @@ public class AdDaoTest {
     @Test
     public void testGetAd() {
         
-        int id = 1;
+        int id = -1;
         instance = new AdDao();
         String result = instance.getAd(id).toString();
-        String expResult = "Ad{adId=1, adUrl=/testData}";
+        String expResult = "Ad{adId=-1, adUrl=/testData}";
         assertEquals(expResult, result);
     }
     
@@ -58,7 +52,7 @@ public class AdDaoTest {
     @Test
     public void testGetMaxAdId() {
         
-        int id = 1;
+        int id = -1;
         instance = new AdDao();
         int result = instance.getMaxAdId();
         assertEquals(id, result);

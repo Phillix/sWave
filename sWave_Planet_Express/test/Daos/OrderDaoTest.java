@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.Order;
@@ -60,8 +55,12 @@ public class OrderDaoTest {
     @Test
     public void testGetUserOrders() {
         
-        int userId = 1;
-        Order o = new Order(userId);
+        int userId = -1;
+        Order o = new Order();
+        o.setOrderId(-1);
+        o.setDateOrdered("1970-1-1");
+        o.setTotal(15.50);
+        o.setUserId(-1);
         boolean expResult = true;
         ArrayList<Order> orders = instance.getUserOrders(userId);
         boolean result = orders.get(0).equals(o);

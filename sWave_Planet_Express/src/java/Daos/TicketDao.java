@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Phillix
+ * @author Austin
  */
 public class TicketDao extends Dao implements TicketDaoInterface {
     private final boolean DEBUG = Debugging.Debug.debug;
@@ -128,6 +129,7 @@ public class TicketDao extends Dao implements TicketDaoInterface {
      * @param ticketId The id of the ticket to be viewed
      * @return Returns a ticket object based on the ticket id
      */
+    @Override
     public Ticket viewTicket(int ticketId) {
         Connection con            = null;
         PreparedStatement ps      = null;
@@ -176,6 +178,7 @@ public class TicketDao extends Dao implements TicketDaoInterface {
      * @param isResolved If you want to set the ticket to open or closed
      * @return Returns SUCCESS(0) if it successfully closed and 
      */
+    @Override
     public int changeTicketStatus(int ticketId, boolean isResolved) {
         Connection con       = null;
         PreparedStatement ps = null;

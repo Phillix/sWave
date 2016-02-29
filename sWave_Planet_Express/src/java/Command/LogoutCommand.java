@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
  * @author Austin
  */
 public class LogoutCommand implements Command {
-    
+
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();

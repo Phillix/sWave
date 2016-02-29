@@ -15,7 +15,7 @@ import sWaveEngine.ID3v2;
  * @author Brian Millar
  */
 public class UploadCommand implements Command {
-    
+
     private static final boolean DEBUG = Debugging.Debug.debug;
 
     @Override

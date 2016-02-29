@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Phillix
+ * @author Austin
  */
 
 public class TicketDaoTest {

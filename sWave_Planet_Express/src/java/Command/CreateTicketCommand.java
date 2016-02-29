@@ -16,12 +16,11 @@ public class CreateTicketCommand implements Command {
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
 
         String forwardToJsp = null;
-        TicketDao td = new TicketDao();
-        String userId = request.getParameter("userId");
-        String issue = request.getParameter("issue");
+        TicketDao td        = new TicketDao();
+        String userId       = request.getParameter("userId");
+        String issue        = request.getParameter("issue");
 
         if (userId != null && issue != null && !userId.isEmpty() && !issue.isEmpty()) {
-
             Ticket ticket = new Ticket(Integer.valueOf(userId), issue, false);
             td.createTicket(ticket);
 

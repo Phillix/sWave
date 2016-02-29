@@ -7,30 +7,27 @@ import java.util.Objects;
  * @author Phillix
  */
 public class Order {
-    
-    private int orderId;
-    private int userId;
+
+    private int    orderId;
+    private int    userId;
     private String dateOrdered;
     private double total;
-    
+
     public Order() {
-        
-        orderId = 0;
-        userId = 0;
+        orderId     = 0;
+        userId      = 0;
         dateOrdered = "enter date";
-        total = 0;
+        total       = 0;
     }
-    
+
     /**
-     * 
+     *
      * @param userId id of user order belongs to
      */
     public Order(int userId) {
-     
-        orderId = 0;
+        orderId     = 0;
         this.userId = userId;
     }
-    
 
     public int getOrderId() {
         return orderId;
@@ -81,23 +78,13 @@ public class Order {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final Order other = (Order) obj;
-        if (this.orderId != other.orderId) {
+        final Order other = (Order)obj;
+        if (this.orderId != other.orderId)
             return false;
-        }
-        if (this.userId != other.userId) {
-            return false;
-        }
-        return true;
+        return this.userId == other.userId;
     }
-
-    
-    
-       
 }

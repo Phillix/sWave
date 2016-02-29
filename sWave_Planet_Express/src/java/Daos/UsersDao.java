@@ -14,7 +14,6 @@ import java.sql.SQLException;
  */
 
 public class UsersDao extends Dao implements UserDaoInterface {
-    
     private final boolean DEBUG = Debugging.Debug.debug;
 
     private final String TABLE_NAME = "USERS";
@@ -40,23 +39,19 @@ public class UsersDao extends Dao implements UserDaoInterface {
      */
     @Override
     public int checkUname(String username) {
-
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
 
         try {
-
-            con = getConnection();
+            con          = getConnection();
             String query = "SELECT " + USER_NAME + " FROM " + TABLE_NAME + " WHERE " + USER_NAME + " = ?";
-            ps = con.prepareStatement(query);
+            ps           = con.prepareStatement(query);
             ps.setString(1, username);
             rs = ps.executeQuery();
 
-            if(rs.next()) {
+            if(rs.next())
                 return SUCCESS; //success in this case means details exist and therefore user cannot use them
-            }
-
         }
         catch (ClassNotFoundException ex1) {
             if (DEBUG)
@@ -70,16 +65,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(rs != null) {
-                    rs.close();
-                }
-                if(ps != null) {
-                    ps.close();
-                }
-                if(con != null) {
+                if(rs  != null) rs.close();
+                if(ps  != null) ps.close();
+                if(con != null)
                     freeConnection(con);
-                }
-
             }
             catch(SQLException e) {
                 if (DEBUG)
@@ -101,11 +90,20 @@ public class UsersDao extends Dao implements UserDaoInterface {
         PreparedStatement ps = null;
 
         try {
-
-            con = getConnection();
-            String query = "INSERT INTO " + TABLE_NAME + " ("
-                    + EMAIL + "," + PASSWORD + "," + USER_NAME + "," + FNAME + "," + LNAME + "," + ADD1 + "," + ADD2 + "," + CITY + "," + COUNTY + "," + SKIN + "," + ADMIN + ")"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            con          = getConnection();
+            String query = "INSERT INTO " +
+                           TABLE_NAME + " (" +
+                           EMAIL      + ","  +
+                           PASSWORD   + ","  +
+                           USER_NAME  + ","  +
+                           FNAME      + ","  +
+                           LNAME      + ","  +
+                           ADD1       + ","  +
+                           ADD2       + ","  +
+                           CITY       + ","  +
+                           COUNTY     + ","  +
+                           SKIN       + ","  +
+                           ADMIN      + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getPassword());
@@ -116,12 +114,11 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(7, u.getAdd2());
             ps.setString(8, u.getCity());
             ps.setString(9, u.getCounty());
-            ps.setString(10, u.getSkin());
+            ps.setString(10,  u.getSkin());
             ps.setBoolean(11, u.isIsAdmin());
 
-            if (ps.executeUpdate() > 0) {
+            if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
-            }
         }
         catch (ClassNotFoundException ex1) {
             if (DEBUG)
@@ -135,13 +132,9 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(ps != null) {
-                    ps.close();
-                }
-                if(con != null) {
+                if(ps  != null) ps.close();
+                if(con != null)
                     freeConnection(con);
-                }
-
             }
             catch(SQLException e) {
                 if (DEBUG)
@@ -161,24 +154,22 @@ public class UsersDao extends Dao implements UserDaoInterface {
     @Override
     public User logIn(String email, String password) {
 
-        Connection con = null;
+        Connection con       = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        User u = null;
-        UserSecurity ms = new UserSecurity();
+        ResultSet rs         = null;
+        User u               = null;
+        UserSecurity ms      = new UserSecurity();
 
         try{
-            con = getConnection();
+            con          = getConnection();
             String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + EMAIL + " = ?";
-            ps =  con.prepareStatement(query);
+            ps           = con.prepareStatement(query);
             ps.setString(1, email);
             rs = ps.executeQuery();
 
             if(rs.next()) {
-
                 String dbPass = rs.getString(PASSWORD);
                 if(ms.checkPassword(password.toCharArray(), dbPass)) {
-
                     u = new User();
                     u.setUserId(rs.getInt(USERID));
                     u.setUsername(rs.getString(UNAME));
@@ -194,7 +185,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
                     u.setIsAdmin(rs.getBoolean(ADMIN));
 
                     return u;
-
                 }
             }
         }
@@ -203,21 +193,15 @@ public class UsersDao extends Dao implements UserDaoInterface {
                 e.printStackTrace();
         }
         finally {
-
             try {
-
-                if(rs != null) {
-                    rs.close();
-                }
-                if(ps != null) {
-                    ps.close();
-                }
-                if(con != null) {
+                if(rs  != null) rs.close();
+                if(ps  != null) ps.close();
+                if(con != null)
                     freeConnection(con);
-                }
             }
             catch(SQLException e) {
-
+                if (DEBUG)
+                    e.printStackTrace();
             }
         }
         return null;
@@ -231,25 +215,20 @@ public class UsersDao extends Dao implements UserDaoInterface {
      */
     @Override
     public int checkDetails(String email, String username) {
-
-        Connection con = null;
+        Connection con       = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        ResultSet rs         = null;
 
         try {
-
-            con = getConnection();
+            con          = getConnection();
             String query = "SELECT " + EMAIL + " FROM " + TABLE_NAME + " WHERE " + EMAIL + " = ? OR " + USER_NAME + " = ?";
-            ps = con.prepareStatement(query);
+            ps           = con.prepareStatement(query);
             ps.setString(1, email);
             ps.setString(2, username);
             rs = ps.executeQuery();
 
-            if(rs.next()) {
-
+            if(rs.next())
                 return SUCCESS;
-            }
-
         }
         catch (ClassNotFoundException ex1) {
             if (DEBUG)
@@ -263,16 +242,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(rs != null) {
-                    rs.close();
-                }
-                if(ps != null) {
-                    ps.close();
-                }
-                if(con != null) {
+                if(rs  != null) rs.close();
+                if(ps  != null) ps.close();
+                if(con != null)
                     freeConnection(con);
-                }
-
             }
             catch(SQLException e) {
                 if (DEBUG)
@@ -289,16 +262,15 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @return 0 if the email was there and got deleted; -5 if it didn't exist; -1 through -4 for errors
      */
     public int deleteUser(String email) {
-        Connection con = null;
+        Connection con       = null;
         PreparedStatement ps = null;
 
         try{
-            con = getConnection();
+            con          = getConnection();
             String query = "DELETE FROM " + TABLE_NAME + " WHERE " + EMAIL + " = ?";
-            ps =  con.prepareStatement(query);
+            ps           = con.prepareStatement(query);
             ps.setString(1, email);
             boolean check = ps.executeUpdate() > 0;
-
             if (check) return SUCCESS;
         }
         catch (ClassNotFoundException ex1) {
@@ -314,13 +286,9 @@ public class UsersDao extends Dao implements UserDaoInterface {
         finally {
 
             try {
-                
-                if(ps != null) {
-                    ps.close();
-                }
-                if(con != null) {
+                if(ps  != null) ps.close();
+                if(con != null)
                     freeConnection(con);
-                }
             }
             catch(SQLException e) {
                 if (DEBUG)

@@ -1,17 +1,19 @@
 package Dtos;
 
+import java.util.Objects;
+
 /**
  *
  * @author Phillix
  */
 public class Ticket {
-    
+
     private int     ticketId;
     private int     userId;
     private String  issue;
     private String  dateRaised;
     private boolean resolved;
-    
+
     public Ticket() {
         ticketId   = 0;
         userId     = 0;
@@ -19,9 +21,9 @@ public class Ticket {
         dateRaised = "Insert date";
         resolved   = false;
     }
-    
+
     /**
-     * 
+     *
      * @param userId users id
      * @param issue what their problem is
      * @param resolved is it resolved
@@ -75,5 +77,29 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket{" + "ticketId=" + ticketId + ", userId=" + userId + ", issue=" + issue + ", dateRaised=" + dateRaised + ", resolved=" + resolved + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.ticketId;
+        hash = 97 * hash + this.userId;
+        hash = 97 * hash + Objects.hashCode(this.issue);
+        hash = 97 * hash + Objects.hashCode(this.dateRaised);
+        hash = 97 * hash + (this.resolved ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)  return true;
+        if (obj  == null) return false;
+        final Ticket other = (Ticket) obj;
+        if (getClass()    != obj.getClass())          return false;
+        if (this.ticketId != other.ticketId)          return false;
+        if (this.userId   != other.userId)            return false;
+        if (this.resolved != other.resolved)          return false;
+        if (!Objects.equals(this.issue, other.issue)) return false;
+        return Objects.equals(this.dateRaised, other.dateRaised);
     }
 }

@@ -5,19 +5,19 @@ package Dtos;
  * @author Phillix
  */
 public class Merch {
-    
-    private int merchId;
+
+    private int    merchId;
     private String title;
     private double price;
-    
+
     public Merch() {
         merchId = 0;
-        title = "default";
-        price = 9.99;
+        title   = "default";
+        price   = 9.99;
     }
-    
+
     /**
-     * 
+     *
      * @param title title of product item
      * @param price price of item
      */
@@ -57,18 +57,13 @@ public class Merch {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         final Merch other = (Merch) obj;
-        if (this.merchId != other.merchId) {
+        if (this.merchId != other.merchId)
             return false;
-        }
         return true;
     }
-    
-    
 }

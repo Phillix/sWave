@@ -5,12 +5,12 @@ package Dtos;
  * @author Phillix
  */
 public class Ad {
-    
-    private int adId;
+
+    private int    adId;
     private String adUrl;
-    
+
     public Ad() {
-        adId = 0;
+        adId  = 0;
         adUrl = "/notFound";
     }
 
@@ -38,6 +38,4 @@ public class Ad {
     public String toString() {
         return "Ad{" + "adId=" + adId + ", adUrl=" + adUrl + '}';
     }
-    
-    
 }

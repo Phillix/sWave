@@ -7,7 +7,6 @@ import java.util.Objects;
  * @author Phillix
  */
 public class User {
-
     private int     userId;
     private String  email;
     private String  password;
@@ -48,7 +47,6 @@ public class User {
         this.skin     = skin;
         this.isAdmin  = isAdmin;
     }
-
 
     public int getUserId() {
         return userId;
@@ -159,25 +157,11 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj)  return true;
+        if (obj  == null) return false;
         final User other = (User) obj;
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.username, other.username)) {
-            return false;
-        }
-        return true;
+        if (getClass()  != obj.getClass())            return false;
+        if (!Objects.equals(this.email, other.email)) return false;
+        return Objects.equals(this.username, other.username);
     }
-    
-    
-
 }

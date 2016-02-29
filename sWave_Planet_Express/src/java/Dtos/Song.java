@@ -1,5 +1,7 @@
 package Dtos;
 
+import java.util.Objects;
+
 /**
  * The dto for creating a song
  * @author Austin
@@ -113,6 +115,35 @@ public class Song {
     public String toString() {
         return "Song{" + "songId=" + songId + ", title=" + title + ", artist=" + artist + ", genre=" + genre + ", relYear=" + relYear + ", price=" + price + ", licence=" + licence + '}';
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + this.songId;
+        hash = 53 * hash + Objects.hashCode(this.title);
+        hash = 53 * hash + Objects.hashCode(this.artist);
+        hash = 53 * hash + Objects.hashCode(this.genre);
+        hash = 53 * hash + this.relYear;
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        hash = 53 * hash + Objects.hashCode(this.licence);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)  return true;
+        if (obj  == null) return false;
+        final Song other = (Song) obj;
+        if (getClass()   != obj.getClass())  return false;
+        if (this.songId  != other.songId)  return false;
+        if (this.relYear != other.relYear) return false;
+        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price))
+            return false;
+        if (!Objects.equals(this.title, other.title))   return false;
+        if (!Objects.equals(this.artist, other.artist)) return false;
+        if (!Objects.equals(this.genre, other.genre))   return false;
+        return Objects.equals(this.licence, other.licence);
+    }
+
+
 }

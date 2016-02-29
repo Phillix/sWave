@@ -15,9 +15,9 @@ public class LoginCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = null;
-        UsersDao ud = new UsersDao();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        UsersDao ud         = new UsersDao();
+        String email        = request.getParameter("email");
+        String password     = request.getParameter("password");
 
         //In case the textboxes were empty, should be checked by js but this is an extra check
         if (email != null && password != null) {

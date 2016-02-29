@@ -1,6 +1,5 @@
 package Daos;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,7 +9,8 @@ import java.sql.SQLException;
  * @author Phillix
  */
 public class Dao {
-    
+    private static final boolean DEBUG = Debugging.Debug.debug;
+
     // Integer returns for DAO's
     protected static final int SUCCESS       = 0;
     protected static final int CLASSNOTFOUND = -1;
@@ -18,7 +18,7 @@ public class Dao {
     protected static final int CONNCLOSEFAIL = -3;
     protected static final int SQLINTEG      = -4;
     protected static final int OTHER         = -5;        
-    
+
     public Connection getConnection() throws ClassNotFoundException, SQLException {
 
         String driver   = "com.mysql.jdbc.Driver";
@@ -26,22 +26,22 @@ public class Dao {
         String username = "root";
         String password = "";
         Connection con  = null;
-           
+
         Class.forName(driver);
-        con = DriverManager.getConnection(url, username, password);          
+        con = DriverManager.getConnection(url, username, password);
 
         return con;
     }
 
     public void freeConnection(Connection con) {
-       
         try {
             if (con != null) {
                 con.close();
                 con = null;
             }
         } catch (SQLException e) {
-            
+            if (DEBUG)
+                e.printStackTrace();
         }
     }
 }

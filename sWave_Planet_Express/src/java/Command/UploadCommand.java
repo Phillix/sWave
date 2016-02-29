@@ -22,7 +22,7 @@ public class UploadCommand implements Command {
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         ArrayList<Part> songs;
         long uploadSize = 0;
-        int count = 0;
+        int count       = 0;
 
         try {
             songs = (ArrayList<Part>)request.getParts();
@@ -60,7 +60,7 @@ public class UploadCommand implements Command {
                     return "/uploadFailed.jsp";
                 }
             }
-            SongDao dao = new SongDao();
+            SongDao dao    = new SongDao();
             ID3v2 metadata = null;
             dao.addNewSong(metadata, buffer);
             uploadSize += buffer.length;

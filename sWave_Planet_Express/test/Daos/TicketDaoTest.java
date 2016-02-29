@@ -16,13 +16,14 @@ import static org.junit.Assert.*;
 
 public class TicketDaoTest {
     
-    TicketDao instance;
+    static TicketDao instance;
     
     public TicketDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        instance = new TicketDao();
     }
     
     @AfterClass
@@ -42,9 +43,7 @@ public class TicketDaoTest {
      */
     @Test
     public void testCreateTicket() {
-        
         Ticket t = new Ticket(-1,"test 1",false);
-        instance = new TicketDao();
         int expResult = 0;
         int result = instance.createTicket(t);
         assertEquals(expResult, result);
@@ -55,9 +54,32 @@ public class TicketDaoTest {
      */
     @Test
     public void testGetCurrTickets() {
-        
-        instance = new TicketDao();
         ArrayList<Ticket> result = instance.getCurrTickets();
         assertNotNull(result);
+    }
+    
+    /**
+     * Testing the view ticket method
+     */
+    @Test
+    public void testViewTicket() {
+        Ticket expResult = new Ticket(-1, "my pc is on fire", false);
+        expResult.setDateRaised("2009-12-03");
+        expResult.setTicketId(-1);
+        Ticket result = instance.viewTicket(-1);
+        assertEquals("The two tickets do not equal each other in testViewTicket", expResult, result);
+    }
+    
+    /**
+     * Testing the closing ticket method
+     */
+    @Test
+    public void testCloseTicket() {
+        instance.changeTicketStatus(-1, true);
+        Ticket t = instance.viewTicket(-1);
+        boolean expResult = true;
+        boolean result = t.isResolved();
+        assertEquals("The close ticket method does not work correctly in testCloseTicket", expResult, result);
+        instance.changeTicketStatus(-1, false);
     }
 }

@@ -122,4 +122,95 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         }
         return tickets;
     }
+    
+    /**
+     * This method allows for viewing a specific ticket
+     * @param ticketId The id of the ticket to be viewed
+     * @return Returns a ticket object based on the ticket id
+     */
+    public Ticket viewTicket(int ticketId) {
+        Connection con            = null;
+        PreparedStatement ps      = null;
+        ResultSet rs              = null;
+        Ticket ticket             = null;
+
+        try {
+            con     = getConnection();
+            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = ?");
+            ps.setInt(1, ticketId);
+            rs      = ps.executeQuery();
+            
+            if (rs.next()) {
+                ticket = new Ticket();
+                ticket.setTicketId(rs.getInt(ID));
+                ticket.setUserId(rs.getInt(USERID));
+                ticket.setIssue(rs.getString(ISSUE));
+                ticket.setDateRaised(rs.getDate(DATE).toString());
+                ticket.setResolved(rs.getBoolean(RESOLVED));
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                if(rs  != null) rs.close();
+                if(ps  != null) ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+               return null;
+            }
+        }
+        return ticket;
+    }
+    
+    /**
+     * This method closes a ticket by ticket id
+     * @param ticketId The id of the ticket to be closed
+     * @param isResolved If you want to set the ticket to open or closed
+     * @return Returns SUCCESS(0) if it successfully closed and 
+     */
+    public int changeTicketStatus(int ticketId, boolean isResolved) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        try {
+            con = getConnection();
+            ps  = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + RESOLVED + " = ? WHERE " + ID + " = ?");
+            ps.setBoolean(1, isResolved);
+            ps.setInt(2, ticketId);
+
+            int result = ps.executeUpdate();
+            
+            if (result > 0) return SUCCESS;
+        }
+        catch (ClassNotFoundException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch(SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps  != null) ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
+            }
+        }
+        return OTHER;
+    }
 }

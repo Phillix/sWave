@@ -23,6 +23,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("upload") ) {
             //Allows File Uploading
             command = new UploadCommand();
+        } else if ( action.equalsIgnoreCase("stream") ) {
+            //Allows Streaming
+            command = new StreamCommand();
         } else {
             command = new DummyCommand();
         }

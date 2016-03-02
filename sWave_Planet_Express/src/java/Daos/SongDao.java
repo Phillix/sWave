@@ -91,7 +91,7 @@ public class SongDao extends Dao implements SongDaoInterface {
         s.setSongdata(buffer);
 
         try {
-            con = getConnection();
+            con    = getConnection();
             Blob b = con.createBlob();
             try {
                 b.setBytes(1, buffer);
@@ -152,17 +152,17 @@ public class SongDao extends Dao implements SongDaoInterface {
 
         try {
             con          = getConnection();
-            String query = "SELECT " + SONGID + " FROM " + TABLE_NAME + "WHERE " + SONGID + "=?";
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + SONGID + " = ?";
             ps           = con.prepareStatement(query);
             ps.setInt(1, songid);
             rs = ps.executeQuery();
 
-            Blob songDataBlob = rs.getBlob(SONGDATA);
-            byte songdata[]   = new byte[(int)songDataBlob.length()];
-            songdata = songDataBlob.getBytes(0, (int)songDataBlob.length());
-
-            if (rs.next())
+            if (rs.next()) {
+                Blob songDataBlob = rs.getBlob(SONGDATA);
+                byte songdata[]   = new byte[(int)songDataBlob.length()];
+                songdata          = songDataBlob.getBytes(1, (int)songDataBlob.length());
                 return new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE), songdata);
+            }
         }
         catch (ClassNotFoundException ex1) {
             if (DEBUG)

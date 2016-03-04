@@ -6,6 +6,7 @@
 package Daos;
 
 import Dtos.OrderMerch;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -52,6 +53,18 @@ public class OrderMerchDaoTest {
         int expResult = 0;
         int result = instance.createOrder(om);
         assertEquals(expResult, result);
+    }
+    
+     /**
+     * Test of getOrderMerchInOrder method, of class OrderMerchDao.
+     */
+    @Test
+    public void testGetOrderMerchInOrder() {
+        
+        ArrayList<OrderMerch> om = instance.getOrderMerchInOrder(2);
+        for(OrderMerch o : om) {
+            System.out.println(o);
+        }
     }
     
 }

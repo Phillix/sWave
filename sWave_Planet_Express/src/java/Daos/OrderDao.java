@@ -1,6 +1,9 @@
 package Daos;
 
+import Dtos.Merch;
 import Dtos.Order;
+import Dtos.OrderMerch;
+import Dtos.UltimateOrder;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -128,5 +131,25 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             }
         }
         return orders;
+    }
+    
+    public ArrayList<UltimateOrder> getFullOrders(int userId) {
+
+        UltimateOrder ultimateOrder;
+        OrderMerchDao omDao = new OrderMerchDao();
+        MerchDao mDao = new MerchDao();
+        ArrayList<Order> orders = getUserOrders(userId);
+        ArrayList<UltimateOrder> ultiOrders = new ArrayList<UltimateOrder>();
+        ArrayList<OrderMerch> oMerch;
+        ArrayList<Merch> merch;
+        
+        for(int i = 0; i < orders.size(); i++) {
+            oMerch = omDao.getOrderMerchInOrder(orders.get(i).getOrderId());
+            merch = mDao.getMerchInOrder(oMerch);
+            ultimateOrder = new UltimateOrder(orders.get(i),oMerch,merch);
+            ultiOrders.add(ultimateOrder);
+        }
+        
+        return ultiOrders;
     }
 }

@@ -6,6 +6,7 @@
 package Daos;
 
 import Dtos.Merch;
+import Dtos.OrderMerch;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,14 +46,14 @@ public class MerchDaoTest {
     /**
      * Test of createMerch method, of class MerchDao.
      */
-    @Test
-    public void testCreateMerch() {
-        
-        m = new Merch();
-        int expResult = 0;
-        int result = instance.createMerch(m);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testCreateMerch() {
+//        
+//        m = new Merch();
+//        int expResult = 0;
+//        int result = instance.createMerch(m);
+//        assertEquals(expResult, result);
+//    }
     
     /**
      * Test of viewMerchAlpha method, of class MerchDao.
@@ -62,5 +63,22 @@ public class MerchDaoTest {
         
         ArrayList<Merch> merch = instance.viewMerchAlpha();
         assertEquals(new Merch(), merch.get(0));
+    }
+    
+    /**
+     * Test of getMerchInOrder method, of class MerchDao.
+     */
+    @Test
+    public void testGetMerchInOrder() {
+        
+        instance = new MerchDao();
+        ArrayList<OrderMerch> orderMerch = new ArrayList<OrderMerch>();
+        OrderMerch om = new OrderMerch(2,2,2,20);
+        orderMerch.add(om);
+        ArrayList<Merch> merchList = instance.getMerchInOrder(orderMerch);
+        
+        if(merchList != null) {
+            System.out.println(merchList.get(0));
+        }
     }
 }

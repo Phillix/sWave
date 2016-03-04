@@ -6,6 +6,7 @@
 package Daos;
 
 import Dtos.Merch;
+import Dtos.OrderMerch;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -127,5 +128,70 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         }
         return merch;
     }
+    
+    public ArrayList<Merch> getMerchInOrder(ArrayList<OrderMerch> ids) {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Merch m = null;
+        ArrayList<Merch> merch;
+
+        try {
+
+            con = getConnection();
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " IN(";
+            
+            for(int i = 0; i < ids.size(); i++) {
+                query += "?,";
+            }
+            query = (query.substring(0,query.length()-1)) + ")";
+
+            ps = con.prepareStatement(query);
+            for(int i = 1; i < ids.size()+1; i++) {
+                ps.setInt(i, ids.get(i-1).getMerchId());
+            }
+           
+            rs = ps.executeQuery();
+            merch = new ArrayList<>();
+
+            while(rs.next()) {
+                m = new Merch();
+
+                m.setMerchId(rs.getInt(ID));
+                m.setTitle(rs.getString(TITLE));
+                m.setPrice(rs.getDouble(PRICE));
+
+                merch.add(m);
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        finally {
+            try {
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            }
+            catch(SQLException e) {
+                if(DEBUG) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+        return merch;
+    }
+
 
 }

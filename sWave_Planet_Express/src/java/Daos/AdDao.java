@@ -47,8 +47,10 @@ public class AdDao extends Dao implements AdDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs != null)
+                    rs.close();
+                if(ps != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -81,15 +83,16 @@ public class AdDao extends Dao implements AdDaoInterface {
             }
         }
         catch(Exception e) {
-            if(DEBUG) {
+            if(DEBUG)
                 e.printStackTrace();
-            }
             return SQLEX;
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs != null)
+                    rs.close();
+                if(ps != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }

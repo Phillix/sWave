@@ -65,8 +65,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -132,7 +134,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(ps  != null) ps.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -194,8 +197,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -242,8 +247,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -286,7 +293,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
         finally {
 
             try {
-                if(ps  != null) ps.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }

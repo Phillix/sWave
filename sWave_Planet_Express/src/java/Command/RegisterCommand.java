@@ -55,12 +55,10 @@ public class RegisterCommand implements Command {
 
                 //Forward them to the home page
                 forwardToJsp = "/index.jsp";
-            } else {
+            } else
                 forwardToJsp = "/index.jsp?regFail=yes";
-            }
-        } else {
+        } else
             forwardToJsp = "/index.jsp?regFail=yes";
-        }
         return forwardToJsp;
     }
 }

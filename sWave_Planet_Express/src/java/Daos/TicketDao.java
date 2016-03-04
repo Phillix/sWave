@@ -61,7 +61,8 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         }
         finally {
             try {
-                if(ps  != null) ps.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -87,7 +88,8 @@ public class TicketDao extends Dao implements TicketDaoInterface {
 
         try {
             con     = getConnection();
-            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + RESOLVED + " = FALSE");
+            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
+                                           " WHERE " + RESOLVED + " = FALSE");
             rs      = ps.executeQuery();
             tickets = new ArrayList<>();
 
@@ -110,8 +112,10 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -137,11 +141,12 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         Ticket ticket             = null;
 
         try {
-            con     = getConnection();
-            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = ?");
+            con = getConnection();
+            ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
+                                       " WHERE " + ID + " = ?");
             ps.setInt(1, ticketId);
-            rs      = ps.executeQuery();
-            
+            rs  = ps.executeQuery();
+
             if (rs.next()) {
                 ticket = new Ticket();
                 ticket.setTicketId(rs.getInt(ID));
@@ -158,15 +163,17 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
             catch(SQLException e) {
                 if(DEBUG)
                     e.printStackTrace();
-               return null;
+                return null;
             }
         }
         return ticket;
@@ -184,13 +191,17 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         PreparedStatement ps = null;
         try {
             con = getConnection();
-            ps  = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + RESOLVED + " = ? WHERE " + ID + " = ?");
+            ps  = con.prepareStatement("UPDATE "  +
+                                       TABLE_NAME + " SET "       +
+                                       RESOLVED   + " = ? WHERE " +
+                                       ID         + " = ?");
             ps.setBoolean(1, isResolved);
             ps.setInt(2, ticketId);
 
             int result = ps.executeUpdate();
-            
-            if (result > 0) return SUCCESS;
+
+            if (result > 0)
+                return SUCCESS;
         }
         catch (ClassNotFoundException e) {
             if(DEBUG)
@@ -204,7 +215,8 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         }
         finally {
             try {
-                if(ps  != null) ps.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }

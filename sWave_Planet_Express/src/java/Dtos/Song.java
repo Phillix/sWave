@@ -131,17 +131,25 @@ public class Song {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)  return true;
-        if (obj  == null) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
         final Song other = (Song) obj;
-        if (getClass()   != obj.getClass())  return false;
-        if (this.songId  != other.songId)  return false;
-        if (this.relYear != other.relYear) return false;
+        if (getClass() != obj.getClass())
+            return false;
+        if (this.songId != other.songId)
+            return false;
+        if (this.relYear != other.relYear)
+            return false;
         if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price))
             return false;
-        if (!Objects.equals(this.title, other.title))   return false;
-        if (!Objects.equals(this.artist, other.artist)) return false;
-        if (!Objects.equals(this.genre, other.genre))   return false;
+        if (!Objects.equals(this.title, other.title))
+            return false;
+        if (!Objects.equals(this.artist, other.artist))
+            return false;
+        if (!Objects.equals(this.genre, other.genre))
+            return false;
         return Objects.equals(this.licence, other.licence);
     }
 

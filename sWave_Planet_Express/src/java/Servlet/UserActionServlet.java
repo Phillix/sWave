@@ -28,7 +28,6 @@ import javax.servlet.annotation.MultipartConfig;
 @MultipartConfig(location="/tmp", fileSizeThreshold=16777216, maxFileSize=16777216, maxRequestSize=104857600)
 public class UserActionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,7 +35,7 @@ public class UserActionServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    
+
     public void processRequest(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
         String forwardToJsp = null;
         String action = request.getParameter("action");
@@ -46,19 +45,19 @@ public class UserActionServlet extends HttpServlet {
             Command command = factory.createCommand(action);
             forwardToJsp = command.executeCommand(request, response);
         }
-        
+
         //Get the request dispatcher object and forward the request to the appropriate JSP page...
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(forwardToJsp);
         dispatcher.forward(request, response);
     }
-    
+
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */

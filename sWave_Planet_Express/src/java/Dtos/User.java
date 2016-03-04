@@ -157,11 +157,15 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)  return true;
-        if (obj  == null) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
         final User other = (User) obj;
-        if (getClass()  != obj.getClass())            return false;
-        if (!Objects.equals(this.email, other.email)) return false;
+        if (getClass() != obj.getClass())
+            return false;
+        if (!Objects.equals(this.email, other.email))
+            return false;
         return Objects.equals(this.username, other.username);
     }
 }

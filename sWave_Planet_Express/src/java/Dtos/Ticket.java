@@ -29,9 +29,9 @@ public class Ticket {
      * @param resolved is it resolved
      */
     public Ticket(int userId, String issue, boolean resolved) {
-        this.userId     = userId;
-        this.issue      = issue;
-        this.resolved   = resolved;
+        this.userId   = userId;
+        this.issue    = issue;
+        this.resolved = resolved;
     }
 
     public int getTicketId() {
@@ -92,14 +92,21 @@ public class Ticket {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)  return true;
-        if (obj  == null) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
         final Ticket other = (Ticket) obj;
-        if (getClass()    != obj.getClass())          return false;
-        if (this.ticketId != other.ticketId)          return false;
-        if (this.userId   != other.userId)            return false;
-        if (this.resolved != other.resolved)          return false;
-        if (!Objects.equals(this.issue, other.issue)) return false;
+        if (getClass() != obj.getClass())
+            return false;
+        if (this.ticketId != other.ticketId)
+            return false;
+        if (this.userId != other.userId)
+            return false;
+        if (this.resolved != other.resolved)
+            return false;
+        if (!Objects.equals(this.issue, other.issue))
+            return false;
         return Objects.equals(this.dateRaised, other.dateRaised);
     }
 }

@@ -40,16 +40,22 @@ public class SongDao extends Dao implements SongDaoInterface {
 
         try {
 
-            con = getConnection();
+            con          = getConnection();
             String query = "SELECT * FROM " + TABLE_NAME;
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
+            ps           = con.prepareStatement(query);
+            rs           = ps.executeQuery();
 
             while (rs.next()) {
                 Blob songDataBlob = rs.getBlob(SONGDATA);
                 byte songdata[]   = new byte[(int)songDataBlob.length()];
                 songdata = songDataBlob.getBytes(0, (int)songDataBlob.length());
-                Song s   = new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE), songdata);
+                Song s   = new Song(rs.getString(TITLE),
+                                    rs.getString(ARTIST),
+                                    rs.getString(GENRE),
+                                    rs.getInt(RELYEAR),
+                                    rs.getDouble(PRICE),
+                                    rs.getString(LICENCE),
+                                    songdata);
                 songs.add(s);
             }
             return songs;
@@ -64,8 +70,10 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }
@@ -126,9 +134,12 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
-                if(con != null) freeConnection(con);
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
             }
             catch(SQLException e) {
                 if (DEBUG)
@@ -159,9 +170,16 @@ public class SongDao extends Dao implements SongDaoInterface {
 
             if (rs.next()) {
                 Blob songDataBlob = rs.getBlob(SONGDATA);
-                byte songdata[]   = new byte[(int)songDataBlob.length()];
-                songdata          = songDataBlob.getBytes(1, (int)songDataBlob.length());
-                return new Song(rs.getString(TITLE), rs.getString(ARTIST), rs.getString(GENRE), rs.getInt(RELYEAR), rs.getDouble(PRICE), rs.getString(LICENCE), songdata);
+                byte songdata[]   = null;
+                if (songDataBlob != null)
+                    songdata = songDataBlob.getBytes(1, (int)songDataBlob.length());
+                return new Song(rs.getString(TITLE),
+                                rs.getString(ARTIST),
+                                rs.getString(GENRE),
+                                rs.getInt(RELYEAR),
+                                rs.getDouble(PRICE),
+                                rs.getString(LICENCE),
+                                songdata);
             }
         }
         catch (ClassNotFoundException ex1) {
@@ -174,8 +192,10 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         finally {
             try {
-                if(rs  != null) rs.close();
-                if(ps  != null) ps.close();
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
                 if(con != null)
                     freeConnection(con);
             }

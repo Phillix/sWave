@@ -16,9 +16,9 @@ public class FallbackStreamer {
         out to a temporary file which we point the player to and allow HTML5 to 
         handle the streaming.
     */
-    
+
     private static final boolean DEBUG = false;
-    
+
     public static void start(int songid) {
         try {
             FileOutputStream output = new FileOutputStream("/temp/file");

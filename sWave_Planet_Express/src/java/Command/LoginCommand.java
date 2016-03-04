@@ -36,12 +36,10 @@ public class LoginCommand implements Command {
 
                 //Forward them to the home page
                 forwardToJsp = "/index.jsp";
-            } else {
+            } else
                 forwardToJsp = "/login_failed.jsp";
-            }
-        } else {
+        } else
             forwardToJsp = "/login_failed.jsp";
-        }
         return forwardToJsp;
     }
 }

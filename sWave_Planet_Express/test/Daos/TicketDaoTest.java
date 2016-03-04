@@ -16,25 +16,25 @@ import static org.junit.Assert.*;
  */
 
 public class TicketDaoTest {
-    
+
     static TicketDao instance;
-    
+
     public TicketDaoTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         instance = new TicketDao();
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -49,7 +49,7 @@ public class TicketDaoTest {
         int result = instance.createTicket(t);
         assertEquals(expResult, result);
     }
-    
+
     /**
      * Test of getCurrTickets method, of class TicketDao.
      */
@@ -58,7 +58,7 @@ public class TicketDaoTest {
         ArrayList<Ticket> result = instance.getCurrTickets();
         assertNotNull(result);
     }
-    
+
     /**
      * Testing the view ticket method
      */
@@ -70,7 +70,7 @@ public class TicketDaoTest {
         Ticket result = instance.viewTicket(-1);
         assertEquals("The two tickets do not equal each other in testViewTicket", expResult, result);
     }
-    
+
     /**
      * Testing the closing ticket method
      */

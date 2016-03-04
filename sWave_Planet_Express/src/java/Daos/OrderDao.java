@@ -24,11 +24,10 @@ public class OrderDao extends Dao implements OrderDaoInterface {
 
     public int createOrder(Order o) {
 
-        Connection con = null;
+        Connection con       = null;
         PreparedStatement ps = null;
 
         try {
-
             con = getConnection();
             String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?)";
 
@@ -46,30 +45,25 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             return SUCCESS;
         }
         catch (ClassNotFoundException e) {
-            if(DEBUG) {
+            if(DEBUG)
                 e.printStackTrace();
-            }
             return CLASSNOTFOUND;
         }
         catch (SQLException e) {
-            if(DEBUG) {
+            if(DEBUG)
                 e.printStackTrace();
-            }
             return SQLEX;
         }
         finally {
             try {
-                if(ps != null) {
+                if(ps != null)
                     ps.close();
-                }
-                if(con != null) {
+                if(con != null)
                     freeConnection(con);
-                }
             }
             catch(SQLException e) {
-                if(DEBUG) {
+                if(DEBUG)
                     e.printStackTrace();
-                }
                 return CONNCLOSEFAIL;
             }
         }
@@ -77,18 +71,19 @@ public class OrderDao extends Dao implements OrderDaoInterface {
 
     public ArrayList<Order> getUserOrders(int userId) {
 
-        Connection con = null;
+        Connection con       = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        Order o = null;
+        ResultSet rs         = null;
+        Order o              = null;
         ArrayList<Order> orders;
 
         try {
-
             con = getConnection();
-            ps = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + USERID + " = ? ORDER BY " + DATEORDERED);
+            ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
+                                       " WHERE "        + USERID     +
+                                       " = ? ORDER BY " + DATEORDERED);
             ps.setInt(1, userId);
-            rs = ps.executeQuery();
+            rs     = ps.executeQuery();
             orders = new ArrayList<>();
 
             while(rs.next()) {
@@ -103,27 +98,22 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             }
         }
         catch(Exception e) {
-            if(DEBUG) {
+            if(DEBUG)
                 e.printStackTrace();
-            }
             return null;
         }
         finally {
             try {
-                if(ps != null) {
+                if(ps != null)
                     ps.close();
-                }
-                if(con != null) {
+                if(con != null)
                     freeConnection(con);
-                }
-                if (rs != null) {
+                if (rs != null)
                     rs.close();
-                }
             }
             catch(SQLException e) {
-                if(DEBUG) {
+                if(DEBUG)
                     e.printStackTrace();
-                }
                 return null;
             }
         }

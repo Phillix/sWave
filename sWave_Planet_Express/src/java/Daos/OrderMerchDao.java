@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author Phillix
  */
-public class OrderMerchDao extends Dao {
+public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
     
     private final boolean DEBUG = Debugging.Debug.debug;
 

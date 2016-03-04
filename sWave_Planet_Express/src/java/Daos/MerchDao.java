@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Phillix
  */
-public class MerchDao extends Dao {
+public class MerchDao extends Dao implements MerchDaoInterface {
     
     private final boolean DEBUG = Debugging.Debug.debug;
 

@@ -18,6 +18,7 @@ import javax.servlet.annotation.MultipartConfig;
     Register
     Logout
     Upload
+    Stream
 */
 
 /**
@@ -33,7 +34,6 @@ public class UserActionServlet extends HttpServlet {
      */
     public UserActionServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {

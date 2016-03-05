@@ -1,19 +1,9 @@
-<%@page import="Dtos.User"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <%User currentUser = (User)session.getAttribute("user");%>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to sWave</title>
-        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <%
-            String skin = "flat";
-            if (currentUser != null) {
-                skin = currentUser.getSkin();
-            }
-        %>
-        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="sWave_Planet_Express/web/macgril/css/base.css"></link>
+        <link rel="stylesheet" type="text/css" href="sWave_Planet_Express/web/macgril/css/skins/flat/flat.css"></link>
         <style>
             #topbar {
                 -moz-animation: slide_down 0.7s;
@@ -129,7 +119,7 @@
     </head>
     <body>
         <header class="panel" id="topbar">
-            <img id="header_logo" src="images/logo_black.png" height="60"/>
+            <img id="header_logo" src="sWave_Planet_Express/web/images/logo_black.png" height="60"/>
             <nav>
                 <a href="temp.html">Now Playing</a>
                 <a href="temp.html">Library</a>
@@ -138,21 +128,12 @@
                 <a href="temp.html">Account</a>
                 <a href="temp.html">About</a>
             </nav>
-            <div id="header_right">
-                <%if (currentUser != null) {%>
-                    <a href="account.jsp"><%=currentUser.getUsername()%></a>
-                    &#160;&#160;
-                    <form style="display:inline;" action="UserActionServlet" method="POST">
-                        <input type="hidden" name="action" value="logout"/>
-                        <input type="submit" value="Log Out"/>
-                    </form>
-                <%} else {
-                        response.sendRedirect("login.jsp");
-                %>
-                    <!-- In case the redirect fails for any reason provide a link -->
-                    <a href="login.jsp">Log In</a>
-                <%}%>
-            </div>
+            <span id="header_right">
+                <button>Log In</button>
+                <a href="account.jsp">brianmillar9</a>
+                &#160;&#160;
+                <button>Log Out</button>
+            </span>
         </header>
         <aside class="panel" id="left_sidebar">
         </aside>
@@ -165,4 +146,3 @@
         <div id="wallpaper"></div>
     </body>
 </html>
-

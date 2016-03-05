@@ -1,13 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    String currentSkin;
-    if (request.getParameter("skin") == null || request.getParameter("skin").isEmpty()) {
-        currentSkin = "nova";
-    }
-    else {
-        currentSkin = request.getParameter("skin");
-    }
-%>
+<% if (session.getAttribute("user") != null) {
+    response.sendRedirect("index.jsp");
+}%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +9,7 @@
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <!-- Custom skin not possible until after login, using 'nova' by default -->
-        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=currentSkin%>/<%=currentSkin%>.css"/>
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/flat/flat.css"/>
         <link rel="stylesheet" type="text/css" href="css/login.css"/>
     </head>
     <body>

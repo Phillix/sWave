@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import sWaveEngine.ID3v2;
+import sWaveEngine.SongLocking;
 
 /**
  *
@@ -125,8 +126,16 @@ public class SongDao extends Dao implements SongDaoInterface {
             ps.setDouble(5, s.getPrice());
             ps.setString(6, s.getLicence());
             ps.setBlob(7, b);
-            if (ps.executeUpdate() > 0)
+            if (ps.executeUpdate() > 0) {
+                /*
+                try {
+                    sWaveEngine.SongLocking.addLock(0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                */
                 return SUCCESS; //It successfully inserted into the database
+            }
         }
         catch(ClassNotFoundException | SQLException e) {
             if (DEBUG)
@@ -134,9 +143,9 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         finally {
             try {
-                if(rs  != null)
+                if(rs != null)
                     rs.close();
-                if(ps  != null)
+                if(ps != null)
                     ps.close();
                 if(con != null)
                     freeConnection(con);

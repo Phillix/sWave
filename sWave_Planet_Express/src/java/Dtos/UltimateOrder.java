@@ -22,6 +22,11 @@ public class UltimateOrder {
     
     public UltimateOrder() {
         SIZE = 0;  
+        total = 50.0;
+        dateOrdered = "date";
+        qty = new int[]{0};
+        price = new double[]{20.0};
+        title = new String[]{"testcase"};
     }
     
     /**
@@ -89,11 +94,6 @@ public class UltimateOrder {
 
     public void setTitle(String[] title) {
         this.title = title;
-    }
-
-    @Override
-    public String toString() {
-        return "UltimateOrder{" + "SIZE=" + SIZE + ", total=" + total + ", dateOrdered=" + dateOrdered + ", qty=" + qty + ", price=" + price + ", title=" + title + '}';
-    }    
+    }   
     
 }

@@ -23,6 +23,13 @@ public class UltimateOrder {
     public UltimateOrder() {
         SIZE = 0;  
     }
+    
+    /**
+     * 
+     * @param o single order object
+     * @param om Collection of orderMerch belonging to the given order
+     * @param m Collection of Merch belonging to the given order
+     */
     public UltimateOrder(Order o, ArrayList<OrderMerch> om, ArrayList<Merch> m) {
         
         SIZE = m.size();

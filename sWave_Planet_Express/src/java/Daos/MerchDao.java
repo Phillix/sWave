@@ -26,6 +26,11 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     private final String TITLE      = "TITLE";
     private final String PRICE      = "PRICE";
     
+    /**
+     * 
+     * @param m Merch object to create
+     * @return int value indicating success
+     */
     public int createMerch(Merch m) {
 
         Connection con = null;
@@ -75,6 +80,10 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         }
     }
     
+    /**
+     * 
+     * @return Collection of all merchandise on offer in alphabetical order
+     */
     public ArrayList<Merch> viewMerchAlpha() {
         
         Connection con = null;
@@ -129,6 +138,11 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         return merch;
     }
     
+    /**
+     * 
+     * @param ids the Collection of orderMerch you want to retrieve Merch for
+     * @return Collection of Merch belonging to an Order
+     */
     public ArrayList<Merch> getMerchInOrder(ArrayList<OrderMerch> ids) {
         
         Connection con = null;
@@ -142,11 +156,13 @@ public class MerchDao extends Dao implements MerchDaoInterface {
             con = getConnection();
             String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " IN(";
             
+            //build a query String and remove final comma
             for(int i = 0; i < ids.size(); i++) {
                 query += "?,";
             }
             query = (query.substring(0,query.length()-1)) + ")";
-
+            
+            //Set the ids into placeholders
             ps = con.prepareStatement(query);
             for(int i = 1; i < ids.size()+1; i++) {
                 ps.setInt(i, ids.get(i-1).getMerchId());

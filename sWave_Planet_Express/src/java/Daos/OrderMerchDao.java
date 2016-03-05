@@ -26,6 +26,11 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
     private final String QTY         = "QTY";
     private final String PRICE       = "PRICEPAID";
     
+    /**
+     * 
+     * @param om OrderMerch object to create
+     * @return int value indicating success
+     */
     public int createOrder(OrderMerch om) {
 
         Connection con = null;
@@ -76,6 +81,11 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
         }
     }
     
+    /**
+     * 
+     * @param orderId id of the order
+     * @return Collection of OrderMerch belonging to passed in Order id
+     */
     public ArrayList<OrderMerch> getOrderMerchInOrder(int orderId) {
         
         Connection con = null;

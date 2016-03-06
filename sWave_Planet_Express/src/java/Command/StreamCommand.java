@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Brian Millar
  */
 public class StreamCommand implements Command {
-    
+
     private static final boolean DEBUG = Debugging.Debug.debug;
 
     @Override

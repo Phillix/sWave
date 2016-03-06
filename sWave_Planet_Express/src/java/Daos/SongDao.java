@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import sWaveEngine.ID3v2;
-import sWaveEngine.SongLocking;
 
 /**
  *
@@ -25,7 +24,7 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String GENRE      = "GENRE";
     private final String RELYEAR    = "RELYEAR";
     private final String PRICE      = "PRICE";
-    private final String LICENCE    = "LICENCE";
+    private final String LICENSE    = "LICENSE";
     private final String SONGDATA   = "DATA";
 
     /**
@@ -52,7 +51,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                     rs.getString(GENRE),
                                     rs.getInt(RELYEAR),
                                     rs.getDouble(PRICE),
-                                    rs.getString(LICENCE)
+                                    rs.getString(LICENSE)
                                     ); //We don't want the songdata here
                 songs.add(s);
             }
@@ -109,7 +108,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                            GENRE          + ", " +
                            RELYEAR        + ", " +
                            PRICE          + ", " +
-                           LICENCE        + ", " +
+                           LICENSE        + ", " +
                            SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, s.getTitle());
@@ -117,18 +116,10 @@ public class SongDao extends Dao implements SongDaoInterface {
             ps.setString(3, s.getGenre());
             ps.setInt(4, s.getRelYear());
             ps.setDouble(5, s.getPrice());
-            ps.setString(6, s.getLicence());
+            ps.setString(6, s.getLicense());
             ps.setBlob(7, b);
-            if (ps.executeUpdate() > 0) {
-                /*
-                try {
-                    sWaveEngine.SongLocking.addLock(0);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                */
+            if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
-            }
         }
         catch(ClassNotFoundException | SQLException e) {
             if (DEBUG)
@@ -146,10 +137,10 @@ public class SongDao extends Dao implements SongDaoInterface {
             catch(SQLException e) {
                 if (DEBUG)
                     e.printStackTrace();
+                return SQLEX;
             }
         }
-        //to be removed
-        return 0;
+        return OTHER;
     }
 
     /**
@@ -181,17 +172,13 @@ public class SongDao extends Dao implements SongDaoInterface {
                                 rs.getString(GENRE),
                                 rs.getInt(RELYEAR),
                                 rs.getDouble(PRICE),
-                                rs.getString(LICENCE),
+                                rs.getString(LICENSE),
                                 songdata);
             }
         }
-        catch (ClassNotFoundException ex1) {
+        catch (ClassNotFoundException | SQLException ex1) {
             if (DEBUG)
                 ex1.printStackTrace();
-        }
-        catch (SQLException ex2) {
-            if (DEBUG)
-                ex2.printStackTrace();
         }
         finally {
             try {
@@ -209,7 +196,7 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         return null;
     }
-    
+
     /**
      * A search method for searching the songs in the database
      * @param term The search term to be searched
@@ -241,7 +228,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                 rs.getString(GENRE),
                                 rs.getInt(RELYEAR),
                                 rs.getDouble(PRICE),
-                                rs.getString(LICENCE),
+                                rs.getString(LICENSE),
                                 songdata);
                 songs.add(s);
             }

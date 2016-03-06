@@ -13,7 +13,7 @@ public class Song {
     private String genre;
     private int    relYear;
     private double price;
-    private String licence;
+    private String license;
     private byte[] songdata;
 
     /**
@@ -25,7 +25,7 @@ public class Song {
         genre    = "genre";
         relYear  = 2000;
         price    = 0.00;
-        licence  = "licence";
+        license  = "license";
     }
 
     /**
@@ -37,26 +37,26 @@ public class Song {
      * @param price How much the song costs
      * @param licence The license for the song
      */
-    public Song(int songId, String title, String artist, String genre, int relYear, double price, String licence, byte[] songdata) {
+    public Song(int songId, String title, String artist, String genre, int relYear, double price, String license, byte[] songdata) {
         this.songId   = songId;
         this.title    = title;
         this.artist   = artist;
         this.genre    = genre;
         this.relYear  = relYear;
         this.price    = price;
-        this.licence  = licence;
+        this.license  = license;
         this.songdata = songdata;
     }
 
     //A version without the songdata for listings etc.
-    public Song(int songId, String title, String artist, String genre, int relYear, double price, String licence) {
+    public Song(int songId, String title, String artist, String genre, int relYear, double price, String license) {
         this.songId   = songId;
         this.title    = title;
         this.artist   = artist;
         this.genre    = genre;
         this.relYear  = relYear;
         this.price    = price;
-        this.licence  = licence;
+        this.license  = license;
     }
 
     public int getSongId() {
@@ -107,12 +107,12 @@ public class Song {
         this.price = price;
     }
 
-    public String getLicence() {
-        return licence;
+    public String getLicense() {
+        return license;
     }
 
-    public void setLicence(String licence) {
-        this.licence = licence;
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public byte[] getSongdata() {
@@ -125,7 +125,7 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" + "songId=" + songId + ", title=" + title + ", artist=" + artist + ", genre=" + genre + ", relYear=" + relYear + ", price=" + price + ", licence=" + licence + '}';
+        return "Song{" + "songId=" + songId + ", title=" + title + ", artist=" + artist + ", genre=" + genre + ", relYear=" + relYear + ", price=" + price + ", license=" + license + '}';
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Song {
         hash = 53 * hash + Objects.hashCode(this.genre);
         hash = 53 * hash + this.relYear;
         hash = 53 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 53 * hash + Objects.hashCode(this.licence);
+        hash = 53 * hash + Objects.hashCode(this.license);
         return hash;
     }
 
@@ -162,8 +162,6 @@ public class Song {
             return false;
         if (!Objects.equals(this.genre, other.genre))
             return false;
-        return Objects.equals(this.licence, other.licence);
+        return Objects.equals(this.license, other.license);
     }
-
-
 }

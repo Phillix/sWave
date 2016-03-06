@@ -16,15 +16,15 @@ public class SongTest {
     Song instance2;
     public SongTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         instance1 = new Song();
@@ -36,7 +36,7 @@ public class SongTest {
         songdata[4] = 1;
         instance2 = new Song(-1, "Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", songdata);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -165,9 +165,9 @@ public class SongTest {
      * Test of getLicence method, of class Song.
      */
     @Test
-    public void testGetLicence() {
+    public void testGetLicense() {
         String expResult = "GNU";
-        String result = instance2.getLicence();
+        String result = instance2.getLicense();
         assertEquals("The songs licences do not match after getting", expResult, result);
     }
 
@@ -175,10 +175,10 @@ public class SongTest {
      * Test of setLicence method, of class Song.
      */
     @Test
-    public void testSetLicence() {
+    public void testSetLicense() {
         String expResult = "MIT";
-        instance2.setLicence("MIT");
-        assertEquals("The songs licences do not match after setting", expResult, instance2.getLicence());
+        instance2.setLicense("MIT");
+        assertEquals("The songs licences do not match after setting", expResult, instance2.getLicense());
     }
 
     /**
@@ -216,7 +216,7 @@ public class SongTest {
      */
     @Test
     public void testToString() {
-        String expResult = "Song{songId=-1, title=Bohemian Rhapsody, artist=Queen, genre=Rock, relYear=1975, price=0.99, licence=GNU}";
+        String expResult = "Song{songId=-1, title=Bohemian Rhapsody, artist=Queen, genre=Rock, relYear=1975, price=0.99, license=GNU}";
         String result = instance2.toString();
         assertEquals("The songs toStrings do not match", expResult, result);
     }

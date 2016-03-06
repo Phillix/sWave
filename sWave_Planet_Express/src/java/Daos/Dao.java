@@ -17,7 +17,7 @@ public class Dao {
     protected static final int SQLEX         = -2;
     protected static final int CONNCLOSEFAIL = -3;
     protected static final int SQLINTEG      = -4;
-    protected static final int OTHER         = -5;        
+    protected static final int OTHER         = -5;
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
 

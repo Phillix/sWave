@@ -1,6 +1,7 @@
 package Daos;
 
 import Dtos.Order;
+import Dtos.UltimateOrder;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,4 +68,21 @@ public class OrderDaoTest {
         assertEquals(expResult, result);
     }
     
+    /**
+     * Test of getFullOrders method, of class OrderDao.
+     */
+    @Test
+    public void testGetFullOrders() {
+        
+        int userId = 1;
+        ArrayList<UltimateOrder> orders = instance.getFullOrders(userId);
+        UltimateOrder uo = orders.get(0);
+        System.out.println(uo.getTotal());
+        System.out.println(uo.getDateOrdered());
+        for(int i = 0; i < uo.getSize(); i++) {
+            System.out.println(uo.getTitle(i));
+            System.out.println(uo.getQty(i));
+            System.out.println(uo.getPrice(i));
+        }
+    }
 }

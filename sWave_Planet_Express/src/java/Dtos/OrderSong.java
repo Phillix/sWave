@@ -55,6 +55,4 @@ public class OrderSong {
     public String toString() {
         return "OrderSong{" + "orderId=" + orderId + ", songId=" + songId + ", pricePaid=" + pricePaid + '}';
     }
-    
-    
 }

@@ -42,7 +42,7 @@ public class AdDaoTest {
         int id = -1;
         instance = new AdDao();
         String result = instance.getAd(id).toString();
-        String expResult = "Ad{adId=-1, adUrl=/testData}";
+        String expResult = "Ad{adId=-1, adUrl=ads/test.html}";
         assertEquals(expResult, result);
     }
     

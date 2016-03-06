@@ -29,7 +29,7 @@
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
+                <a id="currentPageLink" href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
                 <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
                 <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
                 <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
@@ -52,6 +52,10 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
+            <span id="copyNotice">
+                Copyright &copy; 2016<br/>
+                Team Planet Express<br/>
+            </span>
         </aside>
         <div id="midsection">
         </div>

@@ -23,10 +23,9 @@ public class SongLocking {
             loops through them and runs a lamda expression to check
             if no locks remain on the file and if not, remove it.
         */
-        
+
         LockDao locks = new LockDao();
-        
-        
+
         Stream<Path> fileList = null;
         try {
             fileList = Files.list(Paths.get("../webapps/ROOT/"));

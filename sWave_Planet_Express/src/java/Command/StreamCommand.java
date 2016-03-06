@@ -1,6 +1,8 @@
 package Command;
 
+import Daos.LockDao;
 import Daos.SongDao;
+import Dtos.Lock;
 import Dtos.Song;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,23 +21,31 @@ public class StreamCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         String filename = request.getParameter("songid") + ".mp3";
-        File testfile = new File(filename);
+        File testfile   = new File(filename);
+        LockDao locks   = new LockDao();
+        locks.releaseUserLocks(Integer.parseInt(request.getParameter("userid")));
+        locks.addLock(new Lock(Integer.parseInt(request.getParameter("userid")),
+                               Integer.parseInt(request.getParameter("songid"))));
         if (!testfile.exists()) {
-            //SongLocking.clean(); //Cleanup unused files before opening another
             SongDao songs = new SongDao();
             byte songdata[] = (((Song)songs.getSongById(Integer.parseInt(request.getParameter("songid")))).getSongdata());
+            FileOutputStream output = null;
             try {
-                try (FileOutputStream output = new FileOutputStream(new File("../webapps/ROOT/" + filename))) {
-                    output.write(songdata);
-                }
+                output = new FileOutputStream(new File("../webapps/ROOT/" + filename));
+                output.write(songdata);
             } catch (IOException ex) {
                 if (DEBUG)
                     ex.printStackTrace();
                 return "/error.jsp";
+            } finally {
+                try {
+                    output.close();
+                } catch (IOException ex) {
+                    if (DEBUG)
+                        ex.printStackTrace();
+                }
             }
         }
-        //SongLocking.setLock(Integer.parseInt(request.getParameter("songid")), SongLocking.getLocks(Integer.parseInt(request.getParameter("songid"))));
-        System.out.println(request.getRequestURL());
         return "/" + request.getParameter("page") + ".jsp?filename=" + filename + "&playid=" + request.getParameter("songid");
     }
 }

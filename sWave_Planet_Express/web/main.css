@@ -2,7 +2,6 @@
    from macgril/css/skins/ NOT this file */
 
             #topbar {
-                -moz-animation: slide_down 0.7s;
                 position: fixed;
                 top:      0px;
                 left:     0px;
@@ -14,7 +13,6 @@
             }
 
             #base {
-                -moz-animation: slide_up 0.7s;
                 position: fixed;
                 bottom:   0px;
                 left:     0px;
@@ -39,7 +37,6 @@
             }
 
             #left_sidebar {
-                -moz-animation: slide_right 0.7s;
                 position: fixed;
                 left:     0px;
                 top:      60px;
@@ -51,7 +48,6 @@
             }
 
             #right_sidebar {
-                -moz-animation: slide_left 0.7s;
                 position: fixed;
                 right:    0px;
                 top:      60px;
@@ -257,6 +253,19 @@ td.trackTitle {
     width:  300px;
     height: 200px;
     margin-top: 10px;
+}
+
+#copyNotice {
+    position:   fixed;
+    bottom:     100px;
+    left:       0px;
+    text-align: center;
+    width:      200px;
+    text-decoration: underline;
+}
+
+#currentPageLink {
+    text-decoration: underline;
 }
 
 @-moz-keyframes glow {

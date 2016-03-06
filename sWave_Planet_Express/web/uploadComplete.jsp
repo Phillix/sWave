@@ -7,5 +7,6 @@
     </head>
     <body>
         <h1>Upload Successful</h1>
+        <a href="upload.jsp">Upload More</a>
     </body>
 </html>

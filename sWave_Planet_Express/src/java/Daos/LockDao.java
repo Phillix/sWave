@@ -29,7 +29,7 @@ public class LockDao extends Dao implements LockDaoInterface {
             ps.setInt(1, x.getUserid());
             ps.setInt(2, x.getSongid());
             ps.setLong(3, x.getLockTime());
-            rs  = ps.executeQuery();
+            ps.executeUpdate();
         }
         catch(ClassNotFoundException | SQLException e) {
             if(DEBUG)
@@ -62,7 +62,7 @@ public class LockDao extends Dao implements LockDaoInterface {
             con = getConnection();
             ps  = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE " + USERID + " = ?");
             ps.setInt(1, userId);
-            rs  = ps.executeQuery();
+            ps.executeUpdate();
         }
         catch(Exception e) {
             if(DEBUG)
@@ -94,7 +94,7 @@ public class LockDao extends Dao implements LockDaoInterface {
             con = getConnection();
             ps  = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE " + SONGID + " = ?");
             ps.setInt(1, songId);
-            rs  = ps.executeQuery();
+            ps.executeUpdate();
         }
         catch(ClassNotFoundException | SQLException e) {
             if(DEBUG)

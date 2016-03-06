@@ -29,8 +29,7 @@
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
                 <a href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
-                <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Music</a>
+                <a id="currentPageLink" href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
                 <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
                 <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
                 <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
@@ -73,6 +72,7 @@
                     <td><form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="stream"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                            <input type="hidden" name="userid" value="<%=currentUser.getUserId()%>"/>
                             <input type="hidden" name="page" value="music"/>
                             <input type="submit" value="Play"/>
                         </form>

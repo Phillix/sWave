@@ -209,4 +209,61 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         return null;
     }
+    
+    /**
+     * A search method for searching the songs in the database
+     * @param term The search term to be searched
+     * @return An ArrayList of all of the songs that matched the search term
+     */
+    public ArrayList<Song> search(String term) {
+        Connection con        = null;
+        PreparedStatement ps  = null;
+        ResultSet rs          = null;
+        ArrayList<Song> songs = new ArrayList();
+
+        try {
+            con          = getConnection();
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + TITLE + " LIKE ? OR " + ARTIST + " LIKE ? OR " + GENRE + " LIKE ?";
+            ps           = con.prepareStatement(query);
+            ps.setString(1, "%" + term + "%");
+            ps.setString(2, "%" + term + "%");
+            ps.setString(3, "%" + term + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Blob songDataBlob = rs.getBlob(SONGDATA);
+                byte songdata[]   = null;
+                if (songDataBlob != null)
+                    songdata = songDataBlob.getBytes(1, (int)songDataBlob.length());
+                Song s = new Song(rs.getInt(SONGID),
+                                rs.getString(TITLE),
+                                rs.getString(ARTIST),
+                                rs.getString(GENRE),
+                                rs.getInt(RELYEAR),
+                                rs.getDouble(PRICE),
+                                rs.getString(LICENCE),
+                                songdata);
+                songs.add(s);
+            }
+        }
+        catch (ClassNotFoundException | SQLException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+        }
+        finally {
+            try {
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return songs;
+    }
 }

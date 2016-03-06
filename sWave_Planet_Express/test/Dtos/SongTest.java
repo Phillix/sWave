@@ -34,7 +34,7 @@ public class SongTest {
         songdata[2] = 3;
         songdata[3] = 2;
         songdata[4] = 1;
-        instance2 = new Song("Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", songdata);
+        instance2 = new Song(-1, "Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", songdata);
     }
     
     @After
@@ -216,9 +216,8 @@ public class SongTest {
      */
     @Test
     public void testToString() {
-        String expResult = "Song{songId=0, title=Bohemian Rhapsody, artist=Queen, genre=Rock, relYear=1975, price=0.99, licence=GNU}";
+        String expResult = "Song{songId=-1, title=Bohemian Rhapsody, artist=Queen, genre=Rock, relYear=1975, price=0.99, licence=GNU}";
         String result = instance2.toString();
         assertEquals("The songs toStrings do not match", expResult, result);
     }
-    
 }

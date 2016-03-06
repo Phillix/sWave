@@ -1,139 +1,130 @@
 /* The general Look and Feel of sWave is determined by the skin file selected 
    from macgril/css/skins/ NOT this file */
 
-body {
-    background-color: #000;
-    font-family:      sans-serif;
-    color:            #2E84B1;
-}
+            #topbar {
+                -moz-animation: slide_down 0.7s;
+                position: fixed;
+                top:      0px;
+                left:     0px;
+                width:    100%;
+                height:   60px;
+                padding:  0px;
+                z-index:  2;
+                box-shadow: 0px 0px 3px #000;
+            }
 
-header {
-    position:         fixed;
-    top:              0%;
-    left:             0%;
-    right:            0%;
-    height:           60px;
-    background-image: URL("images/bg.png");
-    background-size:  100% 100%;
-    box-shadow:       0px 0px 20px #000;
-}
+            #base {
+                -moz-animation: slide_up 0.7s;
+                position: fixed;
+                bottom:   0px;
+                left:     0px;
+                width:    100%;
+                height:   90px;
+                padding:  0px;
+                z-index:  2;
+                box-shadow: 0px 0px 3px #000;
+            }
 
-aside {
-    position:         fixed;
-    top:              60px;
-    bottom:           70px;
-    left:             0px;
-    width:            200px;
-    background-color: rgba(0,0,0,0.7);
-}
+            #midsection {
+                position: fixed;
+                left:     200px;
+                right:    200px;
+                top:      60px;
+                bottom:   90px;
+                padding:  0px;
+                z-index:  0;
+                padding:  20px;
+                overflow-y: scroll;
+                overflow-x: auto;
+            }
 
-section {
-    position:         fixed;
-    top:              60px;
-    bottom:           70px;
-    left:             200px;
-    right:            0px;
-    background-color: transparent;
-    /*box-shadow:       inset 0px 0px 10px;*/
-    padding:          0px;
-    overflow-x:       hidden;
-    overflow-y:       scroll;
-}
+            #left_sidebar {
+                -moz-animation: slide_right 0.7s;
+                position: fixed;
+                left:     0px;
+                top:      60px;
+                bottom:   90px;
+                width:    200px;
+                padding:  0px;
+                z-index:  1;
+                box-shadow: 0px 0px 3px #000;
+            }
 
-footer {
-    position:         fixed;
-    bottom:           0px;
-    left:             0px;
-    right:            0px;
-    height:           70px;
-    background-image: URL("images/bg.png");
-    background-size:  100% 100%;
-    box-shadow:       0px 0px 20px #000;
-}
+            #right_sidebar {
+                -moz-animation: slide_left 0.7s;
+                position: fixed;
+                right:    0px;
+                top:      60px;
+                bottom:   90px;
+                width:    200px;
+                padding:  0px;
+                z-index:  1;
+                box-shadow: 0px 0px 3px #000;
+            }
+            
+            #ads {
+                border: none;
+                padding: 0px;
+                margin: 0px;
+                position: fixed;
+                bottom: 90px;
+                right: 0px;
+                width: 200px;
+                height: 200px;
+            }
 
-#logo {
-    height:   60px;
-    position: fixed;
-    top:      0px;
-    left:     0px;
-}
+            #header_logo {
+            }
 
-/*
-#searchBox {
-    background-color: #e3e3e3;
-    color:            #000;
-    border:           0px;
-    width:            150px;
-    position:         absolute;
-    top:              25%;
-    height:           20px;
-    bottom:           25%;
-    right:            2%;
-    padding-top:      4px;
-    padding-bottom:   4px;
-    padding-left:     8px;
-    padding-right:    8px;
-}
-*/
+            #header_right {
+                position: fixed;
+                top:      18px;
+                right:    20px;
+            }
 
-li {
-    left:            0%;
-    right:           0%;
-    text-decoration: none;
-    display:         block;
-    color:           #000;
-    font-size:       16px;
-    padding-top:     10px;
-    padding-bottom:  10px;
-    margin:          0px;
-}
+            nav {
+                position: fixed;
+                top:      0px;
+                left:     200px;
+                height:   60px;
+            }
 
-li.sec {
-    background-color: #1F1D26;
-    color: #e3e3e3;
-}
+            nav a {
+                display:       inline-block;
+                color:         #000;
+                height:        24px;
+                text-align:    center;
+                padding-left:  10px;
+                padding-right: 10px;
+                margin:        0px;
+                font-size:     24px;
+                padding-top:    14px;
+                padding-bottom: 22px;
+            }
 
-li img {
-    margin:     0px;
-    height:     38px;
-    width:      38px;
-    position:   absolute;
-    margin-top: -10px;
-}
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+            }
 
-li span {
-    margin-left: 60px;
-}
+            @-moz-keyframes slide_up {
+                0% {-moz-transform: translateY(200px);}
+                100% {-moz-transform: translateY(0px);}
+            }
 
-ul {
-    position: absolute;
-    padding: 0px;
-    left:0px;
-    right:0px;
-    margin: 0px;
-    z-index: -1;
-}
+            @-moz-keyframes slide_down {
+                0% {-moz-transform: translateY(-200px);}
+                100% {-moz-transform: translateY(0px);}
+            }
 
-button {
-    float: right;
-    margin-right: 10px;
-    background-image: URL("images/button_default.png");
-    background-size:  100% 100%;
-    background-color: transparent;
-    border: none;
-    color: #e3e3e3;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 4px;
-}
+            @-moz-keyframes slide_left {
+                0% {-moz-transform: translateX(200px);}
+                100% {-moz-transform: translateX(0px);}
+            }
 
-h2 {
-    margin-left: 10px;
-}
-
+            @-moz-keyframes slide_right {
+                0% {-moz-transform: translateX(-200px);}
+                100% {-moz-transform: translateX(0px);}
+            }
 
 table {
     width:   100%;
@@ -151,7 +142,7 @@ tr {
 }
 
 tr.sec {
-    
+
 }
 
 td {
@@ -188,104 +179,6 @@ td.trackTitle {
     padding-left:  10px;
     padding-right: 10px;
     max-width:     400px;
-}
-
-td.albumName {
-    width: auto;
-}
-
-td.artistName {
-    width: auto;
-}
-
-td.buyButton {
-    width:      50px;
-    text-align: center;
-}
-
-td.playButton {
-    width:      50px;
-    text-align: center;
-}
-
-td.spacer {
-    width: auto;
-}
-
-#wallpaper {
-    position: fixed;
-    width:    100%;
-    height:   100%;
-    top:      0px;
-    left:     0px;
-    z-index:  -2;
-}
-
-#loginForm {
-    color:            #e3e3e3;
-    position:         fixed;
-    bottom:           100px;
-    left:             100px;
-    padding:          20px;
-    background-color: rgba(31, 29, 38, 0.8);
-    box-shadow:       0px 0px 10px #000;
-    animation:        fadeRight 1s;
-    -moz-animation:   fadeRight 1s;
-    -webkit-animation:fadeRight 1s;
-}
-
-#regForm {
-    color:            #e3e3e3;
-    position:         fixed;
-    bottom:           100px;
-    left:             100px;
-    padding:          20px;
-    background-color: rgba(31, 29, 38, 0.8);
-    box-shadow:       0px 0px 10px #000;
-    animation:        fadeRight 1s;
-    -moz-animation:   fadeRight 1s;
-    -webkit-animation:fadeRight 1s;
-}
-
-#loginForm input {
-    width: 100%;
-}
-
-#overlay_logo {
-    position: fixed;
-    bottom:   10px;
-    right:    10px;
-}
-
-input {
-    background-color: #fff;
-    color:            #000;
-    font-size:        14px;
-    border:           none;
-    margin-top:       5px;
-    padding:          5px;
-    border-radius:    2px;
-}
-
-h1 {
-    color: #e3e3e3;
-}
-
-header a {
-    float: right;
-    margin-left: 10px;
-    margin-top:  15px;
-}
-
-header input {
-    float: right;
-    margin-left:  10px;
-    margin-top:   15px;
-    margin-right: 10px;
-}
-
-#fopen {
-    display: none;
 }
 
 @keyframes fadeRight {
@@ -353,6 +246,19 @@ header input {
     height: 200px;
 }
 
+#newTicketForm {
+    display:           none;
+    animation:         expand 0.7s;
+    -moz-animation:    expand 0.7s;
+    -webkit-animation: expand 0.7s;
+}
+
+#ticketIssue {
+    width:  300px;
+    height: 200px;
+    margin-top: 10px;
+}
+
 @-moz-keyframes glow {
     0% {
         box-shadow: 0px 0px 3px;
@@ -364,5 +270,16 @@ header input {
     
     100% {
         box-shadow: 0px 0px 3px;
+    }
+}
+
+@-moz-keyframes expand {
+    0% {
+        opacity: 0.0;
+        -moz-transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1.0;
+        -moz-transform: translateY(0px);
     }
 }

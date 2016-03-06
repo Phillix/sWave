@@ -37,37 +37,30 @@ public class SongDao extends Dao implements SongDaoInterface {
         Connection con        = null;
         PreparedStatement ps  = null;
         ResultSet rs          = null;
-        ArrayList<Song> songs = null;
+        ArrayList<Song> songs = new ArrayList<>();
 
         try {
-
             con          = getConnection();
             String query = "SELECT * FROM " + TABLE_NAME;
             ps           = con.prepareStatement(query);
             rs           = ps.executeQuery();
 
             while (rs.next()) {
-                Blob songDataBlob = rs.getBlob(SONGDATA);
-                byte songdata[]   = new byte[(int)songDataBlob.length()];
-                songdata = songDataBlob.getBytes(0, (int)songDataBlob.length());
-                Song s   = new Song(rs.getString(TITLE),
+                Song s   = new Song(rs.getInt(SONGID),
+                                    rs.getString(TITLE),
                                     rs.getString(ARTIST),
                                     rs.getString(GENRE),
                                     rs.getInt(RELYEAR),
                                     rs.getDouble(PRICE),
-                                    rs.getString(LICENCE),
-                                    songdata);
+                                    rs.getString(LICENCE)
+                                    ); //We don't want the songdata here
                 songs.add(s);
             }
             return songs;
         }
-        catch (ClassNotFoundException ex1) {
+        catch (ClassNotFoundException | SQLException ex) {
             if (DEBUG)
-                ex1.printStackTrace();
-        }
-        catch (SQLException ex2) {
-            if (DEBUG)
-                ex2.printStackTrace();
+                ex.printStackTrace();
         }
         finally {
             try {
@@ -182,7 +175,8 @@ public class SongDao extends Dao implements SongDaoInterface {
                 byte songdata[]   = null;
                 if (songDataBlob != null)
                     songdata = songDataBlob.getBytes(1, (int)songDataBlob.length());
-                return new Song(rs.getString(TITLE),
+                return new Song(rs.getInt(SONGID),
+                                rs.getString(TITLE),
                                 rs.getString(ARTIST),
                                 rs.getString(GENRE),
                                 rs.getInt(RELYEAR),

@@ -1,21 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    String currentSkin;
-    if (request.getParameter("skin") == null || request.getParameter("skin").isEmpty()) {
-        currentSkin = "nova";
-    }
-    else {
-        currentSkin = request.getParameter("skin");
-    }
-%>
+<% if (session.getAttribute("user") != null) {
+    response.sendRedirect("index.jsp");
+}%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <!-- Custom skin not possible until after login, using 'nova' by default -->
-        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=currentSkin%>/<%=currentSkin%>.css"/>
+        <!-- Custom skin not possible until after login, using 'flat' by default -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/flat/flat.css"/>
         <link rel="stylesheet" type="text/css" href="css/login.css"/>
         <!-- Needed to shake login box -->
         <script src="macgril/js/dom.js"></script>
@@ -30,7 +24,6 @@
                 <input class="text" required type="password" name="password" placeholder="Password"/><br/><br/>
                 <span id="noAccount">Don't Have an Account Yet?&#160;&#160;<a href="register.jsp">Register</a></span><br/><br/>
                 <input id="loginButton" type="submit" value="Login"/>
-                <input id="cancelButton" type="button" value="Cancel" onclick="window.location='index.jsp';"/>
             </form>
         </div>
         <div id="wallpaper"></div>

@@ -62,7 +62,7 @@ public class SongDaoTest {
     public void testGetSongById() {
         System.out.println("getSongById");
         SongDao instance = new SongDao();
-        Song expResult   = new Song("Title", "Artist", "Genre", 1970, 2.99, "Public Domain", null);
+        Song expResult   = new Song(-1, "Title", "Artist", "Genre", 1970, 2.99, "Public Domain", null);
         Song result      = instance.getSongById(-1);
         assertEquals("Result did not match expected dummy data", expResult, result);
     }

@@ -35,9 +35,10 @@ public class Song {
      * @param genre The genre of the song
      * @param relYear The year the song was released
      * @param price How much the song costs
-     * @param licence The licence for the song
+     * @param licence The license for the song
      */
-    public Song(String title, String artist, String genre, int relYear, double price, String licence, byte[] songdata) {
+    public Song(int songId, String title, String artist, String genre, int relYear, double price, String licence, byte[] songdata) {
+        this.songId   = songId;
         this.title    = title;
         this.artist   = artist;
         this.genre    = genre;
@@ -45,6 +46,17 @@ public class Song {
         this.price    = price;
         this.licence  = licence;
         this.songdata = songdata;
+    }
+
+    //A version without the songdata for listings etc.
+    public Song(int songId, String title, String artist, String genre, int relYear, double price, String licence) {
+        this.songId   = songId;
+        this.title    = title;
+        this.artist   = artist;
+        this.genre    = genre;
+        this.relYear  = relYear;
+        this.price    = price;
+        this.licence  = licence;
     }
 
     public int getSongId() {

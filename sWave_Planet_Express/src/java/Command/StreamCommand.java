@@ -5,13 +5,8 @@ import Dtos.Song;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sWaveEngine.SongLocking;
 
 /**
  *
@@ -40,6 +35,7 @@ public class StreamCommand implements Command {
             }
         }
         //SongLocking.setLock(Integer.parseInt(request.getParameter("songid")), SongLocking.getLocks(Integer.parseInt(request.getParameter("songid"))));
-        return "/stream_test.jsp?filename=" + filename;
+        System.out.println(request.getRequestURL());
+        return "/" + request.getParameter("page") + ".jsp?filename=" + filename + "&playid=" + request.getParameter("songid");
     }
 }

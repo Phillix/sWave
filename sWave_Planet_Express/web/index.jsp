@@ -1,3 +1,5 @@
+<%@page import="Dtos.Ad"%>
+<%@page import="Daos.AdDao"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,6 +8,7 @@
         <%User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to sWave</title>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <%
             String skin = "flat";
@@ -14,129 +17,23 @@
             }
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
-        <style>
-            #topbar {
-                -moz-animation: slide_down 0.7s;
-                position: fixed;
-                top:      0px;
-                left:     0px;
-                width:    100%;
-                height:   60px;
-                padding:  0px;
-                z-index:  2;
-                box-shadow: 0px 0px 3px #000;
-            }
-
-            #base {
-                -moz-animation: slide_up 0.7s;
-                position: fixed;
-                bottom:   0px;
-                left:     0px;
-                width:    100%;
-                height:   90px;
-                padding:  0px;
-                z-index:  2;
-                box-shadow: 0px 0px 3px #000;
-            }
-
-            #midsection {
-                position: fixed;
-                left:     200px;
-                right:    200px;
-                top:      60px;
-                bottom:   90px;
-                padding:  0px;
-                z-index:  0;
-            }
-
-            #left_sidebar {
-                -moz-animation: slide_right 0.7s;
-                position: fixed;
-                left:     0px;
-                top:      60px;
-                bottom:   90px;
-                width:    200px;
-                padding:  0px;
-                z-index:  1;
-                box-shadow: 0px 0px 3px #000;
-            }
-
-            #right_sidebar {
-                -moz-animation: slide_left 0.7s;
-                position: fixed;
-                right:    0px;
-                top:      60px;
-                bottom:   90px;
-                width:    200px;
-                padding:  0px;
-                z-index:  1;
-                box-shadow: 0px 0px 3px #000;
-            }
-
-            #header_logo {
-            }
-
-            #header_right {
-                position: fixed;
-                top:      18px;
-                right:    20px;
-            }
-
-            nav {
-                position: fixed;
-                top:      0px;
-                left:     200px;
-                height:   60px;
-            }
-
-            nav a {
-                display:       inline-block;
-                color:         #000;
-                height:        24px;
-                text-align:    center;
-                padding-left:  10px;
-                padding-right: 10px;
-                margin:        0px;
-                font-size:     24px;
-                padding-top:    14px;
-                padding-bottom: 22px;
-            }
-
-            nav a:hover {
-                background-color: rgba(255, 255, 255, 0.5);
-            }
-
-            @-moz-keyframes slide_up {
-                0% {-moz-transform: translateY(200px);}
-                100% {-moz-transform: translateY(0px);}
-            }
-
-            @-moz-keyframes slide_down {
-                0% {-moz-transform: translateY(-200px);}
-                100% {-moz-transform: translateY(0px);}
-            }
-
-            @-moz-keyframes slide_left {
-                0% {-moz-transform: translateX(200px);}
-                100% {-moz-transform: translateX(0px);}
-            }
-
-            @-moz-keyframes slide_right {
-                0% {-moz-transform: translateX(-200px);}
-                100% {-moz-transform: translateX(0px);}
-            }
-        </style>
+        <script src="macgril/js/dom.js"></script>
+        <script src="macgril/js/io.js"></script>
+        <script src="macgril/js/datetime.js"></script>
+        <script src="macgril/js/windowing.js"></script>
+        <script src="macgril/js/audio.js"></script>
+        <script src="js/three.min.js"></script>
+        <script src="js/visualizer.js"></script>
     </head>
-    <body>
+    <body onload="initAudioSystem()">
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a href="temp.html">Now Playing</a>
-                <a href="temp.html">Library</a>
-                <a href="temp.html">Music</a>
-                <a href="temp.html">Shop</a>
-                <a href="temp.html">Account</a>
-                <a href="temp.html">About</a>
+                <a href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
+                <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
+                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
+                <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
+                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -159,10 +56,16 @@
         <div id="midsection">
         </div>
         <aside class="panel" id="right_sidebar">
+            <%
+                AdDao ads = new AdDao();
+                Ad ad = ads.getAd((int)Math.floor(Math.random() * ads.getMaxAdId()));
+            %>
+            <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>
         <footer class="panel" id="base">
         </footer>
         <div id="wallpaper"></div>
+        <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
     </body>
 </html>
 

@@ -1,9 +1,7 @@
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Daos.TicketDao"%>
-<%@page import="Dtos.Ticket"%>
-<%@page import="Dtos.Ticket"%>
+<%@page import="Dtos.Song"%>
+<%@page import="Daos.SongDao"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -54,45 +52,34 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <h2>Profile</h2>
-            <h2>Tickets</h2>
-            <h2>Settings</h2>
-            <h2>Admin</h2>
+            <h2>sWave Streams</h2>
+            <h2>Local Tracks</h2>
+            <h2>Internet Radio</h2>
         </aside>
         <div id="midsection">
-            <div id="profile">
-                Username: <%=currentUser.getUsername()%><br/>
-                Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%><br/>
-                Email: <%=currentUser.getEmail()%><br/>
-            </div>
-            <div id="tickets">
-                <h1>Tickets</h1>
-                <button id="cancelNewTicketButton" style="display:none;" onclick="$('newTicketForm').style.display='none'; $('cancelNewTicketButton').style.display='none'; $('newTicketButton').style.display='block'">Cancel</button>
-                <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'">Open Ticket</button><br/>
-                <form id="newTicketForm" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="createTicket"/>
-                    <input type="hidden" name="userId" value="<%=currentUser.getUserId()%>"/>
-                    <textarea id="ticketIssue" name="issue" placeholder="Use this area to describe your issue"></textarea><br/><br/>
-                    <input type="submit" value="Open"/>
-                </form>
-                <%
-                TicketDao tickDao = new TicketDao();
-                for (Ticket t : tickDao.getCurrTickets()) {%>
-                <ol>
-                    <li>
-                        <h2>Ticket <%=t.getTicketId()%></h2>
-                        <h5>Date: <%=t.getDateRaised()%></h5>
-                        <%=t.getIssue()%>
-                    </li>
-                </ol>
-                <%}%>
-            </div>
-            <div id="settings">
-                Current Skin: <%=currentUser.getSkin()%>
-            </div>
-            <div id="admin">
-                <iframe src="upload.jsp"></iframe>
-            </div>
+        <table>
+        <%
+            SongDao dao = new SongDao();
+            for (Song s : dao.getAllSongs()) {%>
+                <tr>
+                    <%if (DEBUG) {%>
+                        <td><%=request.getParameter("playid")%></td>
+                        <td><%=s.getSongId()%></td>
+                    <%}%>
+                    <td><%=s.getTitle()%></td>
+                    <td><%=s.getArtist()%></td>
+                    <td><%=s.getGenre()%></td>
+                    <td><%=s.getRelYear()%></td>
+                    <td><form action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="stream"/>
+                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                            <input type="hidden" name="page" value="music"/>
+                            <input type="submit" value="Play"/>
+                        </form>
+                    </td>
+                </tr>
+        <%}%>
+        </table>
         </div>
         <aside class="panel" id="right_sidebar">
             <%
@@ -107,3 +94,4 @@
         <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
     </body>
 </html>
+

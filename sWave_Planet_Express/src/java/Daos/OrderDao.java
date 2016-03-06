@@ -1,6 +1,9 @@
 package Daos;
 
+import Dtos.Merch;
 import Dtos.Order;
+import Dtos.OrderMerch;
+import Dtos.UltimateOrder;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
  */
 public class OrderDao extends Dao implements OrderDaoInterface {
 
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = Debugging.Debug.debug;
 
     private final String TABLE_NAME  = "ORDERS";
     private final String ID          = "ORDERID";
@@ -22,6 +25,11 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     private final String DATEORDERED = "DATEORDERED";
     private final String TOTAL       = "TOTAL";
 
+    /**
+     * 
+     * @param o the order object to be created
+     * @return int value indicating success/failures
+     */
     public int createOrder(Order o) {
 
         Connection con = null;
@@ -128,5 +136,35 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             }
         }
         return orders;
+    }
+    /**
+     * 
+     * @param userId the id of the user whos order details are wanted
+     * @return ArrayList of UltimateOrders
+     */
+    public ArrayList<UltimateOrder> getFullOrders(int userId) {
+
+        UltimateOrder ultimateOrder;
+        OrderMerchDao omDao = new OrderMerchDao();
+        MerchDao mDao = new MerchDao();
+        //get collection of users orders
+        ArrayList<Order> orders = getUserOrders(userId);
+        ArrayList<UltimateOrder> ultiOrders = new ArrayList<UltimateOrder>();
+        ArrayList<OrderMerch> oMerch;
+        ArrayList<Merch> merch;
+        
+        //iterate through orders passing id into other function
+        for(int i = 0; i < orders.size(); i++) {
+            //build arrayList of orderMerch using order ids
+            oMerch = omDao.getOrderMerchInOrder(orders.get(i).getOrderId());
+            //get all individual merch beloning to an orderMerch
+            merch = mDao.getMerchInOrder(oMerch);
+            //create an ultimateOrder with an order and its relevent orderMerch and Merch Collections 
+            ultimateOrder = new UltimateOrder(orders.get(i),oMerch,merch);
+            //add to Collection of UltimateOrders
+            ultiOrders.add(ultimateOrder);
+        }
+        
+        return ultiOrders;
     }
 }

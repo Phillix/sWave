@@ -1,5 +1,7 @@
 package Command;
 
+import Daos.LockDao;
+import Dtos.User;
 import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,19 +19,10 @@ public class LogoutCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-
-        //If a file is on the server for streaming to this user delete it
-        try {
-            File current = new File("../webapps/ROOT/" + session.getId() + ".mp3");
-            current.delete();
-        } catch (Exception e) {
-            //The file probably didn't exist
-            if (DEBUG)
-                e.printStackTrace();
-        }
-        finally {
-            session.invalidate();
-            return "/index.jsp";
-        }
+        //Remove any locks a user has on a song before logging them out
+        LockDao locks = new LockDao();
+        locks.releaseUserLocks(((User)session.getAttribute("user")).getUserId());
+        session.invalidate(); //Invalidate the session
+        return "/login.jsp";
     }
 }

@@ -25,9 +25,10 @@ public class LockDao extends Dao implements LockDaoInterface {
 
         try {
             con = getConnection();
-            ps  = con.prepareStatement("INSERT INTO " + TABLE_NAME + " VALUES (?, ?)");
+            ps  = con.prepareStatement("INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?)");
             ps.setInt(1, x.getUserid());
             ps.setInt(2, x.getSongid());
+            ps.setLong(3, x.getLockTime());
             rs  = ps.executeQuery();
         }
         catch(ClassNotFoundException | SQLException e) {
@@ -52,7 +53,7 @@ public class LockDao extends Dao implements LockDaoInterface {
     }
 
     @Override
-    public void clearLocks(int userId) {
+    public void releaseUserLocks(int userId) {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
@@ -84,7 +85,7 @@ public class LockDao extends Dao implements LockDaoInterface {
     }
 
     @Override
-    public void clearSongLocks(int songId) {
+    public void releaseSongLocks(int songId) {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
@@ -116,7 +117,7 @@ public class LockDao extends Dao implements LockDaoInterface {
     }
 
     @Override
-    public void clearAllLocks() {
+    public void releaseAllLocks() {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;

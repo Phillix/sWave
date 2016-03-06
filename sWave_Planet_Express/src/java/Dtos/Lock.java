@@ -6,8 +6,9 @@ package Dtos;
  */
 public class Lock {
 
-    private int songid;
-    private int userid;
+    private int  songid;
+    private int  userid;
+    private long lockTime;
 
     public int getSongid() {
         return songid;
@@ -25,9 +26,16 @@ public class Lock {
         this.userid = userid;
     }
 
-    @Override
-    public String toString() {
-        return "Lock{" + "songid=" + songid + ", userid=" + userid + '}';
+    public long getLockTime() {
+        return lockTime;
     }
 
+    public void setLockTime(long lockTime) {
+        this.lockTime = lockTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Lock{" + "songid=" + songid + ", userid=" + userid + ", lockTime=" + lockTime + '}';
+    }
 }

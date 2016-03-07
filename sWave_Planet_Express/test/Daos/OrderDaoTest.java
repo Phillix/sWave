@@ -40,16 +40,16 @@ public class OrderDaoTest {
     /**
      * Test of createOrder method, of class OrderDao.
      */
-//    @Test
-//    public void testCreateOrder() {
-//        
-//        int userId = 1;
-//        Order o = new Order(userId);
-//        int expResult = 0;
-//        int result = instance.createOrder(o);
-//        assertEquals(expResult, result);   
-//    }
-//    
+    @Test
+    public void testCreateOrder() {
+        
+        int userId = -1;
+        Order o = new Order(userId,99.99);
+        int expResult = 0;
+        int result = instance.createOrder(o);
+        assertEquals(expResult, result);   
+    }
+    
     /**
      * Test of getUserOrders method, of class OrderDao.
      */

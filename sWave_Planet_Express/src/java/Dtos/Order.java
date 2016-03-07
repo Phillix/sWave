@@ -20,13 +20,16 @@ public class Order {
         total       = 0;
     }
 
+   
     /**
-     *
-     * @param userId id of user order belongs to
+     * all fields except userId and total are auto generated
+     * @param userId id of the user the order belongs to
+     * @param total total cost of the order
      */
-    public Order(int userId) {
+    public Order(int userId, double total) {
         orderId     = 0;
         this.userId = userId;
+        this.total = total;
     }
 
     public int getOrderId() {

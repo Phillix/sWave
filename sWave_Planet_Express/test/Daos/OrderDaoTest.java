@@ -74,15 +74,49 @@ public class OrderDaoTest {
     @Test
     public void testGetFullOrders() {
         
-        int userId = 1;
+        int userId = -1;
         ArrayList<UltimateOrder> orders = instance.getFullOrders(userId);
         UltimateOrder uo = orders.get(0);
-        System.out.println(uo.getTotal());
-        System.out.println(uo.getDateOrdered());
-        for(int i = 0; i < uo.getSize(); i++) {
-            System.out.println(uo.getTitle(i));
-            System.out.println(uo.getQty(i));
-            System.out.println(uo.getPrice(i));
+        System.out.println("Order total: " + uo.getTotal());
+        System.out.println("Date Ordered: " + uo.getDateOrdered());
+        
+        int merchSize = uo.getMerchSize();
+        int songSize = uo.getSongSize();
+        
+        if(orders != null) {
+            if(songSize > merchSize) {
+                for(int i = 0; i < songSize; i++) {
+                    System.out.println("song id: " + uo.getSongId(i));
+                    System.out.println("song price: " + uo.getSongPrice(i));
+
+                    if(i < merchSize) {
+                        System.out.println("merch title: " + uo.getTitle(i));
+                        System.out.println("merch qty: " + uo.getQty(i));
+                        System.out.println("merch price: " + uo.getMerchPrice(i));
+                    }
+                }
+            } else if(songSize < merchSize) {
+                for(int i = 0; i < merchSize; i++) {
+                        System.out.println("merch title: " + uo.getTitle(i));
+                        System.out.println("merch qty: " + uo.getQty(i));
+                        System.out.println("merch price: " + uo.getMerchPrice(i));
+
+                    if(i < songSize) {
+                        System.out.println("song id: " + uo.getSongId(i));
+                        System.out.println("song price: " + uo.getSongPrice(i));
+                    }
+                }
+            } else {
+                for(int i = 0; i < songSize; i++) {
+                    System.out.println("song id: " + uo.getSongId(i));
+                    System.out.println("song price: " + uo.getSongPrice(i));
+                    
+                    System.out.println("merch title: " + uo.getTitle(i));
+                    System.out.println("merch qty: " + uo.getQty(i));
+                    System.out.println("merch price: " + uo.getMerchPrice(i));
+                } 
+            }
         }
+        
     }
 }

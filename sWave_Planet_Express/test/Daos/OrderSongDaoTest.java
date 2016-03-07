@@ -6,6 +6,7 @@
 package Daos;
 
 import Dtos.OrderSong;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -52,4 +53,16 @@ public class OrderSongDaoTest {
         assertEquals(expResult, result);
     }
     
+    /**
+    * Test of getOrderSongInOrder method, of class OrderSongDao.
+    */
+    @Test
+    public void testGetOrderSongInOrder() {
+        
+        instance = new OrderSongDao();
+        ArrayList<OrderSong> os = instance.getOrderSongInOrder(-1);
+        for(OrderSong o : os) {
+            System.out.println(o);
+        }
+    }
 }

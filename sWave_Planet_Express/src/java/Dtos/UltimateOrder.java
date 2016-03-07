@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author Phillix
  */
 public class UltimateOrder {
-    
+
     private final int SIZE;
     private double total;
     private String dateOrdered;
     private int[] qty;
     private double[] price;
     private String[] title;
-    
+
     public UltimateOrder() {
         SIZE = 0;  
         total = 50.0;
@@ -28,34 +28,33 @@ public class UltimateOrder {
         price = new double[]{20.0};
         title = new String[]{"testcase"};
     }
-    
+
     /**
-     * 
+     *
      * @param o single order object
      * @param om Collection of orderMerch belonging to the given order
      * @param m Collection of Merch belonging to the given order
      */
     public UltimateOrder(Order o, ArrayList<OrderMerch> om, ArrayList<Merch> m) {
-        
+
         SIZE = m.size();
         qty = new int[SIZE];
         price = new double[SIZE];
         title = new String[SIZE];
         total = o.getTotal();
         dateOrdered = o.getDateOrdered();
-        
+
         for(int i = 0; i < SIZE; i++) {
             title[i] = m.get(i).getTitle();
             qty[i] = om.get(i).getQty();
             price[i] = om.get(i).getPricePaid();
         }
-        
     }
 
     public int getSize() {
         return SIZE;
     }
-    
+
     public double getTotal() {
         return total;
     }
@@ -94,6 +93,5 @@ public class UltimateOrder {
 
     public void setTitle(String[] title) {
         this.title = title;
-    }   
-    
+    }
 }

@@ -142,7 +142,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         ArrayList<UltimateOrder> ultiOrders = new ArrayList<UltimateOrder>();
         ArrayList<OrderMerch> oMerch;
         ArrayList<Merch> merch;
-        
+
         //iterate through orders passing id into other function
         for(int i = 0; i < orders.size(); i++) {
             //build arrayList of orderMerch using order ids
@@ -154,7 +154,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             //add to Collection of UltimateOrders
             ultiOrders.add(ultimateOrder);
         }
-        
+
         return ultiOrders;
     }
 }

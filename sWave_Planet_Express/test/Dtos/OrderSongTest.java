@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dtos;
 
 import org.junit.After;
@@ -15,6 +10,7 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Phillix
+ * @author Austin
  */
 public class OrderSongTest {
     
@@ -32,6 +28,7 @@ public class OrderSongTest {
     
     @Before
     public void setUp() {
+        instance = new OrderSong();
     }
     
     @After
@@ -39,86 +36,145 @@ public class OrderSongTest {
     }
 
     /**
-     * Test of getOrderId method, of class OrderSong.
+     * Test of getOrderId method being valid, of class OrderSong.
      */
     @Test
-    public void testGetOrderId() {
-        
-        instance = new OrderSong();
+    public void testGetOrderIdValid() {
         int expResult = -1;
         int result = instance.getOrderId();
         assertEquals(expResult, result);
     }
-
+    
     /**
-     * Test of setOrderId method, of class OrderSong.
+     * Test of getOrderId method being invalid, of class OrderSong.
      */
     @Test
-    public void testSetOrderId() {
-        
-        int orderId = 0;
-        OrderSong instance = new OrderSong();
-        instance.setOrderId(orderId);
-        assertEquals(orderId, instance.getOrderId());
-    }
-
-    /**
-     * Test of getSongId method, of class OrderSong.
-     */
-    @Test
-    public void testGetSongId() {
-        
-        instance = new OrderSong();
-        int expResult = -1;
-        int result = instance.getSongId();
+    public void testGetOrderIdInvalid() {
+        boolean expResult = false;
+        boolean result = instance.getOrderId() == -2;
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of setSongId method, of class OrderSong.
+     * Test of setOrderId method being valid, of class OrderSong.
      */
     @Test
-    public void testSetSongId() {
-        
-        int songId = 0;
-        OrderSong instance = new OrderSong();
-        instance.setSongId(songId);
-        assertEquals(songId, instance.getSongId());
+    public void testSetOrderIdValid() {
+        int orderId = 0;
+        instance.setOrderId(orderId);
+        assertEquals(orderId, instance.getOrderId());
+    }
+    
+    /**
+     * Test of setOrderId method being invalid, of class OrderSong.
+     */
+    @Test
+    public void testSetOrderIdInValid() {
+        boolean expResult = false;
+        instance.setOrderId(-43);
+        boolean result = instance.getOrderId() == -1;
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of getPricePaid method, of class OrderSong.
+     * Test of getSongId method being valid, of class OrderSong.
      */
     @Test
-    public void testGetPricePaid() {
-        
-        instance = new OrderSong();
+    public void testGetSongIdValid() {
+        int expResult = -1;
+        int result = instance.getSongId();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getSongId method being invalid, of class OrderSong.
+     */
+    @Test
+    public void testGetSongIdInvalid() {
+        boolean expResult = false;
+        boolean result = instance.getSongId() == -2;
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setSongId method being valid, of class OrderSong.
+     */
+    @Test
+    public void testSetSongIdValid() {
+        int songId = 0;
+        instance.setSongId(songId);
+        assertEquals(songId, instance.getSongId());
+    }
+    
+    /**
+     * Test of setSongId method being invalid, of class OrderSong.
+     */
+    @Test
+    public void testSetSongIdInvalid() {
+        boolean expResult = false;
+        instance.setSongId(-23);
+        boolean result = instance.getSongId() == -1;
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getPricePaid method being valid, of class OrderSong.
+     */
+    @Test
+    public void testGetPricePaidValid() {
         double expResult = 20.0;
         double result = instance.getPricePaid();
         assertEquals(expResult, result, 0.0);
     }
-
+    
     /**
-     * Test of setPricePaid method, of class OrderSong.
+     * Test of getPricePaid method being invalid, of class OrderSong.
      */
     @Test
-    public void testSetPricePaid() {
-        
-        double pricePaid = 0.0;
-        instance = new OrderSong();
-        instance.setPricePaid(pricePaid);
-        assertEquals(pricePaid, instance.getPricePaid(),0.01);
+    public void testGetPricePaidInvalid() {
+        boolean expResult = false;
+        boolean result = instance.getPricePaid() == 20.00001;
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of toString method, of class OrderSong.
+     * Test of setPricePaid method being valid, of class OrderSong.
      */
     @Test
-    public void testToString() {
-        
-        instance = new OrderSong();
+    public void testSetPricePaidValid() {
+        double pricePaid = 0.0;
+        instance.setPricePaid(pricePaid);
+        assertEquals(pricePaid, instance.getPricePaid(),0.01);
+    }
+    
+    /**
+     * Test of setPricePaid method being invalid, of class OrderSong.
+     */
+    @Test
+    public void testSetPricePaidInvalid() {
+        boolean expResult = false;
+        instance.setPricePaid(120.1);
+        boolean result = instance.getPricePaid() == 0.0;
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of toString method being valid, of class OrderSong.
+     */
+    @Test
+    public void testToStringValid() {
         String expResult = "OrderSong{orderId=-1, songId=-1, pricePaid=20.0}";
         String result = instance.toString();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of toString method being invalid, of class OrderSong.
+     */
+    @Test
+    public void testToStringInvalid() {
+        boolean expResult = false;
+        boolean result = instance.toString().equals("Ordersong{orderId=-3, songId=1, priceP4id=20,0}");
         assertEquals(expResult, result);
     }
     

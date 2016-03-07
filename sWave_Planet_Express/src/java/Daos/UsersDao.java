@@ -345,4 +345,61 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         return OTHER;
     }
+    
+    public User getUserById(int id) {
+
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+        User u               = null;
+        UserSecurity ms      = new UserSecurity();
+
+        try{
+            con          = getConnection();
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + USERID + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if(rs.next()) {
+                
+                u = new User();
+                u.setUserId(rs.getInt(USERID));
+                u.setUsername(rs.getString(UNAME));
+                u.setPassword("uh-uh-uh! you didnt say the magic word!");
+                u.setEmail(rs.getString(EMAIL));
+                u.setFname(rs.getString(FNAME));
+                u.setLname(rs.getString(LNAME));
+                u.setAdd1(rs.getString(ADD1));
+                u.setAdd2(rs.getString(ADD2));
+                u.setCity(rs.getString(CITY));
+                u.setCounty(rs.getString(COUNTY));
+                u.setSkin(rs.getString(SKIN));
+                u.setIsAdmin(rs.getBoolean(ADMIN));
+
+                return u;
+                
+            }
+        }
+        catch(Exception e) {
+            if (DEBUG)
+                e.printStackTrace();
+        }
+        finally {
+            try {
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 }

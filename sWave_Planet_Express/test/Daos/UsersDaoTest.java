@@ -113,5 +113,15 @@ public class UsersDaoTest {
         assertEquals(0, result);
     }
     
-    
+    /**
+     * Test of getUserById method, of class UsersDao.
+     */
+    @Test
+    public void testGetUserById() {
+        
+        User uidTest = ud.getUserById(-1);
+        String result = uidTest.getUsername();
+        String expected = "appelman";
+        assertEquals(expected, result);
+    }
 }

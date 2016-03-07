@@ -1,5 +1,6 @@
 package Command;
 
+import Daos.LockDao;
 import Daos.SongDao;
 import Dtos.User;
 import javax.servlet.http.HttpServletRequest;
@@ -12,23 +13,29 @@ import javax.servlet.http.HttpSession;
  */
 public class DeleteSongCommand implements Command {
 
+    private static final boolean DEBUG = Debugging.Debug.debug;
+
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
+
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
         SongDao sd = new SongDao();
-        
+
         try {
             int songId = Integer.valueOf(request.getParameter("songid"));
             int result;
             if (u != null && u.isIsAdmin()) {
                 result = sd.deleteSong(songId);
                 if (result > 0) {
+                    LockDao locks = new LockDao();
+                    locks.releaseSongLocks(songId);
                     return "/admin_panel.jsp";
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            if (DEBUG)
+                e.printStackTrace();
         }
         return "/error.jsp";
     }

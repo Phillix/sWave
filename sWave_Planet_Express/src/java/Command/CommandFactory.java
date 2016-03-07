@@ -26,6 +26,12 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("stream") ) {
             //Allows Streaming
             command = new StreamCommand();
+        } else if ( action.equalsIgnoreCase("search") ) {
+            //For searching for songs
+            command = new SearchCommand();
+        } else if ( action.equalsIgnoreCase("deleteSong") ) {
+            //Deleting a song from the database
+            command = new DeleteSongCommand();
         } else {
             command = new DummyCommand();
         }

@@ -266,4 +266,45 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         return songs;
     }
+    
+    /**
+     * This method is used for deleting songs from the database
+     * @param songId The id of the song we want to delete
+     * @return Success(0) if the song was deleted or OTHER(-5) if not
+     */
+    public int deleteSong(int songId) {
+        Connection con        = null;
+        PreparedStatement ps  = null;
+
+        try {
+            con          = getConnection();
+            String query = "DELETE FROM " + TABLE_NAME + " WHERE " + SONGID + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setInt(1, songId);
+            int result = ps.executeUpdate();
+
+            if (result > 0) return SUCCESS;
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+        }
+        finally {
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return OTHER;
+    }
 }

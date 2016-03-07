@@ -9,7 +9,7 @@
         <h1>Unauthorized Access</h1>
         <h3>You Do Not Have Permission to View this Page!</h3>
         <span>Only system administrators may use the features of this page.</span><br/>
-        <span>If you are an admin please <a href="login.jsp">log in</a> your admin account.</span><br/>
+        <span>If you are an admin please log out and log back into your admin account.</span><br/>
         <a href="index.jsp">Go Home</a>
     </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="Daos.UsersDao"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -53,45 +54,64 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <h2>Profile</h2>
-            <h2>Tickets</h2>
-            <h2>Settings</h2>
-            <h2>Admin</h2>
+            <a href="account.jsp?view=profile"><h2>Profile</h2></a>
+            <a href="account.jsp?view=tickets"><h2>Tickets</h2></a>
+            <a href="account.jsp?view=settings"><h2>Settings</h2></a>
+            <%if (currentUser.isIsAdmin()) {%>
+                <a href="account.jsp?view=admin"><h2>Admin</h2></a>
+            <%}%>
         </aside>
         <div id="midsection">
-            <div id="profile">
-                Username: <%=currentUser.getUsername()%><br/>
-                Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%><br/>
-                Email: <%=currentUser.getEmail()%><br/>
-            </div>
-            <div id="tickets">
-                <h1>Tickets</h1>
-                <button id="cancelNewTicketButton" style="display:none;" onclick="$('newTicketForm').style.display='none'; $('cancelNewTicketButton').style.display='none'; $('newTicketButton').style.display='block'">Cancel</button>
-                <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'">Open Ticket</button><br/>
-                <form id="newTicketForm" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="createTicket"/>
-                    <input type="hidden" name="userId" value="<%=currentUser.getUserId()%>"/>
-                    <textarea id="ticketIssue" name="issue" placeholder="Use this area to describe your issue"></textarea><br/><br/>
-                    <input type="submit" value="Open"/>
-                </form>
-                <%
-                TicketDao tickDao = new TicketDao();
-                for (Ticket t : tickDao.getCurrTickets()) {%>
-                <ol>
-                    <li>
-                        <h2>Ticket <%=t.getTicketId()%></h2>
-                        <h5>Date: <%=t.getDateRaised()%></h5>
-                        <%=t.getIssue()%>
-                    </li>
-                </ol>
-                <%}%>
-            </div>
-            <div id="settings">
-                Current Skin: <%=currentUser.getSkin()%>
-            </div>
-            <div id="admin">
-                <iframe src="upload.jsp"></iframe>
-            </div>
+            <%if (request.getParameter("view") != null) {
+                if (request.getParameter("view").equals("profile")) {%>
+                    Username: <%=currentUser.getUsername()%><br/>
+                    Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%><br/>
+                    Email: <%=currentUser.getEmail()%><br/>
+                <%} else if (request.getParameter("view").equals("tickets")) {%>
+                    <h1>Tickets</h1>
+                    <button id="cancelNewTicketButton" style="display:none;" onclick="$('newTicketForm').style.display='none'; $('cancelNewTicketButton').style.display='none'; $('newTicketButton').style.display='block'">Cancel</button>
+                    <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'">Open Ticket</button><br/>
+                    <form id="newTicketForm" action="UserActionServlet" method="POST">
+                        <input type="hidden" name="action" value="createTicket"/>
+                        <input type="hidden" name="userId" value="<%=currentUser.getUserId()%>"/>
+                        <textarea id="ticketIssue" name="issue" placeholder="Use this area to describe your issue"></textarea><br/><br/>
+                        <input type="submit" value="Open"/>
+                    </form>
+                    <%
+                        TicketDao tickDao = new TicketDao();
+                        UsersDao   userDao = new UsersDao();
+                        for (Ticket t : tickDao.getCurrTickets()) {
+                            if (currentUser.isIsAdmin()) {%>
+                                <ol>
+                                    <li>
+                                        <h2>Ticket <%=t.getTicketId()%></h2>
+                                        <h5>Date: <%=t.getDateRaised()%></h5>
+                                        <h5>User: <%=userDao.getUserById(t.getUserId()).getUsername()%></h5>
+                                        <%=t.getIssue()%>
+                                    </li>
+                                </ol>
+                            <%} else {
+                                if (t.getUserId() == currentUser.getUserId()) {%>
+                                    <ol>
+                                        <li>
+                                            <h2>Ticket <%=t.getTicketId()%></h2>
+                                            <h5>Date: <%=t.getDateRaised()%></h5>
+                                            <%=t.getIssue()%>
+                                        </li>
+                                    </ol>
+                                <%}
+                              }
+                        }
+                   } else if (request.getParameter("view").equals("settings")) {%>
+                        Current Skin: <%=currentUser.getSkin()%>
+                    <%} else if (request.getParameter("view").equals("admin")) {
+                            if (currentUser.isIsAdmin()) {%>
+                                <iframe src="upload.jsp"></iframe>
+                            <%} else {
+                                response.sendRedirect("noperm.jsp");
+                              }
+                    }
+            }%>
         </div>
         <aside class="panel" id="right_sidebar">
             <%

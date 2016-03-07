@@ -307,15 +307,16 @@ public class UsersDao extends Dao implements UserDaoInterface {
         return OTHER;
     }
     
-    public int changeSkin(String skin) {
+    public int changeSkin(String skin, int userid) {
         Connection con       = null;
         PreparedStatement ps = null;
 
         try{
             con          = getConnection();
-            String query = "UPDATE " + TABLE_NAME + " SET " + SKIN + " = ? WHERE" + USERID + " = ?";
+            String query = "UPDATE " + TABLE_NAME + " SET " + SKIN + " = ? WHERE " + USERID + " = ?";
             ps           = con.prepareStatement(query);
             ps.setString(1, skin);
+            ps.setInt(2, userid);
             if (ps.executeUpdate() > 0)
                 return SUCCESS;
         }

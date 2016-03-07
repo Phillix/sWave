@@ -85,8 +85,9 @@
                                 <ol>
                                     <li>
                                         <h2>Ticket <%=t.getTicketId()%></h2>
-                                        <h5>Date: <%=t.getDateRaised()%></h5>
-                                        <h5>User: <%=userDao.getUserById(t.getUserId()).getUsername()%></h5>
+                                        <h5>Date: <%=t.getDateRaised()%></h5
+                                        <!-- Waiting for getUserById() Method to exist -->
+                                        <h5>User: </h5>
                                         <%=t.getIssue()%>
                                     </li>
                                 </ol>

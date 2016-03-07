@@ -306,4 +306,42 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         return OTHER;
     }
+    
+    public int changeSkin(String skin) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+
+        try{
+            con          = getConnection();
+            String query = "UPDATE " + TABLE_NAME + " SET " + SKIN + " = ? WHERE" + USERID + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setString(1, skin);
+            if (ps.executeUpdate() > 0)
+                return SUCCESS;
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return SQLEX;
+            }
+        }
+        return OTHER;
+    }
 }

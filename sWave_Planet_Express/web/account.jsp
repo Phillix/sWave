@@ -104,6 +104,17 @@
                         }
                    } else if (request.getParameter("view").equals("settings")) {%>
                         Current Skin: <%=currentUser.getSkin()%>
+                        <form action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="changeSkin"/>
+                            <label>Select Skin: </label>
+                            <select name="skin">
+                                <option>Flat</option>
+                                <option>Flat Darkness</option>
+                                <option>Nova</option>
+                                <option>Quantum</option>
+                            </select>
+                            <input type="submit" value="Apply"/>
+                        </form>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
                                 <iframe src="upload.jsp"></iframe>

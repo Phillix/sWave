@@ -19,6 +19,9 @@ import javax.servlet.annotation.MultipartConfig;
     Logout
     Upload
     Stream
+    Search Songs
+    Delete Songs
+    Change Skin
 */
 
 /**

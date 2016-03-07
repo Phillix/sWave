@@ -32,6 +32,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("deleteSong") ) {
             //Deleting a song from the database
             command = new DeleteSongCommand();
+        } else if ( action.equalsIgnoreCase("changeSkin") ) {
+            //Allows the user to change the look of sWave
+            command = new ChangeSkinCommand();
         } else {
             command = new DummyCommand();
         }

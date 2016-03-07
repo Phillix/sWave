@@ -9,6 +9,7 @@
     <head>
         <%User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Browse Music</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="main.css"/>
@@ -32,7 +33,7 @@
                 <a id="currentPageLink" href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
                 <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
                 <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
+                <a href="about.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>

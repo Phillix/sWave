@@ -21,7 +21,7 @@ public class UltimateOrder {
     private String[] title;
 
     public UltimateOrder() {
-        SIZE = 0;  
+        SIZE = 0;
         total = 50.0;
         dateOrdered = "date";
         qty = new int[]{0};
@@ -37,8 +37,8 @@ public class UltimateOrder {
      */
     public UltimateOrder(Order o, ArrayList<OrderMerch> om, ArrayList<Merch> m) {
 
-        SIZE = m.size();
-        qty = new int[SIZE];
+        SIZE  = m.size();
+        qty   = new int[SIZE];
         price = new double[SIZE];
         title = new String[SIZE];
         total = o.getTotal();
@@ -46,7 +46,7 @@ public class UltimateOrder {
 
         for(int i = 0; i < SIZE; i++) {
             title[i] = m.get(i).getTitle();
-            qty[i] = om.get(i).getQty();
+            qty[i]   = om.get(i).getQty();
             price[i] = om.get(i).getPricePaid();
         }
     }

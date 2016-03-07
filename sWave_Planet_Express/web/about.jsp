@@ -8,7 +8,7 @@
         <%User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Welcome to sWave</title>
+        <title>About sWave</title>
         <link rel="stylesheet" type="text/css" href="main.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <%
@@ -18,10 +18,6 @@
             }
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
-        <script src="macgril/js/dom.js"></script>
-        <script src="macgril/js/io.js"></script>
-        <script src="macgril/js/datetime.js"></script>
-        <script src="macgril/js/windowing.js"></script>
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/visualizer.js"></script>
@@ -59,6 +55,14 @@
             </span>
         </aside>
         <div id="midsection">
+            <h1>Project sWave</h1>
+            <h3>Brought to you by Team Planet Express</h3>
+            Planet Express is:
+            <ul>
+                <li>Austin Foley</li>
+                <li>Brian Millar</li>
+                <li>Philip Carey</li>
+            </ul>
         </div>
         <aside class="panel" id="right_sidebar">
             <%

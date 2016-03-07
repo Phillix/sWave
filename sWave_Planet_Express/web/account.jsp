@@ -12,6 +12,7 @@
     <head>
         <%User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Browse Music</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="main.css"/>
@@ -20,7 +21,7 @@
             if (currentUser != null) {
                 skin = currentUser.getSkin();
             }
-            
+
             final boolean DEBUG = Debugging.Debug.debug;
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
@@ -35,7 +36,7 @@
                 <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
                 <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
                 <a id="currentPageLink" href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
+                <a href="about.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -82,24 +83,28 @@
                         UsersDao   userDao = new UsersDao();
                         for (Ticket t : tickDao.getCurrTickets()) {
                             if (currentUser.isIsAdmin()) {%>
-                                <ol>
-                                    <li>
-                                        <h2>Ticket <%=t.getTicketId()%></h2>
-                                        <h5>Date: <%=t.getDateRaised()%></h5
-                                        <!-- Waiting for getUserById() Method to exist -->
-                                        <h5>User: </h5>
-                                        <%=t.getIssue()%>
+                                <ul class="ticketList">
+                                    <li class="panel ticket">
+                                        <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
+                                        <br/>
+                                        <span class="ticketIssue">
+                                            <%=t.getIssue()%>
+                                        </span>
+                                        <br/><br/>
                                     </li>
-                                </ol>
+                                </ul>
                             <%} else {
                                 if (t.getUserId() == currentUser.getUserId()) {%>
-                                    <ol>
-                                        <li>
-                                            <h2>Ticket <%=t.getTicketId()%></h2>
-                                            <h5>Date: <%=t.getDateRaised()%></h5>
-                                            <%=t.getIssue()%>
+                                    <ul class="ticketList">
+                                        <li class="panel ticket">
+                                            <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><u><%=t.getDateRaised()%></u></span></h3>
+                                            <br/>
+                                            <span class="ticketIssue">
+                                                <%=t.getIssue()%>
+                                            </span>
+                                            <br/><br/>
                                         </li>
-                                    </ol>
+                                    </ul>
                                 <%}
                               }
                         }

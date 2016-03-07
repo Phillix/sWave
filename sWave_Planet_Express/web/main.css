@@ -268,11 +268,42 @@ td.trackTitle {
     text-decoration: underline;
 }
 
+ul.ticketList {
+    list-style-type: none;
+    margin: 0px;
+    padding:0px;
+}
+
+li.ticket {
+    list-style-type: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 30px;
+    box-shadow: 0px 0px 4px #000;
+    padding: 0px;
+}
+
+h3.ticketHeader {
+    margin: 0px;
+    background-color: grey;
+    padding: 10px;
+}
+
+span.ticketHeaderRight {
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+span.ticketIssue {
+    padding: 20px;
+}
+
 @-moz-keyframes glow {
     0% {
         box-shadow: 0px 0px 3px;
     }
-    
+
     50% {
         box-shadow: 0px 0px 10px;
     }

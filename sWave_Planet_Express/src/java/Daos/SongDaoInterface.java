@@ -14,4 +14,5 @@ public interface SongDaoInterface {
     public int addNewSong(ID3v2 metadata, byte[] buffer);
     public Song getSongById(int songid);
     public ArrayList<Song> search(String term);
+    public int deleteSong(int songId);
 }

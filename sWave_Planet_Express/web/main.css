@@ -200,36 +200,56 @@ td.trackTitle {
     }
 }
 
-#progress		{
-    -moz-animation: glow 3s; -moz-animation-iteration-count: infinite; -moz-transition:0.5s;
-    position:fixed; box-shadow: 0px 0px 10px; bottom:9px; left:12px; width:0px; height:7px; border-radius:5px; background-image:URL("images/progress.png"); background-size: 100% 100%; background-color:#2E84B1;}
-#progressBG		{border-style:inset; box-shadow: 0px 0px 3px #000; border-width:1px; position:fixed; bottom:7px; left:10px; right:10px; height:9px; border-radius:5px;  background-image:URL("images/progress_bg.png"); background-size: 100% 100%;}
-#scrubber		{border-radius:20px; left:2px; box-shadow:0px 0px 10px #000; width:20px; height:20px; position:fixed; bottom:3px; -moz-transform:scale(0.0); -moz-transition:0.4s;}
+#progress {
+    position:         fixed;
+    bottom:           9px;
+    left:             12px;
+    width:            0px;
+    height:           7px;
+    border-radius:    5px;
+    background-color: #000;
+}
+
+#progressBG {
+    border-style:  solid;
+    border-width:  1px;
+    position:      fixed;
+    bottom:        7px;
+    left:          10px;
+    right:         10px;
+    height:        9px;
+    border-radius: 5px;
+}
+
+#scrubber {
+    border-radius: 20px;
+    left:          2px;
+    display:       none;
+    width:         20px;
+    height:        20px;
+    position:      fixed;
+    bottom:        3px;}
 
 #controls {
     margin-left:  auto;
     margin-right: auto;
     width:        200px;
     display:      block;
-    margin-top:   15px;
+    margin-top:   10px;
 }
 
 #controls img {
-    margin-left: 5px;
+    margin-left:  5px;
     margin-right: 5px;
-    background-color: #000;
-    cursor: pointer;
 }
 
 #trackTimer {
-    text-shadow: 0px 0px 4px;
     position:    fixed;
     bottom:      45px;
     right:       15px;
 }
 
 #playerStatus {
-    text-shadow: 0px 0px 4px;
     position:    fixed;
     bottom:      45px;
     left:        15px;

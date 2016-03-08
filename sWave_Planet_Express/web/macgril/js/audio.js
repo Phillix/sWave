@@ -87,9 +87,6 @@ function visualize() {
         if (bars[1][i].scale.y === 0)
             bars[1][i].scale.y = 0.1;
     }
-    var currTime = src.currentTime;
-    if (currTime !== null && currTime !== undefined)
-        lStore("playerCurrTime", currTime);
     timerDisplay.innerHTML = formatTime(src.currentTime) + " / " + formatTime(src.duration);
     progressBar.style.width = scrubber.style.left = Math.floor(src.currentTime * ((window.innerWidth - 24) / src.duration)) + "px";
     setTimeout(requestAnimationFrame(visualize));

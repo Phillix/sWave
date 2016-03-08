@@ -79,9 +79,10 @@
         <footer class="panel" id="base">
             <span id="playerStatus">No Data</span>
             <span id="controls">
-                <img onclick="playPrevious()" style="width: 30px; height:30px; position:relative; top:-5px; border-radius:40px; border-width:1px; border-style:outset;" src="images/rw.png"/>
-                <img onclick="playPause()" style="border-radius:60px; border-width:1px; border-style:outset;" src="images/play.png"/>
-                <img onclick="playNext()" style="width: 30px; height:30px; position:relative; top:-5px; border-radius:40px; border-width:1px; border-style:outset;" src="images/fw.png"/>
+                <!-- Hiding Next and Previous Buttons until Playlist Backend Functionality Compete-->
+                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/rw.png"/>
+                <img id="playPauseButton" onclick="playPause()" src="images/play.png"/>
+                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/fw.png"/>
             </span>
             <span id="trackTimer">
                 --:-- / --:--
@@ -92,7 +93,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="http://localhost:8084/<%=((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio onplay="$('playPauseButton').src='images/pause.png'" onpause="$('playPauseButton').src='images/play.png'" id="player" src="http://localhost:8084/<%=((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
         <%}%>
     </body>
 </html>

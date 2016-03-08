@@ -10,7 +10,7 @@
         <%User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Browse Music</title>
+        <title>Library - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="main.css"/>
         <%
@@ -25,17 +25,18 @@
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/audio.js"></script>
-        <script src="js/visualizer.js"></script>
+        <script src="macgril/js/datetime.js"></script>
+        <script src="js/three.min.js"></script>
+        <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body onload="initAudioSystem()">
+    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
-                <a id="currentPageLink" href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
-                <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
-                <a href="about.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
+                <a class="currentPageLink" href="index.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -54,9 +55,12 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <h2>sWave Streams</h2>
-            <h2>Local Tracks</h2>
-            <h2>Internet Radio</h2>
+            <a href="index.jsp">
+                <h2>Now Playing</h2>
+            </a>
+            <a class="currentPageLink" href="music.jsp">
+                <h2>Library</h2>
+            </a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
@@ -68,9 +72,8 @@
         <%
             SongDao dao = new SongDao();
             for (Song s : dao.getAllSongs()) {%>
-                <tr>
+            <tr <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
                     <%if (DEBUG) {%>
-                        <td><%=request.getParameter("playid")%></td>
                         <td><%=s.getSongId()%></td>
                     <%}%>
                     <td><%=s.getTitle()%></td>
@@ -97,9 +100,23 @@
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>
         <footer class="panel" id="base">
+            <span id="playerStatus">No Data</span>
+            <span id="controls">
+                <img onclick="playPrevious()" style="width: 30px; height:30px; position:relative; top:-5px; border-radius:40px; border-width:1px; border-style:outset;" src="images/rw.png"/>
+                <img onclick="playPause()" style="border-radius:60px; border-width:1px; border-style:outset;" src="images/play.png"/>
+                <img onclick="playNext()" style="width: 30px; height:30px; position:relative; top:-5px; border-radius:40px; border-width:1px; border-style:outset;" src="images/fw.png"/>
+            </span>
+            <span id="trackTimer">
+                --:-- / --:--
+            </span>
+            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
+            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
+            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
+        <%if (session.getAttribute("currentSong") != null) {%>
+            <audio id="player" src="http://localhost:8084/<%=((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+        <%}%>
     </body>
 </html>
 

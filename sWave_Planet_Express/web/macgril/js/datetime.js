@@ -23,12 +23,12 @@ function fDate(natural) {
     var month = mgDate.getMonth();
     var year  = mgDate.getFullYear().toString();
     if (natural) {
-        var days   = ["Sun","Mon","Tues","Wed","Thur","Fri","Sat"];
-        var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+        var days   = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
         var extra  = "th";
-        if (date === 1 || date === 21 || date === 31) extra = "st";
-        else if (date === 2 || date === 22)           extra = "nd";
-        else if (date === 3 || date === 23)           extra = "rd";
+        if      (date === 1 || date === 21 || date === 31) extra = "st";
+        else if (date === 2 || date === 22)                extra = "nd";
+        else if (date === 3 || date === 23)                extra = "rd";
         return days[day] + " " + date + "<sup>" + extra + "</sup> " + months[month];
     }
     else {
@@ -48,14 +48,14 @@ function fTime(natural) {
     if (seconds < 10) seconds = "0" + seconds;
     if (natural) {
         var tick = " ";
-        if (seconds % 2 == 0) tick = ":";
+        if (seconds % 2 === 0) tick = ":";
         return hours + tick + minutes;
     }
     else return hours + ":" + minutes + ":" + seconds;
 }
 
 function genCal(dateObj,cal) {
-    var monthDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+    var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     if (isLeapYear(dateObj.getFullYear()))
         monthDays[1] = 29;
     var calStr = "";

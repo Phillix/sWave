@@ -49,13 +49,13 @@ function knobLogic(knob, ev, func) {
         knob.style.MozTransform   = "rotate(" + newPos + "deg)";
         rotation = 0;
         if ((func !== null) && (func !== undefined))
-            eval(func(newPos));
+            func(newPos);
         document.onmouseup = function(ev) {
             newPos   = null;
             startPos = null;
             document.onmousemove = null;
             document.onmouseup   = null;
             return newPos;
-        }
-    }
+        };
+    };
 }

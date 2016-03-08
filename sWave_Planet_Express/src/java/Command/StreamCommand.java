@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ *            session
  * @author Brian Millar
  */
 public class StreamCommand implements Command {
@@ -28,7 +28,10 @@ public class StreamCommand implements Command {
                                Integer.parseInt(request.getParameter("songid"))));
         if (!testfile.exists()) {
             SongDao songs = new SongDao();
-            byte songdata[] = (((Song)songs.getSongById(Integer.parseInt(request.getParameter("songid")))).getSongdata());
+            Song  theSong = (Song)songs.getSongById(Integer.parseInt(request.getParameter("songid")));
+            byte songdata[] = ((theSong).getSongdata());
+            theSong.setSongdata(null);
+            request.getSession().setAttribute("currentSong", theSong);
             FileOutputStream output = null;
             try {
                 output = new FileOutputStream(new File("../webapps/ROOT/" + filename));
@@ -46,6 +49,6 @@ public class StreamCommand implements Command {
                 }
             }
         }
-        return "/" + request.getParameter("page") + ".jsp?filename=" + filename + "&playid=" + request.getParameter("songid");
+        return "/music.jsp";
     }
 }

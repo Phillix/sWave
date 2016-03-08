@@ -1,3 +1,4 @@
+<%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
 <%@page import="Dtos.User"%>
@@ -27,15 +28,14 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body onload="initsWaveAudio()">
+    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a id="currentPageLink" href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
-                <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
-                <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
-                <a href="about.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
+                <a class="currentPageLink" href="index.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -54,6 +54,12 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
+            <a class="currentPageLink" href="index.jsp">
+                <h2>Now Playing</h2>
+            </a>
+            <a href="music.jsp">
+                <h2>Library</h2>
+            </a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
@@ -85,7 +91,9 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>"></audio>
+        <%if (session.getAttribute("currentSong") != null) {%>
+            <audio id="player" src="http://localhost:8084/<%=((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+        <%}%>
     </body>
 </html>
 

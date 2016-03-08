@@ -84,18 +84,16 @@ public class SongDao extends Dao implements SongDaoInterface {
      * @param buffer
      */
     @Override
-    public int addNewSong(ID3v2 metadata, byte[] buffer) {
+    public int addNewSong(Song s) {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
-        Song s               = new Song();
-        s.setSongdata(buffer);
 
         try {
             con    = getConnection();
             Blob b = con.createBlob();
             try {
-                b.setBytes(1, buffer);
+                b.setBytes(1, s.getSongdata());
             }
             catch (Exception e) {
                 if (DEBUG)

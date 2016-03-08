@@ -2,7 +2,6 @@ package Daos;
 
 import Dtos.Song;
 import java.util.ArrayList;
-import sWaveEngine.ID3v2;
 
 /**
  *
@@ -11,7 +10,7 @@ import sWaveEngine.ID3v2;
  */
 public interface SongDaoInterface {
     public ArrayList<Song> getAllSongs();
-    public int addNewSong(ID3v2 metadata, byte[] buffer);
+    public int addNewSong(Song s);
     public Song getSongById(int songid);
     public ArrayList<Song> search(String term);
     public int deleteSong(int songId);

@@ -130,22 +130,24 @@ table {
 }
 
 tr {
-    text-shadow: 0px 0px 4px;
     margin: 0px;
     border: none;
-    background-image: URL("images/bg.png");
-    background-size:  100% 100%;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 tr.sec {
 
 }
 
+tr.playing {
+    background-color: #fff;
+}
+
 td {
     margin:  0px;
     margin:  0px;
     border:  none;
-    padding: 0px;
+    padding: 8px;
 }
 
 td.move {
@@ -235,7 +237,7 @@ td.trackTitle {
 
 #visualizer {
     position: fixed;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.8);
     bottom: 90px;
     left: 0px;
     width: 200px;
@@ -264,7 +266,7 @@ td.trackTitle {
     text-decoration: underline;
 }
 
-#currentPageLink {
+.currentPageLink {
     text-decoration: underline;
 }
 
@@ -287,6 +289,11 @@ h3.ticketHeader {
     margin: 0px;
     background-color: grey;
     padding: 10px;
+}
+
+aside h2 {
+    margin-left: 10px;
+    color: #000;
 }
 
 span.ticketHeaderRight {

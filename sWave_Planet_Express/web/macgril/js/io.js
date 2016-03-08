@@ -22,6 +22,7 @@ function lStore(x, y) {
         return window.localStorage.getItem(x);
 }
 
+//Needs cleanup
 function fOpen(accept) {
         if (($("fOpen") !== 0) && ($("fOpen") !== undefined))
             $("macgril").removeChild($("fOpen"));

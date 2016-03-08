@@ -1,6 +1,7 @@
 package Command;
 
 import Daos.SongDao;
+import Dtos.Song;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -60,9 +61,10 @@ public class UploadCommand implements Command {
                     return "/uploadFailed.jsp";
                 }
             }
-            SongDao dao    = new SongDao();
-            ID3v2 metadata = null;
-            dao.addNewSong(metadata, buffer);
+            SongDao dao = new SongDao();
+            String fileName = songs.get(j).getSubmittedFileName();
+            Song s      = new Song(0, fileName.substring(0, fileName.length() - 4), "Unknown", "Unknown", 2016, 0.00, "CC", buffer);
+            dao.addNewSong(s);
             uploadSize += buffer.length;
             count++;
             Logging.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize/1024.0/1024.0 + "MB");

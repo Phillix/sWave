@@ -83,4 +83,13 @@ public class MerchDaoTest {
             System.out.println(merchList.get(0));
         }
     }
+    
+    @Test
+    public void testSearchMerch() {
+        
+        ArrayList<Merch> merch = instance.searchMerch("1");
+        Merch m = new Merch("merch 1", 5.50);
+        m.setMerchId(-1);
+        assertEquals(m, merch.get(0));
+    }
 }

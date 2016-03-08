@@ -209,5 +209,62 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         return merch;
     }
 
+    /**
+     * 
+     * @param searchWord String of text to use in searching
+     * @return a Collection of successful Merch matches
+     */
+    public ArrayList<Merch> searchMerch(String searchWord) {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Merch m = null;
+        ArrayList<Merch> merch;
 
+        try {
+
+            con = getConnection();
+            ps = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + TITLE + " LIKE ?");
+            ps.setString(1, "%" + searchWord + "%");
+            rs = ps.executeQuery();
+            merch = new ArrayList<>();
+
+            while(rs.next()) {
+                m = new Merch();
+
+                m.setMerchId(rs.getInt(ID));
+                m.setTitle(rs.getString(TITLE));
+                m.setPrice(rs.getDouble(PRICE));
+
+                merch.add(m);
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        finally {
+            try {
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            }
+            catch(SQLException e) {
+                if(DEBUG) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+        return merch;
+    }
 }

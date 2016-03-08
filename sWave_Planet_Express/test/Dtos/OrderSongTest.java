@@ -122,7 +122,7 @@ public class OrderSongTest {
      */
     @Test
     public void testGetPricePaidValid() {
-        double expResult = 20.0;
+        double expResult = 9.0;
         double result = instance.getPricePaid();
         assertEquals(expResult, result, 0.0);
     }
@@ -163,7 +163,7 @@ public class OrderSongTest {
      */
     @Test
     public void testToStringValid() {
-        String expResult = "OrderSong{orderId=-1, songId=-1, pricePaid=20.0}";
+        String expResult = "OrderSong{orderId=-1, songId=-1, pricePaid=9.0}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -174,7 +174,7 @@ public class OrderSongTest {
     @Test
     public void testToStringInvalid() {
         boolean expResult = false;
-        boolean result = instance.toString().equals("Ordersong{orderId=-3, songId=1, priceP4id=20,0}");
+        boolean result = instance.toString().equals("Ordersong{orderId=-3, songId=1, priceP4id=9,0}");
         assertEquals(expResult, result);
     }
     

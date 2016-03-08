@@ -18,7 +18,7 @@ public class OrderSong {
     public OrderSong() {
         orderId = -1;
         songId = -1;
-        pricePaid = 20.00;
+        pricePaid = 9.00;
     }
 
     public OrderSong(int orderId, int songId, double pricePaid) {

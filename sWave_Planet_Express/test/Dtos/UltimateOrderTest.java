@@ -39,14 +39,27 @@ public class UltimateOrderTest {
     }
 
     /**
-     * Test of getSize method, of class UltimateOrder.
+     * Test of getMerchSize method, of class UltimateOrder.
      */
     @Test
-    public void testGetSize() {
+    public void testGetMerchSize() {
         
         instance = new UltimateOrder();
         int expResult = 0;
-        int result = instance.getSize();
+        int result = instance.getMerchSize();
+        assertEquals(expResult, result);
+        
+    }
+    
+    /**
+     * Test of getMerchSize method, of class UltimateOrder.
+     */
+    @Test
+    public void testGetSongSize() {
+        
+        instance = new UltimateOrder();
+        int expResult = 0;
+        int result = instance.getSongSize();
         assertEquals(expResult, result);
         
     }
@@ -105,10 +118,9 @@ public class UltimateOrderTest {
     @Test
     public void testGetQty() {
         
-        int i = 0;
-        UltimateOrder instance = new UltimateOrder();
+        instance = new UltimateOrder();
         int expResult = 0;
-        int result = instance.getQty(i);
+        int result = instance.getQty(0);
         assertEquals(expResult, result);
     }
 
@@ -121,32 +133,81 @@ public class UltimateOrderTest {
         int[] qty = new int[]{-1};
         instance = new UltimateOrder();
         instance.setQty(qty);
-        assertEquals(qty[0],instance.getQty(0));
+        assertEquals(qty[0],instance.getSongId(0));
+    }
+    
+    /**
+     * Test of getSongId method, of class UltimateOrder.
+     */
+    @Test
+    public void testGetSongId() {
+        
+        instance = new UltimateOrder();
+        int expResult = -1;
+        int result = instance.getSongId(0);
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of getPrice method, of class UltimateOrder.
+     * Test of setSongId method, of class UltimateOrder.
      */
     @Test
-    public void testGetPrice() {
+    public void testSetSongId() {
+        
+        int[] id = new int[]{-7};
+        instance = new UltimateOrder();
+        instance.setSongId(id);
+        assertEquals(id[0],instance.getSongId(0));
+    }
+
+    /**
+     * Test of getMerchPrice method, of class UltimateOrder.
+     */
+    @Test
+    public void testGetMerchPrice() {
         
         int i = 0;
         instance = new UltimateOrder();
         double expResult = 20.0;
-        double result = instance.getPrice(i);
+        double result = instance.getMerchPrice(i);
         assertEquals(expResult, result, 0.0);
     }
 
     /**
-     * Test of setPrice method, of class UltimateOrder.
+     * Test of setMerchPrice method, of class UltimateOrder.
      */
     @Test
-    public void testSetPrice() {
+    public void testSetMerchPrice() {
         
         double[] price = new double[]{9.99};
         instance = new UltimateOrder();
-        instance.setPrice(price);
-        assertEquals(price[0],instance.getPrice(0),0.01);
+        instance.setMerchPrice(price);
+        assertEquals(price[0],instance.getMerchPrice(0),0.01);
+    }
+    
+    /**
+     * Test of getSongPrice method, of class UltimateOrder.
+     */
+    @Test
+    public void testGetSongPrice() {
+        
+        int i = 0;
+        instance = new UltimateOrder();
+        double expResult = 15.50;
+        double result = instance.getSongPrice(i);
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of setSongPrice method, of class UltimateOrder.
+     */
+    @Test
+    public void testSetSongPrice() {
+        
+        double[] price = new double[]{7.99};
+        instance = new UltimateOrder();
+        instance.setSongPrice(price);
+        assertEquals(price[0],instance.getSongPrice(0),0.01);
     }
 
     /**

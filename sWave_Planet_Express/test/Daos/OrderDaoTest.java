@@ -37,18 +37,18 @@ public class OrderDaoTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of createOrder method, of class OrderDao.
-     */
-    @Test
-    public void testCreateOrder() {
-        
-        int userId = -1;
-        Order o = new Order(userId,99.99);
-        int expResult = 0;
-        int result = instance.createOrder(o);
-        assertEquals(expResult, result);   
-    }
+//    /**
+//     * Test of createOrder method, of class OrderDao.
+//     */
+//    @Test
+//    public void testCreateOrder() {
+//        
+//        int userId = -1;
+//        Order o = new Order(userId,99.99);
+//        int expResult = 0;
+//        int result = instance.createOrder(o);
+//        assertEquals(expResult, result);   
+//    }
     
     /**
      * Test of getUserOrders method, of class OrderDao.
@@ -118,5 +118,23 @@ public class OrderDaoTest {
             }
         }
         
+    }
+    
+    /**
+    * Test of getCurrentOrder method, of class OrderDao.
+    */
+    @Test
+    public void testGetCurrentOrder() {
+        
+        int userId = -1;
+        Order o = new Order();
+        o.setOrderId(-1);
+        o.setDateOrdered("1970-01-01");
+        o.setTotal(15.50);
+        o.setUserId(-1);
+        boolean expResult = true;
+        Order dbOrder = instance.getCurrentOrder(userId);
+        boolean result = dbOrder.equals(o);
+        assertEquals(expResult, result);
     }
 }

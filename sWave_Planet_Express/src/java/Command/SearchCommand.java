@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * @author Austin
  */
 public class SearchCommand implements Command {
-    
+
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         SongDao sd = new SongDao();

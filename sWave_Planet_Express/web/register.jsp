@@ -14,8 +14,8 @@
             <input type="hidden" name="action" value="register"/>
             <input pattern="(.*)(\@)(.*)[.][a-z]{2,3}$" required name="email" type="text" placeholder="Email"/>
             <input required name="password" type="password" placeholder="Password"/><br/>
-            <input pattern="^[A-Z]{1}[a-z]{3,19}$" name="fname" type="text" placeholder="First Name"/>
-            <input pattern="^[A-Z]{1}[a-z]{3,19}$" name="lname" type="text" placeholder="Last Name"/><br/>
+            <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name"/>
+            <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name"/><br/>
             <input required name="address1" type="text" placeholder="Address Line 1"/>
             <input name="address2" type="text" placeholder="Address Line 2"/><br/>
             <input required name="city" type="text" placeholder="City"/>

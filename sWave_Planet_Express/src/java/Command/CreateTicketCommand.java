@@ -3,8 +3,10 @@ package Command;
 
 import Daos.TicketDao;
 import Dtos.Ticket;
+import Dtos.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -17,11 +19,13 @@ public class CreateTicketCommand implements Command {
 
         String forwardToJsp = null;
         TicketDao td        = new TicketDao();
-        String userId       = request.getParameter("userId");
+        HttpSession session    = request.getSession();
+        User u              = (User) session.getAttribute("user");
         String issue        = request.getParameter("issue");
 
-        if (userId != null && issue != null && !userId.isEmpty() && !issue.isEmpty()) {
-            Ticket ticket = new Ticket(Integer.valueOf(userId), issue, false);
+        if (u != null && issue != null && !issue.isEmpty()) {
+            int userId       = u.getUserId();
+            Ticket ticket = new Ticket(userId, issue, false);
             td.createTicket(ticket);
 
             forwardToJsp = "/index.jsp";

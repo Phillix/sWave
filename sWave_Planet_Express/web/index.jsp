@@ -25,7 +25,7 @@
         <script src="macgril/js/windowing.js"></script>
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/visualizer.js"></script>
+        <script src="js/sWaveAudioSystem.js"></script>
         <script>
             function updateTime() {
                 $("trackTimer").innerHTML = formatTime($("player").currentTime) + " / " + formatTime($("player").duration);

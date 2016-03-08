@@ -38,14 +38,14 @@ public class SongLocking {
                 File current = new File(x.toAbsolutePath().toString());
                 String filename = current.getName();
                 filename = filename.substring(0, filename.length() - 4);
-                try {
+                /*try {
                     if (locks.get(Integer.parseInt(filename)) == 0)
                         current.delete();
                 } catch (NumberFormatException e) {
                     Logging.Logger.writeLine("Not an sWave Song File");
                     if (DEBUG)
                         e.printStackTrace();
-                }
+                }*/
             }
         });
     }

@@ -1,7 +1,3 @@
-DO NOT CLONE THIS
-=================
-
-
 Stage 2 Submission
 
 Team Planet Express

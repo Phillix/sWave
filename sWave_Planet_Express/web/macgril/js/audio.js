@@ -32,75 +32,47 @@ function setSysVol(level) {
     sysAudioGain.gain.value = (level + 120) * 0.004166667;
 }
 
-//This code is eXastum-specific and should be made generic ASAP
 
-function startAudioVisualization() {
+function startAudioVisualization(element, width, height, color1, color2, func) {
     scene  = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(45,1,1,100);
+    camera = new THREE.PerspectiveCamera(45, width / height, 1, 100);
 
     camera.position.set(0,0,50);
     camera.lookAt(scene.position);
     scene.add(camera);
 
     renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
-	
-    renderer.setSize(200,200);
-    $("audioPanelVisualizer").appendChild(renderer.domElement);
+
+    renderer.setSize(width, height);
+    $(element).appendChild(renderer.domElement);
 
     bars = new Array(new Array(40), new Array(40));
 
-    var j = 0;
-    for (var i = 0; i < 40; i++) {
-        bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0xC22828}));
-        //bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0x838383}));
-        alert(j);
-        bars[0][i].position.set(j++,0,0);
-        //bars[1][i].position.set((i - 19.5),0,0);
+    var j = -40.0;
+    for (var i = 0; i < 64; i++) {
+        col1 = "0x" + color1;
+        col2 = "0x" + color2;
+        bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:col1}));
+        bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:col2}));
+        bars[1][i].position.set(j,0,0);
+        j += 0.7;
+        bars[0][i].position.set(j,0,0);
+        j += 0.7;
+        scene.add(bars[1][i]);
         scene.add(bars[0][i]);
-        //scene.add(bars[1][i]);
     }
-
-    visualize();
+    visualData = new Array(new Uint8Array(128), new Uint8Array(64));
+    visualize(func);
 }
 
-function visualize() {
-    var visualData = new Array(new Uint8Array(128), new Uint8Array(64));
-
+function visualize(func) {
     sysAudioAnalyser.getByteTimeDomainData(visualData[0]);
     sysAudioAnalyser.getByteFrequencyData(visualData[1]);
-
-    var barHeight = new Array(2);
-
-    for (var i = 0; i < 40; i++) {
-        //barHeight[0] = (visualData[0][i] - 128) / 2;
-        //barHeight[1] = visualData[1][i] / 4;
-
-        //if (!(barHeight[0] < 1)) bars[0][i].scale.y = barHeight[0];
-        //else bars[0][i].scale.y = 0.1;
-
-        //if (!(barHeight[1] < 1)) bars[1][i].scale.y = barHeight[1];
-        //else bars[1][i].scale.y = 0.1;
-        
-        bars[0][i].scale.y = 20;
-        //bars[1][i].scale.y = 20;
+    for (var i = 0; i < 64; i++) {
+        bars[0][i].scale.y = (visualData[0][i] - 128) / 4;
+        bars[1][i].scale.y = visualData[1][i] / 8;
     }
-	
+    exec(func);
     setTimeout(requestAnimationFrame(visualize));
-    renderer.render(scene,camera);
+    renderer.render(scene, camera);
 }
-
-function testAudio(x) {
-    if (!x) {
-        $("audioTestButton").innerHTML = "Stop Test";
-        $("audioTestButton").setAttribute("onclick","testAudio(true)");
-        testTrack.play();
-    }
-    else {
-        testTrack.pause();
-        testTrack.currentTime = 0;
-        $("audioTestButton").innerHTML = "Test Audio";
-        $("audioTestButton").setAttribute("onclick","testAudio()");
-    }
-}
-
-//End of eXastum-specific code

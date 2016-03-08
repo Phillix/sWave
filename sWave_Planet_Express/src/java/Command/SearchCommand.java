@@ -1,6 +1,8 @@
 package Command;
 
+import Daos.MerchDao;
 import Daos.SongDao;
+import Dtos.Merch;
 import Dtos.Song;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +18,14 @@ public class SearchCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         SongDao sd = new SongDao();
-        ArrayList<Song> songs = sd.search(request.getParameter("searchterm"));
+        MerchDao md = new MerchDao();
+        String search = request.getParameter("searchterm");
+        ArrayList<Song> songs = sd.search(search);
+        ArrayList<Merch> merch = md.searchMerch(search);
         HttpSession session = request.getSession();
         session.setAttribute("searchResults", songs);
-        session.setAttribute("searchTerm", request.getParameter("searchterm"));
+        session.setAttribute("searchMerchResults", merch);
+        session.setAttribute("searchTerm", search);
         return "/search.jsp";
     }
 }

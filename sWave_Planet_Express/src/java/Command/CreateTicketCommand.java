@@ -28,10 +28,9 @@ public class CreateTicketCommand implements Command {
             Ticket ticket = new Ticket(userId, issue, false);
             td.createTicket(ticket);
 
-            forwardToJsp = "/index.jsp";
+            forwardToJsp = "/account.jsp?view=tickets";
         } else {
-            //set to log_in fail as no appropriate page yet
-            forwardToJsp = "/login_failed.jsp";
+            forwardToJsp = "/error.jsp";
         }
         return forwardToJsp;
     }

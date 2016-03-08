@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface TicketDaoInterface {
     public int createTicket(Ticket t);
     public ArrayList<Ticket> getCurrTickets();
+    public ArrayList<Ticket> getAllTickets();
     public Ticket viewTicket(int ticketId);
     public int changeTicketStatus(int ticketId, boolean isResolved);
 }

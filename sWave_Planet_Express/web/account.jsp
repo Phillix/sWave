@@ -73,8 +73,14 @@
                     Username: <%=currentUser.getUsername()%><br/>
                     Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%><br/>
                     Email: <%=currentUser.getEmail()%><br/>
-                <%} else if (request.getParameter("view").equals("tickets")) {%>
-                    <h1>Tickets</h1>
+                <%} else if (request.getParameter("view").equals("tickets")) {
+                    if (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed")) {%>
+                        <h1>Closed Tickets</h1>
+                        <a href="account.jsp?view=tickets">Open Tickets</a>
+                    <%} else {%>
+                        <h1>Open Tickets</h1>
+                        <a href="account.jsp?view=tickets&ticketView=closed">Closed Tickets</a>
+                    <%}%>
                     <button id="cancelNewTicketButton" style="display:none;" onclick="$('newTicketForm').style.display='none'; $('cancelNewTicketButton').style.display='none'; $('newTicketButton').style.display='block'">Cancel</button>
                     <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'">Open Ticket</button><br/>
                     <form id="newTicketForm" action="UserActionServlet" method="POST">
@@ -86,7 +92,8 @@
                     <%
                         TicketDao tickDao = new TicketDao();
                         UsersDao   userDao = new UsersDao();
-                        for (Ticket t : tickDao.getCurrTickets()) {
+                        for (Ticket t : tickDao.getAllTickets()) {
+                            if (!t.isResolved() ^ (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed"))) {
                             if (currentUser.isIsAdmin()) {%>
                                 <ul class="ticketList">
                                     <li class="panel ticket">
@@ -95,7 +102,13 @@
                                         <span class="ticketIssue">
                                             <%=t.getIssue()%>
                                         </span>
-                                        <br/><br/>
+                                        <br/>
+                                        <form method="POST" action="UserActionServlet">
+                                            <input type="hidden" name="action" value="closeTicket"/>
+                                            <input type="hidden" name="ticketId" value="<%=t.getTicketId()%>"/>
+                                            <input type="submit" value="Close"/>
+                                        </form>
+                                        <br/>
                                     </li>
                                 </ul>
                             <%} else {
@@ -111,6 +124,7 @@
                                         </li>
                                     </ul>
                                 <%}
+                                }
                               }
                         }
                    } else if (request.getParameter("view").equals("settings")) {%>

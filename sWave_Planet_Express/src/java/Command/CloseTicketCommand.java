@@ -18,10 +18,10 @@ public class CloseTicketCommand implements Command {
 
         if (ticketId != null && !ticketId.isEmpty()) {
             td.changeTicketStatus(Integer.valueOf(ticketId), true);
-            forwardToJsp = "/index.jsp";
+            forwardToJsp = "/account.jsp?view=tickets";
         } else {
             //set to log_in fail as no appropriate page yet
-            forwardToJsp = "/login_failed.jsp";
+            forwardToJsp = "/error.jsp";
         }
         return forwardToJsp;
     }

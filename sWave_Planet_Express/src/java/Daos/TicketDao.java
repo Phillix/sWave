@@ -129,6 +129,59 @@ public class TicketDao extends Dao implements TicketDaoInterface {
     }
     
     /**
+     * 
+     * @return arraylist of all tickets
+     */
+    @Override
+    public ArrayList<Ticket> getAllTickets() {
+        Connection con            = null;
+        PreparedStatement ps      = null;
+        ResultSet rs              = null;
+        ArrayList<Ticket> tickets = null;
+        Ticket t                  = null;
+
+        try {
+            con     = getConnection();
+            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME);
+            rs      = ps.executeQuery();
+            tickets = new ArrayList<>();
+
+            while(rs.next()) {
+
+                t = new Ticket();
+                t.setTicketId(rs.getInt(ID));
+                t.setUserId(rs.getInt(USERID));
+                t.setIssue(rs.getString(ISSUE));
+                t.setDateRaised(rs.getDate(DATE).toString());
+                t.setResolved(rs.getBoolean(RESOLVED));
+
+                tickets.add(t);
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+               return null;
+            }
+        }
+        return tickets;
+    }
+    
+    /**
      * This method allows for viewing a specific ticket
      * @param ticketId The id of the ticket to be viewed
      * @return Returns a ticket object based on the ticket id

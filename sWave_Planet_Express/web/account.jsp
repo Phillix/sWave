@@ -61,6 +61,11 @@
             <%if (currentUser.isIsAdmin()) {%>
                 <a href="account.jsp?view=admin"><h2>Admin</h2></a>
             <%}%>
+            <span id="copyNotice">
+                Copyright &copy; 2016<br/>
+                Team Planet Express<br/>
+            </span>
+            <div id="visualizer"></div>
         </aside>
         <div id="midsection">
             <%if (request.getParameter("view") != null) {

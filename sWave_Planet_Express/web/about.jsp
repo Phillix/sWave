@@ -53,6 +53,7 @@
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
             </span>
+            <div id="visualizer"></div>
         </aside>
         <div id="midsection">
             <h1>Project sWave</h1>

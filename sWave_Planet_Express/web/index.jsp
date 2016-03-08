@@ -10,6 +10,7 @@
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Welcome to sWave</title>
         <link rel="stylesheet" type="text/css" href="main.css"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <%
             String skin = "flat";
@@ -25,6 +26,13 @@
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/visualizer.js"></script>
+        <script>
+            function updateTime() {
+                $("trackTimer").innerHTML = formatTime($("player").currentTime) + " / " + formatTime($("player").duration);
+                $("progress").style.width = $("scrubber").style.left = Math.floor($("player").currentTime * ((window.innerWidth - 24) / $("player").duration)) + "px";
+                setTimeout("updateTime()", 500);
+            }
+        </script>
     </head>
     <body onload="initAudioSystem()">
         <header class="panel" id="topbar">
@@ -59,6 +67,8 @@
             </span>
         </aside>
         <div id="midsection">
+            <div id="visualizer">
+            </div>
         </div>
         <aside class="panel" id="right_sidebar">
             <%
@@ -68,9 +78,21 @@
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>
         <footer class="panel" id="base">
+            <span id="playerStatus">No Data</span>
+            <span id="controls">
+                <img onclick="playPrevious()" style="width: 30px; height:30px; position:relative; top:-5px; border-radius:40px; border-width:1px; border-style:outset;" src="images/rw.png"/>
+                <img onclick="playPause()" style="border-radius:60px; border-width:1px; border-style:outset;" src="images/play.png"/>
+                <img onclick="playNext()" style="width: 30px; height:30px; position:relative; top:-5px; border-radius:40px; border-width:1px; border-style:outset;" src="images/fw.png"/>
+            </span>
+            <span id="trackTimer">
+                --:-- / --:--
+            </span>
+            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
+            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
+            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
+        <audio id="player" onplay="updateTime()" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
     </body>
 </html>
 

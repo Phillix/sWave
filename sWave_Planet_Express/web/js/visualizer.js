@@ -18,7 +18,7 @@ function addAudioSource(src) {
 
 function startAudioVisualization() {
     scene  = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(45,200/200,1,100);
+    camera = new THREE.PerspectiveCamera(45, $("visualizer").offsetWidth / $("visualizer").offsetHeight, 1, 100);
 
     camera.position.set(0,0,50);
     camera.lookAt(scene.position);
@@ -26,14 +26,14 @@ function startAudioVisualization() {
 
     renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
 	
-    renderer.setSize(200,200);
+    renderer.setSize($("visualizer").offsetWidth, $("visualizer").offsetHeight);
     $("visualizer").appendChild(renderer.domElement);
 
     bars = new Array(new Array(40), new Array(40));
     
     var j = -40.0;
     for (var i = 0; i < 64; i++) {
-        bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0x2E84B1}));
+        bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0xe3e3e3}));
         bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:0x838383}));
         bars[1][i].position.set(j,0,0);
         j += 0.7;

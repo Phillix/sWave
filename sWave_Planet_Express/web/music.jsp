@@ -24,8 +24,10 @@
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
+        <script src="macgril/js/audio.js"></script>
+        <script src="js/visualizer.js"></script>
     </head>
-    <body onload="$('player').currentTime = lStore('currentTime')">
+    <body onload="initAudioSystem()">
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
@@ -55,6 +57,11 @@
             <h2>sWave Streams</h2>
             <h2>Local Tracks</h2>
             <h2>Internet Radio</h2>
+            <span id="copyNotice">
+                Copyright &copy; 2016<br/>
+                Team Planet Express<br/>
+            </span>
+            <div id="visualizer"></div>
         </aside>
         <div id="midsection">
         <table>

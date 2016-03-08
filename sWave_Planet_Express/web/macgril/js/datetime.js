@@ -105,11 +105,11 @@ function formatTime(s) {
     if (mins < 10) mins = "0" + mins;
 
     if (isNaN(mins) || isNaN(secs))
-        return "00:00";
+        return "00<span style='font-family:monospace'>:</span>00";
     else {
         if (hours !== null)
-            return hours + ":" + mins + ":" + secs;
+            return hours + "<span style='font-family:monospace'>:</span>" + mins + "<span style='font-family:monospace'>:</span>" + secs;
         else
-            return mins + ":" + secs;
+            return mins + "<span style='font-family:monospace'>:</span>" + secs;
     }
 }

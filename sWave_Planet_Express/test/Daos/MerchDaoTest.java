@@ -62,7 +62,9 @@ public class MerchDaoTest {
     public void testViewMerchAlpha() {
         
         ArrayList<Merch> merch = instance.viewMerchAlpha();
-        assertEquals(new Merch(), merch.get(0));
+        Merch m = new Merch("merch 1", 5.50);
+        m.setMerchId(-1);
+        assertEquals(m, merch.get(0));
     }
     
     /**
@@ -73,7 +75,7 @@ public class MerchDaoTest {
         
         instance = new MerchDao();
         ArrayList<OrderMerch> orderMerch = new ArrayList<OrderMerch>();
-        OrderMerch om = new OrderMerch(2,2,2,20);
+        OrderMerch om = new OrderMerch(-1,-1,1,5.50);
         orderMerch.add(om);
         ArrayList<Merch> merchList = instance.getMerchInOrder(orderMerch);
         

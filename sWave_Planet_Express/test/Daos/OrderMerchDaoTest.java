@@ -55,7 +55,7 @@ public class OrderMerchDaoTest {
         assertEquals(expResult, result);
     }
     
-     /**
+    /**
      * Test of getOrderMerchInOrder method, of class OrderMerchDao.
      */
     @Test

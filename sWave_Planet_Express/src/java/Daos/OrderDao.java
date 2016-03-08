@@ -128,6 +128,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         }
         return orders;
     }
+    
     /**
      * 
      * @param userId the id of the user whos order details are wanted
@@ -164,7 +165,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                 } else if(oSong != null && oMerch == null) {
                     ultimateOrder = new UltimateOrder(orders.get(i),oSong);
                     ultiOrders.add(ultimateOrder);
-                } else {
+                } else if(oSong != null && oMerch != null){
                     merch = mDao.getMerchInOrder(oMerch);
                     ultimateOrder = new UltimateOrder(orders.get(i),oMerch,merch,oSong);
                     ultiOrders.add(ultimateOrder);
@@ -173,5 +174,52 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         }
 
         return ultiOrders;
+    }
+    
+    public Order getCurrentOrder(int userId) {
+
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+        Order o              = null;
+
+        try {
+            con = getConnection();
+            ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
+                                       " WHERE "        + USERID     +
+                                       " = ? ORDER BY " + DATEORDERED + " DESC LIMIT 1");
+            ps.setInt(1, userId);
+            rs     = ps.executeQuery();
+
+            while(rs.next()) {
+                o = new Order();
+
+                o.setOrderId(rs.getInt(ID));
+                o.setUserId(rs.getInt(USERID));
+                o.setDateOrdered(rs.getDate(DATEORDERED).toString());
+                o.setTotal(rs.getDouble(TOTAL));;
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+                if (rs != null)
+                    rs.close();
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return null;
+            }
+        }
+        return o;
     }
 }

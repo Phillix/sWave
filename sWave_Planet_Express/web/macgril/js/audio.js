@@ -13,13 +13,18 @@
     along with eXastum.  If not, see <http://www.gnu.org/licenses/>
 */
 
+var timerDisplay;
+var progressBar;
+var scrubber;
+var src;
+
 function initAudioSystem() {
     sysAudioContext  = new AudioContext();
     sysAudioAnalyser = sysAudioContext.createAnalyser();
     sysAudioGain     = sysAudioContext.createGain();
     sysAudioGain.gain.value  = 0.5;
     sysAudioAnalyser.fftSize = 128;
-    sysAudioAnalyser.smoothingTimeConstant = 0.4;
+    sysAudioAnalyser.smoothingTimeConstant = 0.6;
     sysAudioAnalyser.connect(sysAudioGain);
     sysAudioGain.connect(sysAudioContext.destination);
 }
@@ -32,8 +37,16 @@ function setSysVol(level) {
     sysAudioGain.gain.value = (level + 120) * 0.004166667;
 }
 
+function playAudioSource(source, timerDis, progBar, scrub) {
+    src          = source;
+    timerDisplay = timerDis;
+    progressBar  = progBar;
+    scrubber     = scrub;
+    startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
+    src.play();
+}
 
-function startAudioVisualization(element, width, height, color1, color2, func) {
+function startAudioVisualization(element, width, height) {
     scene  = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(45, width / height, 1, 100);
 
@@ -50,29 +63,32 @@ function startAudioVisualization(element, width, height, color1, color2, func) {
 
     var j = -40.0;
     for (var i = 0; i < 64; i++) {
-        col1 = "0x" + color1;
-        col2 = "0x" + color2;
-        bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:col1}));
-        bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1,0.5), new THREE.MeshBasicMaterial({color:col2}));
-        bars[1][i].position.set(j,0,0);
+        bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1, 0.5), new THREE.MeshBasicMaterial({color:0xe3e3e3}));
+        bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.1, 0.5), new THREE.MeshBasicMaterial({color:0x838383}));
+        bars[1][i].position.set(j, 0, 0);
         j += 0.7;
-        bars[0][i].position.set(j,0,0);
+        bars[0][i].position.set(j, 0, 0);
         j += 0.7;
         scene.add(bars[1][i]);
         scene.add(bars[0][i]);
     }
     visualData = new Array(new Uint8Array(128), new Uint8Array(64));
-    visualize(func);
+    visualize();
 }
 
-function visualize(func) {
+function visualize() {
     sysAudioAnalyser.getByteTimeDomainData(visualData[0]);
     sysAudioAnalyser.getByteFrequencyData(visualData[1]);
     for (var i = 0; i < 64; i++) {
         bars[0][i].scale.y = (visualData[0][i] - 128) / 4;
         bars[1][i].scale.y = visualData[1][i] / 8;
+        if (bars[0][i].scale.y === 0)
+            bars[0][i].scale.y = 0.1;
+        if (bars[1][i].scale.y === 0)
+            bars[1][i].scale.y = 0.1;
     }
-    exec(func);
+    timerDisplay.innerHTML = formatTime(src.currentTime) + " / " + formatTime(src.duration);
+    progressBar.style.width = scrubber.style.left = Math.floor(src.currentTime * ((window.innerWidth - 24) / src.duration)) + "px";
     setTimeout(requestAnimationFrame(visualize));
     renderer.render(scene, camera);
 }

@@ -26,15 +26,8 @@
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
-        <script>
-            function updateTime() {
-                $("trackTimer").innerHTML = formatTime($("player").currentTime) + " / " + formatTime($("player").duration);
-                $("progress").style.width = $("scrubber").style.left = Math.floor($("player").currentTime * ((window.innerWidth - 24) / $("player").duration)) + "px";
-                setTimeout("updateTime()", 500);
-            }
-        </script>
     </head>
-    <body onload="initAudioSystem()">
+    <body onload="initsWaveAudio()">
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
@@ -92,7 +85,7 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player" onplay="updateTime()" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
+        <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>"></audio>
     </body>
 </html>
 

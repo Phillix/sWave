@@ -24,7 +24,7 @@ public class TicketDao extends Dao implements TicketDaoInterface {
     private final String RESOLVED   = "RESOLVED";
 
     /**
-     *
+     * Creating a ticket for the database
      * @param t the Ticket to create
      * @return int to indicate result (see Dao class)
      */
@@ -75,7 +75,7 @@ public class TicketDao extends Dao implements TicketDaoInterface {
     }
 
     /**
-     *
+     * Getting all open tickets
      * @return arrayList of all currently unresolved tickets 
      */
     @Override
@@ -131,7 +131,7 @@ public class TicketDao extends Dao implements TicketDaoInterface {
     }
     
     /**
-     * 
+     * Getting all tickets regardless of open or closed
      * @return arraylist of all tickets
      */
     @Override

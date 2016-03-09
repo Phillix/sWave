@@ -126,7 +126,7 @@ INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Genre", 1970, 2.99, "Public Do
 
 INSERT INTO ORDERS VALUES (-1, -1, '1970-1-1', 15.50);
 
-INSERT INTO ADS VALUES (-1, "ads/test.html");
-INSERT INTO ADS VALUES (-2, "ads/test2.html");
+INSERT INTO ADS VALUES (1, "ads/test.html");
+INSERT INTO ADS VALUES (2, "ads/test2.html");
 
 INSERT INTO TICKETS VALUES (-1, -1, "my pc is on fire", "2009-12-3", false);

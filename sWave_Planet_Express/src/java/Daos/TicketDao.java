@@ -89,7 +89,9 @@ public class TicketDao extends Dao implements TicketDaoInterface {
         try {
             con     = getConnection();
             ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
-                                           " WHERE " + RESOLVED + " = FALSE");
+                                           " WHERE " + RESOLVED + 
+                                           " = FALSE ORDER BY " + DATE + 
+                                           " DESC");
             rs      = ps.executeQuery();
             tickets = new ArrayList<>();
 
@@ -142,7 +144,7 @@ public class TicketDao extends Dao implements TicketDaoInterface {
 
         try {
             con     = getConnection();
-            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME);
+            ps      = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " ORDER BY " + DATE + " DESC");
             rs      = ps.executeQuery();
             tickets = new ArrayList<>();
 

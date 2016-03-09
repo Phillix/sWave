@@ -60,9 +60,6 @@
         <aside class="panel" id="left_sidebar">
             <a class="currentPageLink" href="index.jsp">
                 <h2>Now Playing</h2>
-                <script>alert(<%if (session.getAttribute("user") != null) {%>
-                    <%=((User)session.getAttribute("user")).getUserId()%>
-                    <%}%>)</script>
             </a>
             <a href="music.jsp">
                 <h2>Library</h2>
@@ -79,7 +76,8 @@
         <aside class="panel" id="right_sidebar">
             <%
                 AdDao ads = new AdDao();
-                Ad ad = ads.getAd((int)Math.floor(Math.random() * ads.getMaxAdId()));
+                int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());
+                Ad ad = ads.getAd(check);
             %>
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>

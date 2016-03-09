@@ -40,7 +40,7 @@ public class AdDao extends Dao implements AdDaoInterface {
                 ad.setAdUrl(rs.getString(URL));
             }
         }
-        catch(Exception e) {
+        catch(ClassNotFoundException | SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
             return null;
@@ -78,11 +78,11 @@ public class AdDao extends Dao implements AdDaoInterface {
             rs  = ps.executeQuery();
 
             if(rs.next()) {
-                int maxId = rs.getInt("MAX("+ID+")");
+                int maxId = rs.getInt("MAX(" + ID + ")");
                 return maxId;
             }
         }
-        catch(Exception e) {
+        catch(ClassNotFoundException | SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
             return SQLEX;

@@ -97,7 +97,7 @@
                             if (currentUser.isIsAdmin()) {%>
                                 <ul class="ticketList">
                                     <li class="panel ticket">
-                                        <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
+                                        <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><a href="mailto:<%=userDao.getUserById(t.getUserId()).getEmail()%>" target="_blank"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u></a>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
                                         <br/>
                                         <span class="ticketIssue">
                                             <%=t.getIssue()%>

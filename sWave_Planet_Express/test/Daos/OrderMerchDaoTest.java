@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.OrderMerch;
@@ -48,8 +43,8 @@ public class OrderMerchDaoTest {
      */
     @Test
     public void testCreateOrder() {
-        
         om = new OrderMerch();
+        om.setOrderId(-2);
         int expResult = 0;
         int result = instance.createOrder(om);
         assertEquals(expResult, result);
@@ -60,7 +55,6 @@ public class OrderMerchDaoTest {
      */
     @Test
     public void testGetOrderMerchInOrder() {
-        
         ArrayList<OrderMerch> om = instance.getOrderMerchInOrder(2);
         for(OrderMerch o : om) {
             System.out.println(o);

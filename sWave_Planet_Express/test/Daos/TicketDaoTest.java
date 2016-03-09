@@ -75,12 +75,24 @@ public class TicketDaoTest {
      * Testing the closing ticket method
      */
     @Test
-    public void testCloseTicket() {
+    public void testchangeTicketStatus() {
         instance.changeTicketStatus(-1, true);
         Ticket t = instance.viewTicket(-1);
         boolean expResult = true;
         boolean result = t.isResolved();
         assertEquals("The close ticket method does not work correctly in testCloseTicket", expResult, result);
         instance.changeTicketStatus(-1, false);
+    }
+
+    /**
+     * Test of getAllTickets method, of class TicketDao.
+     */
+    @Test
+    public void testGetAllTickets() {
+        System.out.println("getAllTickets");
+        boolean expResult = true;
+        ArrayList<Ticket> tickets = instance.getAllTickets();
+        boolean result = tickets.size() > 0;
+        assertEquals(expResult, result);
     }
 }

@@ -125,8 +125,13 @@ INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20ab
 INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Genre", 1970, 2.99, "Public Domain", NULL);
 
 INSERT INTO ORDERS VALUES (-1, -1, '1970-1-1', 15.50);
+INSERT INTO ORDERS VALUES (-2, -2, '1971-1-1', 16.20);
 
 INSERT INTO ADS VALUES (1, "ads/test.html");
 INSERT INTO ADS VALUES (2, "ads/test2.html");
 
 INSERT INTO TICKETS VALUES (-1, -1, "my pc is on fire", "2009-12-3", false);
+
+INSERT INTO MERCH VALUES(-1, "Mug", 9.99);
+
+INSERT INTO ORDERMERCH VALUES(-1, -1, 1, 9.99);

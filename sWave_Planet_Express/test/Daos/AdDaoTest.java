@@ -10,10 +10,11 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Phillix
+ * @author Austin
  */
 public class AdDaoTest {
     
-    AdDao instance;
+    AdDao instance = new AdDao();
     public AdDaoTest() {
     }
     
@@ -38,11 +39,9 @@ public class AdDaoTest {
      */
     @Test
     public void testGetAd() {
-        
-        int id = -1;
-        instance = new AdDao();
+        int id = 1;
         String result = instance.getAd(id).toString();
-        String expResult = "Ad{adId=-1, adUrl=ads/test.html}";
+        String expResult = "Ad{adId=1, adUrl=ads/test.html}";
         assertEquals(expResult, result);
     }
     
@@ -51,10 +50,8 @@ public class AdDaoTest {
      */
     @Test
     public void testGetMaxAdId() {
-        
-        int id = -1;
-        instance = new AdDao();
+        int max = 2;
         int result = instance.getMaxAdId();
-        assertEquals(id, result);
+        assertEquals(max, result);
     }
 }

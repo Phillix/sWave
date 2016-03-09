@@ -2,6 +2,8 @@ package Daos;
 
 import Dtos.User;
 import Security.UserSecurity;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,8 +17,7 @@ import static org.junit.Assert.*;
  * @author Austin
  */
 public class UsersDaoTest {
-    static User u;
-    static User u2;
+    User u;
     static UsersDao ud;
     static UserSecurity us = new UserSecurity();
     
@@ -25,21 +26,17 @@ public class UsersDaoTest {
     
     @BeforeClass
     public static void setUpClass() {
-        u = new User("junit@junit.com", us.hash("Password123".toCharArray()), "junitsquad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", "flat", false);
-        u2 = new User("junit2@junit.com", us.hash("Password123".toCharArray()), "junit2squad", "john", "unit", "1 junit way", "junit road", "junit city", "Mayo", "flat", false);
         ud = new UsersDao();
     }
     
     @AfterClass
     public static void tearDownClass() {
-        ud.deleteUser(u.getEmail());
-        ud.deleteUser(u2.getEmail());
     }
     
     @Before
     public void setUp() {
-        ud.deleteUser(u.getEmail());
-        ud.deleteUser(u2.getEmail());
+        u = new User("ceo@banana.com", us.hash("password".toCharArray()), "appelman", "Steev", "Jubs", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", false);
+        u.setUserId(-1);
     }
     
     @After
@@ -51,10 +48,11 @@ public class UsersDaoTest {
      */
     @Test
     public void testCheckUnameValid() {
-        int result = ud.checkUname(u2.getUsername());
-        
+        int result = ud.checkUname(u.getUsername());
+        boolean expResult = true;
+        boolean accResult = result == 0;
         //Expecting the result to be -5, meaning the query returned OTHER, meaning it didn't find the username in the database
-        assertEquals(-5, result);
+        assertEquals(expResult, accResult);
     }
     
     /**
@@ -62,11 +60,11 @@ public class UsersDaoTest {
      */
     @Test
     public void testCheckUnameInValid() {
-        ud.register(u2);
-        int result = ud.checkUname(u2.getUsername());
-        
-        //Expecting the result to be 0 as it will return SUCCESS because the username has been registered beforehand
-        assertEquals(0, result);
+        int result = ud.checkUname(u.getUsername() + " dddd");
+        boolean expResult = true;
+        boolean accResult = result == -5;
+        //Expecting the result to be -5, meaning the query returned OTHER, meaning it didn't find the username in the database
+        assertEquals(expResult, accResult);
     }
 
     /**
@@ -74,8 +72,10 @@ public class UsersDaoTest {
      */
     @Test
     public void testRegister() {
+        User u1 = new User();
         int expResult = 0;
-        int result = ud.register(u);
+        int result = ud.register(u1);
+        ud.deleteUser(u1.getEmail());
         assertEquals(expResult, result);
     }
 
@@ -84,8 +84,7 @@ public class UsersDaoTest {
      */
     @Test
     public void testLogIn() {
-        ud.register(u);
-        User u1 = ud.logIn(u.getEmail(), "Password123");
+        User u1 = ud.logIn(u.getEmail(), "password");
         assertEquals(true, u.equals(u1));
     }
 
@@ -93,9 +92,8 @@ public class UsersDaoTest {
      * Test of checkDetails method, of class UsersDao.
      */
     @Test
-    public void testCheckDetailsValid() {
-        ud.register(u);
-        int result = ud.checkDetails("junit3@junit.com", "junit3squad");
+    public void testCheckDetailsInvalid() {
+        int result = ud.checkDetails("junit1@junit.com", "junit1squad");
         
         //Expecting it to be -5 as it will have returned OTHER because they don't exist
         assertEquals(-5, result);
@@ -105,9 +103,8 @@ public class UsersDaoTest {
      * Test of checkDetails method, of class UsersDao.
      */
     @Test
-    public void testCheckDetailsInValid() {
-        ud.register(u);
-        int result = ud.checkDetails("junit@junit.com", "junitsquad");
+    public void testCheckDetailsValid() {
+        int result = ud.checkDetails(u.getEmail(), u.getUsername());
         
         //Expecting it to be 0 as it will have returned SUCCESS as they exist because we just registered those details
         assertEquals(0, result);
@@ -118,10 +115,45 @@ public class UsersDaoTest {
      */
     @Test
     public void testGetUserById() {
-        
         User uidTest = ud.getUserById(-1);
         String result = uidTest.getUsername();
         String expected = "appelman";
         assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getUserId method, of class UsersDao.
+     */
+    @Test
+    public void testGetUserId() {
+        String email = u.getEmail();
+        String username = u.getUsername();
+        int expResult = -1;
+        int result = ud.getUserId(email, username);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of deleteUser method, of class UsersDao.
+     */
+    @Test
+    public void testDeleteUser() {
+        User u1 = new User();
+        ud.register(u1);
+        int expResult = 0;
+        int result = ud.deleteUser(u1.getEmail());
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of changeSkin method, of class UsersDao.
+     */
+    @Test
+    public void testChangeSkin() {
+        String skin = "flat";
+        int userid = -1;
+        int expResult = 0;
+        int result = ud.changeSkin(skin, userid);
+        assertEquals(expResult, result);
     }
 }

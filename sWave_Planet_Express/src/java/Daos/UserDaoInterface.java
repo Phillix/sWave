@@ -13,4 +13,7 @@ public interface UserDaoInterface {
     public int checkDetails(String email, String username);
     public int getUserId(String email, String username);
     public User getUserById(int id);
+    public int deleteUser(String email);
+    public int changeSkin(String skin, int userid);
+    public int updateUser(User u);
 }

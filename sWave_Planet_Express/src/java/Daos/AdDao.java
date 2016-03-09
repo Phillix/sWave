@@ -18,10 +18,11 @@ public class AdDao extends Dao implements AdDaoInterface {
     private final String URL        = "ADURL";
 
     /**
-     *
+     * Used for getting an ad based on an ad id
      * @param id random generated ad id
      * @return ad to display
      */
+    @Override
     public Ad getAd(int id) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -64,9 +65,10 @@ public class AdDao extends Dao implements AdDaoInterface {
     }
 
     /**
-     *
+     * Gets the max id in the database
      * @return max id for use in creating random id for getAd method
      */
+    @Override
     public int getMaxAdId() {
         Connection con       = null;
         PreparedStatement ps = null;

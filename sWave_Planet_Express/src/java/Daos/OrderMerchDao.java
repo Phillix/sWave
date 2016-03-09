@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.OrderMerch;
@@ -31,6 +26,7 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
      * @param om OrderMerch object to create
      * @return int value indicating success
      */
+    @Override
     public int createOrder(OrderMerch om) {
 
         Connection con = null;
@@ -82,10 +78,11 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for getting all of the OrderMerch in the order
      * @param orderId id of the order
      * @return Collection of OrderMerch belonging to passed in Order id
      */
+    @Override
     public ArrayList<OrderMerch> getOrderMerchInOrder(int orderId) {
         
         Connection con = null;

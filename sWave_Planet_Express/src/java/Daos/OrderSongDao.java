@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
-import Dtos.OrderMerch;
 import Dtos.OrderSong;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Phillix
  */
-public class OrderSongDao extends Dao {
+public class OrderSongDao extends Dao implements OrderSongDaoInterface {
     
     private final boolean DEBUG = Debugging.Debug.debug;
 
@@ -26,6 +20,12 @@ public class OrderSongDao extends Dao {
     private final String SONGID     = "SONGID";
     private final String PRICE       = "PRICEPAID";
     
+    /**
+     * Used for creating a new ordersong to be added to the database
+     * @param os The ordersong you wish to add
+     * @return SUCCESS if it inserted correctly, OTHER otherwise
+     */
+    @Override
     public int createOrderSong(OrderSong os) {
 
         Connection con = null;
@@ -75,6 +75,12 @@ public class OrderSongDao extends Dao {
         }
     }
     
+    /**
+     * This song gets a list of the ordersongs in the ordersongs table
+     * @param orderId The id of the order you want to get the ordersongs from
+     * @return A list of all of the ordersongs
+     */
+    @Override
     public ArrayList<OrderSong> getOrderSongInOrder(int orderId) {
         
         Connection con = null;

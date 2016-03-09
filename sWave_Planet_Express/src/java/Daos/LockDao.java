@@ -17,6 +17,11 @@ public class LockDao extends Dao implements LockDaoInterface {
     private final String USERID     = "USERID";
     private final String SONGID     = "SONGID";
 
+    /**
+     * Used for adding a lock
+     * @param x The lock you wish to add
+     * @return The lock you added
+     */
     @Override
     public Lock addLock(Lock x) {
         Connection con       = null;
@@ -52,6 +57,10 @@ public class LockDao extends Dao implements LockDaoInterface {
         return x;
     }
 
+    /**
+     * Used for releasing a particular users locks
+     * @param userId The id of the user you want to break free
+     */
     @Override
     public void releaseUserLocks(int userId) {
         Connection con       = null;
@@ -84,6 +93,10 @@ public class LockDao extends Dao implements LockDaoInterface {
         }
     }
 
+    /**
+     * Releasing all locks on a particular song
+     * @param songId The id of the song you wish to drop locks for
+     */
     @Override
     public void releaseSongLocks(int songId) {
         Connection con       = null;
@@ -116,6 +129,9 @@ public class LockDao extends Dao implements LockDaoInterface {
         }
     }
 
+    /**
+     * Used for releasing all locks on everything
+     */
     @Override
     public void releaseAllLocks() {
         Connection con       = null;

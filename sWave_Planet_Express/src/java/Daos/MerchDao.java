@@ -13,14 +13,14 @@ import java.util.ArrayList;
  * @author Phillix
  */
 public class MerchDao extends Dao implements MerchDaoInterface {
-    
+
     private final boolean DEBUG = sWave.Debugging.debug;
 
     private final String TABLE_NAME = "MERCH";
     private final String ID         = "MERCHID";
     private final String TITLE      = "TITLE";
     private final String PRICE      = "PRICE";
-    
+
     /**
      * Used for creating a new Merch
      * @param m Merch object to create
@@ -74,6 +74,50 @@ public class MerchDao extends Dao implements MerchDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+    }
+    
+        /**
+         * 
+         * @param merchid
+         * @return a Merch object with the given id
+         */
+        @Override
+        public Merch getMerchById(int merchid) {
+        Connection con        = null;
+        PreparedStatement ps  = null;
+        ResultSet rs          = null;
+
+        try {
+            con          = getConnection();
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setInt(1, merchid);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Merch(rs.getString(TITLE),
+                                 rs.getDouble(PRICE));
+            }
+        }
+        catch (ClassNotFoundException | SQLException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+        }
+        finally {
+            try {
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return null;
     }
     
     /**

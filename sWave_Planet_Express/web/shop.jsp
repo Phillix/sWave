@@ -7,14 +7,13 @@
 <html>
     <head>
         <%if (session == null) {
-            response.sendRedirect("login.jsp");
-         }
-         User currentUser = (User)session.getAttribute("user");%>
+                response.sendRedirect("login.jsp");
+            }
+            User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Welcome to sWave</title>
+        <title>Shop - sWave</title>
         <link rel="stylesheet" type="text/css" href="main.css"/>
-        <link rel="stylesheet" type="text/css" href="css/index.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <%
             String skin = "flat";
@@ -35,20 +34,16 @@
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>
-                <a id="shopLink" href="shop.jsp">Shop</a>
+                <a id="indexLink" href="index.jsp">Music</a>
+                <a id="shopLink" class="currentPageLink" href="shop.jsp">Shop</a>
                 <a id="accountLink" href="account.jsp">Account</a>
                 <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
-                <form id="searchBox" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="search"/>
-                    <input type="search" name="searchterm" placeholder="Search"/>
-                </form>
                 <%if (currentUser != null) {%>
-                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
+                    <a href="account.jsp"><%=currentUser.getUsername()%></a>
                     &#160;&#160;
-                    <form id="logOutButton" action="UserActionServlet" method="POST">
+                    <form style="display:inline;" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="logout"/>
                         <input type="submit" value="Log Out"/>
                     </form>
@@ -61,26 +56,26 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a id="indexLink" class="currentPageLink" href="index.jsp">
-                <h2>Now Playing</h2>
-            </a>
-            <a id="musicLink" href="music.jsp">
-                <h2>Library</h2>
-            </a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
             </span>
+            <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <div id="visualizer">
-            </div>
+            <h1>Project sWave</h1>
+            <h3>Brought to you by Team Planet Express</h3>
+            Planet Express is:
+            <ul>
+                <li>Austin Foley</li>
+                <li>Brian Millar</li>
+                <li>Philip Carey</li>
+            </ul>
         </div>
         <aside class="panel" id="right_sidebar">
             <%
                 AdDao ads = new AdDao();
-                int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());
-                Ad ad = ads.getAd(check);
+                Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));
             %>
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>

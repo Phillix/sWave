@@ -37,9 +37,9 @@ public class LoginCommand implements Command {
                 //Forward them to the home page
                 forwardToJsp = "/index.jsp";
             } else
-                forwardToJsp = "/login_failed.jsp";
+                forwardToJsp = "/login.jsp?failed=yes";
         } else
-            forwardToJsp = "/login_failed.jsp";
+            forwardToJsp = "/login.jsp?failed=yes";
         return forwardToJsp;
     }
 }

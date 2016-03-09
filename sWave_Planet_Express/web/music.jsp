@@ -7,7 +7,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%User currentUser = (User)session.getAttribute("user");%>
+        <%if (session == null) {
+                response.sendRedirect("login.jsp");
+            }
+            User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Library - sWave</title>
@@ -33,10 +36,10 @@
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a class="currentPageLink" href="index.jsp">Music</a>
-                <a href="shop.jsp">Shop</a>
-                <a href="account.jsp">Account</a>
-                <a href="about.jsp">About</a>
+                <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>
+                <a id="shopLink" href="shop.jsp">Shop</a>
+                <a id="accountLink" href="account.jsp">Account</a>
+                <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -46,7 +49,6 @@
                         <input type="hidden" name="action" value="logout"/>
                         <input type="submit" value="Log Out"/>
                     </form>
-                    <span id="clock">--:--</span>
                 <%} else {
                         response.sendRedirect("login.jsp");
                 %>
@@ -84,9 +86,14 @@
                     <td><form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="stream"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                            <input type="hidden" name="userid" value="<%=currentUser.getUserId()%>"/>
-                            <input type="hidden" name="page" value="music"/>
                             <input type="submit" value="Play"/>
+                        </form>
+                    </td>
+                    <td><form action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="addToCart"/>
+                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                            <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
+                            <input type="submit" value="Add to Cart"/>
                         </form>
                     </td>
                 </tr>
@@ -117,7 +124,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" src="<%=sWave.Server.domain + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio id="player" src="<%=sWave.Server.domain + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>

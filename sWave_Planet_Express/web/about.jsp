@@ -6,7 +6,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%User currentUser = (User)session.getAttribute("user");%>
+        <%if (session == null) {
+             response.sendRedirect("login.jsp");
+          }
+            
+          User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>About sWave</title>
@@ -31,11 +35,10 @@
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a id="currentPageLink" href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
-                <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
-                <a href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
-                <a href="about.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
+                <a id="indexLink" href="index.jsp">Music</a>
+                <a id="shopLink" href="shop.jsp">Shop</a>
+                <a id="accountLink" href="account.jsp">Account</a>
+                <a id="aboutLink" class="currentPageLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -94,7 +97,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio id="player" src="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>

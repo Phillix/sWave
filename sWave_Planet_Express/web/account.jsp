@@ -11,10 +11,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%User currentUser = (User)session.getAttribute("user");%>
+        <%
+            if (session == null) {
+                response.sendRedirect("login.jsp");
+            }
+            User currentUser = (User)session.getAttribute("user");
+            
+            if (request.getParameter("view") == null) {
+                response.sendRedirect("account.jsp?view=profile");
+            }%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Browse Music</title>
+        <title>Account - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="main.css"/>
         <%
@@ -38,11 +46,10 @@
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a href="index.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Now Playing</a>
-                <a href="music.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Library</a>
-                <a href="temp.html?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Shop</a>
-                <a id="currentPageLink" href="account.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">Account</a>
-                <a href="about.jsp?filename=<%=request.getParameter("filename")%>&playid=<%=request.getParameter("playid")%>">About</a>
+                <a id="indexLink" href="index.jsp">Music</a>
+                <a id="shopLink" href="shop.jsp">Shop</a>
+                <a id="accountLink" class="currentPageLink" href="account.jsp">Account</a>
+                <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <%if (currentUser != null) {%>
@@ -105,11 +112,11 @@
                                     <li class="panel ticket">
                                         <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><a href="mailto:<%=userDao.getUserById(t.getUserId()).getEmail()%>" target="_blank"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u></a>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
                                         <br/>
-                                        <span class="ticketIssue">
+                                        <p class="ticketIssue">
                                             <%=t.getIssue()%>
-                                        </span>
+                                        </p>
                                         <br/>
-                                        <form method="POST" action="UserActionServlet">
+                                        <form style="margin-left:10px;" method="POST" action="UserActionServlet">
                                             <input type="hidden" name="action" value="closeTicket"/>
                                             <input type="hidden" name="ticketId" value="<%=t.getTicketId()%>"/>
                                             <input type="submit" value="Close"/>
@@ -140,15 +147,13 @@
                             <label>Select Skin: </label>
                             <select name="skin">
                                 <option>Flat</option>
-                                <option>Flat Darkness</option>
                                 <option>Nova</option>
-                                <option>Quantum</option>
                             </select>
                             <input type="submit" value="Apply"/>
                         </form>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
-                                <iframe src="upload.jsp"></iframe>
+                                <iframe style="border:none; width:500px; height:400px;" src="upload.jsp"></iframe>
                             <%} else {
                                 response.sendRedirect("noperm.jsp");
                               }
@@ -179,7 +184,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio id="player" src="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>

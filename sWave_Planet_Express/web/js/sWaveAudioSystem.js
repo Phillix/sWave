@@ -7,7 +7,15 @@ function initsWaveAudio() {
 }
 
 function listenForEvents() {
-    $("player").addEventListener("play",     function() {$("playerStatus").innerHTML = "Playing";});
+    $("player").addEventListener("play", function() {
+        $("playPauseButton").src="images/pause.png";
+        $("playerStatus").innerHTML = "Playing";
+        recordTime();
+    });
+    $("player").addEventListener("pause", function() {
+        $("playPauseButton").src="images/play.png";
+        $("playerStatus").innerHTML = "Paused";
+    });
     $("player").addEventListener("progress", function() {$("playerStatus").innerHTML = "Downloading...";});
 }
 
@@ -30,13 +38,18 @@ function hideScrubber() {
     $("scrubber").style.MozTransform = "scale(0.0)";
 }
 
-function clock() {
-    $("clock").innerHTML = fTime(true);
+function recordTime() {
     var currTime = $("player").currentTime;
     if (currTime != null && currTime != undefined) {
         x = "?time=" + currTime;
-        $("indexLink").href = "index.jsp" + x;
-        $("musicLink").href = "music.jsp" + x;
+        $("indexLink").href   = "index.jsp"   + x;
+        $("shopLink").href    = "shop.jsp"    + x;
+        $("accountLink").href = "account.jsp" + x;
+        $("aboutLink").href   = "about.jsp"   + x;
+        if (document.getElementById("musicLink") !== null && document.getElementById("musicLink") !== undefined)
+            $("musicLink").href = "music.jsp" + x;
+        if (document.getElementById("index2Link") !== null && document.getElementById("index2Link") !== undefined)
+            $("index2Link").href = "index.jsp" + x;
     }
-    setTimeout(clock, 500);
+    setTimeout(recordTime, 500);
 }

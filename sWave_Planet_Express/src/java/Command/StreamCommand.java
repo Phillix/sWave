@@ -4,11 +4,13 @@ import Daos.LockDao;
 import Daos.SongDao;
 import Dtos.Lock;
 import Dtos.Song;
+import Dtos.User;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *            session
@@ -20,11 +22,12 @@ public class StreamCommand implements Command {
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
-        String filename = request.getParameter("songid") + ".mp3";
-        File testfile   = new File(filename);
-        LockDao locks   = new LockDao();
-        locks.releaseUserLocks(Integer.parseInt(request.getParameter("userid")));
-        locks.addLock(new Lock(Integer.parseInt(request.getParameter("userid")),
+        String filename     = request.getParameter("songid") + ".mp3";
+        File testfile       = new File(filename);
+        LockDao locks       = new LockDao();
+        HttpSession session = request.getSession();
+        locks.releaseUserLocks(((User)session.getAttribute("user")).getUserId());
+        locks.addLock(new Lock(((User)session.getAttribute("user")).getUserId(),
                                Integer.parseInt(request.getParameter("songid"))));
         if (!testfile.exists()) {
             SongDao songs = new SongDao();

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface MerchDaoInterface {
     public int createMerch(Merch m);
     public ArrayList<Merch> viewMerchAlpha();
+    public Merch getMerchById(int merchid);
     public ArrayList<Merch> getMerchInOrder(ArrayList<OrderMerch> ids);
     public ArrayList<Merch> searchMerch(String searchWord);
 }

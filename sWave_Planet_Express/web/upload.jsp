@@ -12,9 +12,14 @@
                   response.sendRedirect("noperm.jsp");
               }
           }
+            String skin = "flat";
+            if (currentUser != null) {
+                skin = currentUser.getSkin();
+            }
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <title>Upload</title>
         <script src="macgril/js/dom.js"></script>
         <script>
             function showSizes() {
@@ -26,7 +31,7 @@
             }
         </script>
     </head>
-    <body>
+    <body style="color:#e3e3e3; text-shadow: 0px 0px 10px #000;">
         <h1>Admin Panel</h1>
         <form action="UserActionServlet" method="POST" enctype="multipart/form-data">
             <h3>Upload Tracks</h3>

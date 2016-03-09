@@ -73,7 +73,7 @@
         <aside class="panel" id="right_sidebar">
             <%
                 AdDao ads = new AdDao();
-                Ad ad = ads.getAd((int)Math.floor(Math.random() * ads.getMaxAdId()));
+                Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));
             %>
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>
@@ -94,7 +94,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=Server.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>

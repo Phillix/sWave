@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.Merch;
@@ -27,10 +22,11 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     private final String PRICE      = "PRICE";
     
     /**
-     * 
+     * Used for creating a new Merch
      * @param m Merch object to create
      * @return int value indicating success
      */
+    @Override
     public int createMerch(Merch m) {
 
         Connection con = null;
@@ -81,9 +77,10 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     }
     
     /**
-     * 
+     * This method is used to get all of the merch from the database
      * @return Collection of all merchandise on offer in alphabetical order
      */
+    @Override
     public ArrayList<Merch> viewMerchAlpha() {
         
         Connection con = null;
@@ -139,10 +136,11 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     }
     
     /**
-     * 
+     * Used for getting all of the merch in a particular order
      * @param ids the Collection of orderMerch you want to retrieve Merch for
      * @return Collection of Merch belonging to an Order
      */
+    @Override
     public ArrayList<Merch> getMerchInOrder(ArrayList<OrderMerch> ids) {
         
         Connection con = null;
@@ -210,10 +208,11 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     }
 
     /**
-     * 
+     * Used for searching for merch
      * @param searchWord String of text to use in searching
      * @return a Collection of successful Merch matches
      */
+    @Override
     public ArrayList<Merch> searchMerch(String searchWord) {
         
         Connection con = null;

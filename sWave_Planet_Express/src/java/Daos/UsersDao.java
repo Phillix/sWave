@@ -149,7 +149,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
     }
 
     /**
-     *
+     * Used for logging in a user
      * @param email String email to check against the database
      * @param password String password to check against the database
      * @return user object based on successful login, returns null Users object if not found
@@ -265,7 +265,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
     
     
     /**
-     * 
+     * Getting a users id based on email and username
      * @param email
      * @param username
      * @return the id of the user with the passing in username and email
@@ -320,6 +320,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param email The email of the user you wish to delete
      * @return 0 if the email was there and got deleted; -5 if it didn't exist; -1 through -4 for errors
      */
+    @Override
     public int deleteUser(String email) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -359,6 +360,13 @@ public class UsersDao extends Dao implements UserDaoInterface {
         return OTHER;
     }
     
+    /**
+     * Used for changing the users skin
+     * @param skin The skin the user wishes to change to
+     * @param userid The id of the user who wishes to change skin
+     * @return A range of ints based of success or failure
+     */
+    @Override
     public int changeSkin(String skin, int userid) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -398,6 +406,12 @@ public class UsersDao extends Dao implements UserDaoInterface {
         return OTHER;
     }
     
+    /**
+     * Getting a user based on his id
+     * @param id the of the user you wish to get
+     * @return a User Object built from the users id
+     */
+    @Override
     public User getUserById(int id) {
 
         Connection con       = null;
@@ -459,6 +473,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
      * @param u The user you wish to update and updated details
      * @return SUCCESS if it successfully updated, OTHER if not
      */
+    @Override
     public int updateUser(User u) {
         Connection con       = null;
         PreparedStatement ps = null;

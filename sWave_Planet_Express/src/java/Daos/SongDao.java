@@ -78,9 +78,9 @@ public class SongDao extends Dao implements SongDaoInterface {
     }
 
     /**
-     *
-     * @param metadata
-     * @param buffer
+     * This method is used for adding a new song to the database
+     * @param s The song you wish to add to the database
+     * @return SUCCESS if it successfully inserted, otherwise OTHER
      */
     @Override
     public int addNewSong(Song s) {
@@ -199,6 +199,7 @@ public class SongDao extends Dao implements SongDaoInterface {
      * @param term The search term to be searched
      * @return An ArrayList of all of the songs that matched the search term
      */
+    @Override
     public ArrayList<Song> search(String term) {
         Connection con        = null;
         PreparedStatement ps  = null;
@@ -256,6 +257,7 @@ public class SongDao extends Dao implements SongDaoInterface {
      * @param songId The id of the song we want to delete
      * @return Success(0) if the song was deleted or OTHER(-5) if not
      */
+    @Override
     public int deleteSong(int songId) {
         Connection con        = null;
         PreparedStatement ps  = null;

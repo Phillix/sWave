@@ -27,10 +27,11 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     private final String TOTAL       = "TOTAL";
 
     /**
-     * 
+     * This method is used for creating a new order
      * @param o the order object to be created
      * @return int value indicating success/failures
      */
+    @Override
     public int createOrder(Order o) {
 
         Connection con       = null;
@@ -78,6 +79,12 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         }
     }
 
+    /**
+     * This method is used for getting all orders from a particular user
+     * @param userId The id of the user we want to get the orders from
+     * @return An ArrayList of the users orders
+     */
+    @Override
     public ArrayList<Order> getUserOrders(int userId) {
 
         Connection con       = null;
@@ -130,10 +137,11 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     }
     
     /**
-     * 
+     * This method gets all of a users orders
      * @param userId the id of the user whos order details are wanted
      * @return ArrayList of UltimateOrders
      */
+    @Override
     public ArrayList<UltimateOrder> getFullOrders(int userId) {
 
         UltimateOrder ultimateOrder;
@@ -176,6 +184,12 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         return ultiOrders;
     }
     
+    /**
+     * Gets the current order for the user, used for obtaining the orderid
+     * @param userId The user id you want the order for
+     * @return The users current order
+     */
+    @Override
     public Order getCurrentOrder(int userId) {
 
         Connection con       = null;
@@ -197,7 +211,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                 o.setOrderId(rs.getInt(ID));
                 o.setUserId(rs.getInt(USERID));
                 o.setDateOrdered(rs.getDate(DATEORDERED).toString());
-                o.setTotal(rs.getDouble(TOTAL));;
+                o.setTotal(rs.getDouble(TOTAL));
             }
         }
         catch(Exception e) {

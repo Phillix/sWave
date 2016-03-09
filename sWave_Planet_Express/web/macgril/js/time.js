@@ -17,9 +17,9 @@
 
 function clock() {
     $("sysClock").innerHTML = "|&#160;&#160;" + fDate(true) + "&#160;&#160;|&#160;&#160;" + fTime(true) + "&#160;";
-     if ($("timePanel").style.display == "block")
+    if ($("timePanel").style.display == "block")
         updateAnalogClock();
-    setTimeout("clock()",500);
+    setTimeout("clock()", 500);
 }
 
 function updateAnalogClock() {

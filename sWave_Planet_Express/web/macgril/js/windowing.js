@@ -21,7 +21,6 @@ function newWindow(x, y, title, content, resize, min, max) {
     var windowTab = newTab(title);
     $(newWindow).setAttribute("class", "window");
     $(newWindow).setAttribute("onmouseover", "updateInfoBar('" + title + "');");
-    $(newWindow).setAttribute("onmouseout", "updateInfoBar('eXastum 3.0');");
     $(newWindow).style.width    = parseInt(x) + 2  + "px";
     $(newWindow).style.height   = parseInt(y) + 32 + "px";
     $(newWindow).style.resize   = resize;
@@ -136,7 +135,8 @@ function dragWindow(appWindow,ev) {
     ycoor        = ev.clientY;
     
     document.onmousemove = function(ev) {
-        if($(appWindow) === undefined) return false;
+        if($(appWindow) === undefined)
+            return false;
         
         var leftdist    =  positionLeft + ev.clientX - xcoor;
         var topdist     =  positionTop  + ev.clientY - ycoor;
@@ -153,7 +153,7 @@ function dragWindow(appWindow,ev) {
         $(appWindow).style.top     = topdist  + "px";
         $(appWindow).style.left    = leftdist + "px";
         
-        document.onmouseup         = function(ev) {
+        document.onmouseup = function(ev) {
             $(appWindow).style.opacity = 1.0;
             document.onmousemove       = function() {return false};
             document.onmouseup         = function() {return false};

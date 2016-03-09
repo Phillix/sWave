@@ -47,7 +47,7 @@ function generate(x, y, z) {
     var id;
     if (z !== null) id = z;
     else id = "macgrilID" + (mgID++);
-    el.setAttribute("id",id);
+    el.setAttribute("id", id);
     $(y).appendChild(el);
     return id;
 }

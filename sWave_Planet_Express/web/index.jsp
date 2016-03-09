@@ -1,3 +1,4 @@
+<%@page import="Server.Server"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -98,7 +99,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio onplay="$('playPauseButton').src='images/pause.png'" onpause="$('playPauseButton').src='images/play.png'" id="player" src="http://localhost:8084/<%=((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio onplay="$('playPauseButton').src='images/pause.png'" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=Server.getDomain() + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
         <%}%>
     </body>
 </html>

@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import sWaveEngine.ID3v2;
 
 /**
  *
@@ -67,7 +66,7 @@ public class UploadCommand implements Command {
             dao.addNewSong(s);
             uploadSize += buffer.length;
             count++;
-            Logging.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize/1024.0/1024.0 + "MB");
+            Logging.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize / 1024.0 / 1024.0 + "MB");
         }
         return "/uploadComplete.jsp";
     }

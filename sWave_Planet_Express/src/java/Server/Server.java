@@ -11,6 +11,7 @@ public class Server {
     private int        CPUs;
     private long       RAM;
     private long       freeRAM;
+    private  static final String domain = "http://localhost:8084/";
 
     public Server() {
         sysProp = System.getProperties();
@@ -26,5 +27,9 @@ public class Server {
     
     public static void garbageCollect() {
         Runtime.getRuntime().gc();
+    }
+    
+    public static String getDomain() {
+        return domain;
     }
 }

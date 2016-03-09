@@ -152,7 +152,7 @@
         <aside class="panel" id="right_sidebar">
             <%
                 AdDao ads = new AdDao();
-                Ad ad = ads.getAd((int)Math.floor(Math.random() * ads.getMaxAdId()));
+                Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));
             %>
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>

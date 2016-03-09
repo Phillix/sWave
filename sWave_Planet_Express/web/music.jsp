@@ -116,7 +116,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" onplay="$('playPauseButton').src='images/pause.png'" onpause="$('playPauseButton').src='images/play.png'" src="http://localhost:8084/<%=((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio id="player" onplay="$('playPauseButton').src='images/pause.png'" onpause="$('playPauseButton').src='images/play.png'" src="<%=Server.getDomain() + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
         <%}%>
     </body>
 </html>

@@ -7,9 +7,12 @@
         <title>Internal Error</title>
     </head>
     <body>
-        <h1>Internal Error</h1>
-        <p>sWave has experienced an internal error.<br/>
-           This is a server-side error and we are deeply sorry for it.</p>
+        <h1>sWave Error</h1>
+        <%if (session.getAttribute("msg") != null) {%>
+            <p><%=session.getAttribute("msg")%></p>
+        <%} else {%>
+            <p>An Unknown Error has Occurred, We Are Sorry</p>
+        <%}%>
         <a href="index.jsp">Return Home</a>
     </body>
 </html>

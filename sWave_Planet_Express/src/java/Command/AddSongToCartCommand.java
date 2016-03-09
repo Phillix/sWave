@@ -19,13 +19,11 @@ public class AddSongToCartCommand implements Command {
         if (session.getAttribute("cart") == null)
             session.setAttribute("cart", new ArrayList<>());
         ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
-        for (CartItem i : cart) {
+        for (CartItem i : cart)
             if (i.getProdId() == item.getProdId())
                 return "/music.jsp"; //Don't add it twice
-            else
-                cart.add(item);
-            session.setAttribute("cart", cart);
-        }
+        cart.add(item);
+        session.setAttribute("cart", cart);
         return "/music.jsp";
     }
 }

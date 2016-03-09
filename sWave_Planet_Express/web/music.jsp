@@ -90,7 +90,7 @@
                         </form>
                     </td>
                     <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addToCart"/>
+                            <input type="hidden" name="action" value="addSongToCart"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                             <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
                             <input type="submit" value="Add to Cart"/>

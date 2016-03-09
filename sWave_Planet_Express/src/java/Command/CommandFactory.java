@@ -44,6 +44,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("updateDetails") ) {
             //Updating the users details
             command = new UpdateDetailsCommand();
+        } else if ( action.equalsIgnoreCase("addSongToCart") ) {
+            //Adding a song to the cart
+            command = new AddSongToCartCommand();
         } else {
             command = new DummyCommand();
         }

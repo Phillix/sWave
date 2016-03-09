@@ -29,12 +29,6 @@
                 <input required name="password" type="password" placeholder="Password"/><br/>
                 <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name"/><br/>
                 <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name"/><br/>
-                <select name="skin">
-                    <option>Flat</option>
-                    <option>Flat Darkness</option>
-                    <option>Nova</option>
-                    <option>Quantum</option>
-                </select><br/>
                 <input type="submit" value="Sign Up"/>
             </form>
         </div>

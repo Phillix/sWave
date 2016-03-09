@@ -28,11 +28,13 @@ public class RegisterCommand implements Command {
         String username     = request.getParameter("username");
         String email        = request.getParameter("email");
         String password     = request.getParameter("password");
-        String add1         = request.getParameter("address1");
-        String add2         = request.getParameter("address2");
-        String city         = request.getParameter("city");
-        String county       = request.getParameter("county");
-        String skin         = request.getParameter("skin").toLowerCase();
+        //We will ask for address when needed
+        String add1         = null;
+        String add2         = null;
+        String city         = null;
+        String county       = null;
+        //Users won't want to be bothered with custom settings when registering
+        String skin         = "flat";
         boolean isAdmin     = false;
         UserSecurity ms     = new UserSecurity();
 

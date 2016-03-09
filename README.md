@@ -1,4 +1,5 @@
 Stage 2 Submission
+==================
 
 Team Planet Express
 
@@ -7,9 +8,12 @@ Austin Foley
 Brian Millar
 Philip Carey
 
-TODO:
-Fix up songlocking
-fix ticket permissions
-fix command redirects
-add animation for all browsers
-add a favicon
+Notes:
+======
+Uploading and Streaming may fail on any system that does not have MySQL
+configured to deal with the large transfers. The following link explains
+how to resolve it:
+https://dev.mysql.com/doc/refman/5.7/en/packet-too-large.html
+
+Uploading shouldn't work on Windows systems as /tmp is used as the temp
+upload location.

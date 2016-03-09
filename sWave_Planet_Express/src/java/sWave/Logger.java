@@ -1,4 +1,4 @@
-package Logging;
+package sWave;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class Logger {
     
-    private static final boolean DEBUG = Debugging.Debug.debug;
+    private static final boolean DEBUG = sWave.Debugging.debug;
     
     public static void writeLine(String text) {
         File file = new File("sWave.log");

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ChangeSkinCommand implements Command {
 
-    private static final boolean DEBUG = Debugging.Debug.debug;
+    private static final boolean DEBUG = sWave.Debugging.debug;
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {

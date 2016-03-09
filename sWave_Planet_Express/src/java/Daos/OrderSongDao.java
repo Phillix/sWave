@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class OrderSongDao extends Dao {
     
-    private final boolean DEBUG = Debugging.Debug.debug;
+    private final boolean DEBUG = sWave.Debugging.debug;
 
     private final String TABLE_NAME  = "ORDERSONG";
     private final String ORDERID     = "ORDERID";

@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import sWaveEngine.ID3v2;
 
 /**
  *
@@ -15,7 +14,7 @@ import sWaveEngine.ID3v2;
  * @author Brian Millar
  */
 public class SongDao extends Dao implements SongDaoInterface {
-    private final boolean DEBUG = Debugging.Debug.debug;
+    private final boolean DEBUG = sWave.Debugging.debug;
 
     private final String TABLE_NAME = "SONGS";
     private final String SONGID     = "SONGID";

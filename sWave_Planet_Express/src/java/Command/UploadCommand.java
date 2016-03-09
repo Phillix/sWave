@@ -16,7 +16,7 @@ import javax.servlet.http.Part;
  */
 public class UploadCommand implements Command {
 
-    private static final boolean DEBUG = Debugging.Debug.debug;
+    private static final boolean DEBUG = sWave.Debugging.debug;
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
@@ -66,7 +66,7 @@ public class UploadCommand implements Command {
             dao.addNewSong(s);
             uploadSize += buffer.length;
             count++;
-            Logging.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize / 1024.0 / 1024.0 + "MB");
+            sWave.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize / 1024.0 / 1024.0 + "MB");
         }
         return "/uploadComplete.jsp";
     }

@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * @author Phillix
  */
 public class Dao {
-    private static final boolean DEBUG = Debugging.Debug.debug;
+    private static final boolean DEBUG = sWave.Debugging.debug;
 
     // Integer returns for DAO's
     protected static final int SUCCESS       = 0;

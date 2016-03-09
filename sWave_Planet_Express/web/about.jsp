@@ -1,3 +1,4 @@
+<%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
 <%@page import="Dtos.User"%>
@@ -18,11 +19,15 @@
             }
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <script src="macgril/js/dom.js"></script>
+        <script src="macgril/js/io.js"></script>
+        <script src="macgril/js/datetime.js"></script>
+        <script src="macgril/js/windowing.js"></script>
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/visualizer.js"></script>
+        <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body onload="initAudioSystem()">
+    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
@@ -73,9 +78,27 @@
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
         </aside>
         <footer class="panel" id="base">
+            <span id="playerStatus">No Data</span>
+            <span id="controls">
+                <!-- Hiding Next and Previous Buttons until Playlist Backend Functionality Compete-->
+                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/rw.png"/>
+                <img id="playPauseButton" onclick="playPause()" src="images/play.png"/>
+                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/fw.png"/>
+            </span>
+            <span id="trackTimer">
+                --:-- / --:--
+            </span>
+            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
+            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
+            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player" src="http://localhost:8084/<%=request.getParameter("filename")%>" autoplay></audio>
+        <%if (session.getAttribute("currentSong") != null) {%>
+            <audio onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=Server.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <%if (request.getParameter("time") != null) {%>
+                <script>$("player").currentTime = <%=request.getParameter("time")%></script>
+            <%}%>
+        <%}%>
     </body>
 </html>
 

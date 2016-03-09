@@ -1,4 +1,4 @@
-package sWaveEngine;
+package sWave;
 
 import Daos.LockDao;
 import java.io.File;
@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class SongLocking {
 
-    private static final boolean DEBUG = Debugging.Debug.debug;
+    private static final boolean DEBUG = sWave.Debugging.debug;
 
     public static void clean() {
         /*
@@ -28,7 +28,7 @@ public class SongLocking {
 
         Stream<Path> fileList = null;
         try {
-            fileList = Files.list(Paths.get("../webapps/ROOT/"));
+            fileList = Files.list(Paths.get(Server.folder));
         } catch (IOException ex) {
             if (DEBUG)
                 ex.printStackTrace();

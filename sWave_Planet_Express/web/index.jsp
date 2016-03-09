@@ -1,4 +1,3 @@
-<%@page import="Server.Server"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -50,6 +49,7 @@
                         <input type="hidden" name="action" value="logout"/>
                         <input type="submit" value="Log Out"/>
                     </form>
+                    <span id="clock">--:--</div>
                 <%} else {
                         response.sendRedirect("login.jsp");
                 %>
@@ -59,10 +59,10 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a class="currentPageLink" href="index.jsp">
+            <a id="indexLink" class="currentPageLink" href="index.jsp">
                 <h2>Now Playing</h2>
             </a>
-            <a href="music.jsp">
+            <a id="musicLink" href="music.jsp">
                 <h2>Library</h2>
             </a>
             <span id="copyNotice">
@@ -99,7 +99,10 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio onplay="$('playPauseButton').src='images/pause.png'" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=Server.getDomain() + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio onplay="$('playPauseButton').src='images/pause.png'; clock()" onpause="$('playPauseButton').src='images/play.png'" id="player" src="<%=Server.Server.getDomain() + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <%if (request.getParameter("time") != null) {%>
+                <script>$("player").currentTime = <%=request.getParameter("time")%></script>
+            <%}%>
         <%}%>
     </body>
 </html>

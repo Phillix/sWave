@@ -37,20 +37,24 @@ function setSysVol(level) {
     sysAudioGain.gain.value = (level + 120) * 0.004166667;
 }
 
+function seek(x) {
+    src.currentTime = x;
+}
+
 function playAudioSource(source, timerDis, progBar, scrub) {
     src          = source;
     timerDisplay = timerDis;
     progressBar  = progBar;
     scrubber     = scrub;
-    startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
     src.play();
+    startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
 }
 
 function startAudioVisualization(element, width, height) {
     scene  = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(45, width / height, 1, 100);
 
-    camera.position.set(0,0,50);
+    camera.position.set(0, 0, 50);
     camera.lookAt(scene.position);
     scene.add(camera);
 

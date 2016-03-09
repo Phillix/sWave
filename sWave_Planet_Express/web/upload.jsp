@@ -36,7 +36,7 @@
             <div>
                 <p>Drag & Drop Files Here
             </div>
-            <input id="fileSelector" type="file" name="songBlob" accept="audio/mp3" onchange="showSizes()" multiple/><br/>
+            <input id="fileSelector" type="file" name="songBlob" accept="audio/mpeg" onchange="showSizes()" multiple/><br/>
             <span id="fileSizes"></span>
             <input type="submit" value="Upload"/>
         </form>

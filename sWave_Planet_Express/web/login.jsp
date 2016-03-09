@@ -20,9 +20,22 @@
                 <input type="hidden" name="action" value="login"/>
                 <input class="text" required type="text" name="email" placeholder="Email"/><br/>
                 <input class="text" required type="password" name="password" placeholder="Password"/><br/><br/>
-                <span id="noAccount">Don't Have an Account Yet?&#160;&#160;<a href="register.jsp">Register</a><br/><br/></span>
-                <input id="signupButton" type="button" value="Sign Up" onclick="window.location='register.jsp';"/>
                 <input id="loginButton"  type="submit" value="Login"/>
+            </form>
+            <form style="" action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="register"/>
+                <input required name="username" type="text" placeholder="Username"/><br/>
+                <input required name="email" type="text" placeholder="Email" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$"/><br/>
+                <input required name="password" type="password" placeholder="Password"/><br/>
+                <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name"/><br/>
+                <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name"/><br/>
+                <select name="skin">
+                    <option>Flat</option>
+                    <option>Flat Darkness</option>
+                    <option>Nova</option>
+                    <option>Quantum</option>
+                </select><br/>
+                <input type="submit" value="Sign Up"/>
             </form>
         </div>
         <div id="wallpaper"></div>

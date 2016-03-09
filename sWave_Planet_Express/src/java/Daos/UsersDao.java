@@ -262,6 +262,58 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         return OTHER;
     }
+    
+    
+    /**
+     * 
+     * @param email
+     * @param username
+     * @return the id of the user with the passing in username and email
+     */
+    @Override
+    public int getUserId(String email, String username) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+
+        try {
+            con          = getConnection();
+            String query = "SELECT " + USERID + " FROM " + TABLE_NAME + " WHERE " + EMAIL + " = ? AND " + USER_NAME + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, username);
+            rs = ps.executeQuery();
+
+            if(rs.next())
+                return rs.getInt(USERID);
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+               return CONNCLOSEFAIL;
+            }
+        }
+        return OTHER;
+    }
 
     /**
      * A method for deleting a user from the users table based on email

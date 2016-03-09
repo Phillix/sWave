@@ -245,13 +245,13 @@ td.trackTitle {
 
 #trackTimer {
     position:    fixed;
-    bottom:      45px;
+    bottom:      30px;
     right:       15px;
 }
 
 #playerStatus {
     position:    fixed;
-    bottom:      45px;
+    bottom:      30px;
     left:        15px;
 }
 

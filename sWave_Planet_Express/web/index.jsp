@@ -56,6 +56,9 @@
         <aside class="panel" id="left_sidebar">
             <a class="currentPageLink" href="index.jsp">
                 <h2>Now Playing</h2>
+                <script>alert(<%if (session.getAttribute("user") != null) {%>
+                    <%=((User)session.getAttribute("user")).getUserId()%>
+                    <%}%>)</script>
             </a>
             <a href="music.jsp">
                 <h2>Library</h2>

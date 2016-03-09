@@ -32,7 +32,7 @@ public class RegisterCommand implements Command {
         String add2         = request.getParameter("address2");
         String city         = request.getParameter("city");
         String county       = request.getParameter("county");
-        String skin         = request.getParameter("skin");
+        String skin         = request.getParameter("skin").toLowerCase();
         boolean isAdmin     = false;
         UserSecurity ms     = new UserSecurity();
 
@@ -51,6 +51,7 @@ public class RegisterCommand implements Command {
                 session.setAttribute("loggedSessionId", clientSessionId);
 
                 //Store the user in the session
+                userRegistering.setUserId(ud.getUserId(email, username));
                 session.setAttribute("user", userRegistering);
 
                 //Forward them to the home page

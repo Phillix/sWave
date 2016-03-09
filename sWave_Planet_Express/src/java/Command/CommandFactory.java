@@ -38,6 +38,12 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("changeSkin") ) {
             //Allows the user to change the look of sWave
             command = new ChangeSkinCommand();
+        } else if ( action.equalsIgnoreCase("checkout") ) {
+            //Checking out the cart
+            command = new CheckoutCommand();
+        } else if ( action.equalsIgnoreCase("updateDetails") ) {
+            //Updating the users details
+            command = new UpdateDetailsCommand();
         } else {
             command = new DummyCommand();
         }

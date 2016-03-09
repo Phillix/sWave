@@ -453,5 +453,52 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         return null;
     }
+    
+    /**
+     * This method is used for updating a user, userid will be in the user parameter
+     * @param u The user you wish to update and updated details
+     * @return SUCCESS if it successfully updated, OTHER if not
+     */
+    public int updateUser(User u) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        try{
+            con          = getConnection();
+            String query = "UPDATE " + TABLE_NAME + " SET " + EMAIL + " = ?, " + USER_NAME + " = ?, "
+                    + FNAME + " = ?, " + LNAME + " = ?, " + ADD1 + " = ?, " + ADD2 + " = ?, " + CITY + " = ?, " + COUNTY + " = ?, " + SKIN
+                    + " = ? WHERE " + USERID + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getUsername());
+            ps.setString(3, u.getFname());
+            ps.setString(4, u.getLname());
+            ps.setString(5, u.getAdd1());
+            ps.setString(6, u.getAdd2());
+            ps.setString(7, u.getCity());
+            ps.setString(8, u.getCounty());
+            ps.setString(9, u.getSkin());
+            ps.setInt(10, u.getUserId());
+            int result = ps.executeUpdate();
+            if (result > 0) return SUCCESS;
+
+        }
+        catch(Exception e) {
+            if (DEBUG)
+                e.printStackTrace();
+        }
+        finally {
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return OTHER;
+    }
 
 }

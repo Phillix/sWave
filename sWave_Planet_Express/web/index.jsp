@@ -38,6 +38,10 @@
                 <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
+                <form action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="search"/>
+                    <input type="search" name="searchterm" placeholder="Search"/>
+                </form>
                 <%if (currentUser != null) {%>
                     <a href="account.jsp"><%=currentUser.getUsername()%></a>
                     &#160;&#160;

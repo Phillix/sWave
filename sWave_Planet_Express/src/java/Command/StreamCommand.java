@@ -49,6 +49,6 @@ public class StreamCommand implements Command {
                 }
             }
         }
-        return "/music.jsp";
+        return "/index.jsp";
     }
 }

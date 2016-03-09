@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.OrderSong;
@@ -46,7 +41,7 @@ public class OrderSongDaoTest {
     @Test
     public void testCreateOrderSong() {
         
-        OrderSong os = new OrderSong(-1,-2, 7.00);
+        OrderSong os = new OrderSong(-1,-1, 7.00);
         instance = new OrderSongDao();
         int expResult = 0;
         int result = instance.createOrderSong(os);

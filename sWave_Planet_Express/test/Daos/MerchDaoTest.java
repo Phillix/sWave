@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.Merch;
@@ -18,11 +13,12 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Phillix
+ * @author Austin
  */
 public class MerchDaoTest {
     
     Merch m;
-    MerchDao instance;
+    MerchDao instance = new MerchDao();;
     public MerchDaoTest() {
     }
     
@@ -36,7 +32,6 @@ public class MerchDaoTest {
     
     @Before
     public void setUp() {
-        instance = new MerchDao();
     }
     
     @After
@@ -60,9 +55,8 @@ public class MerchDaoTest {
      */
     @Test
     public void testViewMerchAlpha() {
-        
         ArrayList<Merch> merch = instance.viewMerchAlpha();
-        Merch m = new Merch("merch 1", 5.50);
+        Merch m = new Merch("Mug", 9.99);
         m.setMerchId(-1);
         assertEquals(m, merch.get(0));
     }
@@ -72,24 +66,20 @@ public class MerchDaoTest {
      */
     @Test
     public void testGetMerchInOrder() {
-        
-        instance = new MerchDao();
-        ArrayList<OrderMerch> orderMerch = new ArrayList<OrderMerch>();
-        OrderMerch om = new OrderMerch(-1,-1,1,5.50);
+        boolean expResult = true;
+        ArrayList<OrderMerch> orderMerch = new ArrayList();
+        OrderMerch om = new OrderMerch(-1,-1,1,9.99);
         orderMerch.add(om);
         ArrayList<Merch> merchList = instance.getMerchInOrder(orderMerch);
-        
-        if(merchList != null) {
-            System.out.println(merchList.get(0));
-        }
+        boolean result = merchList.size() > 0;
+        assertEquals(expResult, result);
     }
     
     @Test
     public void testSearchMerch() {
-        
-        ArrayList<Merch> merch = instance.searchMerch("1");
-        Merch m = new Merch("merch 1", 5.50);
-        m.setMerchId(-1);
-        assertEquals(m, merch.get(0));
+        boolean expResult = true;
+        ArrayList<Merch> merch = instance.searchMerch("Mug");
+        boolean result = merch.size() > 0;
+        assertEquals(expResult, result);
     }
 }

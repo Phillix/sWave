@@ -4,6 +4,8 @@
     Author     : Brian Millar
 --%>
 
+<%@page import="Dtos.User"%>
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Merch"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Daos.MerchDao"%>
@@ -15,7 +17,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <title>Cart - sWave</title>
+                <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <%
+            User currentUser = (User)session.getAttribute("user");
+            String skin = "flat";
+            if (currentUser != null) {
+                skin = currentUser.getSkin();
+            }
+
+            final boolean DEBUG = sWave.Debugging.debug;
+        %>
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
     </head>
     <body>
         <ul>
@@ -44,7 +59,8 @@
                             <span>Name: <%=((Merch)x).getTitle()%></span><br/>
                             <span>Quantity: <%=c.getQty()%></span><br/>
                         <%}%>
-                        <span>Price: <%=c.getPrice()%></span>
+                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                        <span>Price: <%=f.format(c.getPrice())%></span>
                     </li>
             <%}
             }

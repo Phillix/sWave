@@ -1,3 +1,7 @@
+<%@page import="Dtos.Order"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="Dtos.UltimateOrder"%>
+<%@page import="Daos.OrderDao"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Daos.UsersDao"%>
 <%@page import="Dtos.Ad"%>
@@ -73,6 +77,7 @@
         </header>
         <aside class="panel" id="left_sidebar">
             <a href="account.jsp?view=profile"><h2>Profile</h2></a>
+            <a href="account.jsp?view=orders"><h2>Orders</h2></a>
             <a href="account.jsp?view=tickets"><h2>Tickets</h2></a>
             <a href="account.jsp?view=settings"><h2>Settings</h2></a>
             <%if (currentUser.isIsAdmin()) {%>
@@ -90,7 +95,19 @@
                     Username: <%=currentUser.getUsername()%><br/>
                     Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%><br/>
                     Email: <%=currentUser.getEmail()%><br/>
-                <%} else if (request.getParameter("view").equals("tickets")) {
+                <%} else if (request.getParameter("view").equals("orders")) {%>
+                    <h1>My Orders</h1>
+                    <ul>
+                    <%OrderDao orders = new OrderDao();
+                    for (Order theOrder : orders.getUserOrders(currentUser.getUserId())) {%>
+                    <li>
+                        Date: <%=theOrder.getDateOrdered()%><br/>
+                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                        Total: <%=f.format(theOrder.getTotal())%>
+                        <hr/>
+                    </li>
+                <%}%></ul><%
+                } else if (request.getParameter("view").equals("tickets")) {
                     if (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed")) {%>
                         <h1>Closed Tickets</h1>
                         <a href="account.jsp?view=tickets">Open Tickets</a>
@@ -165,6 +182,8 @@
             }%>
         </div>
         <aside class="panel" id="right_sidebar">
+            <br/>
+            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
             <%
                 AdDao ads = new AdDao();
                 Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));

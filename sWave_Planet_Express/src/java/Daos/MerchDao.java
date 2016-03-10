@@ -196,7 +196,7 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         try {
 
             con = getConnection();
-            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " IN(";
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " IN (";
             
             //build a query String and remove final comma
             for(int i = 0; i < ids.size(); i++) {

@@ -1,3 +1,4 @@
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
 <%@page import="Dtos.Song"%>
@@ -91,13 +92,8 @@
                     <td><%=s.getArtist()%></td>
                     <td><%=s.getGenre()%></td>
                     <td><%=s.getRelYear()%></td>
-                    <td>&euro;<%=s.getPrice()%></td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="stream"/>
-                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                            <input type="submit" value="Play"/>
-                        </form>
-                    </td>
+                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                    <td><%=f.format(s.getPrice())%></td>
                     <td><form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="addSongToCart"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
@@ -105,11 +101,19 @@
                             <input type="submit" value="Add to Cart"/>
                         </form>
                     </td>
+                    <td><form action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="stream"/>
+                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                            <input type="submit" value="Play"/>
+                        </form>
+                    </td>
                 </tr>
         <%}%>
         </table>
         </div>
         <aside class="panel" id="right_sidebar">
+            <br/>
+            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
             <%
                 AdDao ads = new AdDao();
                 Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));

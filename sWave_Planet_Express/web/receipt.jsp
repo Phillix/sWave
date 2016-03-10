@@ -1,9 +1,6 @@
-<%-- 
-    Document   : receipt.jsp
-    Created on : Mar 10, 2016, 12:49:01 AM
-    Author     : Brian Millar
---%>
-
+<%@page import="Dtos.Merch"%>
+<%@page import="Daos.MerchDao"%>
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Daos.SongDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,7 +12,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Thank You</title>
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <title>Thank You - sWave</title>
+        <%
+            User currentUser = (User)session.getAttribute("user");
+            final boolean DEBUG = sWave.Debugging.debug;
+        %>
     </head>
     <body>
         <% if (request.getParameter("downloading") != null && request.getParameter("downloading").equals("yes")) {%>
@@ -24,7 +26,6 @@
         <script>document.getElementById("downloader").click();</script>
         <%}%>
         <%
-        User currentUser = null;
         if (session.getAttribute("user") != null) {
             currentUser = ((User)session.getAttribute("user"));
         } else {
@@ -32,17 +33,15 @@
         }
         if (session.getAttribute("wasActuallyBought") != null && (boolean)session.getAttribute("wasActuallyBought")) {
             if (session.getAttribute("theUltimateOrder") != null) {
-                UltimateOrder theUltimateOrder = (UltimateOrder)session.getAttribute("theUltimateOrder");%>
+                UltimateOrder theUltimateOrder = (UltimateOrder)session.getAttribute("theUltimateOrder");
+                NumberFormat f = NumberFormat.getCurrencyInstance();%>
                 <h1>Thank You <%=currentUser.getFname()%></h1>
                 <hr/>
-                <h5>You bought <%=theUltimateOrder.getMerchSize()%> Unique Merch items and <%=theUltimateOrder.getSongSize()%> Unique Songs worth a total of &euro;<%=theUltimateOrder.getTotal()%></h5>
-                <h5>Please find below your receipt</h5>
+                <h5>You bought <%=theUltimateOrder.getMerchSize()%> Unique Merch items and <%=theUltimateOrder.getSongSize()%> Unique Songs worth a total of <%=f.format(theUltimateOrder.getTotal())%></h5>
                 <hr/>
-                <h5>User: <%=currentUser.getUsername()%></h5>
-                <h5>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h5>
-                <h5>Date: <%=theUltimateOrder.getDateOrdered()%></h5>
-                <h5>Total: <%=theUltimateOrder.getTotal()%></h5>
-                <hr/>
+                <h3>Authorized Downloads</h3>
+                <h5>You have paid for the following tracks and are authorized to download them:</h5>
+                <strong>Warning:</strong> If you do not download these tracks now you will NOT have the opportunity to do so later.<br/><br/>
                 <%
                 SongDao dao = new SongDao();
                 for (CartItem c : (ArrayList<CartItem>)session.getAttribute("cart")) {
@@ -58,10 +57,48 @@
                     </form>
                 <%}}%>
                 <hr/>
-                <a href="index.jsp">Go Home</a>
+                <h5>Please find below your receipt</h5>
+                <hr/>
+                <h2><u>Receipt</u></h2>
+                <h5>User: <%=currentUser.getUsername()%></h5>
+                <h5>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h5>
+                <h5>Date: <%=theUltimateOrder.getDateOrdered()%></h5>
+                <h5>Total: <%=f.format(theUltimateOrder.getTotal())%></h5>
+                <ul>
+                <%
+                ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
+                for (CartItem c : cart) {
+                    Object x;
+                    
+                    if (c.getType()) {
+                        SongDao sdao = new SongDao();
+                        x = sdao.getSongById(c.getProdId());
+                    }
+                    else {
+                        MerchDao mdao = new MerchDao();
+                        x = mdao.getMerchById(c.getProdId());
+                    }
+                %>
+                    <li>
+                        <%if (x instanceof Song) {%>
+                        <span>Song - </span>
+                        <span>Title: <%=((Song)x).getTitle()%></span><br/>
+                        <span>Artist: <%=((Song)x).getArtist()%></span><br/>
+                        <%} else {%>
+                            <span>Merch Item - </span>
+                            <span>Name: <%=((Merch)x).getTitle()%></span><br/>
+                            <span>Quantity: <%=c.getQty()%></span><br/>
+                        <%}%>
+                        <span>Price: <%=f.format(c.getPrice())%></span>
+                        <hr/>
+                    </li>
+            <%}%>
+        </ul>
+                <hr/>
                 <form action="UserActionServlet" method="POST">
                     <input type="hidden" value="logout" name="action"/>
-                    <input type="submit" value="Log Out"/>
+                    <label>The button below complete your transaction and will log you out.</label><br/>
+                    <input type="submit" value="Finish Transaction"/>
                 </form>
                 <hr/>
             <%}

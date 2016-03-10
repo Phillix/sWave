@@ -1,3 +1,4 @@
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Merch"%>
 <%@page import="Daos.MerchDao"%>
 <%@page import="Dtos.Song"%>
@@ -83,7 +84,8 @@
                         <td><%=m.getMerchId()%></td>
                     <%}%>
                     <td><%=m.getTitle()%></td>
-                    <td>&euro;<%=m.getPrice()%></td>
+                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                    <td><%=f.format(m.getPrice())%></td>
                     <td><form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="addMerchToCart"/>
                             <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
@@ -97,6 +99,8 @@
         </table>
         </div>
         <aside class="panel" id="right_sidebar">
+            <br/>
+            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
             <%
                 AdDao ads = new AdDao();
                 Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));

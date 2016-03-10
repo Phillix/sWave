@@ -1,3 +1,9 @@
+<%@page import="Dtos.Merch"%>
+<%@page import="Daos.MerchDao"%>
+<%@page import="Daos.SongDao"%>
+<%@page import="Dtos.CartItem"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -13,7 +19,7 @@
           User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>About sWave</title>
+        <title>Cart - sWave</title>
         <link rel="stylesheet" type="text/css" href="main.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <%
@@ -38,7 +44,7 @@
                 <a id="indexLink" href="index.jsp">Music</a>
                 <a id="shopLink" href="shop.jsp">Shop</a>
                 <a id="accountLink" href="account.jsp">Account</a>
-                <a id="aboutLink" class="currentPageLink" href="about.jsp">About</a>
+                <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
@@ -68,13 +74,43 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <h1>Project sWave</h1>
-            <h3>Brought to you by Team Planet Express</h3>
-            Planet Express is:
+            <h1>My Cart</h1>
+            <form action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="checkout"/>
+                <input type="submit" value="Checkout"/>
+            </form>
             <ul>
-                <li>Austin Foley</li>
-                <li>Brian Millar</li>
-                <li>Philip Carey</li>
+            <%
+                if (session.getAttribute("cart") != null) {
+                    ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
+                    for (CartItem c : cart) {
+                        Object x;
+
+                        if (c.getType()) {
+                            SongDao sdao = new SongDao();
+                            x = sdao.getSongById(c.getProdId());
+                        }
+                        else {
+                            MerchDao mdao = new MerchDao();
+                            x = mdao.getMerchById(c.getProdId());
+                        }
+                    %>
+                        <li>
+                            <%if (x instanceof Song) {%>
+                            <h3>Song:</h3>
+                            <span>Title: <%=((Song)x).getTitle()%></span><br/>
+                            <span>Artist: <%=((Song)x).getArtist()%></span><br/>
+                            <%} else {%>
+                                <h3>Merch Item:</h3>
+                                <span>Name: <%=((Merch)x).getTitle()%></span><br/>
+                                <span>Quantity: <%=c.getQty()%></span><br/>
+                            <%}%>
+                            <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                            <span>Price: <%=f.format(c.getPrice())%></span>
+                        </li>
+                <%}
+                }
+            %>
             </ul>
         </div>
         <aside class="panel" id="right_sidebar">

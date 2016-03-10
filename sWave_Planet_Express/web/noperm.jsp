@@ -1,3 +1,4 @@
+<%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -5,6 +6,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>!! Unauthorized Access !!</title>
+        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <%
+            User currentUser = (User)session.getAttribute("user");
+            String skin = "flat";
+            if (currentUser != null) {
+                skin = currentUser.getSkin();
+            }
+
+            final boolean DEBUG = sWave.Debugging.debug;
+        %>
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
     </head>
     <body>
         <h1>Unauthorized Access</h1>

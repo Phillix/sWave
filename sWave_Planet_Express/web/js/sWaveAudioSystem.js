@@ -46,6 +46,7 @@ function recordTime() {
         $("shopLink").href    = "shop.jsp"    + x;
         $("accountLink").href = "account.jsp" + x;
         $("aboutLink").href   = "about.jsp"   + x;
+        $("cartLink").href    = "cart.jsp"    + x;
         if (document.getElementById("musicLink") !== null && document.getElementById("musicLink") !== undefined)
             $("musicLink").href = "music.jsp" + x;
         if (document.getElementById("index2Link") !== null && document.getElementById("index2Link") !== undefined)

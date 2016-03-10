@@ -77,6 +77,8 @@
             </div>
         </div>
         <aside class="panel" id="right_sidebar">
+            <br/>
+            <a style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
             <%
                 AdDao ads = new AdDao();
                 int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());

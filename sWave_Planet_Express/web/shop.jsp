@@ -1,3 +1,5 @@
+<%@page import="Dtos.Merch"%>
+<%@page import="Daos.MerchDao"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -20,6 +22,7 @@
             if (currentUser != null) {
                 skin = currentUser.getSkin();
             }
+            final boolean DEBUG = sWave.Debugging.debug;
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <script src="macgril/js/dom.js"></script>
@@ -40,10 +43,14 @@
                 <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
+                <form id="searchBox" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="search"/>
+                    <input type="search" name="searchterm" placeholder="Search"/>
+                </form>
                 <%if (currentUser != null) {%>
-                    <a href="account.jsp"><%=currentUser.getUsername()%></a>
+                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
                     &#160;&#160;
-                    <form style="display:inline;" action="UserActionServlet" method="POST">
+                    <form id="logOutButton" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="logout"/>
                         <input type="submit" value="Log Out"/>
                     </form>
@@ -63,14 +70,26 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <h1>Project sWave</h1>
-            <h3>Brought to you by Team Planet Express</h3>
-            Planet Express is:
-            <ul>
-                <li>Austin Foley</li>
-                <li>Brian Millar</li>
-                <li>Philip Carey</li>
-            </ul>
+        <table>
+            <%
+            MerchDao dao = new MerchDao();
+            for (Merch m : dao.viewMerchAlpha()) {%>
+                <tr>
+                    <%if (DEBUG) {%>
+                        <td><%=m.getMerchId()%></td>
+                    <%}%>
+                    <td><%=m.getTitle()%></td>
+                    <td><%=m.getPrice()%></td>
+                    <td><form action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="addMerchToCart"/>
+                            <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
+                            <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
+                            <input type="submit" value="Add to Cart"/>
+                        </form>
+                    </td>
+                </tr>
+        <%}%>
+        </table>
         </div>
         <aside class="panel" id="right_sidebar">
             <%

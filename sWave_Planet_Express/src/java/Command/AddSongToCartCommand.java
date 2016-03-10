@@ -24,6 +24,6 @@ public class AddSongToCartCommand implements Command {
                 return "/music.jsp"; //Don't add it twice
         cart.add(item);
         session.setAttribute("cart", cart);
-        return "/music.jsp";
+        return "/music.jsp?addedToCart=yes";
     }
 }

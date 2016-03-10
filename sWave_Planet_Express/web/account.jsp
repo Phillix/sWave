@@ -52,10 +52,14 @@
                 <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
+                <form id="searchBox" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="search"/>
+                    <input type="search" name="searchterm" placeholder="Search"/>
+                </form>
                 <%if (currentUser != null) {%>
-                    <a href="account.jsp"><%=currentUser.getUsername()%></a>
+                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
                     &#160;&#160;
-                    <form style="display:inline;" action="UserActionServlet" method="POST">
+                    <form id="logOutButton" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="logout"/>
                         <input type="submit" value="Log Out"/>
                     </form>

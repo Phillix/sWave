@@ -92,9 +92,28 @@
         <div id="midsection">
             <%if (request.getParameter("view") != null) {
                 if (request.getParameter("view").equals("profile")) {%>
-                    Username: <%=currentUser.getUsername()%><br/>
-                    Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%><br/>
-                    Email: <%=currentUser.getEmail()%><br/>
+                    <h3>Username: <%=currentUser.getUsername()%></h3>
+                    <h3>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h3>
+                    <h3>Email: <%=currentUser.getEmail()%></h3>
+                    <h3>Address:<br/>
+                        <%=currentUser.getAdd1()%>,<br/>
+                        <%=currentUser.getAdd2()%>,<br/>
+                        <%=currentUser.getCity()%>,<br/>
+                        <%=currentUser.getCounty()%><br/></h3>
+                    <br/>
+                    <h2>Edit Details</h2>
+                    <form action="UserActionServlet" method="POST">
+                        <input type="hidden" name="action" value="updateDetails"/>
+                        <input name="username" type="text" placeholder="Username"/><br/><br/>
+                        <input name="email" type="text" placeholder="Email" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$"/><br/><br/>
+                        <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name"/><br/><br/>
+                        <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name"/><br/><br/>
+                        <input type="text" name="add1" placeholder="Address Line 1"/><br/><br/>
+                        <input type="text" name="add2" placeholder="Address Line 2"/><br/><br/>
+                        <input type="text" name="city" placeholder="City"/><br/><br/>
+                        <input type="text" name="county" placeholder="County"/><br/><br/>
+                        <input type="submit" value="Update"/>
+                    </form><br/><br/>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
                     <h1>My Orders</h1>
                     <ul>

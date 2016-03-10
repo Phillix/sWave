@@ -11,4 +11,5 @@ public interface LockDaoInterface {
     public void releaseUserLocks(int userId);
     public void releaseSongLocks(int songId);
     public void releaseAllLocks();
+    public int  getNumLocks(int songId);
 }

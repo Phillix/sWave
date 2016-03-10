@@ -1,6 +1,7 @@
 package sWave;
 
 import Daos.LockDao;
+import Dtos.Lock;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,18 +35,21 @@ public class SongLocking {
                 ex.printStackTrace();
         }
         fileList.forEach((Path x) -> {
-            if (x.toAbsolutePath().toString().contains(".mp3")) {
-                File current = new File(x.toAbsolutePath().toString());
-                String filename = current.getName();
+            String filename = x.getFileName().toString();
+            if (filename.contains(".mp3")) {
                 filename = filename.substring(0, filename.length() - 4);
-                /*try {
-                    if (locks.get(Integer.parseInt(filename)) == 0)
-                        current.delete();
-                } catch (NumberFormatException e) {
-                    Logging.Logger.writeLine("Not an sWave Song File");
-                    if (DEBUG)
-                        e.printStackTrace();
-                }*/
+                if (locks.getNumLocks(Integer.parseInt(filename)) == 0) {
+                    File file = new File(Server.folder + filename + ".mp3");
+                    file.delete();
+                }
+                /* Lock timeouts requires yet to be written SQL code
+                for (Lock l : locks.getSongLocks(Integer.parseInt(filename))) {
+                    if ((System.currentTimeMillis() - l.getLockTime()) > 1800000) {
+                        File file = new File(Server.folder + filename + ".mp3");
+                        file.delete();
+                    }
+                }
+                */
             }
         });
     }

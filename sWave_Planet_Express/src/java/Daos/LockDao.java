@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -161,5 +162,50 @@ public class LockDao extends Dao implements LockDaoInterface {
                     e.printStackTrace();
             }
         }
+    }
+    /**
+     * 
+     * @param songid
+     * @return number of locks on a particular file
+     */
+    @Override
+    public int getNumLocks(int songid) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+
+        int count = 0;
+
+        try {
+            con = getConnection();
+            ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + SONGID + " = ?");
+            ps.setInt(1, songid);
+            rs  = ps.executeQuery();
+
+            while(rs.next()) {
+                count++;
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return 0;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+                if (rs != null)
+                    rs.close();
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return 0;
+            }
+        }
+        return count;
     }
 }

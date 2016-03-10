@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sWave.SongLocking;
 
 /**
  *            session
@@ -29,6 +30,12 @@ public class StreamCommand implements Command {
         locks.releaseUserLocks(((User)session.getAttribute("user")).getUserId());
         locks.addLock(new Lock(((User)session.getAttribute("user")).getUserId(),
                                Integer.parseInt(request.getParameter("songid"))));
+        try {
+            SongLocking.clean();
+        } catch (Exception e) {
+            if (DEBUG)
+                e.printStackTrace();
+        }
         if (!testfile.exists()) {
             SongDao songs = new SongDao();
             Song  theSong = (Song)songs.getSongById(Integer.parseInt(request.getParameter("songid")));

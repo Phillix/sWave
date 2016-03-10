@@ -1,37 +1,4 @@
 Macgril Web Framework
 =====================
-Version: 0.35
+Version: 0.36
 Copyright 2015, 2016 Brian Millar
-
-Welcome to Macgril, thanks for downloading!
-Macgril is a web framework for general 
-purpose web application development. 
-Its base is formed from the core of the 
-eXastum Desktop. While developing and 
-updating eXastum over the years it was 
-clear it had become an unmaintainable 
-mess and needed to be rebuilt. As part 
-of the process, cleaning up the JS libs 
-was essential and had to be done to make 
-moving forward possible. Most of the code 
-was silly, inefficent and practically 
-unreadable. I also found myself reusing 
-many eXastum functions in other projects 
-and vice versa. It was clear that the most 
-sensible thing to do would be to break out 
-all of this code into a library that could 
-form the foundations of all future projects 
-and perhaps even be of use to others for their 
-projects. This became macgril.js. Over time it 
-became clear that just breaking out the JS was 
-not enough, there were many common layouts that 
-I would use over and over and many projects 
-needed theming support. Building new HTML 
-templates was a logical step and the eXastum 
-themes found in different versions over the 
-years formed the bases of Macgril's built in 
-skins. The combination of all these things along 
-with required documentation and examples forms 
-what has today become the Macgril Framework. I 
-hope you find it useful somehow and enjoy 
-working with it. Happy Hacking.

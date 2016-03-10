@@ -56,7 +56,7 @@ public class UpdateDetailsCommand implements Command {
                 u.setSkin(skin);
             }
             int result = ud.updateUser(u);
-            if (result == 0) return "/account.jsp";
+            if (result == 0) return "/account.jsp?view=profile";
         }
         
         return "/error.jsp?msg=An%20error%20occured%20updating%20details";

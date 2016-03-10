@@ -26,6 +26,6 @@ public class SearchCommand implements Command {
         session.setAttribute("searchResults", songs);
         session.setAttribute("searchMerchResults", merch);
         session.setAttribute("searchTerm", search);
-        return "/searchResults.jsp";
+        return "/search.jsp";
     }
 }

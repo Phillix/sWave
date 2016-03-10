@@ -9,15 +9,15 @@ import java.io.File;
  * @author Brian Millar
  */
 public class Logger {
-    
+
     private static final boolean DEBUG = sWave.Debugging.debug;
-    
+
     public static void writeLine(String text) {
-        File file = new File("sWave.log");
+        File file = new File(Server.folder + "sWave.log");
         System.out.println(file.getAbsolutePath());
         FileWriter output = null;
         try {
-            output = new FileWriter("sWave.log");
+            output = new FileWriter(Server.folder + "sWave.log");
         } catch (IOException ex) {
             if (DEBUG)
                 ex.printStackTrace();

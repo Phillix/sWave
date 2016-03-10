@@ -75,10 +75,7 @@
         </aside>
         <div id="midsection">
             <h1>My Cart</h1>
-            <form action="UserActionServlet" method="POST">
-                <input type="hidden" name="action" value="checkout"/>
-                <input type="submit" value="Checkout"/>
-            </form>
+            <a href="creditCard.jsp">Proceed To Checkout</a>
             <ul>
             <%
                 if (session.getAttribute("cart") != null) {

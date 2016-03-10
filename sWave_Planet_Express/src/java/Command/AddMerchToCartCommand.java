@@ -10,20 +10,23 @@ import javax.servlet.http.HttpSession;
  *
  * @author Brian Millar
  */
-public class AddSongToCartCommand implements Command {
+public class AddMerchToCartCommand implements Command {
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        CartItem item = new CartItem(true, Integer.parseInt(request.getParameter("songid")), 1, Double.parseDouble(request.getParameter("price")));
+        CartItem item = new CartItem(false, Integer.parseInt(request.getParameter("merchid")), Integer.parseInt(request.getParameter("qty")), Double.parseDouble(request.getParameter("price")));
         if (session.getAttribute("cart") == null)
             session.setAttribute("cart", new ArrayList<>());
         ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
-        for (CartItem i : cart)
-            if ((i.getProdId() == item.getProdId()) && i.getType())
-                return "/music.jsp"; //Don't add it twice
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).getProdId() == item.getProdId() && !cart.get(i).getType()) {
+                cart.get(i).setQty(cart.get(i).getQty() + item.getQty()); //if in cart just add to existing quantity
+                return "/shop.jsp?addedToCart=yes";
+            }
+        }
         cart.add(item);
         session.setAttribute("cart", cart);
-        return "/music.jsp?addedToCart=yes";
+        return "/shop.jsp?addedToCart=yes";
     }
 }

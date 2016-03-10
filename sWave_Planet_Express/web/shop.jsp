@@ -84,6 +84,7 @@
                             <input type="hidden" name="action" value="addMerchToCart"/>
                             <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
                             <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
+                            <input type="number" value="1" min="1" name="qty"/>
                             <input type="submit" value="Add to Cart"/>
                         </form>
                     </td>

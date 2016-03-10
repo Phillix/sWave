@@ -42,6 +42,7 @@
                         <%} else {%>
                             <h3>Merch Item:</h3>
                             <span>Name: <%=((Merch)x).getTitle()%></span><br/>
+                            <span>Quantity: <%=c.getQty()%></span><br/>
                         <%}%>
                         <span>Price: <%=c.getPrice()%></span>
                     </li>

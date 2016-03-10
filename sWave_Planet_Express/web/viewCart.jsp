@@ -50,5 +50,9 @@
             }
         %>
         </ul>
+        <form action="UserActionServlet" method="POST">
+            <input type="hidden" name="action" value="checkout"/>
+            <input type="submit" value="Checkout"/>
+        </form>
     </body>
 </html>

@@ -23,6 +23,10 @@
                 skin = currentUser.getSkin();
             }
             final boolean DEBUG = sWave.Debugging.debug;
+            
+            if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
+                %><script>alert("Added to Cart")</script><%
+            }
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <script src="macgril/js/dom.js"></script>
@@ -79,7 +83,7 @@
                         <td><%=m.getMerchId()%></td>
                     <%}%>
                     <td><%=m.getTitle()%></td>
-                    <td><%=m.getPrice()%></td>
+                    <td>&euro;<%=m.getPrice()%></td>
                     <td><form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="addMerchToCart"/>
                             <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>

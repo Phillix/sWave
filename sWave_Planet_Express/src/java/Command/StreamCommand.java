@@ -52,6 +52,8 @@ public class StreamCommand implements Command {
                 }
             }
         }
+        if (request.getParameter("download") != null && request.getParameter("download").equals("yes"))
+            return "/receipt.jsp?downloading=yes";
         return "/index.jsp";
     }
 }

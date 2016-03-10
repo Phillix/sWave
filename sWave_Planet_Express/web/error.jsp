@@ -8,8 +8,8 @@
     </head>
     <body>
         <h1>sWave Error</h1>
-        <%if (session.getAttribute("msg") != null) {%>
-            <p><%=session.getAttribute("msg")%></p>
+        <%if (request.getParameter("msg") != null) {%>
+            <p><%=request.getParameter("msg")%></p>
         <%} else {%>
             <p>An Unknown Error has Occurred, We Are Sorry</p>
         <%}%>

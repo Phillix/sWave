@@ -91,6 +91,7 @@
                     <td><%=s.getArtist()%></td>
                     <td><%=s.getGenre()%></td>
                     <td><%=s.getRelYear()%></td>
+                    <td>&euro;<%=s.getPrice()%></td>
                     <td><form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="stream"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>

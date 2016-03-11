@@ -21,10 +21,16 @@ public class Dao {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
 
-        String driver   = "com.mysql.jdbc.Driver";
-        String url      = "jdbc:mysql://localhost:3306/SWAVE";
-        String username = "root";
-        String password = "";
+        String driver   = sWave.Server.dbDriver;
+
+        String url      = sWave.Server.dbProtocol + 
+                          sWave.Server.domain    + ":" + 
+                          sWave.Server.MySQLPort + "/" + 
+                          sWave.Server.dbName;
+
+        String username = sWave.Server.MySQLUsername;
+        String password = sWave.Server.MySQLPassword;
+
         Connection con  = null;
 
         Class.forName(driver);

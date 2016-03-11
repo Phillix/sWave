@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <!-- Custom skin not possible until after login, using 'flat' by default -->
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/flat/flat.css"/>
-        <link rel="stylesheet" type="text/css" href="css/login.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/login.css"/>
         <script type="text/javascript" src="macgril/js/dom.js"></script>
     </head>
     <body <%if (request.getParameter("failed") != null) {%>onload="quickShake('loginBox', false)"<%}%>>

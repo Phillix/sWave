@@ -35,11 +35,11 @@ function knobLogic(knob, ev, func) {
     var newPos      = startPos;
     var startingRot = knob.style.MozTransform;
     var startRot    = "";
-    
+
     for (var i = 0; i < startingRot.length; i++)
         if (!isNaN(startingRot[i]))
             startRot = startRot + startingRot[i];
-    
+
     document.onmousemove = function(ev) {
         var rotation = parseInt(startRot);
         newPos       = rotation + parseInt(startPos - ev.clientY);

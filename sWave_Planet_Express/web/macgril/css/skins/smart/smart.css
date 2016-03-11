@@ -1,0 +1,78 @@
+@font-face {
+    font-family: regularRaleway;
+    src: local(regularRaleway), URL("fonts/Raleway-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: lighterRaleway;
+    src: local(lighterRaleway), URL("fonts/Raleway-Light.ttf") format("truetype");
+}
+
+body {
+    color: #000;
+    font-family: regularRaleway, lighterRaleway, sans-serif;
+}
+
+a {
+    font-family: lighterRaleway;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+	border: none;
+	border-radius: 3px;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-image: URL("images/button_bg.png");
+	background-size: 100% 100%;
+}
+
+button:hover {
+	background-image: URL("images/button_hover.png");
+}
+
+button:active {
+	background-image: URL("images/button_pressed.png");
+}
+
+input {
+    color: #000;
+	border: none;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-image: URL("images/input_text.png");
+	background-size: 100% 100%;
+}
+
+input:focus {
+	background-image: URL("images/input_text_focused.png");
+}
+
+.panel {
+    background-image: URL("images/header_bg.png");
+    background-size:  100% 100%;
+}
+
+aside {
+    background-image: URL("images/sider_bg.png");
+    background-size:  100% 100%;
+}
+
+.playing {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#wallpaper {
+    background-image: URL("images/wallpaper.jpg");
+    background-size:  100% 100%;
+}

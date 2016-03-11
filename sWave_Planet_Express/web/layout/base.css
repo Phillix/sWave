@@ -1,0 +1,378 @@
+/* The general Look and Feel of sWave is determined by the skin file selected 
+   from macgril/css/skins/ NOT this file */
+
+            #topbar {
+                position: fixed;
+                top:      0px;
+                left:     0px;
+                width:    100%;
+                height:   60px;
+                padding:  0px;
+                z-index:  2;
+                box-shadow: 0px 0px 3px #000;
+            }
+
+            #base {
+                position: fixed;
+                bottom:   0px;
+                left:     0px;
+                width:    100%;
+                height:   90px;
+                padding:  0px;
+                z-index:  2;
+                box-shadow: 0px 0px 3px #000;
+            }
+
+            #midsection {
+                color:    #e3e3e3;
+                position: fixed;
+                left:     200px;
+                right:    200px;
+                top:      60px;
+                bottom:   90px;
+                padding:  0px;
+                z-index:  0;
+                padding:  20px;
+                overflow-y: scroll;
+                overflow-x: auto;
+            }
+
+            #left_sidebar {
+                position: fixed;
+                left:     0px;
+                top:      60px;
+                bottom:   90px;
+                width:    200px;
+                padding:  0px;
+                z-index:  1;
+                box-shadow: 0px 0px 3px #000;
+            }
+
+            #right_sidebar {
+                position: fixed;
+                right:    0px;
+                top:      60px;
+                bottom:   90px;
+                width:    200px;
+                padding:  0px;
+                z-index:  1;
+                box-shadow: 0px 0px 3px #000;
+            }
+
+            #ads {
+                border: none;
+                padding: 0px;
+                margin: 0px;
+                position: fixed;
+                bottom: 90px;
+                right: 0px;
+                width: 200px;
+                height: 200px;
+            }
+
+            #header_logo {
+            }
+
+            #header_right {
+                position: fixed;
+                top:      18px;
+                right:    20px;
+            }
+
+            #logOutButton {
+                position: fixed;
+                top:      19px;
+                right:    10px;
+            }
+
+            #searchBox {
+                position: fixed;
+                top:      20px;
+                right:    90px;
+            }
+
+            #searchBox input {
+                width: 120px;
+            }
+
+            #userNameLink {
+                position: fixed;
+                top:      21px;
+                right:    230px;
+            }
+
+            nav {
+                position: fixed;
+                top:      0px;
+                left:     200px;
+                height:   60px;
+            }
+
+            nav a {
+                display:       inline-block;
+                color:         #000;
+                height:        24px;
+                text-align:    center;
+                padding-left:  10px;
+                padding-right: 10px;
+                margin:        0px;
+                font-size:     24px;
+                padding-top:    14px;
+                padding-bottom: 22px;
+            }
+
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+            }
+
+            @-moz-keyframes slide_up {
+                0% {-moz-transform: translateY(200px);}
+                100% {-moz-transform: translateY(0px);}
+            }
+
+            @-moz-keyframes slide_down {
+                0% {-moz-transform: translateY(-200px);}
+                100% {-moz-transform: translateY(0px);}
+            }
+
+            @-moz-keyframes slide_left {
+                0% {-moz-transform: translateX(200px);}
+                100% {-moz-transform: translateX(0px);}
+            }
+
+            @-moz-keyframes slide_right {
+                0% {-moz-transform: translateX(-200px);}
+                100% {-moz-transform: translateX(0px);}
+            }
+
+table {
+    width:   100%;
+    margin:  0px;
+    padding: 0px;
+    border:  none;
+}
+
+tr {
+    color:  #000;
+    margin: 0px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+tr.sec {
+
+}
+
+tr.playing {
+    background-color: #fff;
+}
+
+td {
+    margin:  0px;
+    margin:  0px;
+    border:  none;
+    padding: 8px;
+}
+
+td.move {
+    height: 40px;
+    width:  18px;
+    cursor: grab;
+}
+
+td.move img {
+    display: block;
+    height:  100%;
+    width:   100%;
+}
+
+td.art {
+    width:  40px;
+    height: 40px;
+}
+
+td.art img {
+    display: block;
+    height:  100%;
+    width:   100%;
+}
+
+td.trackTitle {
+    padding-left:  10px;
+    padding-right: 10px;
+    max-width:     400px;
+}
+
+@keyframes fadeRight {
+    0% {
+        left:    0px;
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes fadeRight {
+    0% {
+        left:    0px;
+        opacity: 0.0;
+    }
+}
+
+@-webkit-keyframes fadeRight {
+    0% {
+        left:    0px;
+        opacity: 0.0;
+    }
+}
+
+#progress {
+    position:         fixed;
+    bottom:           9px;
+    left:             12px;
+    width:            0px;
+    height:           7px;
+    border-radius:    5px;
+    background-color: #000;
+}
+
+#progressBG {
+    border-style:  solid;
+    border-width:  1px;
+    position:      fixed;
+    bottom:        7px;
+    left:          10px;
+    right:         10px;
+    height:        9px;
+    border-radius: 5px;
+}
+
+#scrubber {
+    border-radius: 20px;
+    left:          2px;
+    display:       none;
+    width:         20px;
+    height:        20px;
+    position:      fixed;
+    bottom:        3px;}
+
+#controls {
+    margin-left:  auto;
+    margin-right: auto;
+    width:        200px;
+    display:      block;
+    margin-top:   10px;
+}
+
+#controls img {
+    margin-left:  5px;
+    margin-right: 5px;
+}
+
+#trackTimer {
+    position:    fixed;
+    bottom:      30px;
+    right:       15px;
+}
+
+#playerStatus {
+    position:    fixed;
+    bottom:      30px;
+    left:        15px;
+}
+
+#visualizer {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    bottom: 90px;
+    left: 0px;
+    width: 200px;
+    height: 200px;
+}
+
+#newTicketForm {
+    display:           none;
+    animation:         expand 0.7s;
+    -moz-animation:    expand 0.7s;
+    -webkit-animation: expand 0.7s;
+}
+
+#ticketIssue {
+    width:  300px;
+    height: 200px;
+    margin-top: 10px;
+}
+
+#copyNotice {
+    position:   fixed;
+    bottom:     304px;
+    left:       0px;
+    text-align: center;
+    width:      200px;
+    text-decoration: underline;
+}
+
+.currentPageLink {
+    text-decoration: underline;
+}
+
+ul.ticketList {
+    list-style-type: none;
+    margin: 0px;
+    padding:0px;
+}
+
+li.ticket {
+    color: #000;
+    list-style-type: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 30px;
+    box-shadow: 0px 0px 4px #000;
+    padding: 0px;
+}
+
+h3.ticketHeader {
+    margin: 0px;
+    background-color: grey;
+    padding: 10px;
+}
+
+aside h2 {
+    margin-left: 10px;
+    color: #000;
+}
+
+span.ticketHeaderRight {
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+p.ticketIssue {
+    margin-left:   10px;
+    margin-right:  10px;
+}
+
+@-moz-keyframes glow {
+    0% {
+        box-shadow: 0px 0px 3px;
+    }
+
+    50% {
+        box-shadow: 0px 0px 10px;
+    }
+
+    100% {
+        box-shadow: 0px 0px 3px;
+    }
+}
+
+@-moz-keyframes expand {
+    0% {
+        opacity: 0.0;
+        -moz-transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1.0;
+        -moz-transform: translateY(0px);
+    }
+}

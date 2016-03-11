@@ -7,7 +7,7 @@
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Internal Error</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <%
             User currentUser = (User)session.getAttribute("user");
             String skin = "flat";

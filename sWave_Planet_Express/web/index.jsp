@@ -4,24 +4,25 @@
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    if (session == null) {
+        response.sendRedirect("login.jsp");
+    }
+    User currentUser = (User)session.getAttribute("user");
+
+    String skin = "flat";
+    if (currentUser != null) {
+        skin = currentUser.getSkin();
+    }
+%>
 <html>
     <head>
-        <%if (session == null) {
-            response.sendRedirect("login.jsp");
-         }
-         User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Welcome to sWave</title>
-        <link rel="stylesheet" type="text/css" href="main.css"/>
-        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/index.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <%
-            String skin = "flat";
-            if (currentUser != null) {
-                skin = currentUser.getSkin();
-            }
-        %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>

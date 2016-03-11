@@ -13,21 +13,42 @@
     along with eXastum.  If not, see <http://www.gnu.org/licenses/>
 */
 
-function validateCardNum() {
+
+//TODO
+function validateEmail(fieldId, validCol, invalidCol) {
     var patt = new RegExp("^\\d{4}[-]\\d{4}[-]\\d{4}[-]\\d{4}$");
 
     var p1 = new RegExp("^\\d{4}$");
     var p2 = new RegExp("^\\d{4}[-]\\d{4}$");
     var p3 = new RegExp("^\\d{4}[-]\\d{4}[-]\\d{4}$");
 
-    if (p1.test($("cardNumField").value) || p2.test($("cardNumField").value) || p3.test($("cardNumField").value))
-        $("cardNumField").value = $("cardNumField").value + "-";
+    if (p1.test($(fieldId).value) || p2.test($(fieldId).value) || p3.test($(fieldId).value))
+        $(fieldId).value = $(fieldId).value + "-";
 
-    if (patt.test($("cardNumField").value)) {
-        $("cardNumField").style.color = "green";
+    if (patt.test($(fieldId).value)) {
+        $(fieldId).style.color = validCol;
         return true;
     } else {
-        $("cardNumField").style.color = "red";
+        $(fieldId).style.color = invalidCol;
+        return false;
+    }
+}
+
+function validateCreditCard(fieldId, validCol, invalidCol) {
+    var patt = new RegExp("^\\d{4}[-]\\d{4}[-]\\d{4}[-]\\d{4}$");
+
+    var p1 = new RegExp("^\\d{4}$");
+    var p2 = new RegExp("^\\d{4}[-]\\d{4}$");
+    var p3 = new RegExp("^\\d{4}[-]\\d{4}[-]\\d{4}$");
+
+    if (p1.test($(fieldId).value) || p2.test($(fieldId).value) || p3.test($(fieldId).value))
+        $(fieldId).value = $(fieldId).value + "-";
+
+    if (patt.test($(fieldId).value)) {
+        $(fieldId).style.color = validCol;
+        return true;
+    } else {
+        $(fieldId).style.color = invalidCol;
         return false;
     }
 }

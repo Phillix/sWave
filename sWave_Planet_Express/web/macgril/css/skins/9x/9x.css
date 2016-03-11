@@ -1,0 +1,75 @@
+@font-face {
+    font-family: regularRaleway;
+    src: local(regularRaleway), URL("fonts/Raleway-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: lighterRaleway;
+    src: local(lighterRaleway), URL("fonts/Raleway-Light.ttf") format("truetype");
+}
+
+body {
+    color: #000;
+    font-family: regularRaleway, lighterRaleway, sans-serif;
+}
+
+a {
+    color: #0102ab;
+}
+
+a:hover {
+}
+
+button {
+	border-style:     outset;
+        border-width:     3px;
+	border-radius:    0px;
+	font-size:        12px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	padding-left:     6px;
+	padding-right:    6px;
+	background-color: #bfbfbf;
+}
+
+button:hover {
+}
+
+button:active {
+    border-style: inset;
+}
+
+input {
+    border-style:     outset;
+    border-width:     3px;
+    border-radius:    0px;
+    font-size:        10px;
+    padding-top:      3px;
+    padding-bottom:   3px;
+    padding-left:     6px;
+    padding-right:    6px;
+    background-color: #bfbfbf;
+}
+
+input:focus {
+    background-image: URL("images/input_text_focused.png");
+}
+
+input:active {
+    border-style: inset;
+}
+
+.panel {
+    padding:          0px;
+    background-color: #bfbfbf;
+    border-style:     outset;
+    border-width:     2px;
+}
+
+.playing {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#wallpaper {
+    background-color: #59a8aa;
+}

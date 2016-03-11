@@ -28,7 +28,7 @@
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Account - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <%
             String skin = "flat";
             if (currentUser != null) {
@@ -187,7 +187,13 @@
                             <label>Select Skin: </label>
                             <select name="skin">
                                 <option>Flat</option>
+                                <option>Flat Darkness</option>
                                 <option>Nova</option>
+                                <option>Quantum</option>
+                                <option>Shire</option>
+                                <option>sMart</option>
+                                <option>sMart++</option>
+                                <option>9x</option>
                             </select>
                             <input type="submit" value="Apply"/>
                         </form>

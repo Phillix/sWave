@@ -10,30 +10,30 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%if (session == null) {
+        <%
+            if (session == null) {
                 response.sendRedirect("login.jsp");
             }
             User currentUser = (User)session.getAttribute("user");
-            ArrayList<Song> songs  = (ArrayList<Song>)session.getAttribute("searchResults");
+            ArrayList<Song>  songs = (ArrayList<Song>)session.getAttribute("searchResults");
             ArrayList<Merch> merch = (ArrayList<Merch>)session.getAttribute("searchMerchResults");
+
+            String skin = "flat";
+            if (currentUser != null) {
+                skin = currentUser.getSkin();
+            }
+
+            final boolean DEBUG = sWave.Debugging.debug;
+
+            if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
+                %><script>alert("Added to Cart")</script><%
+            }
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Search - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <link rel="stylesheet" type="text/css" href="main.css"/>
-        <%
-            String skin = "flat";
-            if (currentUser != null) {
-                skin = currentUser.getSkin();
-            }
-            
-            final boolean DEBUG = sWave.Debugging.debug;
-            
-            if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
-                %><script>alert("Added to Cart")</script><%
-            }
-        %>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>

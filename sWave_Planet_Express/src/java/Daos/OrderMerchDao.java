@@ -12,17 +12,17 @@ import java.util.ArrayList;
  * @author Phillix
  */
 public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
-    
-    private final boolean DEBUG = sWave.Debugging.debug;
 
-    private final String TABLE_NAME  = "ORDERMERCH";
-    private final String ORDERID     = "ORDERID";
-    private final String MERCHID     = "MERCHID";
-    private final String QTY         = "QTY";
-    private final String PRICE       = "PRICEPAID";
-    
+    private final boolean DEBUG = sWave.Server.debugging;
+
+    private final String TABLE_NAME = "ORDERMERCH";
+    private final String ORDERID    = "ORDERID";
+    private final String MERCHID    = "MERCHID";
+    private final String QTY        = "QTY";
+    private final String PRICE      = "PRICEPAID";
+
     /**
-     * 
+     *
      * @param om OrderMerch object to create
      * @return int value indicating success
      */

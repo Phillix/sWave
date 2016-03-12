@@ -7,13 +7,17 @@ import java.util.Properties;
  * @author Brian Millar
  */
 public class Server {
+
+    public static final boolean debugging = true;
+    public static final boolean testing   = false;
+
     private static final boolean hasSSL = false;
 
     public static final String domain        = "localhost";
     public static final String folder        = "../webapps/ROOT/";
     public static final String MySQLUsername = "root";
     public static final String MySQLPassword = "";
-    public static final String dbName        = "SWAVE";
+    public static final String dbName        = testing ? "SWAVE_TEST" : "SWAVE";
     public static final int    MySQLPort     = 3306;
     public static final int    TomcatPort    = 8084;
     public static final String protocol      = hasSSL ? "https://" : "http://";

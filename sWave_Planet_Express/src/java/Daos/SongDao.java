@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Brian Millar
  */
 public class SongDao extends Dao implements SongDaoInterface {
-    private final boolean DEBUG = sWave.Debugging.debug;
+    private final boolean DEBUG = sWave.Server.debugging;
 
     private final String TABLE_NAME = "SONGS";
     private final String SONGID     = "SONGID";

@@ -5,14 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
  * @author Brian Millar
  */
 public class LockDao extends Dao implements LockDaoInterface {
-    private final boolean DEBUG = sWave.Debugging.debug;
+    private final boolean DEBUG = sWave.Server.debugging;
 
     private final String TABLE_NAME = "LOCKS";
     private final String USERID     = "USERID";

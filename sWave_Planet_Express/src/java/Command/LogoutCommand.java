@@ -2,7 +2,6 @@ package Command;
 
 import Daos.LockDao;
 import Dtos.User;
-import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,8 +13,8 @@ import javax.servlet.http.HttpSession;
  */
 public class LogoutCommand implements Command {
 
-    private static final boolean DEBUG = sWave.Debugging.debug;
-    
+    private static final boolean DEBUG = sWave.Server.debugging;
+
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();

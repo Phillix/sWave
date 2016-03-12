@@ -28,7 +28,7 @@ public class CheckoutCommand implements Command {
         String forwardToJsp;
         int userId = ((User)session.getAttribute("user")).getUserId();
         ArrayList<CartItem> cart = (ArrayList)session.getAttribute("cart");
-        
+
         if (cart != null) {
             Order order       = new Order(userId, 0);
             OrderDao od       = new OrderDao();

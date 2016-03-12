@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class Logger {
 
-    private static final boolean DEBUG = sWave.Debugging.debug;
+    private static final boolean DEBUG = sWave.Server.debugging;
 
     public static void writeLine(String text) {
         File file = new File(Server.folder + "sWave.log");

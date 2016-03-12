@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * @author Austin
  */
 public class RegisterCommand implements Command {
-    
+
     /**
      * The command used for registering users
      * @param request The request from the servlet

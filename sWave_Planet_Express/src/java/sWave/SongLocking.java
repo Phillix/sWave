@@ -1,7 +1,6 @@
 package sWave;
 
 import Daos.LockDao;
-import Dtos.Lock;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 
 public class SongLocking {
 
-    private static final boolean DEBUG = sWave.Debugging.debug;
+    private static final boolean DEBUG = sWave.Server.debugging;
 
     public static void clean() {
         /*

@@ -19,7 +19,7 @@ import sWave.SongLocking;
  */
 public class StreamCommand implements Command {
 
-    private static final boolean DEBUG = sWave.Debugging.debug;
+    private static final boolean DEBUG = sWave.Server.debugging;
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {

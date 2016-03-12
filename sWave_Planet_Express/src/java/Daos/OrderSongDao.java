@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author Phillix
  */
 public class OrderSongDao extends Dao implements OrderSongDaoInterface {
-    
-    private final boolean DEBUG = sWave.Debugging.debug;
 
-    private final String TABLE_NAME  = "ORDERSONG";
-    private final String ORDERID     = "ORDERID";
+    private final boolean DEBUG = sWave.Server.debugging;
+
+    private final String TABLE_NAME = "ORDERSONG";
+    private final String ORDERID    = "ORDERID";
     private final String SONGID     = "SONGID";
-    private final String PRICE       = "PRICEPAID";
-    
+    private final String PRICE      = "PRICEPAID";
+
     /**
      * Used for creating a new ordersong to be added to the database
      * @param os The ordersong you wish to add

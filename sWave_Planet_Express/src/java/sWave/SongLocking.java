@@ -20,7 +20,7 @@ public class SongLocking {
     public static void clean() {
         /*
             Gets a stream of file paths in current directory,
-            loops through them and runs a lamda expression to check
+            loops through them and runs a lambda expression to check
             if no locks remain on the file and if not, remove it.
         */
 

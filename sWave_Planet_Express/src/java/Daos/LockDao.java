@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @author Brian Millar
  */
 public class LockDao extends Dao implements LockDaoInterface {
-    private final boolean DEBUG = sWave.Server.debugging;
+    private final boolean DEBUG = sWave.Server.DEBUGGING;
 
     private final String TABLE_NAME = "LOCKS";
     private final String USERID     = "USERID";

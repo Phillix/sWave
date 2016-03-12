@@ -10,14 +10,14 @@ import java.io.File;
  */
 public class Logger {
 
-    private static final boolean DEBUG = sWave.Server.debugging;
+    private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
     public static void writeLine(String text) {
-        File file = new File(Server.folder + "sWave.log");
+        File file = new File(Server.FOLDER + "sWave.log");
         System.out.println(file.getAbsolutePath());
         FileWriter output = null;
         try {
-            output = new FileWriter(Server.folder + "sWave.log");
+            output = new FileWriter(Server.FOLDER + "sWave.log");
         } catch (IOException ex) {
             if (DEBUG)
                 ex.printStackTrace();

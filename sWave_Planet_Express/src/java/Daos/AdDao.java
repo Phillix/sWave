@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @author Phillix
  */
 public class AdDao extends Dao implements AdDaoInterface {
-    private final boolean DEBUG = sWave.Server.debugging;
+    private final boolean DEBUG = sWave.Server.DEBUGGING;
 
     private final String TABLE_NAME = "ADS";
     private final String ID         = "ADID";

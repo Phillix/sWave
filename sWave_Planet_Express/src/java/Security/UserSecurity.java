@@ -13,7 +13,7 @@ import javax.crypto.spec.PBEKeySpec;
  */
 public class UserSecurity {
 
-    private static final boolean DEBUG = sWave.Server.debugging;
+    private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
     /**
      *

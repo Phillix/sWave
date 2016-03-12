@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class MerchDao extends Dao implements MerchDaoInterface {
 
-    private final boolean DEBUG = sWave.Server.debugging;
+    private final boolean DEBUG = sWave.Server.DEBUGGING;
 
     private final String TABLE_NAME = "MERCH";
     private final String ID         = "MERCHID";

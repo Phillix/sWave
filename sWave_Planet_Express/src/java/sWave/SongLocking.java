@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class SongLocking {
 
-    private static final boolean DEBUG = sWave.Server.debugging;
+    private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
     public static void clean() {
         /*
@@ -28,7 +28,7 @@ public class SongLocking {
 
         Stream<Path> fileList = null;
         try {
-            fileList = Files.list(Paths.get(Server.folder));
+            fileList = Files.list(Paths.get(Server.FOLDER));
         } catch (IOException ex) {
             if (DEBUG)
                 ex.printStackTrace();
@@ -38,7 +38,7 @@ public class SongLocking {
             if (filename.contains(".mp3")) {
                 filename = filename.substring(0, filename.length() - 4);
                 if (locks.getNumLocks(Integer.parseInt(filename)) == 0) {
-                    File file = new File(Server.folder + filename + ".mp3");
+                    File file = new File(Server.FOLDER + filename + ".mp3");
                     file.delete();
                 }
                 /* Lock timeouts requires yet to be written SQL code

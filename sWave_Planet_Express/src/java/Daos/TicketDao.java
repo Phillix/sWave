@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Austin
  */
 public class TicketDao extends Dao implements TicketDaoInterface {
-    private final boolean DEBUG = sWave.Server.debugging;
+    private final boolean DEBUG = sWave.Server.DEBUGGING;
 
     private final String TABLE_NAME = "TICKETS";
     private final String ID         = "TICKETID";

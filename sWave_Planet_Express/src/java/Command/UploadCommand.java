@@ -17,7 +17,7 @@ import sWave.ID3Tag;
  */
 public class UploadCommand implements Command {
 
-    private static final boolean DEBUG = sWave.Server.debugging;
+    private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {

@@ -8,26 +8,28 @@ import java.util.Properties;
  */
 public class Server {
 
-    public static final boolean debugging = true;
-    public static final boolean testing   = false;
+    public static final boolean DEBUGGING = true;
+    public static final boolean TESTING   = false;
 
-    private static final boolean hasSSL = false;
+    private static final boolean HAS_SSL  = false;
 
-    public static final String domain        = "localhost";
-    public static final String folder        = "../webapps/ROOT/";
-    public static final String MySQLUsername = "root";
-    public static final String MySQLPassword = "";
-    public static final String dbName        = testing ? "SWAVE_TEST" : "SWAVE";
-    public static final int    MySQLPort     = 3306;
-    public static final int    TomcatPort    = 8084;
-    public static final String protocol      = hasSSL ? "https://" : "http://";
-    public static final String dbProtocol    = "jdbc:mysql://";
-    public static final String dbDriver      = "com.mysql.jdbc.Driver";
+    public static final String DOMAIN         = "localhost";
+    public static final String FOLDER         = "../webapps/ROOT/";
+    public static final String MYSQL_USERNAME = "root";
+    public static final String MYSQL_PASSWORD = "";
+    public static final String DATABASE_NAME  = "SWAVE";
+    public static final String TEST_DB_NAME   = "SWAVE_TEST";
+    public static final String DB_NAME        = TESTING ? TEST_DB_NAME : DATABASE_NAME;
+    public static final int    MYSQL_PORT     = 3306;
+    public static final int    TOMCAT_PORT    = 8084;
+    public static final String PROTOCOL       = HAS_SSL ? "https://" : "http://";
+    public static final String DB_PROTOCOL    = "jdbc:mysql://";
+    public static final String DB_DRIVER      = "com.mysql.jdbc.Driver";
 
-    public static Properties   sysProp       = System.getProperties();
-    public static int          CPUs          = Runtime.getRuntime().availableProcessors();
-    public static long         RAM           = Runtime.getRuntime().totalMemory();
-    public static long         freeRAM       = Runtime.getRuntime().freeMemory();
+    public static Properties sysProp = System.getProperties();
+    public static int        CPUs    = Runtime.getRuntime().availableProcessors();
+    public static long       RAM     = Runtime.getRuntime().totalMemory();
+    public static long       freeRAM = Runtime.getRuntime().freeMemory();
 
 
     public static void shutdown() {

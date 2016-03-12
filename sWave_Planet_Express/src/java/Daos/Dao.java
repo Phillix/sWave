@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * @author Phillix
  */
 public class Dao {
-    private static final boolean DEBUG = sWave.Server.debugging;
+    private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
     // Integer returns for DAO's
     protected static final int SUCCESS       = 0;
@@ -21,15 +21,15 @@ public class Dao {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
 
-        String driver   = sWave.Server.dbDriver;
+        String driver   = sWave.Server.DB_DRIVER;
 
-        String url      = sWave.Server.dbProtocol + 
-                          sWave.Server.domain    + ":" + 
-                          sWave.Server.MySQLPort + "/" + 
-                          sWave.Server.dbName;
+        String url      = sWave.Server.DB_PROTOCOL +
+                          sWave.Server.DOMAIN      + ":" +
+                          sWave.Server.MYSQL_PORT  + "/" +
+                          sWave.Server.DB_NAME;
 
-        String username = sWave.Server.MySQLUsername;
-        String password = sWave.Server.MySQLPassword;
+        String username = sWave.Server.MYSQL_USERNAME;
+        String password = sWave.Server.MYSQL_PASSWORD;
 
         Connection con  = null;
 

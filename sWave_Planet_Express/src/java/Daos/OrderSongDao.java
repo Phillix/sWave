@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class OrderSongDao extends Dao implements OrderSongDaoInterface {
 
-    private final boolean DEBUG = sWave.Server.debugging;
+    private final boolean DEBUG = sWave.Server.DEBUGGING;
 
     private final String TABLE_NAME = "ORDERSONG";
     private final String ORDERID    = "ORDERID";

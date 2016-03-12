@@ -20,8 +20,9 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String SONGID     = "SONGID";
     private final String TITLE      = "TITLE";
     private final String ARTIST     = "ARTIST";
+    private final String ALBUM      = "ALBUM";
     private final String GENRE      = "GENRE";
-    private final String RELYEAR    = "RELYEAR";
+    private final String YEAR       = "YEAR";
     private final String PRICE      = "PRICE";
     private final String LICENSE    = "LICENSE";
     private final String SONGDATA   = "DATA";
@@ -47,8 +48,9 @@ public class SongDao extends Dao implements SongDaoInterface {
                 Song s   = new Song(rs.getInt(SONGID),
                                     rs.getString(TITLE),
                                     rs.getString(ARTIST),
+                                    rs.getString(ALBUM),
                                     rs.getString(GENRE),
-                                    rs.getInt(RELYEAR),
+                                    rs.getInt(YEAR),
                                     rs.getDouble(PRICE),
                                     rs.getString(LICENSE)
                                     ); //We don't want the songdata here
@@ -102,19 +104,21 @@ public class SongDao extends Dao implements SongDaoInterface {
                            TABLE_NAME     + " (" +
                            TITLE          + ", " +
                            ARTIST         + ", " +
+                           ALBUM          + ", " +
                            GENRE          + ", " +
-                           RELYEAR        + ", " +
+                           YEAR           + ", " +
                            PRICE          + ", " +
                            LICENSE        + ", " +
-                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?)";
+                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, s.getTitle());
             ps.setString(2, s.getArtist());
-            ps.setString(3, s.getGenre());
-            ps.setInt(4, s.getRelYear());
-            ps.setDouble(5, s.getPrice());
-            ps.setString(6, s.getLicense());
-            ps.setBlob(7, b);
+            ps.setString(3, s.getAlbum());
+            ps.setString(4, s.getGenre());
+            ps.setInt(5, s.getYear());
+            ps.setDouble(6, s.getPrice());
+            ps.setString(7, s.getLicense());
+            ps.setBlob(8, b);
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
         }
@@ -166,8 +170,9 @@ public class SongDao extends Dao implements SongDaoInterface {
                 return new Song(rs.getInt(SONGID),
                                 rs.getString(TITLE),
                                 rs.getString(ARTIST),
+                                rs.getString(ALBUM),
                                 rs.getString(GENRE),
-                                rs.getInt(RELYEAR),
+                                rs.getInt(YEAR),
                                 rs.getDouble(PRICE),
                                 rs.getString(LICENSE),
                                 songdata);
@@ -223,8 +228,9 @@ public class SongDao extends Dao implements SongDaoInterface {
                 Song s = new Song(rs.getInt(SONGID),
                                 rs.getString(TITLE),
                                 rs.getString(ARTIST),
+                                rs.getString(ALBUM),
                                 rs.getString(GENRE),
-                                rs.getInt(RELYEAR),
+                                rs.getInt(YEAR),
                                 rs.getDouble(PRICE),
                                 rs.getString(LICENSE),
                                 songdata);

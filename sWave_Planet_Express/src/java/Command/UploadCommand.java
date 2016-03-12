@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import sWave.ID3Tag;
 
 /**
  *
@@ -60,9 +61,31 @@ public class UploadCommand implements Command {
                     return "/uploadFailed.jsp";
                 }
             }
-            SongDao dao = new SongDao();
+            SongDao dao     = new SongDao();
             String fileName = songs.get(j).getSubmittedFileName();
-            Song s      = new Song(0, fileName.substring(0, fileName.length() - 4), "Unknown", "Unknown", 2016, 0.00, "CC", buffer);
+            ID3Tag id3      = new ID3Tag(buffer);
+            Song s          = new Song(0,
+                                       fileName.substring(0, fileName.length() - 4),
+                                       "Unknown",
+                                       "Unknown",
+                                       "Unknown",
+                                       2016,
+                                       0.00,
+                                       "CC",
+                                       buffer
+                               );
+            
+            if (id3.getTitle() != null)
+                s.setTitle(id3.getTitle());
+            if (id3.getArtist() != null)
+                s.setArtist(id3.getArtist());
+            if (id3.getAlbum() != null)
+                s.setAlbum(id3.getAlbum());
+            if (id3.getGenre() != null)
+                s.setGenre(id3.getGenre());
+            if (id3.getYear() != 0)
+                s.setYear(id3.getYear());
+            
             dao.addNewSong(s);
             uploadSize += buffer.length;
             count++;

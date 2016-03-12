@@ -20,7 +20,6 @@ public class Order {
         total       = 0;
     }
 
-   
     /**
      * all fields except userId and total are auto generated
      * @param userId id of the user the order belongs to

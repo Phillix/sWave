@@ -9,15 +9,26 @@ public class ID3Tag {
     private String title;
     private String artist;
     private String album;
+    private String genre;
     private int    year;
     private byte[] artwork;
 
-    public ID3Tag(String title, String artist, String album, int year, byte[] artwork) {
+    public ID3Tag(String title, String artist, String album, String genre, int year, byte[] artwork) {
         this.title   = title;
         this.artist  = artist;
         this.album   = album;
+        this.genre   = genre;
         this.year    = year;
         this.artwork = artwork;
+    }
+    
+    public ID3Tag(byte songdata[]) {
+        this.title   = null;
+        this.artist  = null;
+        this.album   = null;
+        this.genre   = null;
+        this.year    = 0;
+        this.artwork = null;
     }
 
     public String getTitle() {
@@ -44,6 +55,14 @@ public class ID3Tag {
         this.album = album;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public int getYear() {
         return year;
     }
@@ -59,15 +78,4 @@ public class ID3Tag {
     public void setArtwork(byte[] artwork) {
         this.artwork = artwork;
     }
-
-    public static ID3Tag getTag(byte song[]) {
-        String title  = null;
-        String artist = null;
-        String album  = null;
-        int    year   = 1916;
-        byte   art[]  = null;
-        ID3Tag tag = new ID3Tag(title, artist, album, year, art);
-        return tag;
-    }
-
 }

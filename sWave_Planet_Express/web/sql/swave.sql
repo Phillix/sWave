@@ -33,6 +33,7 @@ CREATE TABLE SONGS (
     SONGID  INT(4)       NOT NULL AUTO_INCREMENT,
     TITLE   VARCHAR(50)  NOT NULL,
     ARTIST  VARCHAR(40),
+    ALBUM   VARCHAR(40),
     GENRE   VARCHAR(20),
     RELYEAR INT(4),
     PRICE   DOUBLE(3,2)  NOT NULL,
@@ -124,7 +125,7 @@ CREATE TABLE LOCKS (
 INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", false);
 INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "Kerry", "flat", true);
 
-INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Genre", 1970, 2.99, "Public Domain", NULL);
+INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Album", "Genre", 1970, 2.99, "Public Domain", NULL);
 
 INSERT INTO ORDERS VALUES (-1, -1, '1970-1-1', 15.50);
 INSERT INTO ORDERS VALUES (-2, -2, '1971-1-1', 16.20);
@@ -134,7 +135,7 @@ INSERT INTO ADS VALUES (2, "ads/test2.html");
 
 INSERT INTO TICKETS VALUES (-1, -1, "my pc is on fire", "2009-12-3", false);
 
-INSERT INTO MERCH VALUES(-1, "Mug", 9.99);
-INSERT INTO MERCH VALUES(-2, "T-Shirt", 29.99);
+INSERT INTO MERCH VALUES(-1, "Mug", 9.99, NULL);
+INSERT INTO MERCH VALUES(-2, "T-Shirt", 29.99, NULL);
 
-INSERT INTO ORDERMERCH VALUES(-1, -1, 1, 9.99);
+INSERT INTO ORDERMERCH VALUES(-1, -1, 1, 9.99, NULL);

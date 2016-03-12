@@ -35,7 +35,7 @@ public class SongTest {
         songdata[2] = 3;
         songdata[3] = 2;
         songdata[4] = 1;
-        instance2 = new Song(-1, "Bohemian Rhapsody", "Queen", "Rock", 1975, 0.99, "GNU", songdata);
+        instance2 = new Song(-1, "Bohemian Rhapsody", "Queen", "Gr8 Hits", "Rock", 1975, 0.99, "GNU", songdata);
     }
 
     @After
@@ -51,7 +51,7 @@ public class SongTest {
         int result = instance1.getSongId();
         assertEquals("The song id's do not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getSongId method being invalid, of class Song.
      */
@@ -71,7 +71,7 @@ public class SongTest {
         instance2.setSongId(4);
         assertEquals("The song ids do not match after setting valid", expResult, instance2.getSongId());
     }
-    
+
     /**
      * Test of setSongId method being invalid, of class Song.
      */
@@ -92,7 +92,7 @@ public class SongTest {
         String result = instance2.getTitle();
         assertEquals("The song titles do not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getTitle method being invalid, of class Song.
      */
@@ -112,7 +112,7 @@ public class SongTest {
         instance2.setTitle("Rhapsody Bohemian");
         assertEquals("The song titles do not match after setting valid", expResult, instance2.getTitle());
     }
-    
+
     /**
      * Test of setTitle method being invalid, of class Song.
      */
@@ -133,7 +133,7 @@ public class SongTest {
         String result = instance2.getArtist();
         assertEquals("The song artists do not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getArtist method being invalid, of class Song.
      */
@@ -153,7 +153,7 @@ public class SongTest {
         instance2.setArtist("Queeen");
         assertEquals("The song artists do not match after setting valid", expResult, instance2.getArtist());
     }
-    
+
     /**
      * Test of setArtist method being invalid, of class Song.
      */
@@ -174,7 +174,7 @@ public class SongTest {
         String result = instance2.getGenre();
         assertEquals("The song genres do not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getGenre method being invalid, of class Song.
      */
@@ -194,7 +194,7 @@ public class SongTest {
         instance2.setGenre("Hard Rock");
         assertEquals("The song genres do not match after setting valid", expResult, instance2.getGenre());
     }
-    
+
     /**
      * Test of setGenre method being invalid, of class Song.
      */
@@ -210,19 +210,19 @@ public class SongTest {
      * Test of getRelYear method being valid, of class Song.
      */
     @Test
-    public void testGetRelYearValid() {
+    public void testGetYearValid() {
         int expResult = 1975;
-        int result = instance2.getRelYear();
+        int result = instance2.getYear();
         assertEquals("The song release years do not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getRelYear method being invalid, of class Song.
      */
     @Test
-    public void testGetRelYearInvalid() {
+    public void testGetYearInvalid() {
         boolean expResult = false;
-        boolean result = instance2.getRelYear() == 1976;
+        boolean result = instance2.getYear() == 1976;
         assertEquals("The song release years match after getting invalid", expResult, result);
     }
 
@@ -230,20 +230,20 @@ public class SongTest {
      * Test of setRelYear method being valid, of class Song.
      */
     @Test
-    public void testSetRelYearValid() {
+    public void testSetYearValid() {
         int expResult = 1980;
-        instance2.setRelYear(1980);
-        assertEquals("The song release years do not match after setting valid", expResult, instance2.getRelYear());
+        instance2.setYear(1980);
+        assertEquals("The song release years do not match after setting valid", expResult, instance2.getYear());
     }
-    
+
     /**
      * Test of setRelYear method being invalid, of class Song.
      */
     @Test
-    public void testSetRelYearInvalid() {
+    public void testSetYearInvalid() {
         boolean expResult = false;
-        instance2.setRelYear(1980);
-        boolean result = instance2.getRelYear() == 1975;
+        instance2.setYear(1980);
+        boolean result = instance2.getYear() == 1975;
         assertEquals("The song release years match after setting invalid", expResult, result);
     }
 
@@ -256,7 +256,7 @@ public class SongTest {
         double result = instance2.getPrice();
         assertEquals("The songs prices do not match after getting valid", expResult, result, 0.0);
     }
-    
+
     /**
      * Test of getPrice method being invalid, of class Song.
      */
@@ -276,7 +276,7 @@ public class SongTest {
         instance2.setPrice(10.0);
         assertEquals("The songs prices do not match after setting valid", expResult, instance2.getPrice(), 0.0);
     }
-    
+
     /**
      * Test of setPrice method being invalid, of class Song.
      */
@@ -297,7 +297,7 @@ public class SongTest {
         String result = instance2.getLicense();
         assertEquals("The songs licences do not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getLicence method being invalid, of class Song.
      */
@@ -317,7 +317,7 @@ public class SongTest {
         instance2.setLicense("MIT");
         assertEquals("The songs licences do not match after setting valid", expResult, instance2.getLicense());
     }
-    
+
     /**
      * Test of setLicence method being invalid, of class Song.
      */
@@ -343,7 +343,7 @@ public class SongTest {
         byte result[] = instance2.getSongdata();
         assertArrayEquals("The songdata does not match after getting valid", expResult, result);
     }
-    
+
     /**
      * Test of getSongdata method being invalid, of class Song.
      */
@@ -375,7 +375,7 @@ public class SongTest {
         instance2.setSongdata(expResult);
         assertArrayEquals("The songdata does not match after setting valid", expResult, instance2.getSongdata());
     }
-    
+
     /**
      * Test of setSongdata method being invalid, of class Song.
      */
@@ -399,18 +399,18 @@ public class SongTest {
      */
     @Test
     public void testToStringValid() {
-        String expResult = "Song{songId=-1, title=Bohemian Rhapsody, artist=Queen, genre=Rock, relYear=1975, price=0.99, license=GNU}";
+        String expResult = "Song{songId=-1, title=Bohemian Rhapsody, artist=Queen, album=Gr8 Hits, genre=Rock, relYear=1975, price=0.99, license=GNU}";
         String result = instance2.toString();
         assertEquals("The songs toStrings do not match valid", expResult, result);
     }
-    
+
     /**
      * Test of toString method being invalid, of class Song.
      */
     @Test
     public void testToStringInvalid() {
         boolean expResult = false;
-        boolean result = instance2.toString().equals("SongsongId=-1, title=Bohemian Rhapsody, artist=Queen, genre=mETAL, relYear=1975 price=1.99, license=MIT}");
+        boolean result = instance2.toString().equals("SongsongId=-1, title=Bohemian Rhapsody, artist=Queen, album=Gr9 Hits, genre=mETAL, relYear=1975 price=1.99, license=MIT}");
         assertEquals("The songs toStrings matches invalid", expResult, result);
     }
 }

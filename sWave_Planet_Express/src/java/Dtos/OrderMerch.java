@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dtos;
 
 /**
@@ -10,14 +5,13 @@ package Dtos;
  * @author Phillix
  */
 public class OrderMerch {
-    
+
     private int orderId;
     private int merchId;
     private int qty;
     private double pricePaid;
-    
+
     public OrderMerch() {
-        
         orderId   = -1;
         merchId   = -1;
         qty       = -1;

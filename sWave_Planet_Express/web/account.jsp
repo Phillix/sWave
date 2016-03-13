@@ -35,7 +35,7 @@
                 skin = currentUser.getSkin();
             }
 
-            final boolean DEBUG = sWave.Debugging.debug;
+            final boolean DEBUG = sWave.Server.DEBUGGING;
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <script src="macgril/js/dom.js"></script>
@@ -190,6 +190,8 @@
                                 <option>Flat Darkness</option>
                                 <option>Nova</option>
                                 <option>Quantum</option>
+                                <option>Evolved</option>
+                                <option>Legacy</option>
                                 <option>Shire</option>
                                 <option>sMart</option>
                                 <option>sMart++</option>
@@ -232,7 +234,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="<%=sWave.Server.domain + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>

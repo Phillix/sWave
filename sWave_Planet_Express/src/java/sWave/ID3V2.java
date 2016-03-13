@@ -4,7 +4,7 @@ package sWave;
  *
  * @author Brian Millar
  */
-public class ID3Tag {
+public class ID3V2 {
 
     private String title;
     private String artist;
@@ -13,7 +13,7 @@ public class ID3Tag {
     private int    year;
     private byte[] artwork;
 
-    public ID3Tag(String title, String artist, String album, String genre, int year, byte[] artwork) {
+    public ID3V2(String title, String artist, String album, String genre, int year, byte[] artwork) {
         this.title   = title;
         this.artist  = artist;
         this.album   = album;
@@ -22,7 +22,7 @@ public class ID3Tag {
         this.artwork = artwork;
     }
     
-    public ID3Tag(byte songdata[]) {
+    public ID3V2(byte songdata[]) {
         this.title   = null;
         this.artist  = null;
         this.album   = null;

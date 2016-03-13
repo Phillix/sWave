@@ -22,10 +22,10 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String ARTIST     = "ARTIST";
     private final String ALBUM      = "ALBUM";
     private final String GENRE      = "GENRE";
-    private final String YEAR       = "YEAR";
+    private final String YEAR       = "RELYEAR";
     private final String PRICE      = "PRICE";
     private final String LICENSE    = "LICENSE";
-    private final String SONGDATA   = "DATA";
+    private final String SONGDATA   = "SONGDATA";
 
     /**
      * This method returns an ArrayList of all of the songs in the songs table

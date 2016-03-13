@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import sWave.ID3Tag;
+import sWave.ID3V2;
 
 /**
  *
@@ -63,7 +63,7 @@ public class UploadCommand implements Command {
             }
             SongDao dao     = new SongDao();
             String fileName = songs.get(j).getSubmittedFileName();
-            ID3Tag id3      = new ID3Tag(buffer);
+            ID3V2 id3      = new ID3V2(buffer);
             Song s          = new Song(0,
                                        fileName.substring(0, fileName.length() - 4),
                                        "Unknown",

@@ -19,7 +19,7 @@
                 skin = currentUser.getSkin();
             }
 
-            final boolean DEBUG = sWave.Debugging.debug;
+            final boolean DEBUG = sWave.Server.DEBUGGING;
 
             if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
                 %><script>alert("Added to Cart")</script><%
@@ -92,7 +92,7 @@
                     <td><%=s.getTitle()%></td>
                     <td><%=s.getArtist()%></td>
                     <td><%=s.getGenre()%></td>
-                    <td><%=s.getRelYear()%></td>
+                    <td><%=s.getYear()%></td>
                     <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
                     <td><%=f.format(s.getPrice())%></td>
                     <td><form action="UserActionServlet" method="POST">
@@ -138,7 +138,7 @@
         </footer>
         <div id="wallpaper"></div>
         <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="<%=sWave.Server.domain + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
+            <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>

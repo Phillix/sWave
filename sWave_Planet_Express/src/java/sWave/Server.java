@@ -8,8 +8,8 @@ import java.util.Properties;
  */
 public class Server {
 
-    public static final boolean DEBUGGING = true;
-    public static final boolean TESTING   = false;
+    public static boolean DEBUGGING = true;
+    public static boolean TESTING   = false;
 
     private static final boolean HAS_SSL  = false;
 

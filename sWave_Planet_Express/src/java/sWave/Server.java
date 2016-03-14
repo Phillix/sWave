@@ -1,6 +1,10 @@
 package sWave;
 
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +29,9 @@ public class Server {
     public static final String PROTOCOL       = HAS_SSL ? "https://" : "http://";
     public static final String DB_PROTOCOL    = "jdbc:mysql://";
     public static final String DB_DRIVER      = "com.mysql.jdbc.Driver";
+    public static final int    MAX_QUEUE      = 2000; //refuse connections after 2000
+    public static final int    SOCKET_PORT    = 0; //zero will cause auto-allocation of the port number
+    public static ServerSocket SERVER_SOCKET  = null;
 
     public static Properties sysProp = System.getProperties();
     public static int        CPUs    = Runtime.getRuntime().availableProcessors();
@@ -39,5 +46,14 @@ public class Server {
 
     public static void garbageCollect() {
         Runtime.getRuntime().gc();
+    }
+    
+    public static void createSocket() {
+        try {
+            SERVER_SOCKET = new ServerSocket(MAX_QUEUE, SOCKET_PORT);
+        } catch (IOException ex) {
+            if (DEBUGGING)
+                ex.printStackTrace();
+        }
     }
 }

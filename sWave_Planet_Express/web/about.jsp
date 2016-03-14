@@ -9,7 +9,7 @@
         <%if (session == null) {
              response.sendRedirect("login.jsp");
           }
-            
+
           User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">

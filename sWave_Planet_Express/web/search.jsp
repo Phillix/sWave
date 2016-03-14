@@ -23,7 +23,7 @@
                 skin = currentUser.getSkin();
             }
 
-            final boolean DEBUG = sWave.Debugging.debug;
+            final boolean DEBUG = sWave.Server.DEBUGGING;
 
             if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
                 %><script>alert("Added to Cart")</script><%

@@ -15,7 +15,7 @@
                 skin = currentUser.getSkin();
             }
 
-            final boolean DEBUG = sWave.Debugging.debug;
+            final boolean DEBUG = sWave.Server.DEBUGGING;
         %>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
     </head>

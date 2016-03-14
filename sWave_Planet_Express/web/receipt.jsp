@@ -16,7 +16,7 @@
         <title>Thank You - sWave</title>
         <%
             User currentUser = (User)session.getAttribute("user");
-            final boolean DEBUG = sWave.Debugging.debug;
+            final boolean DEBUG = sWave.Server.DEBUGGING;
         %>
     </head>
     <body>

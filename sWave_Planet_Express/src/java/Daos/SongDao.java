@@ -104,8 +104,10 @@ public class SongDao extends Dao implements SongDaoInterface {
             Blob data = con.createBlob();
             Blob art  = con.createBlob();
             try {
-                data.setBytes(1, s.getSongdata());
-                art.setBytes(1, s.getArtwork());
+                if (s.getSongdata() != null)
+                    data.setBytes(1, s.getSongdata());
+                if (s.getArtwork() != null)
+                    art.setBytes(1, s.getArtwork());
             }
             catch (Exception e) {
                 if (DEBUG)

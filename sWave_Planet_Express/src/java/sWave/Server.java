@@ -1,5 +1,7 @@
 package sWave;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Properties;
@@ -30,7 +32,7 @@ public class Server {
     public static final String DB_PROTOCOL    = "jdbc:mysql://";
     public static final String DB_DRIVER      = "com.mysql.jdbc.Driver";
     public static final int    MAX_QUEUE      = 2000; //refuse connections after 2000
-    public static final int    SOCKET_PORT    = 0; //zero will cause auto-allocation of the port number
+    public static final int    SOCKET_PORT    = 0;   //zero will cause auto-allocation of the port number
     public static ServerSocket SERVER_SOCKET  = null;
 
     public static Properties sysProp = System.getProperties();
@@ -40,17 +42,41 @@ public class Server {
 
 
     public static void shutdown() {
-        sWave.Logger.writeLine("System Halt Requested");
+        log("System Halt Requested");
         Runtime.getRuntime().halt(0);
     }
 
     public static void garbageCollect() {
         Runtime.getRuntime().gc();
     }
-    
+
     public static void createSocket() {
         try {
             SERVER_SOCKET = new ServerSocket(MAX_QUEUE, SOCKET_PORT);
+        } catch (IOException ex) {
+            if (DEBUGGING)
+                ex.printStackTrace();
+        }
+    }
+    
+    public static void log(String text) {
+        File logFile = new File(Server.FOLDER + "sWave.log");
+        if (!logFile.exists())
+            try {
+                logFile.createNewFile();
+        } catch (IOException ex) {
+            if (DEBUGGING)
+                ex.printStackTrace();
+        }
+        FileWriter output = null;
+        try {
+            output = new FileWriter(logFile);
+        } catch (IOException ex) {
+            if (DEBUGGING)
+                ex.printStackTrace();
+        }
+        try {
+            output.append(System.currentTimeMillis() + " | " + text + "\n");
         } catch (IOException ex) {
             if (DEBUGGING)
                 ex.printStackTrace();

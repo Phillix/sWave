@@ -91,7 +91,7 @@ public class UploadCommand implements Command {
             dao.addNewSong(s);
             uploadSize += buffer.length;
             count++;
-            sWave.Logger.writeLine(count + " Files Uploaded using " + (double)uploadSize / 1024.0 / 1024.0 + "MB");
+            sWave.Server.log(count + " Files Uploaded using " + (double)uploadSize / 1024.0 / 1024.0 + "MB");
         }
         return "/uploadComplete.jsp";
     }

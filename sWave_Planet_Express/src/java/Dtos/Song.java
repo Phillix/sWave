@@ -16,19 +16,24 @@ public class Song {
     private int    year;
     private double price;
     private String license;
+    private int    playCount;
+    private byte[] artwork;
     private byte[] songdata;
 
     /**
      * Default constructor to initialize a default song
      */
     public Song() {
-        title    = "title";
-        artist   = "artist";
-        album    = "album";
-        genre    = "genre";
-        year     = 2000;
-        price    = 0.00;
-        license  = "license";
+        title     = "title";
+        artist    = "artist";
+        album     = "album";
+        genre     = "genre";
+        year      = 0;
+        price     = 0.00;
+        license   = "license";
+        playCount = 0;
+        artwork   = null;
+        songdata  = null;
     }
 
     /**
@@ -40,28 +45,33 @@ public class Song {
      * @param price How much the song costs
      * @param license The license for the song
      */
-    public Song(int songId, String title, String artist, String album, String genre, int year, double price, String license, byte[] songdata) {
-        this.songId   = songId;
-        this.title    = title;
-        this.artist   = artist;
-        this.album    = album;
-        this.genre    = genre;
-        this.year     = year;
-        this.price    = price;
-        this.license  = license;
-        this.songdata = songdata;
+    public Song(int songId, String title, String artist, String album, String genre, int year, double price, String license, int playCount, byte artwork[], byte songdata[]) {
+        this.songId    = songId;
+        this.title     = title;
+        this.artist    = artist;
+        this.album     = album;
+        this.genre     = genre;
+        this.year      = year;
+        this.price     = price;
+        this.license   = license;
+        this.playCount = playCount;
+        this.artwork   = artwork;
+        this.songdata  = songdata;
     }
 
     //A version without the songdata for listings etc.
-    public Song(int songId, String title, String artist, String album, String genre, int year, double price, String license) {
-        this.songId   = songId;
-        this.title    = title;
-        this.artist   = artist;
-        this.album    = album;
-        this.genre    = genre;
-        this.year     = year;
-        this.price    = price;
-        this.license  = license;
+    public Song(int songId, String title, String artist, String album, String genre, int year, double price, String license, int playCount, byte artwork[]) {
+        this.songId    = songId;
+        this.title     = title;
+        this.artist    = artist;
+        this.album     = album;
+        this.genre     = genre;
+        this.year      = year;
+        this.price     = price;
+        this.license   = license;
+        this.playCount = playCount;
+        this.artwork   = artwork; //We will want to display the artwork
+        //Don't set songdata as used for listing
     }
 
     public int getSongId() {
@@ -128,6 +138,22 @@ public class Song {
         this.license = license;
     }
 
+    public int getPlayCount() {
+        return playCount;
+    }
+
+    public void setPlayCount(int playCount) {
+        this.playCount = playCount;
+    }
+
+    public byte[] getArtwork() {
+        return artwork;
+    }
+
+    public void setArtwork(byte[] artwork) {
+        this.artwork = artwork;
+    }
+
     public byte[] getSongdata() {
         return songdata;
     }
@@ -138,17 +164,17 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" + "songId=" + songId + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre=" + genre + ", year=" + year + ", price=" + price + ", license=" + license + '}';
+        return "Song{" + "songId=" + songId + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre=" + genre + ", year=" + year + ", price=" + price + ", license=" + license + ", playCount=" + playCount + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.title);
-        hash = 29 * hash + Objects.hashCode(this.artist);
-        hash = 29 * hash + Objects.hashCode(this.album);
-        hash = 29 * hash + Objects.hashCode(this.genre);
-        hash = 29 * hash + this.year;
+        hash = 67 * hash + Objects.hashCode(this.title);
+        hash = 67 * hash + Objects.hashCode(this.artist);
+        hash = 67 * hash + Objects.hashCode(this.album);
+        hash = 67 * hash + Objects.hashCode(this.genre);
+        hash = 67 * hash + this.year;
         return hash;
     }
 
@@ -171,4 +197,6 @@ public class Song {
             return false;
         return Objects.equals(this.genre, other.genre);
     }
+
+
 }

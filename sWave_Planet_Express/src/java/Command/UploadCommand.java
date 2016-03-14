@@ -72,6 +72,8 @@ public class UploadCommand implements Command {
                                        2016,
                                        0.00,
                                        "CC",
+                                       0,
+                                       null,
                                        buffer
                                );
             

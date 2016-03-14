@@ -25,6 +25,8 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String YEAR       = "RELYEAR";
     private final String PRICE      = "PRICE";
     private final String LICENSE    = "LICENSE";
+    private final String PLAYCOUNT  = "PLAYCOUNT";
+    private final String ARTWORK    = "ARTWORK";
     private final String SONGDATA   = "SONGDATA";
 
     /**
@@ -45,14 +47,21 @@ public class SongDao extends Dao implements SongDaoInterface {
             rs           = ps.executeQuery();
 
             while (rs.next()) {
-                Song s   = new Song(rs.getInt(SONGID),
+                Blob artworkBlob = rs.getBlob(SONGDATA);
+                byte art[]       = null;
+                if (artworkBlob != null)
+                    art = artworkBlob.getBytes(1, (int)artworkBlob.length());
+
+                Song s = new Song(rs.getInt(SONGID),
                                     rs.getString(TITLE),
                                     rs.getString(ARTIST),
                                     rs.getString(ALBUM),
                                     rs.getString(GENRE),
                                     rs.getInt(YEAR),
                                     rs.getDouble(PRICE),
-                                    rs.getString(LICENSE)
+                                    rs.getString(LICENSE),
+                                    rs.getInt(PLAYCOUNT),
+                                    art
                                     ); //We don't want the songdata here
                 songs.add(s);
             }
@@ -91,10 +100,12 @@ public class SongDao extends Dao implements SongDaoInterface {
         ResultSet rs         = null;
 
         try {
-            con    = getConnection();
-            Blob b = con.createBlob();
+            con       = getConnection();
+            Blob data = con.createBlob();
+            Blob art  = con.createBlob();
             try {
-                b.setBytes(1, s.getSongdata());
+                data.setBytes(1, s.getSongdata());
+                art.setBytes(1, s.getArtwork());
             }
             catch (Exception e) {
                 if (DEBUG)
@@ -109,7 +120,9 @@ public class SongDao extends Dao implements SongDaoInterface {
                            YEAR           + ", " +
                            PRICE          + ", " +
                            LICENSE        + ", " +
-                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                           PLAYCOUNT      + ", " +
+                           ARTWORK        + ", " +
+                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, s.getTitle());
             ps.setString(2, s.getArtist());
@@ -118,7 +131,9 @@ public class SongDao extends Dao implements SongDaoInterface {
             ps.setInt(5, s.getYear());
             ps.setDouble(6, s.getPrice());
             ps.setString(7, s.getLicense());
-            ps.setBlob(8, b);
+            ps.setInt(8, s.getPlayCount());
+            ps.setBlob(9, art);
+            ps.setBlob(10, data);
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
         }
@@ -167,6 +182,12 @@ public class SongDao extends Dao implements SongDaoInterface {
                 byte songdata[]   = null;
                 if (songDataBlob != null)
                     songdata = songDataBlob.getBytes(1, (int)songDataBlob.length());
+                
+                Blob artworkBlob = rs.getBlob(SONGDATA);
+                byte art[]       = null;
+                if (artworkBlob != null)
+                    art = artworkBlob.getBytes(1, (int)artworkBlob.length());
+                
                 return new Song(rs.getInt(SONGID),
                                 rs.getString(TITLE),
                                 rs.getString(ARTIST),
@@ -175,6 +196,8 @@ public class SongDao extends Dao implements SongDaoInterface {
                                 rs.getInt(YEAR),
                                 rs.getDouble(PRICE),
                                 rs.getString(LICENSE),
+                                rs.getInt(PLAYCOUNT),
+                                art,
                                 songdata);
             }
         }
@@ -225,15 +248,23 @@ public class SongDao extends Dao implements SongDaoInterface {
                 byte songdata[]   = null;
                 if (songDataBlob != null)
                     songdata = songDataBlob.getBytes(1, (int)songDataBlob.length());
+                
+                Blob artworkBlob = rs.getBlob(SONGDATA);
+                byte art[]       = null;
+                if (artworkBlob != null)
+                    art = artworkBlob.getBytes(1, (int)artworkBlob.length());
+                
                 Song s = new Song(rs.getInt(SONGID),
-                                rs.getString(TITLE),
-                                rs.getString(ARTIST),
-                                rs.getString(ALBUM),
-                                rs.getString(GENRE),
-                                rs.getInt(YEAR),
-                                rs.getDouble(PRICE),
-                                rs.getString(LICENSE),
-                                songdata);
+                                  rs.getString(TITLE),
+                                  rs.getString(ARTIST),
+                                  rs.getString(ALBUM),
+                                  rs.getString(GENRE),
+                                  rs.getInt(YEAR),
+                                  rs.getDouble(PRICE),
+                                  rs.getString(LICENSE),
+                                  rs.getInt(PLAYCOUNT),
+                                  art,
+                                  songdata);
                 songs.add(s);
             }
         }

@@ -163,17 +163,17 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                 oMerch = omDao.getOrderMerchInOrder(orders.get(i).getOrderId());
                 oSong  = osDao.getOrderSongInOrder(orders.get(i).getOrderId());
                 
-                if(oMerch != null && oSong == null) {
+                if(oMerch.size() > 0 && oSong.size() == 0) {
                     //get all individual merch beloning to an orderMerch
                     merch = mDao.getMerchInOrder(oMerch);
                     //create an ultimateOrder with an order and its relevent orderMerch and Merch Collections 
                     ultimateOrder = new UltimateOrder(orders.get(i),oMerch,merch);
                     //add to Collection of UltimateOrders
                     ultiOrders.add(ultimateOrder);
-                } else if(oSong != null && oMerch == null) {
+                } else if(oSong.size() > 0 && oMerch.size() == 0) {
                     ultimateOrder = new UltimateOrder(orders.get(i),oSong);
                     ultiOrders.add(ultimateOrder);
-                } else if(oSong != null && oMerch != null){
+                } else if(oSong.size() > 0 && oMerch.size() > 0){
                     merch = mDao.getMerchInOrder(oMerch);
                     ultimateOrder = new UltimateOrder(orders.get(i),oMerch,merch,oSong);
                     ultiOrders.add(ultimateOrder);

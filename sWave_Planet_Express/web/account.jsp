@@ -118,11 +118,11 @@
                     <h1>My Orders</h1>
                     <ul>
                     <%OrderDao orders = new OrderDao();
-                    for (Order theOrder : orders.getUserOrders(currentUser.getUserId())) {%>
+                    for (UltimateOrder theOrder : orders.getFullOrders(currentUser.getUserId())) {%>
                     <li>
                         Date: <%=theOrder.getDateOrdered()%><br/>
                         <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                        Total: <%=f.format(theOrder.getTotal())%>
+                        Total: <%=f.format(theOrder.calcTotal())%>
                         <hr/>
                     </li>
                 <%}%></ul><%

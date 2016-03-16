@@ -121,6 +121,13 @@ public class UltimateOrder {
         }
     }
 
+    public double calcTotal() {
+        total = 0;
+        for(int i = 0; i < merchPrice.length; i++) total += merchPrice[i];
+        for(int j = 0; j < songPrice.length; j++) total += songPrice[j];
+        return total;
+    }
+    
     public int getMerchSize() {
         return MERCH_SIZE;
     }

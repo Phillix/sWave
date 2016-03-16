@@ -195,6 +195,7 @@
                                 <option>Shire</option>
                                 <option>sMart</option>
                                 <option>sMart++</option>
+                                <option>1337</option>
                                 <option>9x</option>
                             </select>
                             <input type="submit" value="Apply"/>

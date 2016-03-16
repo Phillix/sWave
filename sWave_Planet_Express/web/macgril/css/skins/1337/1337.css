@@ -1,0 +1,68 @@
+body {
+    color: green;
+    font-family: monospace;
+}
+
+a {
+    color: green;
+}
+
+a:hover {
+}
+
+button {
+	border-style:     outset;
+        border-width:     3px;
+	border-radius:    0px;
+	font-size:        12px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	padding-left:     6px;
+	padding-right:    6px;
+	background-color: #000;
+}
+
+button:hover {
+}
+
+button:active {
+    border-style: inset;
+}
+
+input {
+    border-style:     solid;
+    border-width:     1px;
+    border-radius:    0px;
+    font-size:        10px;
+    padding-top:      3px;
+    padding-bottom:   3px;
+    padding-left:     6px;
+    padding-right:    6px;
+    background-color: #000;
+    color:            green;
+}
+
+input:focus {
+    background-image: URL("images/input_text_focused.png");
+}
+
+input:active {
+    border-style: inset;
+}
+
+.panel {
+    padding:          0px;
+    background-color: #000;
+    border-style:     solid;
+    border-width:     1px;
+}
+
+.playing {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#wallpaper {
+    background-color: #000;
+    background-image: URL("images/wallpaper.jpg");
+    background-size:  100% 100%;
+}

@@ -24,7 +24,7 @@ CREATE TABLE USERS (
     ADD2       VARCHAR(30),
     CITY       VARCHAR(20),
     COUNTY     ENUM('Carlow', 'Cavan', 'Clare', 'Cork', 'Donegal', 'Dublin', 'Galway', 'Kerry', 'Kildare', 'Kilkenny', 'Laois', 'Leitrim', 'Limerick', 'Longford', 'Louth', 'Mayo', 'Meath', 'Monaghan', 'Offaly', 'Roscommon', 'Sligo', 'Tipperary', 'Waterford', 'Westmeath', 'Wexford', 'Wicklow'),
-    SKIN       ENUM('flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '9x') DEFAULT 'flat' NOT NULL,
+    SKIN       ENUM('flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '1337', '9x') DEFAULT 'flat' NOT NULL,
     ADMIN      BOOLEAN   NOT NULL DEFAULT false,
     CONSTRAINT PK_USERID PRIMARY KEY (USERID)
 );

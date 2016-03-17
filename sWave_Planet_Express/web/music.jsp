@@ -28,9 +28,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Library - sWave</title>
-        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
+        <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/music.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/audio.js"></script>

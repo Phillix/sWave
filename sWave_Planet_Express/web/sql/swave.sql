@@ -23,8 +23,8 @@ CREATE TABLE USERS (
     ADD1       VARCHAR(30),
     ADD2       VARCHAR(30),
     CITY       VARCHAR(20),
-    COUNTY     ENUM('Carlow', 'Cavan', 'Clare', 'Cork', 'Donegal', 'Dublin', 'Galway', 'Kerry', 'Kildare', 'Kilkenny', 'Laois', 'Leitrim', 'Limerick', 'Longford', 'Louth', 'Mayo', 'Meath', 'Monaghan', 'Offaly', 'Roscommon', 'Sligo', 'Tipperary', 'Waterford', 'Westmeath', 'Wexford', 'Wicklow'),
-    SKIN       ENUM('flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '1337', '9x') DEFAULT 'flat' NOT NULL,
+    COUNTY     ENUM('CW', 'CN', 'CL', 'C', 'DL', 'D', 'G', 'K', 'KD', 'KK', 'LS', 'LM', 'LK', 'LF', 'L', 'M', 'MH', 'MO', 'O', 'R', 'S', 'T', 'WF', 'WM', 'WX', 'W'),
+    SKIN       ENUM('swave', 'flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '1337', '9x') DEFAULT 'swave' NOT NULL,
     ADMIN      BOOLEAN   NOT NULL DEFAULT false,
     CONSTRAINT PK_USERID PRIMARY KEY (USERID)
 );
@@ -141,3 +141,32 @@ INSERT INTO MERCH VALUES(-1, "Mug", 9.99, NULL);
 INSERT INTO MERCH VALUES(-2, "T-Shirt", 29.99, NULL);
 
 INSERT INTO ORDERMERCH VALUES(-1, -1, 1, 9.99, NULL);
+
+/*
+Carlow    CW
+Cavan     CN
+Clare     CL
+Cork      C
+Donegal   DL
+Dublin    D
+Galway    G
+Kerry     K
+Kildare   KD
+Kilkenny  KK
+Laois     LS
+Leitrim   LM
+Limerick  LK
+Longford  LF
+Louth     L
+Mayo      M
+Meath     MH
+Monaghan  MO
+Offaly    O
+Roscommon R
+Sligo     S
+Tipperary T
+Waterford WF
+Westmeath WM
+Wexford   WX
+Wicklow   W
+*/

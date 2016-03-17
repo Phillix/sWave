@@ -20,24 +20,26 @@
                 response.sendRedirect("login.jsp");
             }
             User currentUser = (User)session.getAttribute("user");
-            
+
             if (request.getParameter("view") == null) {
                 response.sendRedirect("account.jsp?view=profile");
-            }%>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Account - sWave</title>
-        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
-        <%
+            }
+
             String skin = "flat";
+
             if (currentUser != null) {
                 skin = currentUser.getSkin();
             }
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
         %>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <title>Account - sWave</title>
+        <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/account.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>
@@ -186,6 +188,7 @@
                             <input type="hidden" name="action" value="changeSkin"/>
                             <label>Select Skin: </label>
                             <select name="skin">
+                                <option>sWave</option>
                                 <option>Flat</option>
                                 <option>Flat Darkness</option>
                                 <option>Nova</option>

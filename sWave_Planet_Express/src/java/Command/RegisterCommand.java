@@ -34,7 +34,7 @@ public class RegisterCommand implements Command {
         String city         = null;
         String county       = null;
         //Users won't want to be bothered with custom settings when registering
-        String skin         = "flat";
+        String skin         = sWave.Server.DEFAULT_SKIN;
         boolean isAdmin     = false;
         UserSecurity ms     = new UserSecurity();
 

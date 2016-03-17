@@ -1,3 +1,4 @@
+<%@page import="Daos.Dao"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -20,10 +21,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Welcome to sWave</title>
-        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/index.css"/>
-        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/index.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>
@@ -83,9 +84,14 @@
             <%
                 AdDao ads = new AdDao();
                 int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());
-                Ad ad = ads.getAd(check);
+                try {
+                    Ad ad = ads.getAd(check);
             %>
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
+            <%}
+            catch (Exception e) {%>
+                <script>alert("The Database could not be Reached")</script>
+            <%}%>
         </aside>
         <footer class="panel" id="base">
             <span id="playerStatus">No Data</span>

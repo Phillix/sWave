@@ -8,9 +8,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
-        <!-- Custom skin not possible until after login, using 'flat' by default -->
-        <link rel="stylesheet" type="text/css" href="macgril/css/skins/flat/flat.css"/>
+        <!-- Hardcoded flat skin as we don't know skin preference until after login -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/base.css"/>
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/<%=sWave.Server.DEFAULT_SKIN%>.css"/>
         <link rel="stylesheet" type="text/css" href="layout/login.css"/>
         <script type="text/javascript" src="macgril/js/dom.js"></script>
     </head>

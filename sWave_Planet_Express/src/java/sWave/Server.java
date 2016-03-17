@@ -5,8 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,6 +38,7 @@ public class Server {
     public static long       RAM     = Runtime.getRuntime().totalMemory();
     public static long       freeRAM = Runtime.getRuntime().freeMemory();
 
+    public static final String DEFAULT_SKIN = "swave";
 
     public static void shutdown() {
         log("System Halt Requested");

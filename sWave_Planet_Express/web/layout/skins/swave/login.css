@@ -1,0 +1,156 @@
+.panel {
+    width:             300px;
+    margin-left:       auto;
+    margin-right:      auto;
+    margin-top:        100px;
+    padding:           20px;
+    box-shadow:        0px 0px 4px #000;
+
+    animation:         fadeUp 1s;
+    -moz-animation:    fadeUp 1s;
+    -webkit-animation: fadeUp 1s;
+}
+
+input {
+    width:         284px;
+    left:          0px;
+    right:         0px;
+    margin-top:    4px;
+    margin-bottom: 4px;
+    padding:       8px;
+}
+
+#noAccount {
+    font-size: 12px;
+}
+
+#cancelButton {
+    margin-top:    10px;
+    margin-bottom: 10px;
+    margin-right:  4px;
+}
+
+#signupButton {
+    display: none;
+    width:   calc(100% - 16px);
+    margin:  8px;
+}
+
+#logo {
+    width: 100%;
+}
+
+/* Only applies to login_failed.jsp */
+#loginBox {
+    animation:         none;
+    -moz-animation:    none;
+    -webkit-animation: none;
+}
+
+@keyframes fadeUp {
+    0% {
+        margin-top: 100px;
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes fadeUp {
+    0% {
+        
+        opacity: 0.0;
+    }
+}
+
+@-webkit-keyframes fadeUp {
+    0% {
+        margin-top: 100px;
+        opacity: 0.0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    div.panel {
+        position: fixed;
+        margin:   0px;
+        top:      0px;
+        left:     0px;
+        width:    100%;
+        height:   100%;
+        padding:  0px;
+    }
+
+    input.text {
+        width:  calc(100% - 32px);
+        margin: 8px;
+    }
+
+    #signupButton {
+        display: block;
+    }
+
+    #loginButton {
+        width:  calc(100% - 16px);
+        margin: 8px;
+    }
+
+    #cancelButton {
+        width:  calc(100% - 16px);
+        margin: 8px;
+    }
+
+    #noAccount {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    div.panel {
+        position: fixed;
+        margin:   0px;
+        top:      0px;
+        left:     0px;
+        width:    100%;
+        height:   100%;
+        padding:  0px;
+    }
+
+    input.text {
+        width:  calc(100% - 32px);
+        margin: 8px;
+    }
+
+    #signupButton {
+        display: block;
+    }
+
+    #loginButton {
+        width:  calc(100% - 16px);
+        margin: 8px;
+    }
+
+    #cancelButton {
+        width:  calc(100% - 16px);
+        margin: 8px;
+    }
+
+    #noAccount {
+        display: none;
+    }
+    
+    #logo {
+        width: 300px;
+    }
+
+}
+
+@media screen and (max-height: 350px) {
+    #logo {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    #logo {
+        width: 100%;
+    }
+}

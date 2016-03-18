@@ -14,6 +14,13 @@
             if (session == null) {
                 response.sendRedirect("login.jsp");
             }
+            String term = null;
+            if (session.getAttribute("searchTerm") != null) {
+                term = (String)session.getAttribute("searchTerm");
+            }
+            else {
+                response.sendRedirect("index.jsp");
+            }
             User currentUser = (User)session.getAttribute("user");
             ArrayList<Song>  songs = (ArrayList<Song>)session.getAttribute("searchResults");
             ArrayList<Merch> merch = (ArrayList<Merch>)session.getAttribute("searchMerchResults");
@@ -31,7 +38,7 @@
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Search - sWave</title>
+        <title>Results for <%=term%> - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
@@ -80,52 +87,53 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-        <table>
-        <%
-            for (Song s : songs) {%>
-            <tr <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
-                    <%if (DEBUG) {%>
-                        <td><%=s.getSongId()%></td>
-                    <%}%>
-                    <td><%=s.getTitle()%></td>
-                    <td><%=s.getArtist()%></td>
-                    <td><%=s.getGenre()%></td>
-                    <td><%=s.getRelYear()%></td>
-                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                    <td><%=f.format(s.getPrice())%></td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addSongToCart"/>
-                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                            <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
-                            <input type="submit" value="Add to Cart"/>
-                        </form>
-                    </td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="stream"/>
-                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                            <input type="submit" value="Play"/>
-                        </form>
-                    </td>
-                </tr>
-        <%} for (Merch m : merch) {%>
-                <tr>
-                    <%if (DEBUG) {%>
-                        <td><%=m.getMerchId()%></td>
-                    <%}%>
-                    <td><%=m.getTitle()%></td>
-                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                    <td><%=f.format(m.getPrice())%></td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addMerchToCart"/>
-                            <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
-                            <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
-                            <input type="number" value="1" min="1" name="qty"/>
-                            <input type="submit" value="Add to Cart"/>
-                        </form>
-                    </td>
-                </tr>
-        <%}%>
-        </table>
+            <h2>Showing <%=songs.size() + merch.size()%> Results for "<%=term%>"</h2>
+            <table>
+            <%
+                for (Song s : songs) {%>
+                <tr <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
+                        <%if (DEBUG) {%>
+                            <td><%=s.getSongId()%></td>
+                        <%}%>
+                        <td><%=s.getTitle()%></td>
+                        <td><%=s.getArtist()%></td>
+                        <td><%=s.getGenre()%></td>
+                        <td><%=s.getYear()%></td>
+                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                        <td><%=f.format(s.getPrice())%></td>
+                        <td><form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="addSongToCart"/>
+                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
+                                <input type="submit" value="Add to Cart"/>
+                            </form>
+                        </td>
+                        <td><form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="stream"/>
+                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                <input type="submit" value="Play"/>
+                            </form>
+                        </td>
+                    </tr>
+            <%} for (Merch m : merch) {%>
+                    <tr>
+                        <%if (DEBUG) {%>
+                            <td><%=m.getMerchId()%></td>
+                        <%}%>
+                        <td><%=m.getTitle()%></td>
+                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                        <td><%=f.format(m.getPrice())%></td>
+                        <td><form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="addMerchToCart"/>
+                                <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
+                                <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
+                                <input type="number" value="1" min="1" name="qty"/>
+                                <input type="submit" value="Add to Cart"/>
+                            </form>
+                        </td>
+                    </tr>
+            <%}%>
+            </table>
         </div>
         <aside class="panel" id="right_sidebar">
             <br/>

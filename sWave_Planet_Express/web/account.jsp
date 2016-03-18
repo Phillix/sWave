@@ -25,7 +25,7 @@
                 response.sendRedirect("account.jsp?view=profile");
             }
 
-            String skin = "flat";
+            String skin = "swave";
 
             if (currentUser != null) {
                 skin = currentUser.getSkin();

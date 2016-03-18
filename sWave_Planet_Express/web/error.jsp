@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%
     User currentUser = (User)session.getAttribute("user");
-    String skin = "flat";
+    String skin = "swave";
     if (currentUser != null) {
         skin = currentUser.getSkin();
     }

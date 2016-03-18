@@ -12,7 +12,7 @@
                   response.sendRedirect("noperm.jsp");
               }
           }
-            String skin = "flat";
+            String skin = "swave";
             if (currentUser != null) {
                 skin = currentUser.getSkin();
             }

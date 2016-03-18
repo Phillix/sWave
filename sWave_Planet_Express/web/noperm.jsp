@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%
     User currentUser = (User)session.getAttribute("user");
-    String skin = "flat";
+    String skin = "swave";
     if (currentUser != null) {
         skin = currentUser.getSkin();
     }
@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>!! Unauthorized Access !!</title>
+        <title>Unauthorized Access - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>

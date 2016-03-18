@@ -120,11 +120,19 @@
                     <h1>My Orders</h1>
                     <ul>
                     <%OrderDao orders = new OrderDao();
-                    for (Order theOrder : orders.getUserOrders(currentUser.getUserId())) {%>
+                    for (UltimateOrder theOrder : orders.getFullOrders(currentUser.getUserId())) {%>
                     <li>
                         Date: <%=theOrder.getDateOrdered()%><br/>
                         <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                        Total: <%=f.format(theOrder.getTotal())%>
+                        Total: <%=f.format(theOrder.calcTotal())%><br/>
+                        Songs: <%=theOrder.getSongSize()%><br/>
+                        <%for(int i = 0; i < theOrder.getSongSize(); i++) {%>
+                        <%=i+1%>: <%=f.format(theOrder.getSongPrice(i))%><br/>
+                        <%}%>
+                        Merch: <%=theOrder.getMerchSize()%><br/>
+                        <%for(int i = 0; i < theOrder.getMerchSize(); i++) {%>
+                        title: <%=theOrder.getTitle(i)%>  price: <%=f.format(theOrder.getMerchPrice(i))%> quantity: <%=theOrder.getQty(i)%>      
+                        <%}%>
                         <hr/>
                     </li>
                 <%}%></ul><%

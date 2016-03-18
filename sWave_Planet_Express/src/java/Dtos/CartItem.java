@@ -9,6 +9,7 @@ public class CartItem {
     private int prodId;
     private int qty;
     private double price;
+    private byte[] custimg;
 
     /**
      * Constructs a new CartItem
@@ -17,11 +18,12 @@ public class CartItem {
      * @param qty The amount they want to order
      * @param price The price of the product
      */
-    public CartItem(boolean type, int prodId, int qty, double price) {
+    public CartItem(boolean type, int prodId, int qty, double price, byte[] custimg) {
         this.type = type;
         this.prodId = prodId;
         this.qty = qty;
         this.price = price;
+        this.custimg = custimg;
     }
     
     /**
@@ -32,6 +34,7 @@ public class CartItem {
         prodId = 0;
         qty = 0;
         price = 10.0;
+        custimg = null;
     }
 
     /**
@@ -97,4 +100,13 @@ public class CartItem {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public byte[] getCustImg() {
+        return custimg;
+    }
+
+    public void setCustImg(byte[] custimg) {
+        this.custimg = custimg;
+    }
+
 }

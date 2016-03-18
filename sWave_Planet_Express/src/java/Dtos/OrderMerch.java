@@ -10,19 +10,22 @@ public class OrderMerch {
     private int merchId;
     private int qty;
     private double pricePaid;
+    private byte[] custimg;
 
     public OrderMerch() {
         orderId   = -1;
         merchId   = -1;
         qty       = -1;
         pricePaid = -9.99;
+        custimg   = null;
     }
 
-    public OrderMerch(int orderId, int merchId, int qty, double pricePaid) {
+    public OrderMerch(int orderId, int merchId, int qty, double pricePaid, byte[] custimg) {
         this.orderId = orderId;
         this.merchId = merchId;
         this.qty = qty;
         this.pricePaid = pricePaid;
+        this.custimg = custimg;
     }
 
     public int getOrderId() {
@@ -57,10 +60,17 @@ public class OrderMerch {
         this.pricePaid = pricePaid;
     }
 
+    public byte[] getCustImg() {
+        return custimg;
+    }
+
+    public void setCustImg(byte[] custimg) {
+        this.custimg = custimg;
+    }
+
     @Override
     public String toString() {
         return "OrderMerch{" + "orderId=" + orderId + ", merchId=" + merchId + ", qty=" + qty + ", pricePaid=" + pricePaid + '}';
     }
-    
-    
+
 }

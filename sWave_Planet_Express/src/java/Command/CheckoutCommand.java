@@ -49,7 +49,7 @@ public class CheckoutCommand implements Command {
                     osd.createOrderSong(os);
                     ultimateSongList.add(os);
                 } else {
-                    OrderMerch om = new OrderMerch(order.getOrderId(), i.getProdId(), i.getQty(), i.getPrice());
+                    OrderMerch om = new OrderMerch(order.getOrderId(), i.getProdId(), i.getQty(), i.getPrice(), i.getCustImg());
                     omd.createOrder(om);
                     m.add(merch.getMerchById(i.getProdId()));
                     ultimateMerchList.add(om);

@@ -25,6 +25,7 @@ CREATE TABLE USERS (
     CITY       VARCHAR(20),
     COUNTY     ENUM('CW', 'CN', 'CL', 'C', 'DL', 'D', 'G', 'K', 'KD', 'KK', 'LS', 'LM', 'LK', 'LF', 'L', 'M', 'MH', 'MO', 'O', 'R', 'S', 'T', 'WF', 'WM', 'WX', 'W'),
     SKIN       ENUM('swave', 'flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '1337', '9x') DEFAULT 'swave' NOT NULL,
+    PICTURE    BLOB,
     ADMIN      BOOLEAN   NOT NULL DEFAULT false,
     CONSTRAINT PK_USERID PRIMARY KEY (USERID)
 );
@@ -124,8 +125,8 @@ CREATE TABLE LOCKS (
 
 /* TEST DATA */
 
-INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", false);
-INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "Kerry", "flat", true);
+INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", null, false);
+INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "Kerry", "flat", null, true);
 
 INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Album", "Genre", 1970, 2.99, "Public Domain", 0, NULL, NULL);
 

@@ -15,7 +15,7 @@ public class AddSongToCartCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        CartItem item = new CartItem(true, Integer.parseInt(request.getParameter("songid")), 1, Double.parseDouble(request.getParameter("price")));
+        CartItem item = new CartItem(true, Integer.parseInt(request.getParameter("songid")), 1, Double.parseDouble(request.getParameter("price")), null);
         if (session.getAttribute("cart") == null)
             session.setAttribute("cart", new ArrayList<>());
         ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");

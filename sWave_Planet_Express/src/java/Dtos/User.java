@@ -18,6 +18,7 @@ public class User {
     private String  city;
     private String  county;
     private String  skin;
+    private byte[]  picture;
     private boolean isAdmin;
 
     public User() {
@@ -29,12 +30,13 @@ public class User {
         add1     = "add1";
         add2     = "add2";
         city     = "city";
-        county   = "county";
-        skin     = "flat";
+        county   = "CN";
+        skin     = "swave";
+        picture  = null;
         isAdmin  = false;
     }
 
-    public User(String email, String password, String username, String fname, String lname, String add1, String add2, String city, String county, String skin, boolean isAdmin) {
+    public User(String email, String password, String username, String fname, String lname, String add1, String add2, String city, String county, String skin, byte[] picture, boolean isAdmin) {
         this.email    = email;
         this.password = password;
         this.username = username;
@@ -45,6 +47,7 @@ public class User {
         this.city     = city;
         this.county   = county;
         this.skin     = skin;
+        this.picture  = picture;
         this.isAdmin  = isAdmin;
     }
 
@@ -134,6 +137,14 @@ public class User {
 
     public void setSkin(String skin) {
         this.skin = skin;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     public boolean isIsAdmin() {

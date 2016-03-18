@@ -408,7 +408,7 @@ public class UserTest {
      */
     @Test
     public void testGetCountyValid() {
-        String expResult = "county";
+        String expResult = "CN";
         String result = instance.getCounty();
         assertEquals(expResult, result);
     }
@@ -449,7 +449,7 @@ public class UserTest {
      */
     @Test
     public void testGetSkinValid() {
-        String expResult = "flat";
+        String expResult = "swave";
         String result = instance.getSkin();
         assertEquals(expResult, result);
     }
@@ -481,7 +481,7 @@ public class UserTest {
     public void testSetSkinInvalid() {
         boolean expResult = false;
         instance.setSkin("quantum");
-        boolean result = instance.getSkin().equals("flat");
+        boolean result = instance.getSkin().equals("swave");
         assertEquals(expResult, result);
     }
     
@@ -531,7 +531,7 @@ public class UserTest {
      */
     @Test
     public void testToStringValid() {
-        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=county, skin=flat, isAdmin=false}";
+        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=CN, skin=swave, isAdmin=false}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -542,7 +542,7 @@ public class UserTest {
     @Test
     public void testToStringInvalid() {
         boolean expResult = false;
-        boolean result = instance.toString().equals("UseruserId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=county, skin=flat, isAdmin=false");
+        boolean result = instance.toString().equals("UseruserId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=county, skin=swave, isAdmin=false");
         assertEquals(expResult, result);
     }
     

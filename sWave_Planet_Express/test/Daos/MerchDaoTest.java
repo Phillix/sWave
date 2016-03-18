@@ -68,7 +68,7 @@ public class MerchDaoTest {
     public void testGetMerchInOrder() {
         boolean expResult = true;
         ArrayList<OrderMerch> orderMerch = new ArrayList();
-        OrderMerch om = new OrderMerch(-1,-1,1,9.99);
+        OrderMerch om = new OrderMerch(-1,-1,1,9.99,null);
         orderMerch.add(om);
         ArrayList<Merch> merchList = instance.getMerchInOrder(orderMerch);
         boolean result = merchList.size() > 0;

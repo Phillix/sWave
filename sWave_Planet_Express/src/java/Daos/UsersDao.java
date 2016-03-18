@@ -2,6 +2,7 @@ package Daos;
 
 import Dtos.User;
 import Security.UserSecurity;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
  * The UsersDao class is used for communicating with the user table in the database
  * @author Phillix
  * @author Austin
+ * @author Brian Millar
  */
 
 public class UsersDao extends Dao implements UserDaoInterface {
@@ -29,6 +31,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
     private final String CITY       = "CITY";
     private final String COUNTY     = "COUNTY";
     private final String SKIN       = "SKIN";
+    private final String PICTURE    = "PICTURE";
     private final String ADMIN      = "ADMIN";
 
 
@@ -93,19 +96,21 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
         try {
             con          = getConnection();
+            Blob b       = null;
             String query = "INSERT INTO " +
                            TABLE_NAME + " (" +
-                           EMAIL      + ","  +
-                           PASSWORD   + ","  +
-                           USER_NAME  + ","  +
-                           FNAME      + ","  +
-                           LNAME      + ","  +
-                           ADD1       + ","  +
-                           ADD2       + ","  +
-                           CITY       + ","  +
-                           COUNTY     + ","  +
-                           SKIN       + ","  +
-                           ADMIN      + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                           EMAIL      + ", " +
+                           PASSWORD   + ", " +
+                           USER_NAME  + ", " +
+                           FNAME      + ", " +
+                           LNAME      + ", " +
+                           ADD1       + ", " +
+                           ADD2       + ", " +
+                           CITY       + ", " +
+                           COUNTY     + ", " +
+                           SKIN       + ", " +
+                           PICTURE    + ", " +
+                           ADMIN      + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getPassword());
@@ -117,7 +122,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(8, u.getCity());
             ps.setString(9, u.getCounty());
             ps.setString(10,  u.getSkin());
-            ps.setBoolean(11, u.isIsAdmin());
+            ps.setBlob(11, b);
+            ps.setBoolean(12, u.isIsAdmin());
 
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
@@ -172,6 +178,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             if(rs.next()) {
                 String dbPass = rs.getString(PASSWORD);
+                Blob picture = rs.getBlob(PICTURE);
+                byte pic[] = null;
+                if (picture != null)
+                    pic = picture.getBytes(1, (int)picture.length());
                 if(ms.checkPassword(password.toCharArray(), dbPass)) {
                     u = new User();
                     u.setUserId(rs.getInt(USERID));
@@ -185,6 +195,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
                     u.setCity(rs.getString(CITY));
                     u.setCounty(rs.getString(COUNTY));
                     u.setSkin(rs.getString(SKIN));
+                    u.setPicture(pic);
                     u.setIsAdmin(rs.getBoolean(ADMIN));
 
                     return u;
@@ -427,8 +438,14 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
+
             if(rs.next()) {
-                
+                String dbPass = rs.getString(PASSWORD);
+                Blob picture = rs.getBlob(PICTURE);
+                byte pic[] = null;
+                if (picture != null)
+                    pic = picture.getBytes(1, (int)picture.length());
+
                 u = new User();
                 u.setUserId(rs.getInt(USERID));
                 u.setUsername(rs.getString(UNAME));
@@ -441,10 +458,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
                 u.setCity(rs.getString(CITY));
                 u.setCounty(rs.getString(COUNTY));
                 u.setSkin(rs.getString(SKIN));
+                u.setPicture(pic);
                 u.setIsAdmin(rs.getBoolean(ADMIN));
 
                 return u;
-                
             }
         }
         catch(Exception e) {

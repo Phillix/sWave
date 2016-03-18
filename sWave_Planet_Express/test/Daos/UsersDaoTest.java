@@ -2,8 +2,6 @@ package Daos;
 
 import Dtos.User;
 import Security.UserSecurity;
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -35,7 +33,7 @@ public class UsersDaoTest {
     
     @Before
     public void setUp() {
-        u = new User("ceo@banana.com", us.hash("password".toCharArray()), "appelman", "Steev", "Jubs", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", false);
+        u = new User("ceo@banana.com", us.hash("password".toCharArray()), "appelman", "Steev", "Jubs", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", null, false);
         u.setUserId(-1);
     }
     

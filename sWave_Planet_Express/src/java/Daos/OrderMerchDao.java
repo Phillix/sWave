@@ -1,6 +1,7 @@
 package Daos;
 
 import Dtos.OrderMerch;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,7 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
     private final String MERCHID    = "MERCHID";
     private final String QTY        = "QTY";
     private final String PRICE      = "PRICEPAID";
+    private final String CUSTIMG    = "CUSTIMG";
 
     /**
      *
@@ -35,14 +37,20 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
         try {
 
             con = getConnection();
-            String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?)";
+            String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?,?)";
 
             ps = con.prepareStatement(query);
 
+            Blob b = null;
+            if (om.getCustImg() != null) {
+                b = con.createBlob();
+                b.setBytes(1, om.getCustImg());
+            }
             ps.setInt(1, om.getOrderId());
             ps.setInt(2, om.getMerchId());
             ps.setInt(3, om.getQty());
             ps.setDouble(4, om.getPricePaid());
+            ps.setBlob(5, b);
 
             ps.executeUpdate();
             return SUCCESS;
@@ -101,11 +109,16 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
 
             while(rs.next()) {
                 om = new OrderMerch();
-
+                
+                byte img[] = null;
+                Blob b     = rs.getBlob(CUSTIMG);
+                if (b != null)
+                    img = b.getBytes(1, (int)b.length());
                 om.setOrderId(rs.getInt(ORDERID));
                 om.setMerchId(rs.getInt(MERCHID));
                 om.setQty(rs.getInt(QTY));
                 om.setPricePaid(rs.getDouble(PRICE));
+                om.setCustImg(img);
 
                 orderMerch.add(om);
             }

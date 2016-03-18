@@ -1,12 +1,13 @@
-Stage 2 Submission
+Project sWave
 ==================
 
 Team Planet Express
 
-Members:
-Austin Foley
-Brian Millar
-Philip Carey
+*Members:*
+- Austin Foley
+- Brian Millar
+- Philip Carey
+
 
 Notes:
 ======

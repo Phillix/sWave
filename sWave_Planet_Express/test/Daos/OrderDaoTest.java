@@ -77,7 +77,7 @@ public class OrderDaoTest {
         int userId = -1;
         ArrayList<UltimateOrder> orders = instance.getFullOrders(userId);
         UltimateOrder uo = orders.get(0);
-        System.out.println("Order total: " + uo.getTotal());
+        System.out.println("Order total: " + uo.calcTotal());
         System.out.println("Date Ordered: " + uo.getDateOrdered());
         
         int merchSize = uo.getMerchSize();

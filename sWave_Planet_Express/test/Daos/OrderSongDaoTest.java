@@ -38,15 +38,15 @@ public class OrderSongDaoTest {
     /**
      * Test of createOrderSong method, of class OrderSongDao.
      */
-    @Test
-    public void testCreateOrderSong() {
-        
-        OrderSong os = new OrderSong(-1,-1, 7.00);
-        instance = new OrderSongDao();
-        int expResult = 0;
-        int result = instance.createOrderSong(os);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testCreateOrderSong() {
+//        
+//        OrderSong os = new OrderSong(-1,-1, 7.00);
+//        instance = new OrderSongDao();
+//        int expResult = 0;
+//        int result = instance.createOrderSong(os);
+//        assertEquals(expResult, result);
+//    }
     
     /**
     * Test of getOrderSongInOrder method, of class OrderSongDao.

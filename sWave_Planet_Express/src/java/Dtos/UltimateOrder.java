@@ -43,7 +43,7 @@ public class UltimateOrder {
         qty = new int[MERCH_SIZE];
         merchPrice = new double[MERCH_SIZE];
         title = new String[MERCH_SIZE];
-        total = o.getTotal();
+        total = 0;
         dateOrdered = o.getDateOrdered();
 
         for(int i = 0; i < MERCH_SIZE; i++) {
@@ -64,7 +64,7 @@ public class UltimateOrder {
         MERCH_SIZE = 0;
         songId = new int[SONG_SIZE];
         songPrice = new double[SONG_SIZE];
-        total = o.getTotal();
+        total = 0;
         dateOrdered = o.getDateOrdered();
 
         for(int i = 0; i < SONG_SIZE; i++) {
@@ -89,7 +89,7 @@ public class UltimateOrder {
         title = new String[MERCH_SIZE];
         songId = new int[SONG_SIZE];
         songPrice = new double[SONG_SIZE];
-        total = o.getTotal();
+        total = 0;
         dateOrdered = o.getDateOrdered();
         
         if(SONG_SIZE > MERCH_SIZE) {
@@ -118,9 +118,24 @@ public class UltimateOrder {
                     songPrice[i] = os.get(i).getPricePaid();
                 }
             }
+        } else {
+            for(int i = 0; i < SONG_SIZE; i++) {
+                songId[i] = os.get(i).getSongId();
+                songPrice[i] = os.get(i).getPricePaid();
+                title[i] = m.get(i).getTitle();
+                qty[i] = om.get(i).getQty();
+                merchPrice[i] = om.get(i).getPricePaid();
+            }
         }
     }
 
+    public double calcTotal() {
+        total = 0;
+        for(int i = 0; i < MERCH_SIZE; i++) total += merchPrice[i];
+        for(int j = 0; j < SONG_SIZE; j++) total += songPrice[j];
+        return total;
+    }
+    
     public int getMerchSize() {
         return MERCH_SIZE;
     }

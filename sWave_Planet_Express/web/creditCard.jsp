@@ -1,9 +1,3 @@
-<%-- 
-    Document   : creditCard
-    Created on : Mar 10, 2016, 3:21:15 AM
-    Author     : Brian Millar
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

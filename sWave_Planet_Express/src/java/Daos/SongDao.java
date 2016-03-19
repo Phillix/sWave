@@ -238,7 +238,7 @@ public class SongDao extends Dao implements SongDaoInterface {
 
         try {
             con          = getConnection();
-            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + TITLE + " LIKE ? OR " + ARTIST + " LIKE ? OR " + GENRE + " LIKE ?";
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + TITLE + " LIKE ? OR " + ARTIST + " LIKE ? OR " + ALBUM + " LIKE ? OR " + GENRE + " LIKE ?";
             ps           = con.prepareStatement(query);
             ps.setString(1, "%" + term + "%");
             ps.setString(2, "%" + term + "%");

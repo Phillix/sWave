@@ -23,17 +23,16 @@ public class SearchCommand implements Command {
         if(search != null && !search.isEmpty()) {
             ArrayList<Song> songs  = sd.search(search);
             ArrayList<Merch> merch = md.searchMerch(search);
-            HttpSession session    = request.getSession();
-            session.setAttribute("searchResults", songs);
-            session.setAttribute("searchMerchResults", merch);
-            session.setAttribute("searchTerm", search);
-        } else {
-            ArrayList<Song> songs  = new ArrayList();
-            ArrayList<Merch> merch = new ArrayList();
-            HttpSession session    = request.getSession();
-            session.setAttribute("searchResults", songs);
-            session.setAttribute("searchMerchResults", merch);
+            
+            if (!(songs.size() == 0 && merch.size() == 0)) {
+                HttpSession session    = request.getSession();
+                session.setAttribute("searchResults", songs);
+                session.setAttribute("searchMerchResults", merch);
+                session.setAttribute("searchTerm", search); 
+                return "/search.jsp";
+            }
         }
-        return "/search.jsp";
+
+        return "/search.jsp?noResults=yes";
     }
 }

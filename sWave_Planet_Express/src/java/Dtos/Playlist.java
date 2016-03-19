@@ -5,6 +5,8 @@
  */
 package Dtos;
 
+import java.util.Objects;
+
 /**
  *
  * @author Phillix
@@ -54,6 +56,33 @@ public class Playlist {
     @Override
     public String toString() {
         return "Playlist{" + "playlistId=" + playlistId + ", userId=" + userId + ", title=" + title + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.playlistId;
+        hash = 71 * hash + this.userId;
+        hash = 71 * hash + Objects.hashCode(this.title);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Playlist other = (Playlist) obj;
+        if (this.playlistId != other.playlistId) {
+            return false;
+        }
+        if (this.userId != other.userId) {
+            return false;
+        }
+        return true;
     }
     
     

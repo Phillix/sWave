@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Phillix
  */
-public class PlaylistDao extends Dao {
+public class PlaylistDao extends Dao implements PlaylistDaoInterface {
     
     private final boolean DEBUG = sWave.Server.DEBUGGING;
 
@@ -25,6 +25,11 @@ public class PlaylistDao extends Dao {
     private final String USERID      = "USERID";
     private final String TITLE       = "TITLE";
     
+    /**
+     * 
+     * @param p the playlist to create
+     * @return int value indicating errors or success
+     */
     public int createPlayList(Playlist p) {
         
         Connection con       = null;
@@ -68,6 +73,11 @@ public class PlaylistDao extends Dao {
         }
     }
     
+    /**
+     * 
+     * @param id id of the playlist to delete
+     * @return int value indicating errors or success
+     */
     public int deletePlaylist(int id) {
         
         Connection con       = null;
@@ -108,6 +118,11 @@ public class PlaylistDao extends Dao {
         }
     }
     
+    /**
+     * 
+     * @param userId id of the user the playlists belong to 
+     * @return Collection of playlists beloning to the user
+     */
     public ArrayList<Playlist> getUserPlaylists(int userId) {
         
         Connection con       = null;

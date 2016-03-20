@@ -96,18 +96,22 @@
         <footer class="panel" id="base">
             <span id="playerStatus">No Data</span>
             <span id="controls">
-                <!-- Hiding Next and Previous Buttons until Playlist Backend Functionality Compete-->
-                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/rw.png"/>
-                
-                <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="0 0 100 100" onmouseover="document.getElementById('circle').setAttribute('r','42')" onmouseout="document.getElementById('circle').setAttribute('r','40')"
-                onmousedown="document.getElementById('circle').setAttribute('r','38')" onmouseup="document.getElementById('circle').setAttribute('r','40')">
-                    <circle id="circle" cx="50" cy="50" r="40" stroke="black" stroke-width="4" fill="none"/>
-                    <polygon points="33,25 33,75 80,50"/>
-                    <rect x="35" y="25" width="10" height="50"/>
-                    <rect x="55" y="25" width="10" height="50"/>
+                <svg width="45" height="45" viewBox="0 0 100 100">
+                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
+                    <polygon class="iconPolyFilled" points="72.5,35 72.5,65 47.5,50"/>
+                    <polygon class="iconPolyFilled" points="47.5,35 47.5,65 22.5,50"/>
                 </svg>
-                
-                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/fw.png"/>
+                <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="0 0 100 100">
+                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
+                    <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
+                    <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
+                    <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
+                </svg>
+                <svg width="45" height="45" viewBox="0 0 100 100">
+                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
+                    <polygon class="iconPolyFilled" points="27.5,35 27.5,65 52.5,50"/>
+                    <polygon class="iconPolyFilled" points="52.5,35 52.5,65 77.5,50"/>
+                </svg>
             </span>
             <span id="trackTimer">
                 --:-- / --:--

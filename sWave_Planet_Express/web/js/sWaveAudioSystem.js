@@ -8,12 +8,16 @@ function initsWaveAudio() {
 
 function listenForEvents() {
     $("player").addEventListener("play", function() {
-        $("playPauseButton").src="images/pause.png";
+        $("playButton").style.display   = "none";
+        $("pauseButton1").style.display = "block";
+        $("pauseButton2").style.display = "block";
         $("playerStatus").innerHTML = "Playing";
         recordTime();
     });
     $("player").addEventListener("pause", function() {
-        $("playPauseButton").src="images/play.png";
+        $("playButton").style.display   = "block";
+        $("pauseButton1").style.display = "none";
+        $("pauseButton2").style.display = "none";
         $("playerStatus").innerHTML = "Paused";
     });
     $("player").addEventListener("progress", function() {$("playerStatus").innerHTML = "Downloading...";});

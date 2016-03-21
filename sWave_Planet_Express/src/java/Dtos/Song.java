@@ -9,11 +9,13 @@ import java.util.Objects;
  */
 public class Song {
     private int    songId;
+    private String filename;
     private String title;
     private String artist;
     private String album;
     private String genre;
     private int    year;
+    private double duration;
     private double price;
     private String license;
     private int    playCount;
@@ -24,11 +26,13 @@ public class Song {
      * Default constructor to initialize a default song
      */
     public Song() {
+        filename  = "filename";
         title     = "title";
         artist    = "artist";
         album     = "album";
         genre     = "genre";
         year      = 0;
+        duration  = 0.00;
         price     = 0.00;
         license   = "license";
         playCount = 0;
@@ -45,13 +49,15 @@ public class Song {
      * @param price How much the song costs
      * @param license The license for the song
      */
-    public Song(int songId, String title, String artist, String album, String genre, int year, double price, String license, int playCount, byte artwork[], byte songdata[]) {
+    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, double duration, double price, String license, int playCount, byte artwork[], byte songdata[]) {
         this.songId    = songId;
+        this.filename  = filename;
         this.title     = title;
         this.artist    = artist;
         this.album     = album;
         this.genre     = genre;
         this.year      = year;
+        this.duration  = duration;
         this.price     = price;
         this.license   = license;
         this.playCount = playCount;
@@ -60,13 +66,15 @@ public class Song {
     }
 
     //A version without the songdata for listings etc.
-    public Song(int songId, String title, String artist, String album, String genre, int year, double price, String license, int playCount, byte artwork[]) {
+    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, double duration, double price, String license, int playCount, byte artwork[]) {
         this.songId    = songId;
+        this.filename  = filename;
         this.title     = title;
         this.artist    = artist;
         this.album     = album;
         this.genre     = genre;
         this.year      = year;
+        this.duration  = duration;
         this.price     = price;
         this.license   = license;
         this.playCount = playCount;
@@ -80,6 +88,14 @@ public class Song {
 
     public void setSongId(int songId) {
         this.songId = songId;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public String getTitle() {
@@ -120,6 +136,14 @@ public class Song {
 
     public void setYear(int year) {
         this.year = year;
+    }
+    
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 
     public double getPrice() {
@@ -164,17 +188,19 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" + "songId=" + songId + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre=" + genre + ", year=" + year + ", price=" + price + ", license=" + license + ", playCount=" + playCount + '}';
+        return "Song{" + "songId=" + songId + ", filename=" + filename + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre=" + genre + ", year=" + year + ", duration=" + duration + ", price=" + price + ", license=" + license + ", playCount=" + playCount + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.title);
-        hash = 67 * hash + Objects.hashCode(this.artist);
-        hash = 67 * hash + Objects.hashCode(this.album);
-        hash = 67 * hash + Objects.hashCode(this.genre);
-        hash = 67 * hash + this.year;
+        hash = 11 * hash + Objects.hashCode(this.filename);
+        hash = 11 * hash + Objects.hashCode(this.title);
+        hash = 11 * hash + Objects.hashCode(this.artist);
+        hash = 11 * hash + Objects.hashCode(this.album);
+        hash = 11 * hash + Objects.hashCode(this.genre);
+        hash = 11 * hash + this.year;
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.duration) ^ (Double.doubleToLongBits(this.duration) >>> 32));
         return hash;
     }
 
@@ -189,6 +215,10 @@ public class Song {
         final Song other = (Song) obj;
         if (this.year != other.year)
             return false;
+        if (Double.doubleToLongBits(this.duration) != Double.doubleToLongBits(other.duration))
+            return false;
+        if (!Objects.equals(this.filename, other.filename))
+            return false;
         if (!Objects.equals(this.title, other.title))
             return false;
         if (!Objects.equals(this.artist, other.artist))
@@ -199,4 +229,5 @@ public class Song {
     }
 
 
+    
 }

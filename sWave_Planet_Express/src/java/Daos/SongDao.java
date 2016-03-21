@@ -18,11 +18,20 @@ public class SongDao extends Dao implements SongDaoInterface {
 
     private final String TABLE_NAME = "SONGS";
     private final String SONGID     = "SONGID";
+    /*
+        Filename and title are not the same. Filename is the name on the file in 
+        the filesystem when uploading, it usually includes artist name and the 
+        song title, songs ripped from CDs usually have a filename of 'Track 1' 
+        or something similar. Title is the actual name of the song extracted 
+        from the ID3 tag data or entered manually by an admin.
+    */
+    private final String FILENAME   = "FILENAME";
     private final String TITLE      = "TITLE";
     private final String ARTIST     = "ARTIST";
     private final String ALBUM      = "ALBUM";
     private final String GENRE      = "GENRE";
-    private final String YEAR       = "RELYEAR";
+    private final String YEAR       = "RELYEAR"; //YEAR is a reserved keyword in SQL
+    private final String DURATION   = "DURATION";
     private final String PRICE      = "PRICE";
     private final String LICENSE    = "LICENSE";
     private final String PLAYCOUNT  = "PLAYCOUNT";
@@ -53,16 +62,17 @@ public class SongDao extends Dao implements SongDaoInterface {
                     art = artworkBlob.getBytes(1, (int)artworkBlob.length());
 
                 Song s = new Song(rs.getInt(SONGID),
-                                    rs.getString(TITLE),
-                                    rs.getString(ARTIST),
-                                    rs.getString(ALBUM),
-                                    rs.getString(GENRE),
-                                    rs.getInt(YEAR),
-                                    rs.getDouble(PRICE),
-                                    rs.getString(LICENSE),
-                                    rs.getInt(PLAYCOUNT),
-                                    art
-                                    ); //We don't want the songdata here
+                                  rs.getString(FILENAME),
+                                  rs.getString(TITLE),
+                                  rs.getString(ARTIST),
+                                  rs.getString(ALBUM),
+                                  rs.getString(GENRE),
+                                  rs.getInt(YEAR),
+                                  rs.getDouble(DURATION),
+                                  rs.getDouble(PRICE),
+                                  rs.getString(LICENSE),
+                                  rs.getInt(PLAYCOUNT),
+                                  art); //We don't want the songdata here
                 songs.add(s);
             }
             return songs;
@@ -115,27 +125,31 @@ public class SongDao extends Dao implements SongDaoInterface {
             }
             String query = "INSERT INTO " +
                            TABLE_NAME     + " (" +
+                           FILENAME       + ", " +
                            TITLE          + ", " +
                            ARTIST         + ", " +
                            ALBUM          + ", " +
                            GENRE          + ", " +
                            YEAR           + ", " +
+                           DURATION       + ", " +
                            PRICE          + ", " +
                            LICENSE        + ", " +
                            PLAYCOUNT      + ", " +
                            ARTWORK        + ", " +
                            SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
-            ps.setString(1, s.getTitle());
-            ps.setString(2, s.getArtist());
-            ps.setString(3, s.getAlbum());
-            ps.setString(4, s.getGenre());
-            ps.setInt(5, s.getYear());
-            ps.setDouble(6, s.getPrice());
-            ps.setString(7, s.getLicense());
-            ps.setInt(8, s.getPlayCount());
-            ps.setBlob(9, art);
-            ps.setBlob(10, data);
+            ps.setString(1, s.getFilename());
+            ps.setString(2, s.getTitle());
+            ps.setString(3, s.getArtist());
+            ps.setString(4, s.getAlbum());
+            ps.setString(5, s.getGenre());
+            ps.setInt(6, s.getYear());
+            ps.setDouble(7, s.getDuration());
+            ps.setDouble(8, s.getPrice());
+            ps.setString(9, s.getLicense());
+            ps.setInt(10, s.getPlayCount());
+            ps.setBlob(11, art);
+            ps.setBlob(12, data);
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
         }
@@ -191,11 +205,13 @@ public class SongDao extends Dao implements SongDaoInterface {
                     art = artworkBlob.getBytes(1, (int)artworkBlob.length());
                 
                 return new Song(rs.getInt(SONGID),
+                                rs.getString(FILENAME),
                                 rs.getString(TITLE),
                                 rs.getString(ARTIST),
                                 rs.getString(ALBUM),
                                 rs.getString(GENRE),
                                 rs.getInt(YEAR),
+                                rs.getDouble(DURATION),
                                 rs.getDouble(PRICE),
                                 rs.getString(LICENSE),
                                 rs.getInt(PLAYCOUNT),
@@ -257,11 +273,13 @@ public class SongDao extends Dao implements SongDaoInterface {
                     art = artworkBlob.getBytes(1, (int)artworkBlob.length());
                 
                 Song s = new Song(rs.getInt(SONGID),
+                                  rs.getString(FILENAME),
                                   rs.getString(TITLE),
                                   rs.getString(ARTIST),
                                   rs.getString(ALBUM),
                                   rs.getString(GENRE),
                                   rs.getInt(YEAR),
+                                  rs.getDouble(DURATION),
                                   rs.getDouble(PRICE),
                                   rs.getString(LICENSE),
                                   rs.getInt(PLAYCOUNT),

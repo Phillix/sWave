@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dtos;
 
+import Daos.PlayTracksDao;
+import Daos.SongDao;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -51,6 +49,14 @@ public class Playlist {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public ArrayList<Song> getPlaylistContents() {
+        ArrayList<Song> songs = new ArrayList<>();
+        PlayTracksDao trackDao = new PlayTracksDao();
+        SongDao songDao = new SongDao();
+        //Have fun Phil
+        return songs;
     }
 
     @Override

@@ -145,64 +145,6 @@
                 100% {-moz-transform: translateX(0px);}
             }
 
-table {
-    width:   100%;
-    margin:  0px;
-    padding: 0px;
-    border:  none;
-}
-
-tr {
-    color:  #000;
-    margin: 0px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-tr.sec {
-
-}
-
-tr.playing {
-    background-color: #fff;
-}
-
-td {
-    margin:  0px;
-    margin:  0px;
-    border:  none;
-    padding: 8px;
-}
-
-td.move {
-    height: 40px;
-    width:  18px;
-    cursor: grab;
-}
-
-td.move img {
-    display: block;
-    height:  100%;
-    width:   100%;
-}
-
-td.art {
-    width:  40px;
-    height: 40px;
-}
-
-td.art img {
-    display: block;
-    height:  100%;
-    width:   100%;
-}
-
-td.trackTitle {
-    padding-left:  10px;
-    padding-right: 10px;
-    max-width:     400px;
-}
-
 @keyframes fadeRight {
     0% {
         left:    0px;

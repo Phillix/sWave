@@ -85,36 +85,80 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-        <table>
+        <ul>
         <%
             SongDao dao = new SongDao();
             for (Song s : dao.getAllSongs()) {%>
-            <tr <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
-                    <%if (DEBUG) {%>
-                        <td><%=s.getSongId()%></td>
-                    <%}%>
-                    <td><%=s.getTitle()%></td>
-                    <td><%=s.getArtist()%></td>
-                    <td><%=s.getGenre()%></td>
-                    <td><%=s.getYear()%></td>
+                <li style="margin-top:20px; display:block; width:100%; background-color:#000; height:100px; padding:0px;" <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
+                    <img src="images/MP3.png" width="100" height="100"/>
+                    <h3 style="display:inline; margin:0px; padding:0px; position:relative; top:-70px; left:15px; font-size:24px;">
+                        <%if (DEBUG) {%>
+                            ID: <%=s.getSongId()%>.&#160;
+                        <%}%>
+                        <%=s.getTitle()%>
+                    </h3>
+                    <table style="font-size: 14px; width:500px; position:relative; top: -60px; left:115px;">
+                        <tr>
+                            <td>
+                                <strong>Artist:</strong>
+                            </td>
+                            <td>
+                                <%=s.getArtist()%>
+                            </td>
+                            <td>
+                                <strong>Album:</strong>
+                            </td>
+                            <td>
+                                <%=s.getAlbum()%>
+                            </td>
+                            <td>
+                                <strong>Price:</strong>
+                            </td>
+                            <td>
+                                <%=s.getPrice()%>
+                            </td>
+                        <tr/>
+                        <tr>
+                            <td>
+                                <strong>Genre:</strong>
+                            </td>
+                            <td>
+                                <%=s.getGenre()%>
+                            </td>
+                            <td>
+                                <strong>Year:</strong>
+                            </td>
+                            <td>
+                                <%=s.getYear()%>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--
                     <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                    <td><%=f.format(s.getPrice())%></td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addSongToCart"/>
-                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                            <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
-                            <input type="submit" value="Add to Cart"/>
+                        <strong>Price:</strong>&#160;&#160;&#160;<%=f.format(s.getPrice())%>
+                    -->
+                    <div style="float:right; margin-top:-85px;">
+                        <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="addSongToCart"/>
+                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
+                                <input type="submit" value="Add to Cart"/>
                         </form>
-                    </td>
-                    <td><form action="UserActionServlet" method="POST">
+                        <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="addSongToPlaylist"/>
+                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                <input type="hidden" name="playlistid" value="0"/>
+                                <input type="submit" value="Add to Playlist"/>
+                        </form>
+                        <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="stream"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                             <input type="submit" value="Play"/>
                         </form>
-                    </td>
-                </tr>
+                    </div>
+                </li>
         <%}%>
-        </table>
+        </ul>
         </div>
         <aside class="panel" id="right_sidebar">
             <br/>

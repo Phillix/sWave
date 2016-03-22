@@ -63,10 +63,12 @@ public class UploadCommand implements Command {
             }
             SongDao dao     = new SongDao();
             String fileName = songs.get(j).getSubmittedFileName();
-            ID3V2 id3      = new ID3V2(buffer);
+            ID3V2 id3       = new ID3V2(buffer);
+            if (id3.getTitle() == null)
+                id3.setTitle(fileName.substring(0, fileName.length() - 4));
             Song s          = new Song(0,
-                                       fileName.substring(0, fileName.length() - 4),
-                                       "Unknown",
+                                       fileName,
+                                       id3.getTitle(),
                                        "Unknown",
                                        "Unknown",
                                        "Unknown",

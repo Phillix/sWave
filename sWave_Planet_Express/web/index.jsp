@@ -43,6 +43,7 @@
                 <a id="aboutLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
+                <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
                 <form id="searchBox" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="search"/>
                     <input type="search" name="searchterm" placeholder="Search"/>
@@ -82,8 +83,11 @@
             </div>
         </div>
         <aside class="panel" id="right_sidebar">
-            <br/>
-            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
+            <ul>
+                <%if (session.getAttribute("currentSong") != null) {%>
+                    <li><%=((Song)session.getAttribute("currentSong")).getTitle()%></li>
+                <%}%>
+            </ul>
             <%
                 AdDao ads = new AdDao();
                 int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());

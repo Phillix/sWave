@@ -50,6 +50,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("addMerchToCart") ) {
             //Adding a merch item to the cart
             command = new AddMerchToCartCommand();
+        } else if ( action.equalsIgnoreCase("createPlaylist") ) {
+            //Creating a playlist
+            command = new CreatePlaylistCommand();
         } else {
             command = new DummyCommand();
         }

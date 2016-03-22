@@ -130,7 +130,7 @@ CREATE TABLE LOCKS (
 INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "Cavan", "nova", null, false);
 INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "Kerry", "flat", null, true);
 
-INSERT INTO SONGS VALUES (-1, "Title", "Artist", "Album", "Genre", 1970, 2.99, "Public Domain", 0, NULL, NULL);
+INSERT INTO SONGS VALUES (-1, "Track 1", "Title", "Artist", "Album", "Genre", 1970, 4.20, 2.99, "Public Domain", 0, NULL, NULL);
 
 INSERT INTO ORDERS VALUES (-1, -1, '1970-1-1', 15.50);
 INSERT INTO ORDERS VALUES (-2, -2, '1971-1-1', 16.20);

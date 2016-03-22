@@ -23,6 +23,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     private final String TABLE_NAME  = "PLAYTRACKS";
     private final String SONGID      = "SONGID";
     private final String PLAYLISTID  = "PLAYLISTID";
+    private final String ORDER       = "PLAYLISTORDER";
     
     /**
      * 
@@ -36,12 +37,13 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
 
         try {
             con = getConnection();
-            String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?)";
+            String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?)";
 
             ps = con.prepareStatement(query);
 
             ps.setInt(1, pt.getSongId());
             ps.setInt(2, pt.getPlaylistId());
+            ps.setInt(3, pt.getPlaylistOrder());
 
             ps.executeUpdate();
             return SUCCESS;
@@ -91,6 +93,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             ps.setInt(2, pt.getPlaylistId());
 
             ps.executeUpdate();
+            cascadeOrderOnDelete(pt);
             return SUCCESS;
         }
         catch (ClassNotFoundException e) {
@@ -166,29 +169,35 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     /**
      * 
      * @param playlistId the id of the playlist the songs belong to
-     * @return arraylist of song ids
+     * @return arraylist of playtracks belonging to playlist
      */
-    public ArrayList<Integer> getAllSongIds(int playlistId) {
+    public ArrayList<PlayTrack> getPlayTracksInPlaylist(int playlistId) {
 
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<Integer> songIds = null;
+        ArrayList<PlayTrack> playtracks = null;
+        PlayTrack pt = null;
 
         try {
             con = getConnection();
-            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + PLAYLISTID + " = ?";
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + PLAYLISTID + " = ? ORDER BY " + ORDER;
 
             ps = con.prepareStatement(query);
             ps.setInt(1, playlistId);
 
             rs = ps.executeQuery();
-            songIds = new ArrayList<Integer>();
+            playtracks = new ArrayList<PlayTrack>();
             
             while(rs.next()) {
-                songIds.add(rs.getInt(SONGID));
+                pt = new PlayTrack();
+                pt.setSongId(rs.getInt(SONGID));
+                pt.setPlaylistId(playlistId);
+                pt.setPlaylistOrder(rs.getInt(ORDER));
+                
+                playtracks.add(pt);
             }
-            return songIds;
+            return playtracks;
         }
         catch (ClassNotFoundException e) {
             if(DEBUG)
@@ -211,6 +220,155 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
                 if(DEBUG)
                     e.printStackTrace();
                 return null;
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param pt the track to move down
+     * @return int value indicating errors or success
+     */
+    public int moveOrderDown(PlayTrack pt) {
+        
+        Connection con       = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " - 1 "
+                    + "WHERE " + PLAYLISTID + " = ? AND " + ORDER + " = ?");
+            ps.setInt(1, pt.getPlaylistId());
+            ps.setInt(2, pt.getPlaylistOrder() + 1);
+            ps.executeUpdate();
+
+            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " + 1 "
+                    + "WHERE " + PLAYLISTID + " = ? AND " + SONGID + " = ?");
+            ps.setInt(1, pt.getPlaylistId());
+            ps.setInt(2, pt.getSongId());
+
+            return SUCCESS;
+
+        }
+        catch (ClassNotFoundException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param pt the track to move up
+     * @return int value indicating errors or success
+     */
+    public int moveOrderUp(PlayTrack pt) {
+        
+        Connection con       = null;
+        PreparedStatement ps = null;
+        
+        try {
+            con = getConnection();
+            
+            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " + 1 "
+                    + "WHERE " + PLAYLISTID + " = ? AND " + ORDER + " = ?");
+            ps.setInt(1, pt.getPlaylistId());
+            ps.setInt(2, pt.getPlaylistOrder() - 1);
+            ps.executeUpdate();
+
+            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " - 1 "
+                    + "WHERE " + PLAYLISTID + " = ? AND " + SONGID + " = ?");
+            ps.setInt(1, pt.getPlaylistId());
+            ps.setInt(2, pt.getSongId());
+
+            return SUCCESS;
+            
+        }
+        catch (ClassNotFoundException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
+            }
+        }
+    }
+    
+    /**
+     * a method to adjust the order numbers of a playlists songs after one is removed
+     * @param pt the playtrack that got deleted
+     * @return int value indicating errors or success
+     */
+    public int cascadeOrderOnDelete(PlayTrack pt) {
+        
+        Connection con       = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " - 1 "
+                    + "WHERE " + PLAYLISTID + " = ? AND " + ORDER + " > ?");
+            ps.setInt(1, pt.getPlaylistId());
+            ps.setInt(2, pt.getPlaylistOrder());
+            ps.executeUpdate();
+
+            return SUCCESS;
+
+        }
+        catch (ClassNotFoundException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
             }
         }
     }

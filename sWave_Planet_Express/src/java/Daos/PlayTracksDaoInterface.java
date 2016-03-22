@@ -25,4 +25,6 @@ public interface PlayTracksDaoInterface {
     public int moveOrderUp(PlayTrack pt);
     
     public int moveOrderDown(PlayTrack pt);
+    
+    public int cascadeOrderOnDelete(PlayTrack pt);
 }

@@ -75,6 +75,9 @@
             <a id="musicLink" class="currentPageLink" href="music.jsp">
                 <h2>Library</h2>
             </a>
+            <a id="playlistsLink" href="playlists.jsp">
+                <h2>Playlists</h2>
+            </a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>

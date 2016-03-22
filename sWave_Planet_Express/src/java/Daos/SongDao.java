@@ -136,7 +136,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                            LICENSE        + ", " +
                            PLAYCOUNT      + ", " +
                            ARTWORK        + ", " +
-                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, s.getFilename());
             ps.setString(2, s.getTitle());

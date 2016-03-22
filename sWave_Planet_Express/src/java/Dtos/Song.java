@@ -15,7 +15,7 @@ public class Song {
     private String album;
     private String genre;
     private int    year;
-    private double duration;
+    private int    duration;
     private double price;
     private String license;
     private int    playCount;
@@ -32,7 +32,7 @@ public class Song {
         album     = "album";
         genre     = "genre";
         year      = 0;
-        duration  = 0.00;
+        duration  = 0;
         price     = 0.00;
         license   = "license";
         playCount = 0;
@@ -49,7 +49,7 @@ public class Song {
      * @param price How much the song costs
      * @param license The license for the song
      */
-    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, double duration, double price, String license, int playCount, byte artwork[], byte songdata[]) {
+    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, int duration, double price, String license, int playCount, byte artwork[], byte songdata[]) {
         this.songId    = songId;
         this.filename  = filename;
         this.title     = title;
@@ -66,7 +66,7 @@ public class Song {
     }
 
     //A version without the songdata for listings etc.
-    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, double duration, double price, String license, int playCount, byte artwork[]) {
+    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, int duration, double price, String license, int playCount, byte artwork[]) {
         this.songId    = songId;
         this.filename  = filename;
         this.title     = title;
@@ -138,11 +138,11 @@ public class Song {
         this.year = year;
     }
     
-    public double getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -194,13 +194,12 @@ public class Song {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.filename);
-        hash = 11 * hash + Objects.hashCode(this.title);
-        hash = 11 * hash + Objects.hashCode(this.artist);
-        hash = 11 * hash + Objects.hashCode(this.album);
-        hash = 11 * hash + Objects.hashCode(this.genre);
-        hash = 11 * hash + this.year;
-        hash = 11 * hash + (int) (Double.doubleToLongBits(this.duration) ^ (Double.doubleToLongBits(this.duration) >>> 32));
+        hash = 19 * hash + Objects.hashCode(this.title);
+        hash = 19 * hash + Objects.hashCode(this.artist);
+        hash = 19 * hash + Objects.hashCode(this.album);
+        hash = 19 * hash + Objects.hashCode(this.genre);
+        hash = 19 * hash + this.year;
+        hash = 19 * hash + this.duration;
         return hash;
     }
 
@@ -215,9 +214,7 @@ public class Song {
         final Song other = (Song) obj;
         if (this.year != other.year)
             return false;
-        if (Double.doubleToLongBits(this.duration) != Double.doubleToLongBits(other.duration))
-            return false;
-        if (!Objects.equals(this.filename, other.filename))
+        if (this.duration != other.duration)
             return false;
         if (!Objects.equals(this.title, other.title))
             return false;
@@ -225,7 +222,9 @@ public class Song {
             return false;
         if (!Objects.equals(this.album, other.album))
             return false;
-        return Objects.equals(this.genre, other.genre);
+        if (!Objects.equals(this.genre, other.genre))
+            return false;
+        return true;
     }
 
 

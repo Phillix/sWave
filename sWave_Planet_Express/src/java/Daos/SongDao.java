@@ -68,7 +68,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                   rs.getString(ALBUM),
                                   rs.getString(GENRE),
                                   rs.getInt(YEAR),
-                                  rs.getDouble(DURATION),
+                                  rs.getInt(DURATION),
                                   rs.getDouble(PRICE),
                                   rs.getString(LICENSE),
                                   rs.getInt(PLAYCOUNT),
@@ -144,7 +144,7 @@ public class SongDao extends Dao implements SongDaoInterface {
             ps.setString(4, s.getAlbum());
             ps.setString(5, s.getGenre());
             ps.setInt(6, s.getYear());
-            ps.setDouble(7, s.getDuration());
+            ps.setInt(7, s.getDuration());
             ps.setDouble(8, s.getPrice());
             ps.setString(9, s.getLicense());
             ps.setInt(10, s.getPlayCount());
@@ -211,7 +211,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                 rs.getString(ALBUM),
                                 rs.getString(GENRE),
                                 rs.getInt(YEAR),
-                                rs.getDouble(DURATION),
+                                rs.getInt(DURATION),
                                 rs.getDouble(PRICE),
                                 rs.getString(LICENSE),
                                 rs.getInt(PLAYCOUNT),
@@ -279,7 +279,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                   rs.getString(ALBUM),
                                   rs.getString(GENRE),
                                   rs.getInt(YEAR),
-                                  rs.getDouble(DURATION),
+                                  rs.getInt(DURATION),
                                   rs.getDouble(PRICE),
                                   rs.getString(LICENSE),
                                   rs.getInt(PLAYCOUNT),

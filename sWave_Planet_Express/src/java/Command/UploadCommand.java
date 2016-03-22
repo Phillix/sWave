@@ -71,7 +71,7 @@ public class UploadCommand implements Command {
                                        "Unknown",
                                        "Unknown",
                                        2016,
-                                       0.00,
+                                       0,
                                        0.00,
                                        "CC",
                                        0,

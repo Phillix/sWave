@@ -32,6 +32,12 @@ public class Server {
     public static final int    MAX_QUEUE      = 2000; //refuse connections after 2000
     public static final int    SOCKET_PORT    = 0;   //zero will cause auto-allocation of the port number
     public static ServerSocket SERVER_SOCKET  = null;
+    public static final int    SYSTEMUSERID   = -3;
+    /*
+        The system user id is the id of a special system user account. It cannot 
+        be logged into, it is used for creating system playlists available to 
+        everyone and other tasks.
+    */
 
     public static Properties sysProp = System.getProperties();
     public static int        CPUs    = Runtime.getRuntime().availableProcessors();

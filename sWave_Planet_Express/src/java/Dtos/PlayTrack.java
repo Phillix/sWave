@@ -13,17 +13,28 @@ public class PlayTrack {
     
     private int songId;
     private int playlistId;
+    private int playlistOrder;
     
     public PlayTrack() {
         songId = -1;
         playlistId = -1;
+        playlistOrder = 0;
     }
 
-    public PlayTrack(int songId, int playlistId) {
+    public PlayTrack(int songId, int playlistId, int playlistOrder) {
         this.songId = songId;
         this.playlistId = playlistId;
+        this.playlistOrder = playlistOrder;
     }
 
+    public int getPlaylistOrder() {
+        return playlistOrder;
+    }
+
+    public void setPlaylistOrder(int playlistOrder) {
+        this.playlistOrder = playlistOrder;
+    }
+    
     public int getSongId() {
         return songId;
     }
@@ -42,8 +53,7 @@ public class PlayTrack {
 
     @Override
     public String toString() {
-        return "PlayTracks{" + "songId=" + songId + ", playlistId=" + playlistId + '}';
+        return "PlayTrack{" + "songId=" + songId + ", playlistId=" + playlistId + ", playlistOrder=" + playlistOrder + '}';
     }
-    
-    
+      
 }

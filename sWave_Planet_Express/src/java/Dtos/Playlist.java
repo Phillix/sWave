@@ -55,7 +55,11 @@ public class Playlist {
         ArrayList<Song> songs = new ArrayList<>();
         PlayTracksDao trackDao = new PlayTracksDao();
         SongDao songDao = new SongDao();
-        //Have fun Phil
+        ArrayList<Integer> songIds = trackDao.getAllSongIds(playlistId);
+        
+        for(int i : songIds) {
+            songs.add(songDao.getSongById(i));
+        }
         return songs;
     }
 

@@ -18,5 +18,7 @@ public interface PlayTracksDaoInterface {
     
     public int deletePlayTrack(PlayTrack pt);
     
+    public int deletePlayTracksInPlaylist(int playlistId);
+    
     public ArrayList<Integer> getAllSongIds(int playlistId);
 }

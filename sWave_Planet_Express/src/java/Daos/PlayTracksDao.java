@@ -120,6 +120,51 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     
     /**
      * 
+     * @param playlistId the playlist the tracks belong to
+     * @return int value indicating errors or success
+     */
+    public int deletePlayTracksInPlaylist(int playlistId) {
+
+        Connection con       = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+            String query = "DELETE FROM " + TABLE_NAME + " WHERE " + PLAYLISTID + " = ?";
+
+            ps = con.prepareStatement(query);
+            ps.setInt(1, playlistId);
+
+            ps.executeUpdate();
+            return SUCCESS;
+        }
+        catch (ClassNotFoundException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
+            }
+        }
+    }
+    
+    /**
+     * 
      * @param playlistId the id of the playlist the songs belong to
      * @return arraylist of song ids
      */

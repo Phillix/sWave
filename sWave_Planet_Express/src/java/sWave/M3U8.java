@@ -1,25 +1,34 @@
 package sWave;
-
+import Dtos.Playlist;
 import Dtos.Song;
-import java.util.ArrayList;
 
 /**
  *
  * @author Brian Millar
  */
 public class M3U8 {
-    private String fileContents;
-    private ArrayList<Song> playlist;
+    private String filename;
+    private String fileContent;
     
-    public M3U8(ArrayList<Song> playlist) {
-        fileContents = "#EXTM3U\n";
-        this.playlist = playlist;
-        playlist.stream().forEach((Song s) -> {
-            fileContents += "#EXTINF:" +
-                            s.getDuration() + ","   +
-                            s.getArtist()   + " - " +
-                            s.getTitle()    + '\n'  +
-                            s.getFilename() + '\n';
-        });
+    public M3U8(Playlist playlist) {
+        filename    = playlist.getTitle() + ".m3u8";
+        fileContent = "#EXTM3U\n";
+        playlist.getPlaylistContents()
+                .stream()
+                .forEach((Song s) -> {
+                    fileContent += "#EXTINF:"      +
+                                   s.getDuration() + ","   +
+                                   s.getArtist()   + " - " +
+                                   s.getTitle()    + '\n'  +
+                                   s.getFilename() + '\n';
+                });
+    }
+    
+    public String getFileContent() {
+        return fileContent;
+    }
+    
+    public String getFileName() {
+        return filename;
     }
 }

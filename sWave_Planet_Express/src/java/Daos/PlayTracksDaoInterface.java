@@ -20,5 +20,11 @@ public interface PlayTracksDaoInterface {
     
     public int deletePlayTracksInPlaylist(int playlistId);
     
-    public ArrayList<Integer> getAllSongIds(int playlistId);
+    public ArrayList<PlayTrack> getPlayTracksInPlaylist(int playlistId);
+    
+    public int moveOrderUp(PlayTrack pt);
+    
+    public int moveOrderDown(PlayTrack pt);
+    
+    public int cascadeOrderOnDelete(PlayTrack pt);
 }

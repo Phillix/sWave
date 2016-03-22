@@ -3,6 +3,7 @@ package Dtos;
 import Daos.PlayTracksDao;
 import Daos.SongDao;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -55,10 +56,10 @@ public class Playlist {
         ArrayList<Song> songs = new ArrayList<>();
         PlayTracksDao trackDao = new PlayTracksDao();
         SongDao songDao = new SongDao();
-        ArrayList<Integer> songIds = trackDao.getAllSongIds(playlistId);
+        ArrayList<PlayTrack> playTracks = trackDao.getPlayTracksInPlaylist(playlistId);
         
-        for(int i : songIds) {
-            songs.add(songDao.getSongById(i));
+        for(PlayTrack pt : playTracks) {
+            songs.add(songDao.getSongById(pt.getSongId()));
         }
         return songs;
     }

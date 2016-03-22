@@ -62,8 +62,8 @@ public class PlayTracksDaoTest {
     public void testgetAllSongIds() {
         
         int expResult = -1;
-        ArrayList<Integer> songIds = instance.getAllSongIds(-1);
-        int result = songIds.get(0);
+        ArrayList<PlayTrack> songIds = instance.getPlayTracksInPlaylist(-1);
+        int result = songIds.get(0).getSongId();
         assertEquals(expResult, result);
     }
 }

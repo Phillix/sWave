@@ -31,7 +31,7 @@ public class DeletePlaylistCommand implements Command {
             int result = ptDao.deletePlayTracksInPlaylist(playlistId);
             if (result == 0) {
                 playlistDao.deletePlaylist(playlistId);
-                return "account/.jsp";
+                return "/playlist.jsp";
             }
         } catch (Exception e) {
             if (DEBUG)

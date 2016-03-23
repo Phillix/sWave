@@ -35,7 +35,29 @@
     </head>
     <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
-            <img id="header_logo" src="images/logo_black.png" height="60"/>
+            <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
+                <mask id="mask" x="0" y="0" width="100" height="100">
+                    <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+                    <ellipse cx="2.5"   cy="0"   rx="30" ry="51" fill="#000"/>
+                    <ellipse cx="2.5"   cy="100" rx="30" ry="51" fill="#000"/>
+                    <ellipse cx="97.5" cy="0"   rx="70" ry="51" fill="#000"/>
+                    <ellipse cx="97.5" cy="100" rx="70" ry="51" fill="#000"/>
+                </mask>
+                <rect x="6"   y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="12"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="18"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="24"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="30"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="36"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="42"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="48"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="54"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="60"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="66"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="72"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect x="78"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <text x="100" y="68" font-family="Raleway" font-size="60">sWave</text>
+            </svg>
             <nav>
                 <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>
                 <a id="shopLink" href="shop.jsp">Shop</a>

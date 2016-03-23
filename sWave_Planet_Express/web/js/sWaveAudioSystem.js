@@ -21,6 +21,44 @@ function listenForEvents() {
         $("playerStatus").innerHTML = "Paused";
     });
     $("player").addEventListener("progress", function() {$("playerStatus").innerHTML = "Downloading...";});
+    
+    document.body.addEventListener("keypress", function(event) {
+        if ((event.which === 32) || (event.keyCode === 32)) {
+            //Don't perform the action if user types the key in an input field
+            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+                event.preventDefault();
+                playPause();
+            }
+        }
+        else if ((event.which === 39) || (event.keyCode === 39)) {
+            //Don't perform the action if user types the key in an input field
+            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+                event.preventDefault();
+                seek($("player").currentTime + 10);
+            }
+        }
+        else if ((event.which === 37) || (event.keyCode === 37)) {
+            //Don't perform the action if user types the key in an input field
+            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+                event.preventDefault();
+                seek($("player").currentTime - 10);
+            }
+        }
+        else if ((event.which === 38) || (event.keyCode === 38)) {
+            //Don't perform the action if user types the key in an input field
+            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+                event.preventDefault();
+                seek($("player").currentTime + 30);
+            }
+        }
+        else if ((event.which === 40) || (event.keyCode === 40)) {
+            //Don't perform the action if user types the key in an input field
+            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+                event.preventDefault();
+                seek($("player").currentTime - 30);
+            }
+        }
+    });
 }
 
 function playPause() {

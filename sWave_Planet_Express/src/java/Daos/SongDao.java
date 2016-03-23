@@ -35,6 +35,7 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String PRICE      = "PRICE";
     private final String LICENSE    = "LICENSE";
     private final String PLAYCOUNT  = "PLAYCOUNT";
+    private final String UPLOADDATE = "UPLOADED";
     private final String ARTWORK    = "ARTWORK";
     private final String SONGDATA   = "SONGDATA";
 
@@ -72,6 +73,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                   rs.getDouble(PRICE),
                                   rs.getString(LICENSE),
                                   rs.getInt(PLAYCOUNT),
+                                  rs.getDate(UPLOADDATE),
                                   art); //We don't want the songdata here
                 songs.add(s);
             }
@@ -135,8 +137,9 @@ public class SongDao extends Dao implements SongDaoInterface {
                            PRICE          + ", " +
                            LICENSE        + ", " +
                            PLAYCOUNT      + ", " +
+                           UPLOADDATE     + ", " +
                            ARTWORK        + ", " +
-                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                           SONGDATA       + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, s.getFilename());
             ps.setString(2, s.getTitle());
@@ -148,8 +151,9 @@ public class SongDao extends Dao implements SongDaoInterface {
             ps.setDouble(8, s.getPrice());
             ps.setString(9, s.getLicense());
             ps.setInt(10, s.getPlayCount());
-            ps.setBlob(11, art);
-            ps.setBlob(12, data);
+            ps.setDate(11, s.getUploaded());
+            ps.setBlob(12, art);
+            ps.setBlob(13, data);
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
         }
@@ -215,6 +219,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                 rs.getDouble(PRICE),
                                 rs.getString(LICENSE),
                                 rs.getInt(PLAYCOUNT),
+                                rs.getDate(UPLOADDATE),
                                 art,
                                 songdata);
             }
@@ -283,6 +288,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                   rs.getDouble(PRICE),
                                   rs.getString(LICENSE),
                                   rs.getInt(PLAYCOUNT),
+                                  rs.getDate(UPLOADDATE),
                                   art,
                                   songdata);
                 songs.add(s);

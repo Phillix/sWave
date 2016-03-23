@@ -1,5 +1,6 @@
 package Dtos;
 
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -19,6 +20,7 @@ public class Song {
     private double price;
     private String license;
     private int    playCount;
+    private Date   uploaded;
     private byte[] artwork;
     private byte[] songdata;
 
@@ -36,6 +38,7 @@ public class Song {
         price     = 0.00;
         license   = "license";
         playCount = 0;
+        uploaded  = null;
         artwork   = null;
         songdata  = null;
     }
@@ -49,7 +52,7 @@ public class Song {
      * @param price How much the song costs
      * @param license The license for the song
      */
-    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, int duration, double price, String license, int playCount, byte artwork[], byte songdata[]) {
+    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, int duration, double price, String license, int playCount, Date uploaded, byte artwork[], byte songdata[]) {
         this.songId    = songId;
         this.filename  = filename;
         this.title     = title;
@@ -61,12 +64,13 @@ public class Song {
         this.price     = price;
         this.license   = license;
         this.playCount = playCount;
+        this.uploaded  = uploaded;
         this.artwork   = artwork;
         this.songdata  = songdata;
     }
 
     //A version without the songdata for listings etc.
-    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, int duration, double price, String license, int playCount, byte artwork[]) {
+    public Song(int songId, String filename, String title, String artist, String album, String genre, int year, int duration, double price, String license, int playCount, Date uploaded, byte artwork[]) {
         this.songId    = songId;
         this.filename  = filename;
         this.title     = title;
@@ -78,6 +82,7 @@ public class Song {
         this.price     = price;
         this.license   = license;
         this.playCount = playCount;
+        this.uploaded  = uploaded;
         this.artwork   = artwork; //We will want to display the artwork
         //Don't set songdata as used for listing
     }
@@ -170,6 +175,14 @@ public class Song {
         this.playCount = playCount;
     }
 
+    public Date getUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(Date uploaded) {
+        this.uploaded = uploaded;
+    }
+
     public byte[] getArtwork() {
         return artwork;
     }
@@ -188,7 +201,7 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" + "songId=" + songId + ", filename=" + filename + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre=" + genre + ", year=" + year + ", duration=" + duration + ", price=" + price + ", license=" + license + ", playCount=" + playCount + '}';
+        return "Song{" + "songId=" + songId + ", filename=" + filename + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre=" + genre + ", year=" + year + ", duration=" + duration + ", price=" + price + ", license=" + license + ", playCount=" + playCount + ", uploaded=" + uploaded + '}';
     }
 
     @Override
@@ -227,6 +240,4 @@ public class Song {
         return true;
     }
 
-
-    
 }

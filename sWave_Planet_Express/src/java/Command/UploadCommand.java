@@ -4,6 +4,7 @@ import Daos.SongDao;
 import Dtos.Song;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -77,6 +78,7 @@ public class UploadCommand implements Command {
                                        0.00,
                                        "CC",
                                        0,
+                                       new Date(System.currentTimeMillis()),
                                        null,
                                        buffer
                                );

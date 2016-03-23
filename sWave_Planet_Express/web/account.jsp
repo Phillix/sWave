@@ -211,6 +211,12 @@
                             </select>
                             <input type="submit" value="Apply"/>
                         </form>
+                        <em>Your Skin Preference will stored in our database and maintained across machines.</em>
+                        <br/><br/>
+                        <strong>NOTE:</strong> The following settings are LOCAL to your machine, you will need to <em><u>export</u></em> these settings to use them on another machine.
+                        <br/><br/>
+                        <button>Import Settings</button>&#160;<button>Export Settings</button><br/><br/>
+                        <label>Screensaver</label><input type="checkbox"/><br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
                                 <iframe style="border:none; width:500px; height:400px;" src="upload.jsp"></iframe>

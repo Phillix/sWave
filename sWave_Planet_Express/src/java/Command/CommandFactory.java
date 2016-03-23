@@ -53,6 +53,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("deletePlaylist") ) {
             //Deleting a playlist
             command = new DeletePlaylistCommand();
+        } else if ( action.equalsIgnoreCase("createPlaylist") ) {
+            //Creating a playlist
+            command = new CreatePlaylistCommand();
         } else {
             command = new DummyCommand();
         }

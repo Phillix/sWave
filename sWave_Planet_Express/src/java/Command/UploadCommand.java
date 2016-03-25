@@ -64,12 +64,11 @@ public class UploadCommand implements Command {
             }
             SongDao dao     = new SongDao();
             String fileName = songs.get(j).getSubmittedFileName();
-            ID3V2 id3       = new ID3V2(buffer);
-            if (id3.getTitle() == null)
-                id3.setTitle(fileName.substring(0, fileName.length() - 4));
+            /*if (id3.getTitle() == null)
+                id3.setTitle(fileName.substring(0, fileName.length() - 4));*/
             Song s          = new Song(0,
                                        fileName,
-                                       id3.getTitle(),
+                                       fileName,
                                        "Unknown",
                                        "Unknown",
                                        "Unknown",
@@ -83,16 +82,7 @@ public class UploadCommand implements Command {
                                        buffer
                                );
             
-            if (id3.getTitle() != null)
-                s.setTitle(id3.getTitle());
-            if (id3.getArtist() != null)
-                s.setArtist(id3.getArtist());
-            if (id3.getAlbum() != null)
-                s.setAlbum(id3.getAlbum());
-            if (id3.getGenre() != null)
-                s.setGenre(id3.getGenre());
-            if (id3.getYear() != 0)
-                s.setYear(id3.getYear());
+            ID3V2.extractTags(s);
             
             dao.addNewSong(s);
             uploadSize += buffer.length;

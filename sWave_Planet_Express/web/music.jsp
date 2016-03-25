@@ -1,3 +1,4 @@
+<%@page import="sWave.ID3V2"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -44,8 +45,8 @@
             <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
                     <rect x="0" y="0" width="100" height="100" fill="#fff"/>
-                    <ellipse cx="2.5"   cy="0"   rx="30" ry="51" fill="#000"/>
-                    <ellipse cx="2.5"   cy="100" rx="30" ry="51" fill="#000"/>
+                    <ellipse cx="2.5"  cy="0"   rx="30" ry="51" fill="#000"/>
+                    <ellipse cx="2.5"  cy="100" rx="30" ry="51" fill="#000"/>
                     <ellipse cx="97.5" cy="0"   rx="70" ry="51" fill="#000"/>
                     <ellipse cx="97.5" cy="100" rx="70" ry="51" fill="#000"/>
                 </mask>
@@ -111,11 +112,11 @@
         <%
             SongDao dao = new SongDao();
             for (Song s : dao.getAllSongs()) {%>
-            <style>
-                td.label {
-                    width:50px;
-                }
-            </style>
+                <style>
+                    td.label {
+                        width:50px;
+                    }
+                </style>
                 <li class="panel songListing <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>playing<%}%>">
                     <table style="font-size: 14px; width:100%; height:100%; position:relative; top: 0px; left:0px; right:0px;">
                         <tr>

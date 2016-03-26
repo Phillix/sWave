@@ -5,7 +5,7 @@
     <head>
         <%User currentUser = (User)session.getAttribute("user");
           if (currentUser == null) {
-              response.sendRedirect("login.jsp");
+              response.sendRedirect("login.jsp?refer=upload.jsp");
           }
           else {
               if (!currentUser.isIsAdmin()) {

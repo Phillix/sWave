@@ -16,14 +16,15 @@
 <html>
     <head>
         <%
-            if (session == null) {
-                response.sendRedirect("login.jsp");
-            }
-            User currentUser = (User)session.getAttribute("user");
-
             if (request.getParameter("view") == null) {
                 response.sendRedirect("account.jsp?view=profile");
             }
+            
+            if (session == null) {
+                response.sendRedirect("login.jsp?refer=account.jsp&view=" + request.getParameter("view"));
+            }
+            
+            User currentUser = (User)session.getAttribute("user");
 
             String skin = "swave";
 
@@ -92,7 +93,7 @@
                         <input type="submit" value="Log Out"/>
                     </form>
                 <%} else {
-                        response.sendRedirect("login.jsp");
+                        response.sendRedirect("login.jsp?refer=account.jsp?view=" + request.getParameter("view"));
                 %>
                     <!-- In case the redirect fails for any reason provide a link -->
                     <a href="login.jsp">Log In</a>
@@ -104,7 +105,7 @@
             <a href="account.jsp?view=orders"><h2>Orders</h2></a>
             <a href="account.jsp?view=tickets"><h2>Tickets</h2></a>
             <a href="account.jsp?view=settings"><h2>Settings</h2></a>
-            <%if (currentUser.isIsAdmin()) {%>
+            <%if (currentUser != null && currentUser.isIsAdmin()) {%>
                 <a href="account.jsp?view=admin"><h2>Admin</h2></a>
             <%}%>
             <span id="copyNotice">
@@ -114,7 +115,7 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <%if (request.getParameter("view") != null) {
+            <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
                     <h3>Username: <%=currentUser.getUsername()%></h3>
                     <h3>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h3>

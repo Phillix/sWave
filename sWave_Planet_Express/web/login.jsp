@@ -1,9 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% if (session.getAttribute("user") != null) {
-    response.sendRedirect("index.jsp");
-}%>
 <!DOCTYPE html>
 <html>
+    <%if (session.getAttribute("user") != null) {
+        session.invalidate();
+    }%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -20,6 +20,9 @@
             <form id="loginForm" action="UserActionServlet" method="POST">
                 <img id="logo" src="images/logo_black.png"/><br/>
                 <input type="hidden" name="action" value="login"/>
+                <%if (request.getParameter("refer") != null) {%>
+                    <input type="hidden" name="refer" value="<%=request.getParameter("refer")%>"/>
+                <%}%>
                 <input class="text" required type="text" name="email" placeholder="Email"/><br/>
                 <input class="text" required type="password" name="password" placeholder="Password"/><br/><br/>
                 <input id="loginButton"  type="submit" value="Login"/>

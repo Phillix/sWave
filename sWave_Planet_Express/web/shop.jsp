@@ -10,7 +10,7 @@
 <html>
     <head>
         <%if (session == null) {
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login.jsp?refer=shop.jsp");
             }
 
             User currentUser = (User)session.getAttribute("user");
@@ -84,7 +84,7 @@
                         <input type="submit" value="Log Out"/>
                     </form>
                 <%} else {
-                        response.sendRedirect("login.jsp");
+                        response.sendRedirect("login.jsp?refer=shop.jsp");
                 %>
                     <!-- In case the redirect fails for any reason provide a link -->
                     <a href="login.jsp">Log In</a>

@@ -34,8 +34,16 @@ public class LoginCommand implements Command {
                 //Store the user in the session
                 session.setAttribute("user", userLoggingIn);
 
-                //Forward them to the home page
-                forwardToJsp = "/index.jsp";
+                /*
+                    If the user was forced to the login page after trying to view 
+                    some page the 'refer' parameter will contain the page they 
+                    were trying to view and we will redirect them back there after 
+                    login, otherwise we forward them to the home page.
+                */
+                if (request.getParameter("refer") != null)
+                    forwardToJsp = "/" + request.getParameter("refer");
+                else
+                    forwardToJsp = "/index.jsp";
             } else
                 forwardToJsp = "/login.jsp?failed=yes";
         } else

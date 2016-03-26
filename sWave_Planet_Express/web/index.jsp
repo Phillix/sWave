@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <%
     if (session == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("login.jsp?refer=index.jsp");
     }
     User currentUser = (User)session.getAttribute("user");
 
@@ -78,7 +78,7 @@
                         <input type="submit" value="Log Out"/>
                     </form>
                 <%} else {
-                        response.sendRedirect("login.jsp");
+                        response.sendRedirect("login.jsp?refer=index.jsp");
                 %>
                     <!-- In case the redirect fails for any reason provide a link -->
                     <a href="login.jsp">Log In</a>
@@ -94,6 +94,9 @@
             </a>
             <a id="playlistsLink" href="playlists.jsp">
                 <h2>Playlists</h2>
+            </a>
+            <a id="liveLink" href="live.jsp">
+                <h2>sWave Live!</h2>
             </a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>

@@ -28,25 +28,21 @@
                 var theFiles = $("fileSelector").files;
                 for (var i = 0; i < theFiles.length; i++)
                     count += theFiles[i].size;
-                $("fileSizes").innerHTML = "Size of Upload: " + Math.round(count/1024/1024) + "MB (MAX 500MB)";
+                $("fileSizes").innerHTML = "Size of Upload: " + Math.round(count/1024/1024) + "MB (MAX 100MB)";
             }
         </script>
     </head>
     <body style="color:#e3e3e3; text-shadow: 0px 0px 10px #000;">
         <h1>Admin Panel</h1>
-        <form action="UserActionServlet" method="POST" enctype="multipart/form-data">
-            <h3>Upload Tracks</h3>
-            <h5><u>Note: Only MP3 format files under 16MB can be uploaded.</u></h5>
-            <h5><u>Note: You may upload up to 500MB at a time.</u></h5>
-            <input type="hidden" name="action" value="upload"/>
-            <div>
-                <p>Drag & Drop Files Here</p>
-            </div>
-            <input id="fileSelector" type="file" name="songBlob" accept="audio/mpeg" onchange="showSizes()" multiple/><br/>
-            <span id="fileSizes"></span>
-            <input type="submit" value="Upload"/>
-            <button onclick="event.preventDefault(); uploadSongs()">AJAX Upload</button>
-        </form>
+        <h3>System</h3>
+        <h5>CPUs: <%=sWave.Server.CPUs%></h5>
+        <h5>JVM Heap: <%=sWave.Server.JVMHEAP%></h5>
+        <h3>Upload Tracks</h3>
+        <h5><u>Note: Only MP3 format files under 16MB can be uploaded.</u></h5>
+        <h5><u>Note: You may upload up to 100MB at a time.</u></h5>
+        <input id="fileSelector" type="file" name="songBlob" accept="audio/mpeg" onchange="showSizes()" multiple/><br/>
+        <span id="fileSizes"></span>
+        <button onclick="uploadSongs()">Upload</button>
         <progress id="uploadProgress" max="100" value="0"></progress>
         <span id="progressInfo"></span>
     </body>

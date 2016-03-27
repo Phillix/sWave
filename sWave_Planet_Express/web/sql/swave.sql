@@ -25,7 +25,7 @@ CREATE TABLE USERS (
     CITY       VARCHAR(20),
     COUNTY     ENUM('CW', 'CN', 'CL', 'C', 'DL', 'D', 'G', 'K', 'KD', 'KK', 'LS', 'LM', 'LK', 'LF', 'L', 'M', 'MH', 'MO', 'O', 'R', 'S', 'T', 'WF', 'WM', 'WX', 'W'),
     SKIN       ENUM('swave', 'flat', 'flat darkness', 'nova', 'quantum', 'evolved', 'legacy', 'shire', 'smart', 'smart++', '1337', '9x') DEFAULT 'swave' NOT NULL,
-    PICTURE    BLOB,
+    PICTURE    MEDIUMBLOB,
     ADMIN      BOOLEAN   NOT NULL DEFAULT false,
     CONSTRAINT PK_USERID PRIMARY KEY (USERID)
 );

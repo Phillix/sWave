@@ -40,9 +40,9 @@ public class Server {
     */
 
     public static Properties sysProp = System.getProperties();
-    public static int        CPUs    = Runtime.getRuntime().availableProcessors();
-    public static long       RAM     = Runtime.getRuntime().totalMemory();
-    public static long       freeRAM = Runtime.getRuntime().freeMemory();
+    public static final int  CPUs    = Runtime.getRuntime().availableProcessors();
+    public static final long JVMHEAP = Runtime.getRuntime().totalMemory();
+    public static final long FREEMEM = Runtime.getRuntime().freeMemory();
 
     public static final String DEFAULT_SKIN = "swave";
 

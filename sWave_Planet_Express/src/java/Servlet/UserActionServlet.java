@@ -50,8 +50,10 @@ public class UserActionServlet extends HttpServlet {
         }
 
         //Get the request dispatcher object and forward the request to the appropriate JSP page...
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(forwardToJsp);
-        dispatcher.forward(request, response);
+        if (forwardToJsp != null) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(forwardToJsp);
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

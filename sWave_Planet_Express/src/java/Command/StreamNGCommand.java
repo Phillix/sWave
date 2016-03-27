@@ -17,14 +17,9 @@ public class StreamNGCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-
-        if (sWave.Server.SERVER_SOCKET == null)
-            sWave.Server.createSocket();
-
-        SongDao songs = new SongDao();
-        Song  theSong = (Song)songs.getSongById(Integer.parseInt(request.getParameter("songid")));
-        byte songdata[] = ((theSong).getSongdata());
-
-        return "/index.jsp";
+        SongDao dao = new SongDao();
+        Song s = dao.getSongById(Integer.parseInt(request.getParameter("songid")));
+        
+        return null; //We don't want to redirect
     }
 }

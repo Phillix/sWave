@@ -13,7 +13,7 @@ public class ID3V2 {
      * @param song
      * @return a song object with metadata set
      */
-    public static Song extractTags(Song song) {
+    public static void extractTags(Song song) {
         /*
             This method extracts ID3 metadata from the MP3 data in a Song object 
             and returns a Song object with the same MP3 data but with the other 
@@ -71,7 +71,5 @@ public class ID3V2 {
             */
               
         }
-        return new Song();
     }
-
 }

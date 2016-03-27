@@ -28,7 +28,7 @@
                 var theFiles = $("fileSelector").files;
                 for (var i = 0; i < theFiles.length; i++)
                     count += theFiles[i].size;
-                $("fileSizes").innerHTML = "Size of Upload: " + Math.round(count/1024/1024) + "MB (MAX 100MB)";
+                $("fileSizes").innerHTML = "Size of Upload: " + Math.round(count/1024/1024) + "MB (MAX 500MB)";
             }
         </script>
     </head>
@@ -37,7 +37,7 @@
         <form action="UserActionServlet" method="POST" enctype="multipart/form-data">
             <h3>Upload Tracks</h3>
             <h5><u>Note: Only MP3 format files under 16MB can be uploaded.</u></h5>
-            <h5><u>Note: To prevent overloading the server only 100MB of uploading is allowed at a time</u></h5>
+            <h5><u>Note: You may upload up to 500MB at a time.</u></h5>
             <input type="hidden" name="action" value="upload"/>
             <div>
                 <p>Drag & Drop Files Here</p>

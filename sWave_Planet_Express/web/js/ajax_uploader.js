@@ -9,7 +9,7 @@ function uploadSongs() {
     request.send(formdata);
     request.upload.onprogress = function(event) {
         $("uploadProgress").value = (100 / event.total) * event.loaded;
-        $("progressInfo").innerHTML = "Uploaded " + event.loaded + " of " + event.total + " bytes.";
+        $("progressInfo").innerHTML = "Uploaded " + (event.loaded / (1024 * 1024)) + " of " + (event.total / (1024 * 1024)) + " MB.";
         if (event.loaded == event.total)
             $("progressInfo").innerHTML = "Done";
     }

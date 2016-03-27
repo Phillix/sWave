@@ -95,6 +95,9 @@
             <a id="playlistsLink" href="playlists.jsp">
                 <h2>Playlists</h2>
             </a>
+            <a id="playlistsLink" href="radioTest.jsp">
+                <h2>Radio Streams</h2>
+            </a>
             <a id="liveLink" href="live.jsp">
                 <h2>sWave Live!</h2>
             </a>

@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <title>Upload</title>
         <script src="macgril/js/dom.js"></script>
+        <script src="js/ajax_uploader.js"></script>
         <script>
             function showSizes() {
                 var count = 0;
@@ -39,11 +40,14 @@
             <h5><u>Note: To prevent overloading the server only 100MB of uploading is allowed at a time</u></h5>
             <input type="hidden" name="action" value="upload"/>
             <div>
-                <p>Drag & Drop Files Here
+                <p>Drag & Drop Files Here</p>
             </div>
             <input id="fileSelector" type="file" name="songBlob" accept="audio/mpeg" onchange="showSizes()" multiple/><br/>
             <span id="fileSizes"></span>
             <input type="submit" value="Upload"/>
+            <button onclick="event.preventDefault(); uploadSongs()">AJAX Upload</button>
         </form>
+        <progress id="uploadProgress" max="100" value="0"></progress>
+        <span id="progressInfo"></span>
     </body>
 </html>

@@ -28,10 +28,12 @@ public class UploadCommand implements Command {
 
         try {
             songs = (ArrayList<Part>)request.getParts();
+            for (Part p : songs)
+                System.out.println(p.getName());
         } catch (IOException | ServletException ex) {
             if (DEBUG)
                 ex.printStackTrace();
-            return "/uploadFailed.jsp";
+            return "/upload.jsp";
         }
         //Starting at 1 as Part 0 is the 'action'
         for (int j = 1; j < songs.size(); j++) {
@@ -41,7 +43,7 @@ public class UploadCommand implements Command {
             } catch (IOException ex) {
                 if (DEBUG)
                     ex.printStackTrace();
-                return "/uploadFailed.jsp";
+                return "/upload.jsp";
             }
             byte buffer[] = new byte[(int)songs.get(j).getSize()];
             int x;
@@ -50,7 +52,7 @@ public class UploadCommand implements Command {
             } catch (IOException ex) {
                 if (DEBUG)
                     ex.printStackTrace();
-                return "/uploadFailed.jsp";
+                return "/upload.jsp";
             }
             for (int i = 0; i < buffer.length; i++) {
                 buffer[i] = ((byte)x);
@@ -59,7 +61,7 @@ public class UploadCommand implements Command {
                 } catch (IOException ex) {
                     if (DEBUG)
                         ex.printStackTrace();
-                    return "/uploadFailed.jsp";
+                    return "/upload.jsp";
                 }
             }
             SongDao dao     = new SongDao();
@@ -89,6 +91,6 @@ public class UploadCommand implements Command {
             count++;
             sWave.Server.log(count + " Files Uploaded using " + (double)uploadSize / 1024.0 / 1024.0 + "MB");
         }
-        return "/uploadComplete.jsp";
+        return "/upload.jsp";
     }
 }

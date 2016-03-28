@@ -1,6 +1,7 @@
 package sWave;
 
 import Dtos.Song;
+import java.util.Arrays;
 
 /**
  *
@@ -45,17 +46,41 @@ public class ID3V2 {
         //Only continue if the needed conditions for extraction are met
         if (buffer != null && id3Check.equals("ID3") && majorVersion == 3) {
             //The flags byte contains bits that flag certain features as 'on' or 'off
-            byte  flags = buffer[5];
+            int flags[]      = dec2bin(buffer[5]);
+            int unsync       = flags[7];
+            int extHeader    = flags[6]; //Is there extended header data after the header?
+            int experimental = flags[5];
+            /*
+                All other flags should be clear according to the spec.
+
+                Most of this is useless anyway, I couldn't find a single MP3 
+                that actually had any of these flags set...
+
+                Anyway the next 4 bytes describe the tag size:
+                We don't need this information yet so lets skip it.
+            */
             
-            //TODO: extract individual bits from flags byte
-            int unsync       = 0;
-            int extHeader    = 0; //Is there extended header data after the header?
-            int experimental = 0;
-            //All other flags should be clear according to the spec.
+            //Lets do a quick and dirty search for tags we want
+            //Replace buffer.length later with the actual tag length
             
-            //The next 4 bytes describe the tag size
-            byte tagSize[] = {buffer[6], buffer[7], buffer[8], buffer[9]};
+            //Temp hacking
             
+            for (int i = 11; i < buffer.length - 4; i += 4) {
+                String frame = "" + (char)buffer[i] + (char)buffer[i + 1] + (char)buffer[i + 2] + (char)buffer[i + 3];
+                if (frame.equals("TIT2"))
+                    System.out.println("Title Found");
+                else if (frame.equals("TPE1"))
+                    System.out.println("Artist Found");
+                else if (frame.equals("TCON"))
+                    System.out.println("Genre Found");
+                else if (frame.equals("TLEN"))
+                    System.out.println("Duration Found");
+                else if (frame.equals("TYER"))
+                    System.out.println("Year Found");
+                else if (frame.equals("APIC"))
+                    System.out.println("Artwork Found");
+            }
+
             //==================================================================
             
             /*
@@ -71,5 +96,18 @@ public class ID3V2 {
             */
               
         }
+    }
+    
+    private static int[] dec2bin(byte dec) {
+        int bin[] = new int[8];
+        for (int i = 0; i < 8; i++)
+            bin[i] = 0;
+        int count = 7;
+        while (dec > 0) {
+            bin[count] = dec % 2;
+            dec /= 2;
+            count--;
+        }
+        return bin;
     }
 }

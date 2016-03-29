@@ -15,11 +15,10 @@ https://dev.mysql.com/doc/refman/5.7/en/packet-too-large.html
 
 Our changes to mysql configuration are as follows:
 
+***UPDATE*** The max_allowed_packet variable should now set itself when our SQL file is loaded
 
 max_allowed_packet = 16M
-
 to allow us to upload files up to 16M
-
 
 
 innodb_log_file_size

@@ -113,7 +113,7 @@ public class ID3V2 {
                             processGenre();
                             break;
                         case "TLEN" :
-                            processDuration();
+                            song.setDuration(processDuration());
                             break;
                         case "TYER" :
                             processYear();
@@ -190,9 +190,9 @@ public class ID3V2 {
 
     private static String processTitle() {
         System.out.println("Found Title");
-        //Move past the frame ID & Flags
+        //Move past the frame ID
         currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         int encoding = (int)buffer[currentByte];
@@ -200,6 +200,8 @@ public class ID3V2 {
         String title = "";
         //Using size - 1 to ignore the encoding byte
         for (int i = 0; i < (size - 1); i++) {
+            if ((char)buffer[currentByte] == '\0')
+                System.out.println("Bazinga!");
             title += (char)buffer[currentByte];
             currentByte++;
         }
@@ -209,16 +211,16 @@ public class ID3V2 {
 
     private static String processArtist() {
         System.out.println("Found Artist");
-        //Move past the frame ID & Flags
+        //Move past the frame ID
         currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         int encoding = (int)buffer[currentByte];
         currentByte++;
         String artist = "";
-        //Using size - 2 to ignore the encoding byte and the ending null byte
-        for (int i = 0; i < (size - 2); i++) {
+        //Using size - 1 to ignore the encoding byte
+        for (int i = 0; i < (size - 1); i++) {
             artist += (char)buffer[currentByte];
             currentByte++;
         }
@@ -230,8 +232,23 @@ public class ID3V2 {
         System.out.println("Found Genre");
     }
 
-    private static void processDuration() {
+    private static int processDuration() {
         System.out.println("Found Duration");
+        //Move past the frame ID
+        currentByte += 4;
+        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        //Move past the frame size & flags
+        currentByte += 6;
+        int encoding = (int)buffer[currentByte];
+        currentByte++;
+        String duration = "";
+        //Using size - 1 to ignore the encoding byte
+        for (int i = 0; i < (size - 1); i++) {
+            duration += (char)buffer[currentByte];
+            currentByte++;
+        }
+        currentByte++;
+        return Integer.parseInt(duration);
     }
 
     private static void processYear() {
@@ -247,9 +264,9 @@ public class ID3V2 {
             when they came up with this spec.
         */
         System.out.println("Found Artwork");
-        //Move past the frame ID & Flags
+        //Move past the frame ID
         currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         
@@ -279,6 +296,8 @@ public class ID3V2 {
         System.out.print('\n');
         currentByte++;
         //Finally!
+        System.out.println("Size: " + size);
+        System.out.println("Header: " + (currentByte - headerStart));
         
         byte artwork[] = new byte[size - (currentByte - headerStart)];
         for (int i = 0; i < artwork.length; i++) {

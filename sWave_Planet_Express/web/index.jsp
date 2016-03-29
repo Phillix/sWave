@@ -98,15 +98,19 @@
             <a id="playlistsLink" href="radioTest.jsp">
                 <h2>Radio Streams</h2>
             </a>
-            <a id="liveLink" href="live.jsp">
-                <h2>sWave Live!</h2>
-            </a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
             </span>
         </aside>
         <div id="midsection">
+            <select id="visualSelection">
+                <option>Artwork</option>
+                <option>2D Bars</option>
+                <option>3D Bars</option>
+                <option>Wave</option>
+                <option>Particles</option>
+            </select>
             <div id="visualizer">
             </div>
         </div>

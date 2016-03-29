@@ -14,3 +14,9 @@
 #copyNotice {
     bottom: 100px;
 }
+
+#visualSelection {
+    position: absolute;
+    bottom:   10px;
+    right:    10px;
+}

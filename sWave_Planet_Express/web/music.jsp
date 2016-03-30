@@ -149,16 +149,32 @@
                         </tr>
                         <tr>
                             <td class="label">
-                                <strong>Artist:</strong>
+                                <%if (!s.getArtist().equals("artist")) {%>
+                                    <strong>Artist:</strong>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td>
-                                <%=s.getArtist()%>
+                                <%if (!s.getArtist().equals("artist")) {%>
+                                    <%=s.getArtist()%>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td class="label">
-                                <strong>Album:</strong>
+                                <%if (!s.getGenre().equals("genre")) {%>
+                                    <strong>Genre:</strong>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td>
-                                <%=s.getAlbum()%>
+                                <%if (!s.getGenre().equals("genre")) {%>
+                                    <%=s.getGenre()%>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td class="label">
                                 <strong>Price:</strong>
@@ -178,16 +194,32 @@
                         <tr/>
                         <tr>
                             <td class="label">
-                                <strong>Genre:</strong>
+                                <%if (!s.getAlbum().equals("album")) {%>
+                                    <strong>Album:</strong>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td>
-                                <%=s.getGenre()%>
+                                <%if (!s.getAlbum().equals("album")) {%>
+                                    <%=s.getAlbum()%>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td class="label">
-                                <strong>Year:</strong>
+                                <%if (s.getYear() > 0) {%>
+                                    <strong>Year:</strong>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td>
-                                <%=s.getYear()%>
+                                <%if (s.getYear() > 0) {%>
+                                    <%=s.getYear()%>
+                                <%} else {%>
+                                    &#160;
+                                <%}%>
                             </td>
                             <td colspan="2">
                                 &#160;

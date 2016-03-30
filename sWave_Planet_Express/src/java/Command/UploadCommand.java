@@ -47,7 +47,7 @@ public class UploadCommand implements Command {
                 track.setUploaded(new Date(System.currentTimeMillis()));
                 //The ID3 extractors will set whatever data they can find
                 ID3V1.extractTags(track);
-                //ID3V2.extractTags(track);
+                ID3V2.extractTags(track);
                 dao.addNewSong(track);
             }
         }

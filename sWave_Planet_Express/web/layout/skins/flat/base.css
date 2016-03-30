@@ -142,7 +142,18 @@
             }
             
             td.artwork {
-                width:  100px;
+                width:  110px;
+            }
+            
+            img.artwork {
+                position:           absolute;
+                top:                0px;
+                left:               0px;
+                width:              100px;
+                height:             100px;
+                box-shadow:         0px 0px 5px;
+                border-right-style: solid;
+                border-width:       1px;
             }
 
             @-moz-keyframes slide_up {

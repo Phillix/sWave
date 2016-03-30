@@ -88,3 +88,8 @@ input:active {
     stroke: none;
     fill:   green;
 }
+
+.iconText {
+    font-family: monospace;
+    fill: green;
+}

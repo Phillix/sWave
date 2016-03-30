@@ -49,20 +49,20 @@
                     <ellipse cx="97.5" cy="0"   rx="70" ry="51" fill="#000"/>
                     <ellipse cx="97.5" cy="100" rx="70" ry="51" fill="#000"/>
                 </mask>
-                <rect x="6"   y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="12"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="18"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="24"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="30"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="36"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="42"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="48"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="54"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="60"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="66"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="72"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect x="78"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <text x="100" y="68" font-family="Raleway" font-size="60">sWave</text>
+                <rect class="iconRectFilled" x="6"   y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="12"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="18"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="24"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="30"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="36"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="42"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="48"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="54"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="60"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="66"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="72"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <rect class="iconRectFilled" x="78"  y="0" width="3" height="100" mask="url(#mask)"/>
+                <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
                 <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>

@@ -354,3 +354,11 @@ p.ticketIssue {
         -moz-transform: translateY(0px);
     }
 }
+
+#pauseButton1 {
+    display: none;
+}
+
+#pauseButton2 {
+    display: none;
+}

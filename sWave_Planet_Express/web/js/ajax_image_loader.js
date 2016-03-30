@@ -8,7 +8,7 @@ function loadArtwork(songid, image) {
     request.onload = function() {
         blob = this.response;
         if (blob != null && blob.size != 0)
-            image.src = URL.createObjectURL(blob);
+            image.src = genURL(blob);
         else
             image.src = "images/MP3.png";
     };

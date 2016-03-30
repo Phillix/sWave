@@ -10,7 +10,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
-    along with eXastum.  If not, see <http://www.gnu.org/licenses/>
+    along with Macgril.  If not, see <http://www.gnu.org/licenses/>
 */
 
 function $(name) {
@@ -50,6 +50,10 @@ function generate(x, y, z) {
     el.setAttribute("id", id);
     $(y).appendChild(el);
     return id;
+}
+
+function genURL(x) {
+    return URL.createObjectURL(x);
 }
 
 function switchTabs(id1, id2) {

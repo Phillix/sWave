@@ -59,6 +59,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("loadArtwork") ) {
             //Load Album Artwork
             command = new LoadArtworkCommand();
+        } else if ( action.equalsIgnoreCase("streamNG") ) {
+            //Begin Stream using Next Gen Streaming System ;)
+            command = new StreamNGCommand();
         } else {
             command = new DummyCommand();
         }

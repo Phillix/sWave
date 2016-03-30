@@ -14,7 +14,8 @@ body {
 }
 
 a {
-    font-family: lighterRaleway;
+    color:           #000;
+    font-family:     lighterRaleway;
     text-decoration: none;
 }
 

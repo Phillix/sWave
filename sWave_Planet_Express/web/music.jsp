@@ -40,6 +40,7 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/ajax_image_loader.js"></script>
+        <script src="js/ajax_streamer.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
@@ -225,11 +226,14 @@
                                 &#160;
                             </td>
                             <td class="actionButton">
-                                <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
-                                    <input type="hidden" name="action" value="stream"/>
-                                    <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                    <input type="submit" value="&#9658;"/>
-                                </form>
+                                <!-- OLD STREAMING SOLUTION
+                                    <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
+                                        <input type="hidden" name="action" value="stream"/>
+                                        <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                        <input type="submit" value="&#9658;"/>
+                                    </form>
+                                -->
+                                <button onclick="streamNG(<%=s.getSongId()%>)">&#9658;</button>
                             </td>
                         </tr>
                     </table>
@@ -274,12 +278,15 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
+        <!-- OLD STREAMING SYSTEM -->
         <%if (session.getAttribute("currentSong") != null) {%>
             <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
             <%if (request.getParameter("time") != null) {%>
                 <script>$("player").currentTime = <%=request.getParameter("time")%></script>
             <%}%>
         <%}%>
+        -->
+        <audio id="player"></audio>
     </body>
 </html>
 

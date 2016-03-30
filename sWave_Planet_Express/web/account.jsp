@@ -38,9 +38,9 @@
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Account - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
-        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/account.css"/>
+        <link id="skin1" rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <link id="skin2" rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link id="skin3" rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/account.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>
@@ -48,6 +48,7 @@
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/sWaveScripts.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
@@ -214,25 +215,31 @@
                               }
                         }
                    } else if (request.getParameter("view").equals("settings")) {%>
-                        Current Skin: <%=currentUser.getSkin()%>
                         <form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="changeSkin"/>
-                            <label>Select Skin: </label>
-                            <select name="skin">
-                                <option>sWave</option>
-                                <option>Flat</option>
-                                <option>Flat Darkness</option>
-                                <option>Nova</option>
-                                <option>Quantum</option>
-                                <option>Evolved</option>
-                                <option>Legacy</option>
-                                <option>Shire</option>
-                                <option>sMart</option>
-                                <option>sMart++</option>
-                                <option>1337</option>
-                                <option>9x</option>
+                            <!--
+                                The skin field must have custom inline CSS as we 
+                                don't want it to be affected by differences in 
+                                skin due to previews otherwise when previewing 
+                                skins the selector might move around and create 
+                                a horrible experience.
+                            -->
+                            <select name="skin" style="position:fixed; top: 80px; left: 220px;">
+                                <option onmouseover="previewSkin('swave')" <%if (currentUser.getSkin().toLowerCase().equals("swave")) {%>selected="selected"<%}%>>sWave</option>
+                                <option onmouseover="previewSkin('flat')" <%if (currentUser.getSkin().toLowerCase().equals("flat")) {%>selected="selected"<%}%>>Flat</option>
+                                <option onmouseover="previewSkin('flat_darkness')" <%if (currentUser.getSkin().toLowerCase().equals("flat_darkness")) {%>selected="selected"<%}%>>Flat Darkness</option>
+                                <option onmouseover="previewSkin('nova')" <%if (currentUser.getSkin().toLowerCase().equals("nova")) {%>selected="selected"<%}%>>Nova</option>
+                                <option onmouseover="previewSkin('quantum')" <%if (currentUser.getSkin().toLowerCase().equals("quantum")) {%>selected="selected"<%}%>>Quantum</option>
+                                <option onmouseover="previewSkin('evolved')" <%if (currentUser.getSkin().toLowerCase().equals("evolved")) {%>selected="selected"<%}%>>Evolved</option>
+                                <option onmouseover="previewSkin('legacy')" <%if (currentUser.getSkin().toLowerCase().equals("legacy")) {%>selected="selected"<%}%>>Legacy</option>
+                                <option onmouseover="previewSkin('shire')" <%if (currentUser.getSkin().toLowerCase().equals("shire")) {%>selected="selected"<%}%>>Shire</option>
+                                <option onmouseover="previewSkin('smart')" <%if (currentUser.getSkin().toLowerCase().equals("smart")) {%>selected="selected"<%}%>>sMart</option>
+                                <option onmouseover="previewSkin('smart++')" <%if (currentUser.getSkin().toLowerCase().equals("smar++")) {%>selected="selected"<%}%>>sMart++</option>
+                                <option onmouseover="previewSkin('1337')" <%if (currentUser.getSkin().toLowerCase().equals("1337")) {%>selected="selected"<%}%>>1337</option>
+                                <option onmouseover="previewSkin('9x')" <%if (currentUser.getSkin().toLowerCase().equals("9x")) {%>selected="selected"<%}%>>9x</option>
                             </select>
-                            <input type="submit" value="Apply"/>
+                                <br/><br/>
+                            <input type="submit" value="Apply"/><br/><br/>
                         </form>
                         <em>Your Skin Preference will stored in our database and maintained across machines.</em>
                         <br/><br/>

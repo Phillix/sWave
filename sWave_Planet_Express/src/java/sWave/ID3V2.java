@@ -141,7 +141,7 @@ public class ID3V2 {
         */
         
         int total = 0;
-        int size[][] = {dec2bin((int)b), dec2bin((int)b0), dec2bin((int)b1), dec2bin((int)b2)};
+        int size[][] = {dec2bin(b), dec2bin(b0), dec2bin(b1), dec2bin(b2)};
         
         for (int j = 0; j < 4; j++)
             for (int i = 1; i < 8; i++)
@@ -156,9 +156,9 @@ public class ID3V2 {
             The same as above except we don't ignore the first bit of each.
             There is a special place in hell for whoever came up with this.
         */
-        
         int total = 0;
-        int size[][] = {dec2bin((int)b), dec2bin((int)b0), dec2bin((int)b1), dec2bin((int)b2)};
+        
+        int size[][] = {dec2bin(b), dec2bin(b0), dec2bin(b1), dec2bin(b2)};
         
         for (int j = 0; j < 4; j++)
             for (int i = 0; i < 8; i++)
@@ -168,13 +168,22 @@ public class ID3V2 {
         return total;
     }
     
-    private static int[] dec2bin(int dec) {
+    private static int[] dec2bin(byte dec) {
 
         //If the MSB is 1 two's compliment will kick in and screw us up
         //I can't believe Java doesn't have unsigned types >.<
         
-        if (dec < 0)
-            dec = (int)(Math.abs(dec) + Math.pow(2, 7));
+        boolean decwlt0 = false;
+        
+        if (dec < 0) {
+            decwlt0  = true;
+            byte mask = 1;
+            mask <<= 7;
+            dec = (byte)(dec ^ mask);
+        }
+        
+        while(dec > 255)
+            dec %= 2;
         
         int bin[] = new int[8];
         for (int i = 0; i < 8; i++)
@@ -185,6 +194,12 @@ public class ID3V2 {
             dec /= 2;
             count--;
         }
+
+        if (decwlt0)
+            bin[0] = 1;
+
+        System.out.println(Arrays.toString(bin));
+        
         return bin;
     }
 
@@ -192,20 +207,21 @@ public class ID3V2 {
         System.out.println("Found Title");
         //Move past the frame ID
         currentByte += 4;
-        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         int encoding = (int)buffer[currentByte];
         currentByte++;
         String title = "";
+        System.out.println(size - 1);
         //Using size - 1 to ignore the encoding byte
         for (int i = 0; i < (size - 1); i++) {
-            if ((char)buffer[currentByte] == '\0')
-                System.out.println("Bazinga!");
             title += (char)buffer[currentByte];
             currentByte++;
         }
         currentByte++;
+        if (title.length() > 255)
+            title = title.substring(0, 250) + "...";
         return title;
     }
 
@@ -213,7 +229,7 @@ public class ID3V2 {
         System.out.println("Found Artist");
         //Move past the frame ID
         currentByte += 4;
-        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         int encoding = (int)buffer[currentByte];
@@ -225,6 +241,8 @@ public class ID3V2 {
             currentByte++;
         }
         currentByte++;
+        if (artist.length() > 255)
+            artist = artist.substring(0, 250) + "...";
         return artist;
     }
 
@@ -236,7 +254,7 @@ public class ID3V2 {
         System.out.println("Found Duration");
         //Move past the frame ID
         currentByte += 4;
-        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         int encoding = (int)buffer[currentByte];
@@ -266,7 +284,7 @@ public class ID3V2 {
         System.out.println("Found Artwork");
         //Move past the frame ID
         currentByte += 4;
-        int size = calcID3TotalSize(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
+        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
         //Move past the frame size & flags
         currentByte += 6;
         

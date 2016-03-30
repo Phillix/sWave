@@ -42,7 +42,7 @@
         <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
+    <body>
         <header class="panel" id="topbar">
             <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -68,10 +68,10 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>
-                <a id="shopLink" href="shop.jsp">Shop</a>
-                <a id="accountLink" href="account.jsp">Account</a>
-                <a id="aboutLink" href="about.jsp">About</a>
+                <a class="currentPageLink" href="index.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
@@ -94,15 +94,9 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a id="indexLink" href="index.jsp">
-                <h2>Now Playing</h2>
-            </a>
-            <a id="musicLink" class="currentPageLink" href="music.jsp">
-                <h2>Library</h2>
-            </a>
-            <a id="playlistsLink" href="playlists.jsp">
-                <h2>Playlists</h2>
-            </a>
+            <a href="index.jsp"><h2>Now Playing</h2></a>
+            <a class="currentPageLink" href="music.jsp"><h2>Library</h2></a>
+            <a href="playlists.jsp"><h2>Playlists</h2></a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
@@ -119,7 +113,7 @@
                         width:50px;
                     }
                 </style>
-                <li class="panel songListing <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>playing<%}%>">
+                <li class="panel songListing">
                     <table style="font-size: 14px; width:100%; height:100%; position:relative; top: 0px; left:0px; right:0px;">
                         <tr>
                             <td rowspan="4" class="artwork">
@@ -226,14 +220,7 @@
                                 &#160;
                             </td>
                             <td class="actionButton">
-                                <!-- OLD STREAMING SOLUTION
-                                    <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
-                                        <input type="hidden" name="action" value="stream"/>
-                                        <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                        <input type="submit" value="&#9658;"/>
-                                    </form>
-                                -->
-                                <button onclick="streamNG(<%=s.getSongId()%>)">&#9658;</button>
+                                <button onclick="streamNG(<%=s.getSongId()%>);">&#9658;</button>
                             </td>
                         </tr>
                     </table>
@@ -278,14 +265,6 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <!-- OLD STREAMING SYSTEM -->
-        <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
-            <%if (request.getParameter("time") != null) {%>
-                <script>$("player").currentTime = <%=request.getParameter("time")%></script>
-            <%}%>
-        <%}%>
-        -->
         <audio id="player"></audio>
     </body>
 </html>

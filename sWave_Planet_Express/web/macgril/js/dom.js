@@ -10,7 +10,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
-    along with Macgril.  If not, see <http://www.gnu.org/licenses/>
+    along with Macgril. If not, see <http://www.gnu.org/licenses/>
 */
 
 function $(name) {
@@ -54,6 +54,12 @@ function generate(x, y, z) {
 
 function genURL(x) {
     return URL.createObjectURL(x);
+}
+
+function elementIDToggle(id, element) {
+    if ($(id) !== null && $(id) !== undefined)
+        $(id).removeAttribute("id");
+    element.id = id;
 }
 
 function switchTabs(id1, id2) {

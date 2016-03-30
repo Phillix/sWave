@@ -39,7 +39,7 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
+    <body>
         <header class="panel" id="topbar">
             <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -65,10 +65,10 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>
-                <a id="shopLink" href="shop.jsp">Shop</a>
-                <a id="accountLink" href="account.jsp">Account</a>
-                <a id="aboutLink" href="about.jsp">About</a>
+                <a class="currentPageLink" href="index.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
@@ -91,15 +91,9 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a id="indexLink" href="index.jsp">
-                <h2>Now Playing</h2>
-            </a>
-            <a id="musicLink" href="music.jsp">
-                <h2>Library</h2>
-            </a>
-            <a id="playlistsLink" class="currentPageLink" href="playlists.jsp">
-                <h2>Playlists</h2>
-            </a>
+            <a href="index.jsp"><h2>Now Playing</h2></a>
+            <a href="music.jsp"><h2>Library</h2></a>
+            <a class="currentPageLink" href="playlists.jsp"><h2>Playlists</h2></a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
@@ -107,13 +101,7 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <h1>Playlists</h1>
-            
-            
-            
-            
-            
-            
+            <h1>Playlists</h1>   
         </div>
         <aside class="panel" id="right_sidebar">
             <br/>
@@ -152,12 +140,7 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
-            <%if (request.getParameter("time") != null) {%>
-                <script>$("player").currentTime = <%=request.getParameter("time")%></script>
-            <%}%>
-        <%}%>
+        <audio id="player"></audio>
     </body>
 </html>
 

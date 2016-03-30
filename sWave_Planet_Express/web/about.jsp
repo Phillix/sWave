@@ -31,7 +31,7 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
+    <body>
         <header class="panel" id="topbar">
             <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -57,10 +57,10 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a id="indexLink" href="index.jsp">Music</a>
-                <a id="shopLink" href="shop.jsp">Shop</a>
-                <a id="accountLink" href="account.jsp">Account</a>
-                <a id="aboutLink" class="currentPageLink" href="about.jsp">About</a>
+                <a href="index.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a class="currentPageLink" href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
@@ -136,12 +136,7 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
-            <%if (request.getParameter("time") != null) {%>
-                <script>$("player").currentTime = <%=request.getParameter("time")%></script>
-            <%}%>
-        <%}%>
+        <audio id="player"></audio>
     </body>
 </html>
 

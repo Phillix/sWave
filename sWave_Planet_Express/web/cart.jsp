@@ -37,14 +37,14 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
+    <body>
         <header class="panel" id="topbar">
             <img id="header_logo" src="images/logo_black.png" height="60"/>
             <nav>
-                <a id="indexLink" href="index.jsp">Music</a>
-                <a id="shopLink" href="shop.jsp">Shop</a>
-                <a id="accountLink" href="account.jsp">Account</a>
-                <a id="aboutLink" href="about.jsp">About</a>
+                <a href="index.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
@@ -135,12 +135,7 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <%if (session.getAttribute("currentSong") != null) {%>
-            <audio id="player" src="<%=sWave.Server.PROTOCOL + sWave.Server.DOMAIN + ":" + sWave.Server.TOMCAT_PORT + "/" + ((Song)session.getAttribute("currentSong")).getSongId() + ".mp3"%>"></audio>
-            <%if (request.getParameter("time") != null) {%>
-                <script>$("player").currentTime = <%=request.getParameter("time")%></script>
-            <%}%>
-        <%}%>
+        <audio id="player"></audio>
     </body>
 </html>
 

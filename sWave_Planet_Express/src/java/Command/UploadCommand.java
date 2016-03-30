@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import sWave.ID3V1;
 import sWave.ID3V2;
 
 /**
@@ -29,7 +30,7 @@ public class UploadCommand implements Command {
 
             //Starting at 1 as Part 0 is the 'action'
             for (int j = 1; j < songs.size(); j++) {
-                InputStream fileStream = null;
+                InputStream fileStream;
                 fileStream    = songs.get(j).getInputStream();
                 byte buffer[] = new byte[(int)songs.get(j).getSize()];
                 int data = fileStream.read();
@@ -44,8 +45,9 @@ public class UploadCommand implements Command {
                 track.setFilename(fileName.substring(0, fileName.length() - 4));
                 track.setTitle(fileName.substring(0, fileName.length() - 4));
                 track.setUploaded(new Date(System.currentTimeMillis()));
-                //The ID3V2 extractor will set what data it can find
-                ID3V2.extractTags(track);
+                //The ID3 extractors will set whatever data they can find
+                ID3V1.extractTags(track);
+                //ID3V2.extractTags(track);
                 dao.addNewSong(track);
             }
         }

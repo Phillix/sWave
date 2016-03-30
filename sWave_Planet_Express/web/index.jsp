@@ -32,6 +32,7 @@
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/ajax_image_loader.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
@@ -104,6 +105,24 @@
             </span>
         </aside>
         <div id="midsection">
+            <h1 id="songTitle">
+                <%if (session.getAttribute("currentSong") != null) {%>
+                    <%=((Song)session.getAttribute("currentSong")).getTitle()%>
+                    &#160;&#160;-&#160;&#160;
+                    <%=((Song)session.getAttribute("currentSong")).getArtist()%>
+                <%} else {%>
+                    Welcome to sWave
+                    <%if (currentUser != null) {%>
+                        , <%=currentUser.getFname()%>!        
+                   <%}
+                }%>
+            </h1>
+            <%if (session.getAttribute("currentSong") != null) {%>
+                <img id="testImage"/>
+                <script>
+                    loadArtwork(<%=((Song)session.getAttribute("currentSong")).getSongId()%>, $("testImage"));
+                </script>
+            <%}%>
             <select id="visualSelection">
                 <option>Artwork</option>
                 <option>2D Bars</option>

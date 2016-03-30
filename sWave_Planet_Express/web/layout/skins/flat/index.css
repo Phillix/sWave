@@ -20,3 +20,19 @@
     bottom:   10px;
     right:    10px;
 }
+
+#songTitle {
+    position:    absolute;
+    left:        20px;
+    top:         0px;
+    font-weight: normal;
+    -moz-animation: fadeRight 0.8s;
+}
+
+#testImage {
+    position:     absolute;
+    bottom:       10px;
+    left:         10px;
+    width:        150px;
+    height:       150px;
+}

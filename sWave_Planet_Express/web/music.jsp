@@ -39,6 +39,7 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/ajax_image_loader.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
@@ -121,7 +122,8 @@
                     <table style="font-size: 14px; width:100%; height:100%; position:relative; top: 0px; left:0px; right:0px;">
                         <tr>
                             <td rowspan="4" class="artwork">
-                                <img alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png" width="90" height="90"/>
+                                <img id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png" width="90" height="90"/>
+                                <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                             </td>
                             <td colspan="6">
                                 <strong>

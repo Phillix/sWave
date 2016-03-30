@@ -25,14 +25,14 @@
 
 @-moz-keyframes fadeRight {
     0% {
-        left:    0px;
+        -moz-transform: translateY(-30px);
         opacity: 0.0;
     }
 }
 
 @-webkit-keyframes fadeRight {
     0% {
-        left:    0px;
+        -webkit-transform: translateY(-30px);
         opacity: 0.0;
     }
 }

@@ -56,6 +56,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("createPlaylist") ) {
             //Creating a playlist
             command = new CreatePlaylistCommand();
+        } else if ( action.equalsIgnoreCase("loadArtwork") ) {
+            //Load Album Artwork
+            command = new LoadArtworkCommand();
         } else {
             command = new DummyCommand();
         }

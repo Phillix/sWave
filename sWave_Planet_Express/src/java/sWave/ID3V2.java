@@ -301,7 +301,7 @@ public class ID3V2 {
         System.out.print('\n');
 
         currentByte++;
-        System.out.println("Artwork Type: " + (int)buffer[currentByte]);
+        System.out.println("Artwork Type: " + buffer[currentByte]);
         //Represents the type of artwork
         //Could it be a "A bright coloured fish"?
         currentByte++;

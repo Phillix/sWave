@@ -21,6 +21,9 @@ function streamNG(songid) {
                 $("player").src = genURL(blob);
                 $("player").play();
             }
+            //Remove focus from the current focused element so keyboard controls 
+            //can be used straight away.
+            document.activeElement.blur();
         }
     };
     request.send(formdata);

@@ -11,22 +11,31 @@ function listenForEvents() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
-        $("playerStatus").innerHTML = "Playing";
+        $("playerStatus").innerHTML     = "Playing";
     });
     $("player").addEventListener("pause", function() {
         $("playButton").style.display   = "block";
         $("pauseButton1").style.display = "none";
         $("pauseButton2").style.display = "none";
-        $("playerStatus").innerHTML = "Paused";
+        $("playerStatus").innerHTML     = "Paused";
     });
     $("player").addEventListener("progress", function() {$("playerStatus").innerHTML = "Downloading...";});
     
     document.body.addEventListener("keypress", function(event) {
         if ((event.which === 32) || (event.keyCode === 32)) {
-            //Don't perform the action if user types the key in an input field
-            if (!document.activeElement.toString().contains("HTMLInputElement")) {
+            /*
+             * Don't perform the action if user types the key in an input field 
+             * or a button has focus. This prevents a bug where a user hits 
+             * space while focused on the play track button while the song is 
+             * playing resulting in a conflict where the song pauses for a 
+             * moment then plays again from the start instantly.
+             */
+            var currEl = document.activeElement.toString();
+            if (!currEl.contains("HTMLInputElement") && !currEl.contains("HTMLButtonElement")) {
                 event.preventDefault();
                 playPause();
+            } else {
+                $("playerStatus").innerHTML = "An Input has Focus";
             }
         }
         else if ((event.which === 39) || (event.keyCode === 39)) {
@@ -63,7 +72,7 @@ function listenForEvents() {
 function playPause() {
     if (!$("player").paused)
         $("player").pause();
-    else
+    else if ($("player").paused)
         $("player").play();
 }
 

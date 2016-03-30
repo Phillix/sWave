@@ -44,7 +44,7 @@ public class Server {
     public static final long JVMHEAP = Runtime.getRuntime().totalMemory();
     public static final long FREEMEM = Runtime.getRuntime().freeMemory();
 
-    public static final String DEFAULT_SKIN = "swave";
+    public static final String DEFAULT_SKIN = "flat";
 
     public static void shutdown() {
         log("System Halt Requested");

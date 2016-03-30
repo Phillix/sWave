@@ -8,7 +8,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Login</title>
-        <!-- Hardcoded flat skin as we don't know skin preference until after login -->
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/base.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/<%=sWave.Server.DEFAULT_SKIN%>.css"/>
@@ -18,7 +17,29 @@
     <body <%if (request.getParameter("failed") != null) {%>onload="quickShake('loginBox', false)"<%}%>>
         <div class="panel" id="loginBox">
             <form id="loginForm" action="UserActionServlet" method="POST">
-                <img id="logo" src="images/logo_black.png"/><br/>
+                <svg id="logo" width="194" height="60" viewBox="0 0 300 100">
+                    <mask id="mask" x="0" y="0" width="100" height="100">
+                        <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+                        <ellipse cx="2.5"  cy="0"   rx="30" ry="51" fill="#000"/>
+                        <ellipse cx="2.5"  cy="100" rx="30" ry="51" fill="#000"/>
+                        <ellipse cx="97.5" cy="0"   rx="70" ry="51" fill="#000"/>
+                        <ellipse cx="97.5" cy="100" rx="70" ry="51" fill="#000"/>
+                    </mask>
+                    <rect class="iconRectFilled" x="6"   y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="12"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="18"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="24"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="30"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="36"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="42"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="48"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="54"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="60"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="66"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="72"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <rect class="iconRectFilled" x="78"  y="0" width="3" height="100" mask="url(#mask)"/>
+                    <text class="iconText" x="100" y="68" font-size="60">sWave</text>
+                </svg>
                 <input type="hidden" name="action" value="login"/>
                 <%if (request.getParameter("refer") != null) {%>
                     <input type="hidden" name="refer" value="<%=request.getParameter("refer")%>"/>

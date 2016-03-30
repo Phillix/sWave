@@ -163,15 +163,15 @@
                                 <%}%>
                             </td>
                             <td class="label">
-                                <%if (!s.getGenre().equals("genre")) {%>
-                                    <strong>Genre:</strong>
+                                <%if (s.getYear() > 0) {%>
+                                    <strong>Year:</strong>
                                 <%} else {%>
                                     &#160;
                                 <%}%>
                             </td>
                             <td>
-                                <%if (!s.getGenre().equals("genre")) {%>
-                                    <%=s.getGenre()%>
+                                <%if (s.getYear() > 0) {%>
+                                    <%=s.getYear()%>
                                 <%} else {%>
                                     &#160;
                                 <%}%>
@@ -208,15 +208,15 @@
                                 <%}%>
                             </td>
                             <td class="label">
-                                <%if (s.getYear() > 0) {%>
-                                    <strong>Year:</strong>
+                                <%if (!s.getGenre().equals("genre")) {%>
+                                    <strong>Genre:</strong>
                                 <%} else {%>
                                     &#160;
                                 <%}%>
                             </td>
                             <td>
-                                <%if (s.getYear() > 0) {%>
-                                    <%=s.getYear()%>
+                                <%if (!s.getGenre().equals("genre")) {%>
+                                    <%=s.getGenre()%>
                                 <%} else {%>
                                     &#160;
                                 <%}%>

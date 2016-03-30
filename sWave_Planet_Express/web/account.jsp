@@ -49,6 +49,7 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/sWaveScripts.js"></script>
+        <script src="js/ajax_uploader.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSong") != null) {%>onload="initsWaveAudio()"<%}%>>
         <header class="panel" id="topbar">
@@ -249,7 +250,18 @@
                         <label>Screensaver</label><input type="checkbox"/><br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
-                                <iframe style="border:none; width:500px; height:400px;" src="upload.jsp"></iframe>
+                                <h1>Admin Panel</h1>
+                                <h3>System</h3>
+                                <h5>CPUs: <%=sWave.Server.CPUs%></h5>
+                                <h5>JVM Heap: <%=sWave.Server.JVMHEAP%></h5>
+                                <h3>Upload Tracks</h3>
+                                <h5><u>Note: Only audio files under 16MB can be uploaded.</u></h5>
+                                <h5><u>Note: You may upload up to 100MB at a time.</u></h5>
+                                <input id="fileSelector" type="file" name="songBlob" accept="audio/mpeg" onchange="showSizes()" multiple/><br/>
+                                <span id="fileSizes"></span>
+                                <button onclick="uploadSongs()">Upload</button>
+                                <progress id="uploadProgress" max="100" value="0"></progress>
+                                <span id="progressInfo"></span>
                             <%} else {
                                 response.sendRedirect("noperm.jsp");
                               }

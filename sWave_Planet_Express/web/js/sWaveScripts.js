@@ -10,3 +10,10 @@ function previewSkin(skin) {
     $("skin3").href = "layout/skins/"      + skin + "/account.css";
 }
 
+function showSizes() {
+    var count = 0;
+    var theFiles = $("fileSelector").files;
+    for (var i = 0; i < theFiles.length; i++)
+        count += theFiles[i].size;
+    $("fileSizes").innerHTML = "Size of Upload: " + Math.round(count/1024/1024) + "MB (MAX 100MB)";
+}

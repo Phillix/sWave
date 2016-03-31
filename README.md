@@ -11,6 +11,11 @@ Team Planet Express
 
 Notes:
 ======
+
+*Standard User:* ceo@banana.com  password
+*Administrator:* admin@swave.com password
+
+
 https://dev.mysql.com/doc/refman/5.7/en/packet-too-large.html
 
 Our changes to mysql configuration are as follows:

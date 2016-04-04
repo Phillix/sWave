@@ -13,7 +13,7 @@
 }
 
 input {
-    width:         284px;
+    width:         calc(100% - 16px);
     left:          0px;
     right:         0px;
     margin-top:    4px;
@@ -25,16 +25,20 @@ input {
     font-size: 12px;
 }
 
-#cancelButton {
-    margin-top:    10px;
-    margin-bottom: 10px;
-    margin-right:  4px;
+.lButton {
+    width:           100%;
+    -moz-transition: 0.3s;
+}
+
+.lButton:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    -moz-transition: 0.3s;
+    text-decoration: underline;
 }
 
 #signupButton {
     display: none;
-    width:   calc(100% - 16px);
-    margin:  8px;
 }
 
 #logo {
@@ -49,7 +53,9 @@ input {
     margin-top:        100px;
     padding:           20px;
     box-shadow:        0px 0px 4px #000;
+}
 
+.noShake {
     animation:         fadeUp 1s;
     -moz-animation:    fadeUp 1s;
     -webkit-animation: fadeUp 1s;
@@ -64,8 +70,13 @@ input {
 
 @-moz-keyframes fadeUp {
     0% {
-        
+        -moz-transform: translateY(40px) scale(0.9);
         opacity: 0.0;
+    }
+    
+    100% {
+        -moz-transform: translateY(0px) scale(1.0);
+        opacity: 1.0;
     }
 }
 

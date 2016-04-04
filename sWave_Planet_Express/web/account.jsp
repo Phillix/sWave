@@ -147,16 +147,18 @@
                     <%OrderDao orders = new OrderDao();
                     for (UltimateOrder theOrder : orders.getFullOrders(currentUser.getUserId())) {%>
                     <li>
-                        Date: <%=theOrder.getDateOrdered()%><br/>
+                        <strong>Date:</strong> <%=theOrder.getDateOrdered()%><br/>
                         <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                        Total: <%=f.format(theOrder.calcTotal())%><br/>
-                        Songs: <%=theOrder.getSongSize()%><br/>
+                        <strong>Total:</strong> <%=f.format(theOrder.calcTotal())%><br/>
+                        <strong>Songs:</strong> <%=theOrder.getSongSize()%><br/>
+                        <ol>
                         <%for(int i = 0; i < theOrder.getSongSize(); i++) {%>
-                        <%=i+1%>: <%=f.format(theOrder.getSongPrice(i))%><br/>
+                            <li><%=f.format(theOrder.getSongPrice(i))%></li>
                         <%}%>
-                        Merch: <%=theOrder.getMerchSize()%><br/>
+                        </ol>
+                        <strong>Merch:</strong> <%=theOrder.getMerchSize()%><br/>
                         <%for(int i = 0; i < theOrder.getMerchSize(); i++) {%>
-                        title: <%=theOrder.getTitle(i)%>  price: <%=f.format(theOrder.getMerchPrice(i))%> quantity: <%=theOrder.getQty(i)%>      
+                        <strong>Title:</strong> <%=theOrder.getTitle(i)%>  price: <%=f.format(theOrder.getMerchPrice(i))%> quantity: <%=theOrder.getQty(i)%>      
                         <%}%>
                         <hr/>
                     </li>

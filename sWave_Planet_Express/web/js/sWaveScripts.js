@@ -17,3 +17,14 @@ function showSizes() {
         count += theFiles[i].size;
     $("fileSizes").innerHTML = "Size of Upload: " + Math.round(count/1024/1024) + "MB (MAX 100MB)";
 }
+
+function displayCustomAlert(msg) {
+    $("customAlert").innerHTML = msg;
+    $("customAlert").style.top = "0px";
+    setTimeout("hideCustomAlert()", 3000);
+}
+
+function hideCustomAlert() {
+    $("customAlert").innerHTML = "";
+    $("customAlert").style.top = "-50px";
+}

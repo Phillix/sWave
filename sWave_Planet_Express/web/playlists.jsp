@@ -1,3 +1,7 @@
+<%@page import="Dtos.PlayTrack"%>
+<%@page import="Dtos.Playlist"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Daos.PlaylistDao"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
@@ -101,7 +105,28 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <h1>Playlists</h1>   
+            <h1>Playlists</h1>
+            <ul>
+            <%
+                PlaylistDao playlists = new PlaylistDao();
+                ArrayList<Playlist> playlistz = playlists.getUserPlaylists(currentUser.getUserId());
+                if (currentUser != null) {
+                    for (Playlist p : playlistz) {%>
+                        <li>
+                            <h3><%=p.getTitle()%></h3>
+                            <button>Play</button><br/>
+                            <ol>
+                                <%for (Song s : p.getPlaylistContents()) {%>
+                                    <li>
+                                        <%=s.getTitle()%>&#160;|&#160;<%=s.getArtist()%>
+                                    </li>
+                                <%}%>
+                            </ol>
+                        </li>
+                  <%}
+                }
+            %>
+            </ul>
         </div>
         <aside class="panel" id="right_sidebar">
             <br/>

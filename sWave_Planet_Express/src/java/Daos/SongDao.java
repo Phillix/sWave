@@ -264,6 +264,7 @@ public class SongDao extends Dao implements SongDaoInterface {
             ps.setString(1, "%" + term + "%");
             ps.setString(2, "%" + term + "%");
             ps.setString(3, "%" + term + "%");
+            ps.setString(4, "%" + term + "%");
             rs = ps.executeQuery();
 
             while (rs.next()) {

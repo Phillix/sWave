@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=sWave.Server.DEFAULT_SKIN%>/<%=sWave.Server.DEFAULT_SKIN%>.css"/>
         <link rel="stylesheet" type="text/css" href="layout/login.css"/>
         <script type="text/javascript" src="macgril/js/dom.js"></script>
-        <script type="text/javascript" src="macgril/js/validate.js"></script>
+        <script type="text/javascript" src="macgril/js/validation.js"></script>
         <script type="text/javascript" src="js/sWaveScripts.js"></script>
         <script type="text/javascript" src="js/sWaveValidation.js"></script>
     </head>
@@ -56,13 +56,13 @@
                 <input class="lButton" id="loginButton" type="submit" value="Login"/>
                 <input class="lButton" onclick="event.preventDefault(); $('loginForm').style.display='none'; $('registerForm').style.display='block';" type="button" value="Sign Up"/>
             </form>
-            <form id="registerForm" style="display:none;" action="UserActionServlet" method="POST">
+            <form id="registerForm" onsubmit="validateRegistration(event)" style="display:none;" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="register"/>
-                <input name="username" type="text" placeholder="Username"/><br/>
-                <input name="email" type="text" placeholder="Email" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$"/><br/>
-                <input name="password" type="password" placeholder="Password"/><br/>
-                <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name"/><br/>
-                <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name"/><br/>
+                <input id="usernameRegField" name="username" type="text" placeholder="Username"/><br/>
+                <input id="emailRegField" name="email" type="text" placeholder="Email"/><br/>
+                <input id="passwordRegField" name="password" type="password" placeholder="Password"/><br/>
+                <input id="fnameRegField" name="fname" type="text" placeholder="First Name"/><br/>
+                <input id="lnameRegField" name="lname" type="text" placeholder="Last Name"/><br/>
                 <input class="lButton" type="submit" value="Sign Up"/>
                 <input class="lButton" onclick="event.preventDefault(); $('registerForm').style.display='none'; $('loginForm').style.display='block';" type="button" value="Log In"/>
             </form>

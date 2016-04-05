@@ -116,8 +116,9 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <%if (term != null && songs != null && merch != null) {%>
-                <h2>Showing <%=songs.size() + merch.size()%> Results for "<%=term%>"</h2>
+            <h2 id="numResultsDisplay"><%if (term == null && songs == null && merch == null) {%>
+                No Results<%} else {%>
+                Showing <%=songs.size() + merch.size()%> Results for "<%=term%>"</h2>
                 <table>
                 <%
                     for (Song s : songs) {%>
@@ -164,8 +165,6 @@
                         </tr>
                 <%}%>
                 </table>
-            <%} else {%>
-                <h1>No Results</h1>
             <%}%>
         </div>
         <aside class="panel" id="right_sidebar">

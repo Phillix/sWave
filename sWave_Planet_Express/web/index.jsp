@@ -103,10 +103,7 @@
                     &#160;&#160;-&#160;&#160;
                     <%=((Song)session.getAttribute("currentSong")).getArtist()%>
                 <%} else {%>
-                    Welcome to sWave
-                    <%if (currentUser != null) {%>
-                        , <%=currentUser.getFname()%>!        
-                   <%}
+                    Welcome to sWave<%if (currentUser != null) {%>, <%=currentUser.getFname()%>!<%}
                 }%>
             </h1>
             <%if (session.getAttribute("currentSong") != null) {%>

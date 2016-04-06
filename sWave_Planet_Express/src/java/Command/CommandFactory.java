@@ -59,6 +59,12 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("streamNG") ) {
             //Begin Stream using Next Gen Streaming System ;)
             command = new StreamNGCommand();
+        } else if ( action.equalsIgnoreCase("deleteFromPlaylist") ) {
+            //Deleting a song from a playlist
+            command = new DeleteFromPlaylistCommand();
+        } else if ( action.equalsIgnoreCase("editSong") ) {
+            //Editing a song
+            command = new EditSongCommand();
         } else {
             command = new DummyCommand();
         }

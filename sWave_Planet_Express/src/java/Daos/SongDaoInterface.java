@@ -14,4 +14,5 @@ public interface SongDaoInterface {
     public Song getSongById(int songid);
     public ArrayList<Song> search(String term);
     public int deleteSong(int songId);
+    public int editDetails(Song s);
 }

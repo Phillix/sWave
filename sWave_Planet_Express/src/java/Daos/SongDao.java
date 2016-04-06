@@ -357,4 +357,69 @@ public class SongDao extends Dao implements SongDaoInterface {
         }
         return OTHER;
     }
+
+    /**
+     * This method is used for editing the details on songs
+     * @param s The song that is being changed, the details are changed on the command and updated here
+     * @return An integer value indicating errors or success
+     */
+    @Override
+    public int editDetails(Song s) {
+        if (s != null) {
+            Connection con        = null;
+            PreparedStatement ps  = null;
+
+            try {
+                con          = getConnection();
+                Blob art  = con.createBlob();
+                art.setBytes(1, s.getArtwork());
+                String query = "UPDATE " + TABLE_NAME + 
+                               "SET " + FILENAME + " = ?," +
+                                        TITLE + " = ?," +
+                                        ARTIST + " = ?," +
+                                        ALBUM + " = ?," +
+                                        GENRE + " = ?," +
+                                        YEAR + " = ?," +
+                                        PRICE + " = ?," +
+                                        LICENSE + " = ?," +
+                                        ARTWORK + " = ?" +
+                               " WHERE " + SONGID + " = ?";
+                ps           = con.prepareStatement(query);
+                ps.setString(1, s.getFilename());
+                ps.setString(2, s.getTitle());
+                ps.setString(3, s.getArtist());
+                ps.setString(4, s.getAlbum());
+                ps.setString(5, s.getGenre());
+                ps.setInt(6, s.getYear());
+                ps.setDouble(7, s.getPrice());
+                ps.setString(8, s.getLicense());
+                ps.setBlob(9, art);
+                ps.setInt(10, s.getSongId());
+                int result = ps.executeUpdate();
+
+                if (result > 0) return SUCCESS;
+            }
+            catch (ClassNotFoundException ex1) {
+                if (DEBUG)
+                    ex1.printStackTrace();
+            }
+            catch (SQLException ex2) {
+                if (DEBUG)
+                    ex2.printStackTrace();
+            }
+            finally {
+                try {
+                    if(ps  != null)
+                        ps.close();
+                    if(con != null)
+                        freeConnection(con);
+                }
+                catch(SQLException e) {
+                    if (DEBUG)
+                        e.printStackTrace();
+                }
+            }
+        }
+        return OTHER;
+    }
 }

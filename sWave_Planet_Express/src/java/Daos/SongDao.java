@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -360,6 +358,11 @@ public class SongDao extends Dao implements SongDaoInterface {
         return OTHER;
     }
 
+    /**
+     * This method is used for editing the details on songs
+     * @param s The song that is being changed, the details are changed on the command and updated here
+     * @return An integer value indicating errors or success
+     */
     @Override
     public int editDetails(Song s) {
         if (s != null) {

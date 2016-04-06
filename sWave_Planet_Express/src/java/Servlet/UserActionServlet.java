@@ -28,8 +28,10 @@ import javax.servlet.annotation.MultipartConfig;
  * Servlet implementation class checkLoginServlet
  */
 @WebServlet(urlPatterns={"/UserActionServlet"})
-//Only allow files under 16mb to be uploaded and no more than 100mb of uploading in a single request
-@MultipartConfig(fileSizeThreshold=1024*1024*16, maxFileSize=1024*1024*16, maxRequestSize=1024*1024*100)
+//Only allow 100mb of uploading in a single request
+//We accept files up to 55mb but filter out the ones over 16mb before it hits
+//the database, this is only for making selecting a list of songs easier
+@MultipartConfig(fileSizeThreshold=1024*1024*55, maxFileSize=1024*1024*55, maxRequestSize=1024*1024*100)
 public class UserActionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     /**

@@ -46,9 +46,8 @@ public class ID3V1 {
             try {
                 song.setYear(Integer.parseInt(year));
             } catch (NumberFormatException e) {
-                System.out.println("Not a Year");
                 if (DEBUG)
-                    e.printStackTrace();
+                    System.out.println("Not a Year");
             }
             currentByte += 4;
             //We ignore the comment, we don't need it

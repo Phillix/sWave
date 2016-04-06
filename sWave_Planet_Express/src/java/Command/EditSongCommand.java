@@ -2,12 +2,8 @@ package Command;
 
 import Daos.SongDao;
 import Dtos.Song;
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.tribes.util.Arrays;
 
 /**
  *

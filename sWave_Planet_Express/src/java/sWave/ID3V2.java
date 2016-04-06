@@ -1,6 +1,7 @@
 package sWave;
 
 import Dtos.Song;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
@@ -13,13 +14,8 @@ import java.util.Arrays;
 public class ID3V2 {
     
     //The data we'll be working with
-    private static byte buffer[];
-    
-    //We'll want this to track where we are
-    private static int currentByte;
-    
-    //The things we are looking for
-    private static String frameIds;
+    private static ByteBuffer buffer;
+    private static String     frameIds;
 
     public static void extractTags(Song song) {
         /*
@@ -39,96 +35,86 @@ public class ID3V2 {
             it is 'ID3' otherwise the file does not have ID3 metadata in it.
         */
 
-        buffer = song.getSongdata();
-        
-        //==HEADER==FIRST====10=BYTES===========================================
+        buffer = ByteBuffer.wrap(song.getSongdata());
         
         //First 3 bytes should be 'ID3' if the file contains ID3 data
-        String id3Check = "" + (char)buffer[0] + (char)buffer[1] + (char)buffer[2];
+        String id3Check = "" + (char)buffer.get() + (char)buffer.get() + (char)buffer.get();
         
         //Next 2 bytes gives the ID3 Version being used
-        int majorVersion = buffer[3];
-        int minorVersion = buffer[4];
-        
-        //Only continue if the needed conditions for extraction are met
+        int majorVersion = buffer.get();
+        int minorVersion = buffer.get();
+
         if (buffer != null && id3Check.equals("ID3") && majorVersion == 3) {
+            System.out.print("ID3V2 Tag Found, Extracting Data... ");
             //The flags byte contains bits that flag certain features as 'on' or 'off
-            int flags[]      = dec2bin(buffer[5]); //posVal shouldn't matter here
+            int flags[]      = dec2bin(buffer.get());
             int unsync       = flags[7];
-            int extHeader    = flags[6]; //Is there extended header data after the header?
+            int extHeader    = flags[6];
             int experimental = flags[5];
+            
+            //All other flags should be clear according to the spec.
+
+            //Next 4 bytes describe the tag size
+            
+            byte tagSize[] = {buffer.get(), buffer.get(), buffer.get(), buffer.get()};
+            System.out.println("Actual: " + Arrays.toString(tagSize));
+            int totalSize  = calcID3Size(tagSize);
+            
+            System.out.println(totalSize + "b Tag Found");
+            
+            if (buffer.position() != 10) {
+                System.out.println("Unexpected Byte Position, Possible Header Corruption, Aborting...");
+                return;
+            }
+            
             /*
-                All other flags should be clear according to the spec.
-
-                Most of this is useless anyway, I couldn't find a single MP3 
-                that actually had any of these flags set...
-
-                Anyway the next 4 bytes describe the tag size,
-                the size is the total size of the ID3 tag excluding the header 
-                so it should be the total - 10 bytes. The max is 256MB, however 
-                we do not accept files greater than 16MB.
+                Check if there is an extended header (there usually isn't) and 
+                if there is skip past it
             */
 
-            //Calculate the total tag size
-            
-            int totalSize  = calcID3TotalSize(buffer[6], buffer[7], buffer[8], buffer[9]);
-            
-            System.out.println("A " + (totalSize / 1024) + "kb ID3 Tag was found, attempting to extract data...");
-            
-        //==END=OF=HEADER=======================================================
-        
-        //From here we'll need to track where we are, the header was 10 bytes so 
-        //lets continue from byte 11
-        
-            currentByte = 11;
-        
-        //==EXTENDED=HEADER=====================================================
-        
-            //Check that there is an extended header (there usually isn't)
             if (extHeader == 1) {
-                //We don't need anything in the extHeader so ignoring for now
+                int extHeadSize = buffer.getInt();
+                buffer.position(buffer.position() + extHeadSize);
             }
-        
-        //==END=OF=EXTENDED=HEADER==============================================
-        
-            //Simply loop over the tag looking at every 4 byte group searching for
-            //the frame ids we want.
             
             frameIds = "TIT2 TPE1 TCON TLEN TYER APIC";
             String currentSearch = "";
         
-            while (currentByte < totalSize - 3) {
-
-                currentSearch = "" + (char)buffer[currentByte]  + (char)buffer[currentByte + 1]  + (char)buffer[currentByte + 2] + (char)buffer[currentByte + 3];
-
+            while (buffer.position() < totalSize - 4) {
+                currentSearch = "" + (char)buffer.get() + 
+                                     (char)buffer.get() + 
+                                     (char)buffer.get() + 
+                                     (char)buffer.get();
                 if (frameIds.contains(currentSearch)) {
                     switch (currentSearch) {
                         case "TIT2" :
-                            song.setTitle(processTitle());
+                            song.setTitle(processTextFrame("TIT2"));
                             break;
                         case "TPE1" :
-                            song.setArtist(processArtist());
+                            song.setArtist(processTextFrame("TPE1"));
                             break;
                         case "TCON" :
-                            processGenre();
+                            //processGenre();
                             break;
                         case "TLEN" :
-                            song.setDuration(processDuration());
+                            //song.setDuration(processDuration());
                             break;
                         case "TYER" :
-                            processYear();
+                            //processYear();
                             break;
                         case "APIC" :
                             song.setArtwork(processArtwork());
                             break;
                     }
                 }
-                currentByte++;
+                else
+                    buffer.position(buffer.position() - 3);
             }
+            System.out.println("Success");
         }
     }
     
-    private static int calcID3TotalSize(byte b, byte b0, byte b1, byte b2) {
+    private static int calcID3Size(byte bytes[]) {
         /*
             ID3 size information is represented across 4 bytes where the first 
             bit of each is ignored, so we need to build the representation as an 
@@ -141,7 +127,10 @@ public class ID3V2 {
         */
         
         int total = 0;
-        int size[][] = {dec2bin(b), dec2bin(b0), dec2bin(b1), dec2bin(b2)};
+        int size[][] = {dec2bin(bytes[0]),
+                        dec2bin(bytes[1]),
+                        dec2bin(bytes[2]),
+                        dec2bin(bytes[3])};
         
         for (int j = 0; j < 4; j++)
             for (int i = 1; i < 8; i++)
@@ -151,41 +140,12 @@ public class ID3V2 {
         return total;
     }
     
-    private static int calcID3Size(byte b, byte b0, byte b1, byte b2) {
-        /*
-            The same as above except we don't ignore the first bit of each.
-            There is a special place in hell for whoever came up with this.
-        */
-        int total = 0;
-        
-        int size[][] = {dec2bin(b), dec2bin(b0), dec2bin(b1), dec2bin(b2)};
-        
-        for (int j = 0; j < 4; j++)
-            for (int i = 0; i < 8; i++)
-                if (size[j][i] == 1)
-                    total += Math.pow(2, (31 - (j * 8) - i));
-        
-        return total;
-    }
-    
     private static int[] dec2bin(byte dec) {
-
-        //If the MSB is 1 two's compliment will kick in and screw us up
-        //I can't believe Java doesn't have unsigned types >.<
-        
-        boolean decwlt0 = false;
-        
-        if (dec < 0) {
-            decwlt0  = true;
-            byte mask = 1;
-            mask <<= 7;
-            dec = (byte)(dec ^ mask);
-        }
-        
-        while(dec > 255)
-            dec %= 2;
-        
-        int bin[] = new int[8];
+        //Since we ignore the 8th bit we can 0 it to ensure two's complement 
+        //doesn't mess things up in the case that there might be a 1 there.
+        //We do this by using a logical AND with 127.
+        dec &= 127;
+        int bin[]  = new int[8];
         for (int i = 0; i < 8; i++)
             bin[i] = 0;
         int count = 7;
@@ -194,136 +154,61 @@ public class ID3V2 {
             dec /= 2;
             count--;
         }
-
-        if (decwlt0)
-            bin[0] = 1;
-
-        System.out.println(Arrays.toString(bin));
-        
         return bin;
     }
 
-    private static String processTitle() {
-        System.out.println("Found Title");
-        //Move past the frame ID
-        currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
-        //Move past the frame size & flags
-        currentByte += 6;
-        int encoding = (int)buffer[currentByte];
-        currentByte++;
-        String title = "";
-        System.out.println(size - 1);
-        //Using size - 1 to ignore the encoding byte
-        for (int i = 0; i < (size - 1); i++) {
-            title += (char)buffer[currentByte];
-            currentByte++;
-        }
-        currentByte++;
-        if (title.length() > 255)
-            title = title.substring(0, 250) + "...";
-        return title;
-    }
-
-    private static String processArtist() {
-        System.out.println("Found Artist");
-        //Move past the frame ID
-        currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
-        //Move past the frame size & flags
-        currentByte += 6;
-        int encoding = (int)buffer[currentByte];
-        currentByte++;
-        String artist = "";
-        //Using size - 1 to ignore the encoding byte
-        for (int i = 0; i < (size - 1); i++) {
-            artist += (char)buffer[currentByte];
-            currentByte++;
-        }
-        currentByte++;
-        if (artist.length() > 255)
-            artist = artist.substring(0, 250) + "...";
-        return artist;
-    }
-
-    private static void processGenre() {
-        System.out.println("Found Genre");
-    }
-
-    private static int processDuration() {
-        System.out.println("Found Duration");
-        //Move past the frame ID
-        currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
-        //Move past the frame size & flags
-        currentByte += 6;
-        int encoding = (int)buffer[currentByte];
-        currentByte++;
-        String duration = "";
-        //Using size - 1 to ignore the encoding byte
-        for (int i = 0; i < (size - 1); i++) {
-            duration += (char)buffer[currentByte];
-            currentByte++;
-        }
-        currentByte++;
-        return Integer.parseInt(duration);
-    }
-
-    private static void processYear() {
-        System.out.println("Found Year");
+    private static String processTextFrame(String frameId) {
+        System.out.println("Found " + frameId);
+        int size = buffer.getInt();
+        int flags[] = {buffer.get(), buffer.get()};
+        int encoding = buffer.get();
+        String text = "";
+        for (int i = 0; i < (size - 1); i++)
+            text += (char)buffer.get();
+        if (text.length() > 255)
+            text = text.substring(0, 250) + "...";
+        return text;
     }
 
     private static byte[] processArtwork() {
         /*
             There may be many APIC frames in the tag but we are just going to 
-            take the first one and hope its pretty. The ID3V2.3 is really OTT 
-            with the amount of crap you can have, it even specifies one type as 
-            "A bright coloured fish". I can only assume the ID3 guys were high 
-            when they came up with this spec.
+            take the first one and hope its pretty. The ID3V2.3 says it could 
+            be a "A bright coloured fish" so fingers crossed.
         */
         System.out.println("Found Artwork");
-        //Move past the frame ID
-        currentByte += 4;
-        int size = calcID3Size(buffer[currentByte], buffer[currentByte + 1], buffer[currentByte + 2], buffer[currentByte + 3]);
-        //Move past the frame size & flags
-        currentByte += 6;
+        int size     = buffer.getInt();
+        int flags[]  = {buffer.get(), buffer.get()};
+        int encoding = buffer.get();
+
+        System.out.println(size);
         
-        int headerStart = currentByte; //Keep track of the extra data
-        //APICs have extra data to be skipped to get to the image
-        currentByte += 1; //skip the text encoding
+        int headerStart = buffer.position();
+        buffer.get(); //skip 1 byte of encoding information
         
         //null-terminated mime-type string
-        while (buffer[currentByte] != '\0') {
-            System.out.print((char)buffer[currentByte]);
-            currentByte++;
+        char mimeChar = (char)buffer.get();
+        String mime = "";
+        
+        while (mimeChar != '\0') {
+            mime += mimeChar;
+            mimeChar = (char)buffer.get();
         }
         
-        System.out.print('\n');
-
-        currentByte++;
-        System.out.println("Artwork Type: " + buffer[currentByte]);
-        //Represents the type of artwork
-        //Could it be a "A bright coloured fish"?
-        currentByte++;
+        byte artType = buffer.get();
+        
         //Another null-terminated string gives us the description
-        System.out.print("Description: ");
-        while (buffer[currentByte] != '\0') {
-            System.out.print((char)buffer[currentByte]);
-            currentByte++;
-        }
-        System.out.print('\n');
-        currentByte++;
-        //Finally!
-        System.out.println("Size: " + size);
-        System.out.println("Header: " + (currentByte - headerStart));
+        char descChar = (char)buffer.get();
+        String desc = "";
         
-        byte artwork[] = new byte[size - (currentByte - headerStart)];
-        for (int i = 0; i < artwork.length; i++) {
-            artwork[i] = buffer[currentByte];
-            currentByte++;
+        while (descChar != '\0') {
+            desc += descChar;
+            descChar = (char)buffer.get();
         }
-        System.out.println(artwork.length / 1024);
-        //Got it!
+        
+        byte artwork[] = new byte[size - (buffer.position() - headerStart)];
+        buffer.get(artwork);
+
         //Ensure artwork is not processed again if there is more
         frameIds = "TIT2 TPE1 TCON TLEN TYER";
         return artwork;

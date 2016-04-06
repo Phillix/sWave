@@ -118,7 +118,7 @@ function formatTime(s) {
 
 function clock() {
     $("sysClock").innerHTML = "|&#160;&#160;" + fDate(true) + "&#160;&#160;|&#160;&#160;" + fTime(true) + "&#160;";
-    if ($("timePanel").style.display == "block")
+    if ($("timePanel").style.display === "block")
         updateAnalogClock();
     setTimeout("clock()", 500);
 }
@@ -128,8 +128,8 @@ function updateAnalogClock() {
     genCal(today, "miniCal");
     var hrs = today.getHours();
     var min = today.getMinutes();
-    if (hrs > 12) hrs -= 12;
-    if (hrs == 0) hrs = 12;
+    if (hrs > 12)  hrs -= 12;
+    if (hrs === 0) hrs = 12;
     min *= 6;
     hrs *= 30;
     if (min > 180) hrs += 15;

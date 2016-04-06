@@ -91,7 +91,7 @@ function visualize() {
         if (bars[1][i].scale.y === 0)
             bars[1][i].scale.y = 0.1;
     }
-    timerDisplay.innerHTML = formatTime(src.currentTime) + " / " + formatTime(src.duration);
+    timerDisplay.innerHTML  = formatTime(src.currentTime) + " / " + formatTime(src.duration);
     progressBar.style.width = scrubber.style.left = Math.floor(src.currentTime * ((window.innerWidth - 24) / src.duration)) + "px";
     setTimeout(requestAnimationFrame(visualize));
     renderer.render(scene, camera);

@@ -120,7 +120,7 @@
                                 <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
                                 <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                             </td>
-                            <td colspan="6">
+                            <td colspan="6" class="title">
                                 <strong>
                                     <%if (DEBUG) {%>
                                         ID: <%=s.getSongId()%>.&#160;
@@ -150,7 +150,7 @@
                                     &#160;
                                 <%}%>
                             </td>
-                            <td>
+                            <td class="artist">
                                 <%if (!s.getArtist().equals("artist")) {%>
                                     <%=s.getArtist()%>
                                 <%} else {%>
@@ -195,7 +195,7 @@
                                     &#160;
                                 <%}%>
                             </td>
-                            <td>
+                            <td class="album">
                                 <%if (!s.getAlbum().equals("album")) {%>
                                     <%=s.getAlbum()%>
                                 <%} else {%>

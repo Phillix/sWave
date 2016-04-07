@@ -13,9 +13,9 @@ import java.util.Arrays;
 
 public class ID3V2 {
     
-    //The data we'll be working with
+    private static final boolean DEBUG = sWave.Server.DEBUGGING;
+
     private static ByteBuffer buffer;
-    private static String     frameIds;
 
     public static void extractTags(Song song) {
         /*
@@ -57,10 +57,7 @@ public class ID3V2 {
             //Next 4 bytes describe the tag size
             
             byte tagSize[] = {buffer.get(), buffer.get(), buffer.get(), buffer.get()};
-            System.out.println("Actual: " + Arrays.toString(tagSize));
             int totalSize  = calcID3Size(tagSize);
-            
-            System.out.println(totalSize + "b Tag Found");
             
             if (buffer.position() != 10) {
                 System.out.println("Unexpected Byte Position, Possible Header Corruption, Aborting...");
@@ -76,8 +73,7 @@ public class ID3V2 {
                 int extHeadSize = buffer.getInt();
                 buffer.position(buffer.position() + extHeadSize);
             }
-            
-            frameIds = "TIT2 TPE1 TCON TLEN TYER APIC";
+
             String currentSearch = "";
         
             while (buffer.position() < totalSize - 4) {
@@ -85,30 +81,45 @@ public class ID3V2 {
                                      (char)buffer.get() + 
                                      (char)buffer.get() + 
                                      (char)buffer.get();
-                if (frameIds.contains(currentSearch)) {
-                    switch (currentSearch) {
-                        case "TIT2" :
-                            song.setTitle(processTextFrame("TIT2"));
-                            break;
-                        case "TPE1" :
-                            song.setArtist(processTextFrame("TPE1"));
-                            break;
-                        case "TCON" :
-                            //processGenre();
-                            break;
-                        case "TLEN" :
-                            //song.setDuration(processDuration());
-                            break;
-                        case "TYER" :
-                            //processYear();
-                            break;
-                        case "APIC" :
-                            song.setArtwork(processArtwork());
-                            break;
-                    }
+
+                switch (currentSearch) {
+                    case "TIT2" :
+                        song.setTitle(processTextFrame("TIT2"));
+                        break;
+                    case "TPE1" :
+                        song.setArtist(processTextFrame("TPE1"));
+                        break;
+                    case "TALB" :
+                        song.setAlbum(processTextFrame("TALB"));
+                        break;
+                    case "TCON" : 
+                        song.setGenre(processGenre());
+                        break;
+                    case "TLEN" :
+                        try {
+                            song.setDuration(Integer.parseInt(processTextFrame("TLEN")));
+                        } catch (NumberFormatException e) {
+                            if (DEBUG)
+                                System.out.println("Not a Valid Length");
+                        }
+                        break;
+                    case "TYER" :
+                        try {
+                            song.setYear(Integer.parseInt(processTextFrame("TYER")));
+                        } catch (NumberFormatException e) {
+                            if (DEBUG)
+                                System.out.println("Not a Year");
+                        }
+                        break;
+                    case "TCOP" :
+                        song.setLicense(processTextFrame("TCOP"));
+                        break;
+                    case "APIC" :
+                        song.setArtwork(processArtwork());
+                        break;
+                    default :
+                        buffer.position(buffer.position() - 3);
                 }
-                else
-                    buffer.position(buffer.position() - 3);
             }
             System.out.println("Success");
         }
@@ -169,19 +180,33 @@ public class ID3V2 {
             text = text.substring(0, 250) + "...";
         return text;
     }
+    
+    private static String processGenre() {
+        String genre = processTextFrame("TCON");
+        if (!genre.isEmpty()) {
+            //An opening bracket tells us that an ID3V1 genre ID is used
+            if (genre.charAt(0) == '(') {
+                String genreID = "";
+                if (genre.charAt(2) == ')')
+                    genreID += genre.charAt(1);
+                else if (genre.charAt(3) == ')')
+                    genreID += "" + genre.charAt(1) + genre.charAt(2);
+                genre = ID3V1.lookupGenre(Byte.parseByte(genreID));
+            }
+        }
+        return genre;
+    }
 
     private static byte[] processArtwork() {
         /*
             There may be many APIC frames in the tag but we are just going to 
-            take the first one and hope its pretty. The ID3V2.3 says it could 
+            take the last one and hope it's pretty. The ID3V2.3 says it could 
             be a "A bright coloured fish" so fingers crossed.
         */
-        System.out.println("Found Artwork");
+        System.out.println("Found APIC");
         int size     = buffer.getInt();
         int flags[]  = {buffer.get(), buffer.get()};
         int encoding = buffer.get();
-
-        System.out.println(size);
         
         int headerStart = buffer.position();
         buffer.get(); //skip 1 byte of encoding information
@@ -209,8 +234,6 @@ public class ID3V2 {
         byte artwork[] = new byte[size - (buffer.position() - headerStart)];
         buffer.get(artwork);
 
-        //Ensure artwork is not processed again if there is more
-        frameIds = "TIT2 TPE1 TCON TLEN TYER";
         return artwork;
     }
 }

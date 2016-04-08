@@ -49,7 +49,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
             ps.setInt(1, f.getUserId());
             ps.setInt(2, f.getFriendId());
             ps.setDate(3, friendshipDate);
-            ps.setDouble(4, 'p');
+            ps.setString(4, String.valueOf(f.getStatus()));
 
             ps.executeUpdate();
             return SUCCESS;
@@ -136,5 +136,88 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         return friends;
     }
     
+    public int removeFriend(int userId,int friendId) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        
+        try {
+            con = getConnection();
+            ps = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE " + ID + " = ? OR " + FRIENDID + " = ? " +
+                                      "AND " + FRIENDID + " = ? OR " + ID + " = ?");
+           
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            ps.setInt(3, friendId);
+            ps.setInt(4, friendId);
+            if(ps.executeUpdate() > 0) return SUCCESS;
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return SQLEX;
+            }
+        }
+        return OTHER;
+    }
     
+    public int confirmFriend(int userId, int friendId) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        
+        try {
+            con = getConnection();
+            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + STATUS + " = 'c' " +
+                                      "WHERE " + ID + " = ? OR " + FRIENDID + " = ? " +
+                                      "AND " + FRIENDID + " = ? OR " + ID + " = ?");
+            
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            ps.setInt(3, friendId);
+            ps.setInt(4, friendId);
+            if(ps.executeUpdate() > 0) return SUCCESS;
+        }
+        catch (ClassNotFoundException ex1) {
+            if (DEBUG)
+                ex1.printStackTrace();
+            return CLASSNOTFOUND;
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return SQLEX;
+            }
+        }
+        return OTHER;
+    }
 }

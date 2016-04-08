@@ -21,11 +21,11 @@ public class Friend {
         status = 'p';
     }
 
-    public Friend(int userId, int friendId, String friendshipDate, char status) {
+    public Friend(int userId, int friendId) {
         this.userId = userId;
         this.friendId = friendId;
-        this.friendshipDate = friendshipDate;
-        this.status = status;
+        this.friendshipDate = null;
+        this.status = 'p';
     }
 
     public int getUserId() {

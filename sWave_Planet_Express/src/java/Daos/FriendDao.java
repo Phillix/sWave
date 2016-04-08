@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * @author Phillix
  */
 public class FriendDao extends Dao implements FriendDaoInterface {
-    
     private final boolean DEBUG = sWave.Server.DEBUGGING;
 
     private final String TABLE_NAME  = "FRIEND";

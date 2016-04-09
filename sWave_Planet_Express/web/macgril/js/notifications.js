@@ -12,3 +12,11 @@
     You should have received a copy of the GNU General Public License
     along with Macgril.  If not, see <http://www.gnu.org/licenses/>
 */
+
+function notify(notifier, msg, timeout, desktop) {
+    $(notifier).innerHTML = msg;
+    $(notifier).style.display = block;
+    if (desktop)
+        alert("will show desktop notifications");
+    setTimeout(function () {$(notifier).style.display = "none";}, timeout);
+}

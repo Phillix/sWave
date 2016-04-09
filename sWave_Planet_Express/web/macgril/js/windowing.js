@@ -10,7 +10,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
-    along with eXastum.  If not, see <http://www.gnu.org/licenses/>
+    along with Macgril.  If not, see <http://www.gnu.org/licenses/>
 */
 
 function newWindow(x, y, title, content, resize, min, max) {
@@ -21,13 +21,13 @@ function newWindow(x, y, title, content, resize, min, max) {
     var windowTab = newTab(title);
     $(newWindow).setAttribute("class", "window");
     $(newWindow).setAttribute("onmouseover", "updateInfoBar('" + title + "');");
-    $(newWindow).style.width    = parseInt(x) + 2  + "px";
-    $(newWindow).style.height   = parseInt(y) + 32 + "px";
-    $(newWindow).style.resize   = resize;
-    $(newWindow).style.left     = randNum(600, 0) + "px";
-    $(newWindow).style.top      = (parseInt(randNum(200, 0)) + 25) + "px";
-    $(newWindow).style.display  = "block";
-    $(titleBar).style.width     = x;
+    $(newWindow).style.width   = parseInt(x) + 2  + "px";
+    $(newWindow).style.height  = parseInt(y) + 32 + "px";
+    $(newWindow).style.resize  = resize;
+    $(newWindow).style.left    = randNum(600, 0) + "px";
+    $(newWindow).style.top     = (parseInt(randNum(200, 0)) + 25) + "px";
+    $(newWindow).style.display = "block";
+    $(titleBar).style.width    = x;
     if(content !== null) {
         var appContent = generate("iframe", newWindow);
         $(appContent).setAttribute("src", content);

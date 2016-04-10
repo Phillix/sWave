@@ -13,27 +13,27 @@ import java.util.Objects;
  */
 public class Message {
     private int    msgId;
-    private String sender;
-    private String receiver;
+    private int    sender;
+    private int    receiver;
     private String date;
     private String content;
-    private int    status;
+    private boolean    status;
     
     public Message() {
         msgId    = -1;
-        sender   = "tester1";
-        receiver = "tester2";
+        sender   = -1;
+        receiver = -2;
         date     = null;
         content  = "about them tests...";
-        status   = 0;
+        status   = false;
     }
 
-    public Message(String sender, String receiver, String content) {
+    public Message(int sender, int receiver, String content) {
         this.sender = sender;
         this.receiver = receiver;
         this.date = null;
         this.content = content;
-        this.status = 0;
+        this.status = false;
     }
 
     public int getMsgId() {
@@ -44,19 +44,19 @@ public class Message {
         this.msgId = msgId;
     }
 
-    public String getSender() {
+    public int getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(int sender) {
         this.sender = sender;
     }
 
-    public String getReceiver() {
+    public int getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(String receiver) {
+    public void setReceiver(int receiver) {
         this.receiver = receiver;
     }
 
@@ -76,11 +76,11 @@ public class Message {
         this.content = content;
     }
 
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -92,7 +92,6 @@ public class Message {
         hash = 53 * hash + Objects.hashCode(this.receiver);
         hash = 53 * hash + Objects.hashCode(this.date);
         hash = 53 * hash + Objects.hashCode(this.content);
-        hash = 53 * hash + this.status;
         return hash;
     }
 

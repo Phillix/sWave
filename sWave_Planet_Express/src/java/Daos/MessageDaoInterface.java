@@ -5,10 +5,17 @@
  */
 package Daos;
 
+import Dtos.Message;
+import java.util.ArrayList;
+
 /**
  *
  * @author Phillix
  */
 public interface MessageDaoInterface {
     
+    public int createMsg(Message m);
+    public ArrayList<Message> getConversation(int friendId);
+    public int markAsRead(int msgId);
+    public int deleteConversation(int friendId);
 }

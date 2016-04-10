@@ -59,7 +59,7 @@
     </head>
     <body>
         <header class="panel" id="topbar">
-            <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
+            <svg onclick="window.open('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
                     <rect x="0" y="0" width="100" height="100" fill="#fff"/>
                     <ellipse cx="2.5"  cy="0"   rx="30" ry="51" fill="#000"/>
@@ -83,7 +83,7 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a href="index.jsp">Music</a>
+                <a href="playing.jsp">Music</a>
                 <a href="shop.jsp">Shop</a>
                 <a href="account.jsp">Account</a>
                 <a href="about.jsp">About</a>

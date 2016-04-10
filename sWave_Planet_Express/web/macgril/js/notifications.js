@@ -16,7 +16,10 @@
 function notify(notifier, msg, timeout, desktop) {
     $(notifier).innerHTML = msg;
     $(notifier).style.display = block;
-    if (desktop)
-        alert("will show desktop notifications");
+    if (desktop) {
+        var perm = Notification.requestPermission();
+        if (perm != "denied")
+            
+    }
     setTimeout(function () {$(notifier).style.display = "none";}, timeout);
 }

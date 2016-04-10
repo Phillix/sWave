@@ -1,37 +1,30 @@
-<%@page import="java.text.NumberFormat"%>
-<%@page import="Dtos.Merch"%>
-<%@page import="Daos.MerchDao"%>
+<%@page import="Daos.Dao"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Dtos.Ad"%>
 <%@page import="Daos.AdDao"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    if (session == null) {
+        response.sendRedirect("login.jsp?refer=playing.jsp");
+    }
+    User currentUser = (User)session.getAttribute("user");
+
+    String skin = "swave";
+    if (currentUser != null) {
+        skin = currentUser.getSkin();
+    }
+%>
 <html>
     <head>
-        <%if (session == null) {
-                response.sendRedirect("login.jsp?refer=shop.jsp");
-            }
-
-            User currentUser = (User)session.getAttribute("user");
-            String skin = "swave";
-
-            if (currentUser != null) {
-                skin = currentUser.getSkin();
-            }
-            final boolean DEBUG = sWave.Server.DEBUGGING;
-
-            if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
-                %><script>alert("Added to Cart");</script><%
-            }
-        %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Shop - sWave</title>
+        <title>Welcome to sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
         <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/shop.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/playing.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>
@@ -39,10 +32,11 @@
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/ajax_image_loader.js"></script>
     </head>
     <body>
         <header class="panel" id="topbar">
-            <svg onclick="window.open('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
+            <svg id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
                     <rect x="0" y="0" width="100" height="100" fill="#fff"/>
                     <ellipse cx="2.5"  cy="0"   rx="30" ry="51" fill="#000"/>
@@ -66,12 +60,13 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a href="playing.jsp">Music</a>
-                <a class="currentPageLink" href="shop.jsp">Shop</a>
+                <a class="currentPageLink" href="playing.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
                 <a href="account.jsp">Account</a>
                 <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
+                <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
                 <form id="searchBox" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="search"/>
                     <input type="search" name="searchterm" placeholder="Search"/>
@@ -84,7 +79,7 @@
                         <input type="submit" value="Log Out"/>
                     </form>
                 <%} else {
-                        response.sendRedirect("login.jsp?refer=shop.jsp");
+                        response.sendRedirect("login.jsp?refer=playing.jsp");
                 %>
                     <!-- In case the redirect fails for any reason provide a link -->
                     <a href="login.jsp">Log In</a>
@@ -92,44 +87,58 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
+            <a class="currentPageLink" href="playing.jsp"><h2>Now Playing</h2></a>
+            <a href="music.jsp"><h2>Library</h2></a>
+            <a href="playlists.jsp"><h2>Playlists</h2></a>
+            <a href="radioTest.jsp"><h2>Radio Streams</h2></a>
             <span id="copyNotice">
                 Copyright &copy; 2016<br/>
                 Team Planet Express<br/>
             </span>
-            <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-        <table>
-            <%
-            MerchDao dao = new MerchDao();
-            for (Merch m : dao.viewMerchAlpha()) {%>
-                <tr>
-                    <%if (DEBUG) {%>
-                        <td><%=m.getMerchId()%></td>
-                    <%}%>
-                    <td><%=m.getTitle()%></td>
-                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                    <td><%=f.format(m.getPrice())%></td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addMerchToCart"/>
-                            <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
-                            <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
-                            <input type="number" value="1" min="1" name="qty"/>
-                            <input type="submit" value="Add to Cart"/>
-                        </form>
-                    </td>
-                </tr>
-        <%}%>
-        </table>
+            <h1 id="songTitle">
+                <%if (session.getAttribute("currentSong") != null) {%>
+                    <%=((Song)session.getAttribute("currentSong")).getTitle()%>
+                    &#160;&#160;-&#160;&#160;
+                    <%=((Song)session.getAttribute("currentSong")).getArtist()%>
+                <%} else {%>
+                    Welcome to sWave<%if (currentUser != null) {%>, <%=currentUser.getFname()%>!<%}
+                }%>
+            </h1>
+            <%if (session.getAttribute("currentSong") != null) {%>
+                <img id="testImage"/>
+                <script>
+                    loadArtwork(<%=((Song)session.getAttribute("currentSong")).getSongId()%>, $("testImage"));
+                </script>
+            <%}%>
+            <select id="visualSelection">
+                <option>Artwork</option>
+                <option>2D Bars</option>
+                <option>3D Bars</option>
+                <option>Wave</option>
+                <option>Particles</option>
+            </select>
+            <div id="visualizer">
+            </div>
         </div>
         <aside class="panel" id="right_sidebar">
-            <br/>
-            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
+            <ul>
+                <%if (session.getAttribute("currentSong") != null) {%>
+                    <li><%=((Song)session.getAttribute("currentSong")).getTitle()%></li>
+                <%}%>
+            </ul>
             <%
                 AdDao ads = new AdDao();
-                Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));
+                int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());
+                try {
+                    Ad ad = ads.getAd(check);
             %>
             <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
+            <%}
+            catch (Exception e) {%>
+                <script>alert("The Database could not be Reached")</script>
+            <%}%>
         </aside>
         <footer class="panel" id="base">
             <span id="playerStatus">No Data</span>

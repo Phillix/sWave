@@ -1,6 +1,5 @@
 package Command;
 
-import Daos.LockDao;
 import Daos.SongDao;
 import Dtos.User;
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +26,8 @@ public class DeleteSongCommand implements Command {
             int result;
             if (u != null && u.isIsAdmin()) {
                 result = sd.deleteSong(songId);
-                if (result > 0) {
-                    LockDao locks = new LockDao();
-                    locks.releaseSongLocks(songId);
+                if (result > 0)
                     return "/admin_panel.jsp";
-                }
             }
         } catch (Exception e) {
             if (DEBUG)

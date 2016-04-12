@@ -18,9 +18,9 @@
         <script type="text/javascript" src="js/sWaveValidation.js"></script>
     </head>
     <body <%if (request.getParameter("failed") != null) {%>onload="quickShake('loginBox', false)"<%}%>>
-        
+
         <div class="panel" id="customAlert"></div>
-        
+
         <div class="panel <%if (request.getParameter("failed") == null) {%>noShake<%}%>" id="loginBox">
             <form id="loginForm" onsubmit="validateLogin(event)" action="UserActionServlet" method="POST">
                 <svg id="logo" width="194" height="60" viewBox="0 0 300 100">

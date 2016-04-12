@@ -1,15 +1,14 @@
 #customAlert {
-    width: 100%;
     text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px #000;
     color: red;
     text-shadow: 0px 1px 0px #000;
     -moz-transition: 0.4s;
-    position: fixed;
     top: -50px;
-    left: 0px;
+    position: absolute;
+    -moz-transform: scale(0.0);
 }
 
 input {

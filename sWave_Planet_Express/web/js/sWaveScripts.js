@@ -20,11 +20,12 @@ function showSizes() {
 
 function displayCustomAlert(msg) {
     $("customAlert").innerHTML = msg;
-    $("customAlert").style.top = "0px";
+    $("customAlert").style.top = "10px";
     setTimeout("hideCustomAlert()", 3000);
 }
 
 function hideCustomAlert() {
     $("customAlert").innerHTML = "";
     $("customAlert").style.top = "-50px";
+    $("customAlert").style.MozTransform = "scale(1.0)";
 }

@@ -1,6 +1,7 @@
 package Daos;
 
 import Dtos.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,4 +17,5 @@ public interface UserDaoInterface {
     public int deleteUser(String email);
     public int changeSkin(String skin, int userid);
     public int updateUser(User u);
+    public ArrayList<User> searchUsers(String searchWord);
 }

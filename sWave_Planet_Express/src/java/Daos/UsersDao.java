@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The UsersDao class is used for communicating with the user table in the database
@@ -533,4 +534,60 @@ public class UsersDao extends Dao implements UserDaoInterface {
         return OTHER;
     }
 
+    /**
+     * Used for searching for users
+     * @param searchWord String of text to use in searching
+     * @return a Collection of successful User matches
+     */
+    @Override
+    public ArrayList<User> searchUsers(String searchWord) {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User u = null;
+        ArrayList<User> users;
+
+        try {
+
+            con = getConnection();
+            ps = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + UNAME + " REGEXP ?");
+            ps.setString(1,"^"+searchWord);
+            //ps.setString(2,searchWord);
+            rs = ps.executeQuery();
+            users = new ArrayList<>();
+
+            while(rs.next()) {
+                u = new User();
+                u = getUserById(rs.getInt(USERID));
+                users.add(u);
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        finally {
+            try {
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            }
+            catch(SQLException e) {
+                if(DEBUG) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+        return users;
+    }
 }

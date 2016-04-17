@@ -31,10 +31,12 @@
             String term            = null;
             ArrayList<Song>  songs = null;
             ArrayList<Merch> merch = null;
+            ArrayList<User>  users = null;
             if (request.getParameter("noResults") == null) {
                 term  = (String)session.getAttribute("searchTerm");
                 songs = (ArrayList<Song>)session.getAttribute("searchResults");
                 merch = (ArrayList<Merch>)session.getAttribute("searchMerchResults");
+                users = (ArrayList<User>)session.getAttribute("searchUserResults");
             }
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -116,9 +118,9 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <h2 id="numResultsDisplay"><%if (term == null && songs == null && merch == null) {%>
+            <h2 id="numResultsDisplay"><%if (term == null && songs == null && merch == null && users == null) {%>
                 No Results<%} else {%>
-                Showing <%=songs.size() + merch.size()%> Results for "<%=term%>"</h2>
+                Showing <%=songs.size() + merch.size() + users.size()%> Results for "<%=term%>"</h2>
                 <table>
                 <%
                     for (Song s : songs) {%>
@@ -163,6 +165,13 @@
                                 </form>
                             </td>
                         </tr>
+                <%} for (User u : users) {%>
+                    <tr>
+                        <%if (DEBUG) {%>
+                                <td><%=u.getUserId()%></td>
+                        <%}%>
+                            <td><%=u.getUsername()%></td>
+                    </tr>
                 <%}%>
                 </table>
             <%}%>

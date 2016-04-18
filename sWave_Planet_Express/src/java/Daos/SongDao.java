@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -38,7 +39,22 @@ public class SongDao extends Dao implements SongDaoInterface {
     private final String UPLOADDATE = "UPLOADED";
     private final String ARTWORK    = "ARTWORK";
     private final String SONGDATA   = "SONGDATA";
-
+    
+    /**
+     * Default Constructor for SongDao
+     */
+    public SongDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for SongDao
+     * @param ds The DataSource to use for connections
+     */
+    public SongDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * This method returns an ArrayList of all of the songs in the songs table
      * @return Return an ArrayList of all of the songs, or else null if the table is empty
@@ -79,7 +95,7 @@ public class SongDao extends Dao implements SongDaoInterface {
             }
             return songs;
         }
-        catch (ClassNotFoundException | SQLException ex) {
+        catch (SQLException ex) {
             if (DEBUG)
                 ex.printStackTrace();
         }
@@ -157,7 +173,7 @@ public class SongDao extends Dao implements SongDaoInterface {
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
         }
-        catch(ClassNotFoundException | SQLException e) {
+        catch(SQLException e) {
             if (DEBUG)
                 e.printStackTrace();
         }
@@ -224,7 +240,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                 songdata);
             }
         }
-        catch (ClassNotFoundException | SQLException ex1) {
+        catch (SQLException ex1) {
             if (DEBUG)
                 ex1.printStackTrace();
         }
@@ -295,7 +311,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                 songs.add(s);
             }
         }
-        catch (ClassNotFoundException | SQLException ex1) {
+        catch (SQLException ex1) {
             if (DEBUG)
                 ex1.printStackTrace();
         }
@@ -334,10 +350,6 @@ public class SongDao extends Dao implements SongDaoInterface {
             int result = ps.executeUpdate();
 
             if (result > 0) return SUCCESS;
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
         }
         catch (SQLException ex2) {
             if (DEBUG)
@@ -398,10 +410,6 @@ public class SongDao extends Dao implements SongDaoInterface {
                 int result = ps.executeUpdate();
 
                 if (result > 0) return SUCCESS;
-            }
-            catch (ClassNotFoundException ex1) {
-                if (DEBUG)
-                    ex1.printStackTrace();
             }
             catch (SQLException ex2) {
                 if (DEBUG)

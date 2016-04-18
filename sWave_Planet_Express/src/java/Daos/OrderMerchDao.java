@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -23,6 +24,21 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
     private final String PRICE      = "PRICEPAID";
     private final String CUSTIMG    = "CUSTIMG";
 
+    /**
+     * Default Constructor for OrderMerchDao
+     */
+    public OrderMerchDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for OrderMerchDao
+     * @param ds The DataSource to use for connections
+     */
+    public OrderMerchDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      *
      * @param om OrderMerch object to create
@@ -54,12 +70,6 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG) {
-                e.printStackTrace();
-            }
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG) {

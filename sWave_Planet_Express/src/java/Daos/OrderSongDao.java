@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -19,7 +20,22 @@ public class OrderSongDao extends Dao implements OrderSongDaoInterface {
     private final String ORDERID    = "ORDERID";
     private final String SONGID     = "SONGID";
     private final String PRICE      = "PRICEPAID";
-
+    
+    /**
+     * Default Constructor for OrderSongDao
+     */
+    public OrderSongDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for OrderSongDao
+     * @param ds The DataSource to use for connections
+     */
+    public OrderSongDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * Used for creating a new ordersong to be added to the database
      * @param os The ordersong you wish to add
@@ -44,12 +60,6 @@ public class OrderSongDao extends Dao implements OrderSongDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG) {
-                e.printStackTrace();
-            }
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG) {

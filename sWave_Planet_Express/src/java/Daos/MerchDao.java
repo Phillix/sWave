@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -21,6 +22,21 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     private final String TITLE      = "TITLE";
     private final String PRICE      = "PRICE";
 
+    /**
+     * Default Constructor for MerchDao
+     */
+    public MerchDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for MerchDao
+     * @param ds The DataSource to use for connections
+     */
+    public MerchDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * Used for creating a new Merch
      * @param m Merch object to create
@@ -45,12 +61,6 @@ public class MerchDao extends Dao implements MerchDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG) {
-                e.printStackTrace();
-            }
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG) {
@@ -99,7 +109,7 @@ public class MerchDao extends Dao implements MerchDaoInterface {
                                  rs.getDouble(PRICE));
             }
         }
-        catch (ClassNotFoundException | SQLException ex1) {
+        catch (SQLException ex1) {
             if (DEBUG)
                 ex1.printStackTrace();
         }

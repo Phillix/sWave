@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import Dtos.PlayTrack;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -24,6 +25,21 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     private final String SONGID      = "SONGID";
     private final String PLAYLISTID  = "PLAYLISTID";
     private final String ORDER       = "PLAYLISTORDER";
+    
+    /**
+     * Default Constructor for PlayTracksDao
+     */
+    public PlayTracksDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for PlayTracksDao
+     * @param ds The DataSource to use for connections
+     */
+    public PlayTracksDao(DataSource ds) {
+        super(ds);
+    }
     
     /**
      * 
@@ -47,11 +63,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -96,11 +107,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             cascadeOrderOnDelete(pt);
             return SUCCESS;
         }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
-        }
         catch (SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
@@ -140,11 +146,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -199,11 +200,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             }
             return playtracks;
         }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return null;
-        }
         catch (SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
@@ -249,11 +245,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
 
             return SUCCESS;
 
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -302,11 +293,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             return SUCCESS;
             
         }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
-        }
         catch (SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
@@ -347,11 +333,6 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
 
             return SUCCESS;
 
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)

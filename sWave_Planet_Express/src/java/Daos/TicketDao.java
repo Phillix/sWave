@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -22,7 +23,22 @@ public class TicketDao extends Dao implements TicketDaoInterface {
     private final String ISSUE      = "ISSUE";
     private final String DATE       = "DATERAISED";
     private final String RESOLVED   = "RESOLVED";
-
+    
+    /**
+     * Default Constructor for TicketDao
+     */
+    public TicketDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for TicketDao
+     * @param ds The DataSource to use for connections
+     */
+    public TicketDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * Creating a ticket for the database
      * @param t the Ticket to create
@@ -48,11 +64,6 @@ public class TicketDao extends Dao implements TicketDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch(SQLException e) {
             if(DEBUG)
@@ -257,11 +268,6 @@ public class TicketDao extends Dao implements TicketDaoInterface {
 
             if (result > 0)
                 return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch(SQLException e) {
             if(DEBUG)

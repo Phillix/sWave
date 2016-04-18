@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.sql.DataSource;
 
 /**
  *
@@ -17,6 +18,14 @@ public class AdDao extends Dao implements AdDaoInterface {
     private final String ID         = "ADID";
     private final String URL        = "ADURL";
 
+    public AdDao() {
+        super();
+    }
+    
+    public AdDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * Used for getting an ad based on an ad id
      * @param id random generated ad id
@@ -41,7 +50,7 @@ public class AdDao extends Dao implements AdDaoInterface {
                 ad.setAdUrl(rs.getString(URL));
             }
         }
-        catch(ClassNotFoundException | SQLException e) {
+        catch(SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
             return null;
@@ -84,7 +93,7 @@ public class AdDao extends Dao implements AdDaoInterface {
                 return maxId;
             }
         }
-        catch(ClassNotFoundException | SQLException e) {
+        catch(SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
             return SQLEX;

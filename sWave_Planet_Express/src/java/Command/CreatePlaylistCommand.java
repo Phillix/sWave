@@ -17,13 +17,13 @@ public class CreatePlaylistCommand implements Command {
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         PlaylistDao pd = new PlaylistDao();
         HttpSession session = request.getSession();
-        String title = request.getParameter("");
+        String title = request.getParameter("playlistTitle");
         User u = (User)(session.getAttribute("user"));
         
         if (title != null && !title.isEmpty() && u != null) {
             Playlist p = new Playlist(u.getUserId(), title);
             pd.createPlayList(p);
-            return "/playlist.jsp";
+            return "/playlists.jsp";
         }
         return "/error.jsp?=Playlist%20could%20not%20be%20created";
     }

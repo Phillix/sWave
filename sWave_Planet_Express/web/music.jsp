@@ -1,3 +1,5 @@
+<%@page import="Dtos.Playlist"%>
+<%@page import="Daos.PlaylistDao"%>
 <%@page import="sWave.ID3V2"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Ad"%>
@@ -134,12 +136,15 @@
                                 </strong>
                             </td>
                             <td class="actionButton">
+                                <button onclick="$('overlay').style.display='block'; $('addToPlaylist').style.display='block'">P</button>
+                                <!--
                                 <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
                                     <input type="hidden" name="action" value="addSongToPlaylist"/>
                                     <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                                     <input type="hidden" name="playlistid" value="0"/>
                                     <input type="submit" value="P"/>
                                 </form>
+                                -->
                             </td>
                         </tr>
                         <tr>
@@ -264,6 +269,49 @@
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
+        <div id="overlay" onclick="this.style.display='none'; $('addToPlaylist').style.display='none';"></div>
+        <style>
+            #addToPlaylist {
+                position: fixed;
+                width:    200px;
+                height:   100px;
+                left:     calc(50% - 100px);
+                top:      calc(50% - 50px);
+                background-color: rgba(255, 255, 255, 0.7);
+                box-shadow: 0px 0px 4px #000;
+                z-index:    20;
+                display:    none;
+                -moz-animation: expand 0.6s;
+            }
+            
+            #overlay {
+                position:         fixed;
+                top:              0px;
+                left:             0px;
+                z-index:          10;
+                background-color: rgba(0, 0, 0, 0.7);
+                width:            100%;
+                height:           100%;
+                display:          none;
+                -moz-animation: expand 0.4s;
+            }
+        </style>
+        <div id="addToPlaylist">
+            <form action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="addSongToPlaylist"/>
+                <label>Playlist: </label> 
+                <select>
+                    <%
+                        PlaylistDao playDao = new PlaylistDao();
+                        for (Playlist p : playDao.getUserPlaylists(currentUser.getUserId())) {%>
+                            <option>
+                                <%=p.getTitle()%>
+                            </option>
+                        <%}%>
+                </select><br/>
+                <input type="submit" value="Add"/>
+            </form>
+        </div>
         <div id="wallpaper"></div>
         <audio id="player"></audio>
     </body>

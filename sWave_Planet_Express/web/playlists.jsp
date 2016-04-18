@@ -106,25 +106,33 @@
         </aside>
         <div id="midsection">
             <h1>Playlists</h1>
+            <form action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="createPlaylist"/>
+                <input type="text" name="playlistTitle" placeholder="Playlist Title"/>
+                <input type="submit" value="Create"/>
+            </form>
             <ul>
             <%
                 PlaylistDao playlists = new PlaylistDao();
                 ArrayList<Playlist> playlistz = playlists.getUserPlaylists(currentUser.getUserId());
-                if (currentUser != null) {
-                    for (Playlist p : playlistz) {%>
-                        <li>
-                            <h3><%=p.getTitle()%></h3>
-                            <button>Play</button><br/>
-                            <ol>
-                                <%for (Song s : p.getPlaylistContents()) {%>
-                                    <li>
-                                        <%=s.getTitle()%>&#160;|&#160;<%=s.getArtist()%>
-                                    </li>
-                                <%}%>
-                            </ol>
-                        </li>
-                  <%}
-                }
+                for (Playlist p : playlistz) {%>
+                    <li>
+                        <h3><%=p.getTitle()%></h3>
+                        <button>Play</button><br/>
+                        <ol>
+                            <%for (Song s : p.getPlaylistContents()) {%>
+                                <li>
+                                    <%=s.getTitle()%>&#160;|&#160;<%=s.getArtist()%>
+                                </li>
+                            <%}%>
+                        </ol>
+                        <form action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="deletePlaylist"/>
+                            <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
+                            <input type="submit" value="Delete"/>
+                        </form>
+                    </li>
+                <%}
             %>
             </ul>
         </div>

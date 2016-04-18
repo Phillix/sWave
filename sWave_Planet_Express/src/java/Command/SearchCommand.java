@@ -21,14 +21,14 @@ public class SearchCommand implements Command {
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         SongDao sd    = new SongDao();
         MerchDao md   = new MerchDao();
-        UsersDao ud    = new UsersDao();
+        UsersDao ud   = new UsersDao();
         String search = request.getParameter("searchterm");
         if(search != null && !search.isEmpty()) {
-            ArrayList<Song> songs  = sd.search(search);
+            ArrayList<Song>  songs = sd.search(search);
             ArrayList<Merch> merch = md.searchMerch(search);
-            ArrayList<User> users  = ud.searchUsers(search);
-            if (!(songs.size() == 0 && merch.size() == 0)) {
-                HttpSession session    = request.getSession();
+            ArrayList<User>  users = ud.searchUsers(search);
+            if (!(songs.size() == 0 && merch.size() == 0 && users.size() == 0)) {
+                HttpSession session = request.getSession();
                 session.setAttribute("searchResults", songs);
                 session.setAttribute("searchMerchResults", merch);
                 session.setAttribute("searchUserResults", users);

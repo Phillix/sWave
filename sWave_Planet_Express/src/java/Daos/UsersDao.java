@@ -551,9 +551,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
         try {
 
             con = getConnection();
-            ps = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + UNAME + " REGEXP ?");
-            ps.setString(1,"^"+searchWord);
-            //ps.setString(2,searchWord);
+            ps = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + UNAME + " LIKE ?");
+            ps.setString(1, "%" + searchWord + "%");
             rs = ps.executeQuery();
             users = new ArrayList<>();
 

@@ -27,7 +27,7 @@ public class DeleteSongCommand implements Command {
             if (u != null && u.isIsAdmin()) {
                 result = sd.deleteSong(songId);
                 if (result > 0)
-                    return "/admin_panel.jsp";
+                    return "/account.jsp?view=admin";
             }
         } catch (Exception e) {
             if (DEBUG)

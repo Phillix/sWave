@@ -4,8 +4,6 @@ import Daos.SongDao;
 import Dtos.Song;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,8 +29,17 @@ public class StreamNGCommand implements Command {
             out.close();
             return null; //We don't want to redirect
         } catch (IOException ex) {
-            Logger.getLogger(StreamNGCommand.class.getName()).log(Level.SEVERE, null, ex);
+            if (DEBUG)
+                ex.printStackTrace();
         }
         return null;
     }
+    
+    /*
+        Create a hash of the mp3 data and store it in database.
+        Use a hashmap to store songdata on the heap.
+        When starting new stream get song hash and see if its in the hashmap
+        before reading from DB.
+    */
+    
 }

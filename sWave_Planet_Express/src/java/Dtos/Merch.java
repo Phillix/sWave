@@ -1,10 +1,13 @@
 package Dtos;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  *
  * @author Phillix
  */
-public class Merch {
+public class Merch implements Serializable {
 
     private int    merchId;
     private String title;
@@ -62,8 +65,14 @@ public class Merch {
         if (getClass() != obj.getClass())
             return false;
         final Merch other = (Merch) obj;
-        if (this.merchId != other.merchId)
-            return false;
-        return true;
+        return this.merchId == other.merchId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.title);
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        return hash;
     }
 }

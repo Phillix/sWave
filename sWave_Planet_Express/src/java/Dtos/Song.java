@@ -1,5 +1,6 @@
 package Dtos;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @author Austin
  * @author Brian Millar
  */
-public class Song {
+public class Song implements Serializable {
     private int    songId;
     private String filename;
     private String title;
@@ -235,9 +236,7 @@ public class Song {
             return false;
         if (!Objects.equals(this.album, other.album))
             return false;
-        if (!Objects.equals(this.genre, other.genre))
-            return false;
-        return true;
+        return Objects.equals(this.genre, other.genre);
     }
 
 }

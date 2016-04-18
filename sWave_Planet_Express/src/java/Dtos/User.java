@@ -1,12 +1,13 @@
 package Dtos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Phillix
  */
-public class User {
+public class User implements Serializable {
     private int     userId;
     private String  email;
     private String  password;

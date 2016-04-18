@@ -91,10 +91,6 @@
             <a href="music.jsp"><h2>Library</h2></a>
             <a href="playlists.jsp"><h2>Playlists</h2></a>
             <a href="radioTest.jsp"><h2>Radio Streams</h2></a>
-            <span id="copyNotice">
-                Copyright &copy; 2016<br/>
-                Team Planet Express<br/>
-            </span>
         </aside>
         <div id="midsection">
             <h1 id="songTitle">

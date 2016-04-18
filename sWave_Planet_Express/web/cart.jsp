@@ -15,7 +15,6 @@
         <%if (session == null) {
              response.sendRedirect("login.jsp?refer=cart.jsp");
           }
-            
           User currentUser = (User)session.getAttribute("user");%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -89,10 +88,6 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <span id="copyNotice">
-                Copyright &copy; 2016<br/>
-                Team Planet Express<br/>
-            </span>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">

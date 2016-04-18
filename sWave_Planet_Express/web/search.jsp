@@ -111,10 +111,6 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <span id="copyNotice">
-                Copyright &copy; 2016<br/>
-                Team Planet Express<br/>
-            </span>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">

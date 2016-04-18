@@ -99,10 +99,6 @@
             <a href="playing.jsp"><h2>Now Playing</h2></a>
             <a class="currentPageLink" href="music.jsp"><h2>Library</h2></a>
             <a href="playlists.jsp"><h2>Playlists</h2></a>
-            <span id="copyNotice">
-                Copyright &copy; 2016<br/>
-                Team Planet Express<br/>
-            </span>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">

@@ -287,15 +287,6 @@
     margin-top: 10px;
 }
 
-#copyNotice {
-    position:   fixed;
-    bottom:     304px;
-    left:       0px;
-    text-align: center;
-    width:      200px;
-    text-decoration: underline;
-}
-
 .currentPageLink {
     text-decoration: underline;
 }

@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
+import Dtos.PlayTrack;
 import Dtos.Playlist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +12,7 @@ import javax.sql.DataSource;
 /**
  *
  * @author Phillix
+ * @author Brian Millar
  */
 public class PlaylistDao extends Dao implements PlaylistDaoInterface {
     
@@ -174,5 +171,12 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
                 return null;
             }
         }
+    }
+
+    @Override
+    public void addSongToPlaylist(int s, int p) {
+        PlayTrack track = new PlayTrack(s, p, 0);
+        PlayTracksDao playDao = new PlayTracksDao();
+        playDao.createPlayTrack(track);
     }
 }

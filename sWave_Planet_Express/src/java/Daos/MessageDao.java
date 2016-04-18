@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.Message;
@@ -62,11 +57,6 @@ public class MessageDao extends Dao implements MessageDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -160,11 +150,6 @@ public class MessageDao extends Dao implements MessageDaoInterface {
             ps.setInt(2, msgId);
             if(ps.executeUpdate() > 0) return SUCCESS;
         }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
-        }
         catch (SQLException ex2) {
             if (DEBUG)
                 ex2.printStackTrace();
@@ -198,11 +183,6 @@ public class MessageDao extends Dao implements MessageDaoInterface {
             ps.setInt(1, friendId);
             ps.setInt(2, friendId);
             if(ps.executeUpdate() > 0) return SUCCESS;
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
             if (DEBUG)

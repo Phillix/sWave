@@ -30,7 +30,7 @@ public class Dao {
      */
     public Dao() {
         Connection con = null;
-        String DATASOURCE_CONTEXT = "jdbc/swave";
+        String DATASOURCE_CONTEXT = "jdbc/SWAVE";
         try {
             Context initialContext = new InitialContext();
             DataSource ds = (DataSource)initialContext.lookup("java:comp/env/" + DATASOURCE_CONTEXT);

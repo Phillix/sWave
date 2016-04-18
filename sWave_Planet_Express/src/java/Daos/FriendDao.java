@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Daos;
 
 import Dtos.Friend;
@@ -52,11 +47,6 @@ public class FriendDao extends Dao implements FriendDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -150,11 +140,6 @@ public class FriendDao extends Dao implements FriendDaoInterface {
             ps.setInt(4, friendId);
             if(ps.executeUpdate() > 0) return SUCCESS;
         }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
-        }
         catch (SQLException ex2) {
             if (DEBUG)
                 ex2.printStackTrace();
@@ -192,11 +177,6 @@ public class FriendDao extends Dao implements FriendDaoInterface {
             ps.setInt(3, friendId);
             ps.setInt(4, friendId);
             if(ps.executeUpdate() > 0) return SUCCESS;
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
             if (DEBUG)

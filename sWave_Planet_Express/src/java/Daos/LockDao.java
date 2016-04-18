@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.sql.DataSource;
 
 /**
  *
@@ -17,6 +18,21 @@ public class LockDao extends Dao implements LockDaoInterface {
     private final String USERID     = "USERID";
     private final String SONGID     = "SONGID";
 
+    /**
+     * Default Constructor for LockDao
+     */
+    public LockDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for LockDao
+     * @param ds The DataSource to use for connections
+     */
+    public LockDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * Used for adding a lock
      * @param x The lock you wish to add
@@ -36,7 +52,7 @@ public class LockDao extends Dao implements LockDaoInterface {
             ps.setLong(3, x.getLockTime());
             ps.executeUpdate();
         }
-        catch(ClassNotFoundException | SQLException e) {
+        catch(SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
         }
@@ -109,7 +125,7 @@ public class LockDao extends Dao implements LockDaoInterface {
             ps.setInt(1, songId);
             ps.executeUpdate();
         }
-        catch(ClassNotFoundException | SQLException e) {
+        catch(SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
         }
@@ -143,7 +159,7 @@ public class LockDao extends Dao implements LockDaoInterface {
             ps  = con.prepareStatement("DELETE FROM " + TABLE_NAME);
             rs  = ps.executeQuery();
         }
-        catch(ClassNotFoundException | SQLException e) {
+        catch(SQLException e) {
             if(DEBUG)
                 e.printStackTrace();
         }

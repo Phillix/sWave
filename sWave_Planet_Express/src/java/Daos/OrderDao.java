@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -26,6 +27,21 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     private final String DATEORDERED = "DATEORDERED";
     private final String TOTAL       = "TOTAL";
 
+    /**
+     * Default Constructor for OrderDao
+     */
+    public OrderDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for OrderDao
+     * @param ds The DataSource to use for connections
+     */
+    public OrderDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * This method is used for creating a new order
      * @param o the order object to be created
@@ -53,11 +69,6 @@ public class OrderDao extends Dao implements OrderDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)

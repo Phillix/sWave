@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.sql.DataSource;
 
 /**
  * The UsersDao class is used for communicating with the user table in the database
@@ -33,8 +34,22 @@ public class UsersDao extends Dao implements UserDaoInterface {
     private final String SKIN       = "SKIN";
     private final String PICTURE    = "PICTURE";
     private final String ADMIN      = "ADMIN";
-
-
+    
+    /**
+     * Default Constructor for UsersDao
+     */
+    public UsersDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for UsersDao
+     * @param ds The DataSource to use for connections
+     */
+    public UsersDao(DataSource ds) {
+        super(ds);
+    }
+    
     /**
      * Checks to see if the username is in the database
      * @param username The username we wish to check is in the database
@@ -55,11 +70,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             if(rs.next())
                 return SUCCESS; //success in this case means details exist and therefore user cannot use them
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
             if (DEBUG)
@@ -127,11 +137,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             if (ps.executeUpdate() > 0)
                 return SUCCESS; //It successfully inserted into the database
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
             if (DEBUG)
@@ -246,11 +251,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
             if(rs.next())
                 return SUCCESS;
         }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
-        }
         catch (SQLException ex2) {
             if (DEBUG)
                 ex2.printStackTrace();
@@ -298,11 +298,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
             if(rs.next())
                 return rs.getInt(USERID);
         }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
-        }
         catch (SQLException ex2) {
             if (DEBUG)
                 ex2.printStackTrace();
@@ -343,11 +338,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(1, email);
             boolean check = ps.executeUpdate() > 0;
             if (check) return SUCCESS;
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
             if (DEBUG)
@@ -390,11 +380,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setInt(2, userid);
             if (ps.executeUpdate() > 0)
                 return SUCCESS;
-        }
-        catch (ClassNotFoundException ex1) {
-            if (DEBUG)
-                ex1.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException ex2) {
             if (DEBUG)

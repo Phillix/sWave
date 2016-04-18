@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/sWave_Planet_Express"/>
+<Context antiJARLocking="true" path="/sWave_Planet_Express">
+<Resource   name="jdbc/swave"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxActive="100" 
+            maxIdle="30" 
+            maxWait="10000"
+            username="root" 
+            password="" 
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/sWave"/>
+</Context>

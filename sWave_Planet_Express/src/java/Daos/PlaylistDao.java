@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -24,6 +25,21 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
     private final String ID          = "PLAYLISTID";
     private final String USERID      = "USERID";
     private final String TITLE       = "TITLE";
+    
+    /**
+     * Default Constructor for PlaylistDao
+     */
+    public PlaylistDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for PlaylistDao
+     * @param ds The DataSource to use for connections
+     */
+    public PlaylistDao(DataSource ds) {
+        super(ds);
+    }
     
     /**
      * 
@@ -47,11 +63,6 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -92,11 +103,6 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
 
             ps.executeUpdate();
             return SUCCESS;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return CLASSNOTFOUND;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -149,11 +155,6 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
                 playlists.add(p);
             }
             return playlists;
-        }
-        catch (ClassNotFoundException e) {
-            if(DEBUG)
-                e.printStackTrace();
-            return null;
         }
         catch (SQLException e) {
             if(DEBUG)

@@ -118,15 +118,6 @@
         <%}%>
         </table>
         </div>
-        <aside class="panel" id="right_sidebar">
-            <br/>
-            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
-            <%
-                AdDao ads = new AdDao();
-                Ad ad = ads.getAd((int)Math.ceil(Math.random() * ads.getMaxAdId()));
-            %>
-            <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
-        </aside>
         <footer class="panel" id="base">
             <span id="playerStatus">No Data</span>
             <span id="controls">

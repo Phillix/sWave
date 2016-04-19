@@ -1,68 +1,103 @@
+@font-face {
+    font-family: regularRaleway;
+    src: local(regularRaleway), URL("fonts/Raleway-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: lighterRaleway;
+    src: local(lighterRaleway), URL("fonts/Raleway-Light.ttf") format("truetype");
+}
+
 body {
-    color:       green;
-    font-family: monospace;
+    color: #000;
+    font-family: regularRaleway, lighterRaleway, sans-serif;
 }
 
 a {
-    color: green;
+    color:           #000;
+    font-family:     lighterRaleway;
+    text-decoration: none;
 }
 
 a:hover {
+    text-decoration: underline;
 }
 
 button {
-	border-style:     outset;
-        border-width:     3px;
-	border-radius:    0px;
-	font-size:        12px;
-	padding-top:      4px;
-	padding-bottom:   4px;
-	padding-left:     6px;
-	padding-right:    6px;
-	background-color: #000;
+	border: none;
+	border-radius: 3px;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-image: URL("images/button_default.png");
+	background-size: 100% 100%;
 }
 
 button:hover {
+	background-image: URL("images/button_hover.png");
 }
 
 button:active {
-    border-style: inset;
+	background-image: URL("images/button_press.png");
 }
 
 input {
-    border-style:     solid;
-    border-width:     1px;
-    border-radius:    0px;
-    font-size:        10px;
-    padding-top:      3px;
-    padding-bottom:   3px;
-    padding-left:     6px;
-    padding-right:    6px;
-    background-color: #000;
-    color:            green;
-    border-color:     green;
+    color: #000;
+	border: none;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-color: rgba(0, 0, 0, 0.7);
+        -moz-transition: 0.4s;
 }
 
 input:focus {
-    box-shadow: inset 0px 0px 5px green;
-}
-
-input:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    -moz-transition: 0.4s;
 }
 
 .panel {
-    padding:          0px;
-    background-color: #000;
-    border-style:     solid;
-    border-width:     1px;
-}
-
-.playing {
+    color: #e3e3e3;
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.panel a {
+    color: #e3e3e3;
+}
+
 #wallpaper {
-    background-color: #000;
+    position:         fixed;
+    top:              0px;
+    left:             0px;
+    width:            100%;
+    height:           100%;
+    z-index:          -1;
     background-image: URL("images/wallpaper.jpg");
     background-size:  100% 100%;
+}
+
+.iconText {
+    fill: #000;
+    font-family: lighterRaleway;
+    font-weight: lighter;
+}
+
+.iconCircleStroked {
+    stroke-width: 4;
+    stroke: #000;
+    fill:   none;
+}
+
+.iconPolyFilled {
+    stroke: none;
+    fill:   #000;
+}
+
+.iconRectFilled {
+    stroke: none;
+    fill:   #000;
 }

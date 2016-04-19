@@ -118,24 +118,6 @@
             <div id="visualizer">
             </div>
         </div>
-        <aside class="panel" id="right_sidebar">
-            <ul>
-                <%if (session.getAttribute("currentSong") != null) {%>
-                    <li><%=((Song)session.getAttribute("currentSong")).getTitle()%></li>
-                <%}%>
-            </ul>
-            <%
-                AdDao ads = new AdDao();
-                int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());
-                try {
-                    Ad ad = ads.getAd(check);
-            %>
-            <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
-            <%}
-            catch (Exception e) {%>
-                <script>alert("The Database could not be Reached")</script>
-            <%}%>
-        </aside>
         <footer class="panel" id="base">
             <span id="playerStatus">No Data</span>
             <span id="controls">

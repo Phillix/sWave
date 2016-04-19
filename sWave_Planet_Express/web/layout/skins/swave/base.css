@@ -6,7 +6,6 @@
     height:     60px;
     padding:    0px;
     z-index:    2;
-    box-shadow: 0px 0px 3px #000;
 }
 
 #base {
@@ -17,14 +16,12 @@
     height:   90px;
     padding:  0px;
     z-index:  2;
-    box-shadow: 0px 0px 3px #000;
 }
 
 #midsection {
-    color:      green;
-    position:   fixed;
+    position:   absolute;
     left:       200px;
-    right:      200px;
+    right:      0px;
     top:        60px;
     bottom:     90px;
     padding:    0px;
@@ -32,6 +29,7 @@
     padding:    20px;
     overflow-y: scroll;
     overflow-x: auto;
+    box-shadow: inset 0px 0px 6px #000;
 }
 
 #left_sidebar {
@@ -42,18 +40,6 @@
     width:      200px;
     padding:    0px;
     z-index:    1;
-    box-shadow: 0px 0px 3px #000;
-}
-
-#right_sidebar {
-    position:   fixed;
-    right:      0px;
-    top:        60px;
-    bottom:     90px;
-    width:      200px;
-    padding:    0px;
-    z-index:    1;
-    box-shadow: 0px 0px 3px #000;
 }
 
 #ads {
@@ -104,7 +90,6 @@ nav {
 
 nav a {
     display:       inline-block;
-    color:         green;
     height:        24px;
     text-align:    center;
     padding-left:  10px;
@@ -186,7 +171,7 @@ td.trackTitle {
     width:            0px;
     height:           7px;
     border-radius:    5px;
-    background-color: green;
+    background-color: #e3e3e3;
 }
 
 #progressBG {
@@ -257,15 +242,6 @@ td.trackTitle {
     margin-top: 10px;
 }
 
-#copyNotice {
-    position:        fixed;
-    bottom:          304px;
-    left:            0px;
-    text-align:      center;
-    width:           200px;
-    text-decoration: underline;
-}
-
 .currentPageLink {
     text-decoration: underline;
 }
@@ -277,7 +253,6 @@ ul.ticketList {
 }
 
 li.ticket {
-    color:           green;
     list-style-type: none;
     margin-left:     0px;
     margin-right:    0px;
@@ -288,13 +263,11 @@ li.ticket {
 
 h3.ticketHeader {
     margin:           0px;
-    background-color: green;
     padding:          10px;
 }
 
 aside h2 {
     margin-left: 10px;
-    color:       green;
 }
 
 span.ticketHeaderRight {

@@ -23,7 +23,7 @@
         <title>Welcome to sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/playing.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
@@ -119,7 +119,6 @@
             </div>
         </div>
         <footer class="panel" id="base">
-            <span id="playerStatus">No Data</span>
             <span id="controls">
                 <svg width="45" height="45" viewBox="0 0 100 100">
                     <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
@@ -138,12 +137,11 @@
                     <polygon class="iconPolyFilled" points="52.5,35 52.5,65 77.5,50"/>
                 </svg>
             </span>
-            <span id="trackTimer">
-                --:-- / --:--
-            </span>
+            <span id="currentTimeDisplay">--:--</span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span id="durationDisplay">--:--</span>
         </footer>
         <div id="wallpaper"></div>
         <audio id="player"></audio>

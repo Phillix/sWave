@@ -3,7 +3,7 @@ function initsWaveAudio() {
     initAudioSystem();
     addAudioSource($("player"));
     listenForEvents();
-    playAudioSource($("player"), $("trackTimer"), $("progress"), $("scrubber"));
+    playAudioSource($("player"), $("currentTimeDisplay"), $("durationDisplay"), $("progress"), $("scrubber"));
 }
 
 function listenForEvents() {
@@ -11,15 +11,13 @@ function listenForEvents() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
-        $("playerStatus").innerHTML     = "Playing";
     });
+
     $("player").addEventListener("pause", function() {
         $("playButton").style.display   = "block";
         $("pauseButton1").style.display = "none";
         $("pauseButton2").style.display = "none";
-        $("playerStatus").innerHTML     = "Paused";
     });
-    $("player").addEventListener("progress", function() {$("playerStatus").innerHTML = "Downloading...";});
     
     document.body.addEventListener("keypress", function(event) {
         if ((event.which === 32) || (event.keyCode === 32)) {
@@ -34,8 +32,6 @@ function listenForEvents() {
             if (!currEl.contains("HTMLInputElement") && !currEl.contains("HTMLButtonElement")) {
                 event.preventDefault();
                 playPause();
-            } else {
-                $("playerStatus").innerHTML = "An Input has Focus";
             }
         }
         else if ((event.which === 39) || (event.keyCode === 39)) {
@@ -77,7 +73,7 @@ function playPause() {
 }
 
 function jumpTo(e) {
-    $("player").currentTime = $("player").duration * ((e.clientX - 10) / (window.innerWidth - 20));
+    $("player").currentTime = $("player").duration * ((e.clientX - 132) / (window.innerWidth - 202));
 }
 
 function showScrubber() {

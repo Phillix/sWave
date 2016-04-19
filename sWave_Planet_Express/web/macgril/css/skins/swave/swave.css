@@ -24,35 +24,35 @@ a:hover {
 }
 
 button {
-	border: none;
-	border-radius: 3px;
-	font-size: 12px;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-left: 6px;
-	padding-right: 6px;
-	background-image: URL("images/button_default.png");
-	background-size: 100% 100%;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-image: URL("images/button_default.png");
+    background-size: 100% 100%;
 }
 
 button:hover {
-	background-image: URL("images/button_hover.png");
+    background-image: URL("images/button_hover.png");
 }
 
 button:active {
-	background-image: URL("images/button_press.png");
+    background-image: URL("images/button_press.png");
 }
 
 input {
-    color: #000;
-	border: none;
-	font-size: 12px;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-left: 6px;
-	padding-right: 6px;
-	background-color: rgba(0, 0, 0, 0.7);
-        -moz-transition: 0.4s;
+    color: #e3e3e3;
+    border: none;
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: rgba(0, 0, 0, 0.7);
+    -moz-transition: 0.4s;
 }
 
 input:focus {
@@ -76,28 +76,28 @@ input:focus {
     width:            100%;
     height:           100%;
     z-index:          -1;
-    background-image: URL("images/wallpaper.jpg");
+    background-color: white;
     background-size:  100% 100%;
 }
 
 .iconText {
-    fill: #000;
+    fill: #e3e3e3;
     font-family: lighterRaleway;
     font-weight: lighter;
 }
 
 .iconCircleStroked {
     stroke-width: 4;
-    stroke: #000;
+    stroke: #e3e3e3;
     fill:   none;
 }
 
 .iconPolyFilled {
     stroke: none;
-    fill:   #000;
+    fill:   #e3e3e3;
 }
 
 .iconRectFilled {
     stroke: none;
-    fill:   #000;
+    fill:   #e3e3e3;
 }

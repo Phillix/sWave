@@ -13,7 +13,8 @@
     along with Macgril.  If not, see <http://www.gnu.org/licenses/>
 */
 
-var timerDisplay;
+var currTimeDis;
+var durTime;
 var progressBar;
 var scrubber;
 var src;
@@ -46,11 +47,12 @@ function seek(x) {
     src.currentTime = x;
 }
 
-function playAudioSource(source, timerDis, progBar, scrub) {
-    src          = source;
-    timerDisplay = timerDis;
-    progressBar  = progBar;
-    scrubber     = scrub;
+function playAudioSource(source, timerDis, durationDis, progBar, scrub) {
+    src         = source;
+    currTimeDis = timerDis;
+    durTimeDis  = durationDis;
+    progressBar = progBar;
+    scrubber    = scrub;
     src.play();
     startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
 }
@@ -106,8 +108,11 @@ function visualize() {
         if (bars[2][i].scale.y === 0)
             bars[2][i].scale.y = 0.1;
     }
-    timerDisplay.innerHTML  = formatTime(src.currentTime) + " / " + formatTime(src.duration);
-    progressBar.style.width = scrubber.style.left = Math.floor(src.currentTime * ((window.innerWidth - 24) / src.duration)) + "px";
+    currTimeDis.innerHTML = formatTime(src.currentTime);
+    //It seems wasteful to constantly update the duration as it shouldn't change 
+    //but this actually prevents bugs like the duration being NaN at the start.
+    durTimeDis.innerHTML  = formatTime(src.duration);
+    progressBar.style.width = scrubber.style.left = Math.floor(src.currentTime * ((window.innerWidth - 204) / src.duration)) + "px";
     setTimeout(requestAnimationFrame(visualize));
     renderer.render(scene, camera);
 }

@@ -128,7 +128,6 @@
             </ul>
         </div>
         <footer class="panel" id="base">
-            <span id="playerStatus">No Data</span>
             <span id="controls">
                 <!-- Hiding Next and Previous Buttons until Playlist Backend Functionality Compete-->
                 <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/rw.png"/>

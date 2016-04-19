@@ -119,7 +119,6 @@
         </table>
         </div>
         <footer class="panel" id="base">
-            <span id="playerStatus">No Data</span>
             <span id="controls">
                 <svg width="45" height="45" viewBox="0 0 100 100">
                     <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>

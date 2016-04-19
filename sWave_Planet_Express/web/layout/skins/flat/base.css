@@ -212,7 +212,7 @@
 
 #progress {
     position:         fixed;
-    bottom:           9px;
+    bottom:           20px;
     left:             12px;
     width:            0px;
     height:           7px;
@@ -224,7 +224,7 @@
     border-style:  solid;
     border-width:  1px;
     position:      fixed;
-    bottom:        7px;
+    bottom:        18px;
     left:          10px;
     right:         10px;
     height:        9px;

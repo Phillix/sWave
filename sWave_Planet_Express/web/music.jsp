@@ -33,7 +33,7 @@
         <title>Library - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
         <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/music.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
@@ -230,31 +230,16 @@
         </ul>
         </div>
         <footer class="panel" id="base">
-            <span id="playerStatus">No Data</span>
-            <span id="controls">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" points="72.5,35 72.5,65 47.5,50"/>
-                    <polygon class="iconPolyFilled" points="47.5,35 47.5,65 22.5,50"/>
-                </svg>
-                <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
-                    <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
-                    <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
-                </svg>
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" points="27.5,35 27.5,65 52.5,50"/>
-                    <polygon class="iconPolyFilled" points="52.5,35 52.5,65 77.5,50"/>
-                </svg>
-            </span>
-            <span id="trackTimer">
-                --:-- / --:--
-            </span>
+            <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">
+                <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
+                <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
+                <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
+            </svg>
+            <span id="currentTimeDisplay">--:--</span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span id="durationDisplay">--:--</span>
         </footer>
         <div id="overlay" onclick="this.style.display='none'; $('addToPlaylist').style.display='none';"></div>
         <style>

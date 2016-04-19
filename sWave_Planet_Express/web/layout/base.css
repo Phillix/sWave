@@ -19,17 +19,16 @@
 }
 
 #midsection {
-    position:   absolute;
-    left:       200px;
-    right:      0px;
-    top:        60px;
-    bottom:     50px;
-    padding:    0px;
-    z-index:    0;
-    padding:    20px;
-    overflow-y: scroll;
-    overflow-x: auto;
-    box-shadow: inset 0px 0px 6px #000;
+    position:      absolute;
+    left:          200px;
+    right:         0px;
+    top:           0px;
+    bottom:        0px;
+    padding:       0px;
+    z-index:       0;
+    padding-left:  14px;
+    padding-right: 14px;
+    box-shadow:    inset 0px 0px 6px #000;
 }
 
 #left_sidebar {
@@ -93,8 +92,7 @@ nav a:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-
-
+/*
 table {
     width:   100%;
     margin:  0px;
@@ -152,6 +150,53 @@ td.trackTitle {
     padding-right: 10px;
     max-width:     400px;
 }
+*/
+
+li.songListing {
+    margin-top:      10px;
+    display:         block;
+    width:           100%;
+    height:          100px;
+    text-decoration: none;
+    padding:         0px;
+    border-style:    solid;
+    border-width:    1px;
+    border-color:    #000;
+    box-shadow:      0px 0px 8px #000;
+    -moz-animation: subtle_fade_right 0.4s;
+}
+
+.playing {
+    box-shadow:   0px 0px 20px #fff;
+    -moz-transform: scale(1.02);
+}
+
+td.actionButton {
+    width: 20px;
+}
+
+td.artwork {
+    width:  110px;
+}
+            
+td.artist {
+    width: 33%;
+}
+            
+td.album {
+    width: 33%;
+}
+
+img.artwork {
+    position:           absolute;
+    top:                0px;
+    left:               0px;
+    width:              100px;
+    height:             100px;
+    box-shadow:         0px 0px 5px;
+    border-right-style: solid;
+    border-width:       1px;
+}
 
 #progress {
     position:         fixed;
@@ -161,7 +206,6 @@ td.trackTitle {
     height:           7px;
     border-radius:    5px;
     background-color: #e3e3e3;
-    -moz-transition:  0.4s;
 }
 
 #progressBG {
@@ -230,6 +274,12 @@ td.trackTitle {
     width:            200px;
     height:           200px;
     border-style-top: solid;
+}
+
+#libraryTrackList {
+    list-style: none;
+    padding:    0px;
+    margin-top: 74px;
 }
 
 #newTicketForm {

@@ -1,0 +1,5 @@
+/*Skin specific overrides for base.css*/
+
+#visualizer {
+    background-color: transparent;
+}

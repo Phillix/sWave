@@ -39,9 +39,16 @@
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Account - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
-        <link id="skin1" rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
-        <link id="skin2" rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
-        <link id="skin3" rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/account.css"/>
+        <!-- Import base Macgril CSS rules -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
+        <!-- Import Macgril's set of CSS animations -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
+        <!-- Import Macgril skin to apply -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <!-- Import sWave site specific CSS -->
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
+        <!-- Import sWave site specific Macgril skin overrides -->
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>

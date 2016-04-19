@@ -24,6 +24,7 @@ function listenForEvents() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
+        document.activeElement.blur();
     });
 
     $("player").addEventListener("pause", function() {
@@ -104,6 +105,6 @@ function playerUpdate() {
     //It seems wasteful to constantly update the duration as it shouldn't change 
     //but this actually prevents bugs like the duration being NaN at the start.
     durTimeDis.innerHTML  = formatTime(durr);
-    progressBar.style.width = scrubber.style.left = Math.floor(curr * ((window.innerWidth - 204) / durr)) + "px";
-    setTimeout("playerUpdate()", 500);
+    progressBar.style.width = Math.floor(curr * ((window.innerWidth - 204) / durr)) + "px";
+    setTimeout("playerUpdate()", 200);
 }

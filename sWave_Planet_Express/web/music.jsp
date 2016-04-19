@@ -31,10 +31,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Library - sWave</title>
+        <!-- Import base Macgril CSS rules -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
+        <!-- Import Macgril's set of CSS animations -->
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
+        <!-- Import Macgril skin to apply -->
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <!-- Import sWave site specific CSS -->
         <link rel="stylesheet" type="text/css" href="layout/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/music.css"/>
+        <!-- Import sWave site specific Macgril skin overrides -->
+        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/audio.js"></script>
@@ -102,7 +108,7 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-        <ul>
+        <ul id="libraryTrackList">
         <%
             SongDao dao = new SongDao();
             for (Song s : dao.getAllSongs()) {%>

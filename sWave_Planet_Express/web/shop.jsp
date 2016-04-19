@@ -28,10 +28,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Shop - sWave</title>
+        <!-- Import base Macgril CSS rules -->
+        <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
+        <!-- Import Macgril's set of CSS animations -->
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
+        <!-- Import Macgril skin to apply -->
         <link rel="stylesheet" type="text/css" href="macgril/css/skins/<%=skin%>/<%=skin%>.css"/>
+        <!-- Import sWave site specific CSS -->
+        <link rel="stylesheet" type="text/css" href="layout/base.css"/>
+        <!-- Import sWave site specific Macgril skin overrides -->
         <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/base.css"/>
-        <link rel="stylesheet" type="text/css" href="layout/skins/<%=skin%>/shop.css"/>
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>

@@ -137,7 +137,7 @@
                     <polygon class="iconPolyFilled" points="52.5,35 52.5,65 77.5,50"/>
                 </svg>
             </span>
-            <span id="currentTimeDisplay">--:--</span>
+            <span id="currTimeDisplay">--:--</span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>

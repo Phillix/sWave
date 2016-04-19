@@ -1,9 +1,22 @@
+//Save querying the DOM more than once
+
+var currTimeDis;
+var durTimeDis;
+var progressBar;
+var player;
+
 function initsWaveAudio() {
     //Calls to Macgril Framework's audio.js
+    currTimeDis = $("currTimeDisplay");
+    durTimeDis  = $("durationDisplay");
+    progressBar = $("progress");
+    player      = $("player");
     initAudioSystem();
-    addAudioSource($("player"));
+    addAudioSource(player);
     listenForEvents();
-    playAudioSource($("player"), $("currentTimeDisplay"), $("durationDisplay"), $("progress"), $("scrubber"));
+    player.play();
+    playerUpdate();
+    startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
 }
 
 function listenForEvents() {
@@ -82,4 +95,15 @@ function showScrubber() {
 
 function hideScrubber() {
     $("scrubber").style.MozTransform = "scale(0.0)";
+}
+
+function playerUpdate() {
+    var curr = player.currentTime;
+    var durr = player.duration;
+    currTimeDis.innerHTML = formatTime(curr);
+    //It seems wasteful to constantly update the duration as it shouldn't change 
+    //but this actually prevents bugs like the duration being NaN at the start.
+    durTimeDis.innerHTML  = formatTime(durr);
+    progressBar.style.width = scrubber.style.left = Math.floor(curr * ((window.innerWidth - 204) / durr)) + "px";
+    setTimeout("playerUpdate()", 500);
 }

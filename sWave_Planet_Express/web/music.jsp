@@ -235,7 +235,7 @@
                 <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
                 <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
             </svg>
-            <span id="currentTimeDisplay">--:--</span>
+            <span id="currTimeDisplay">--:--</span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>

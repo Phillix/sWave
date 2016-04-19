@@ -161,7 +161,7 @@ td.trackTitle {
     height:           7px;
     border-radius:    5px;
     background-color: #e3e3e3;
-    box-shadow:    1px 1px 0px #000;
+    -moz-transition:  0.4s;
 }
 
 #progressBG {
@@ -173,7 +173,6 @@ td.trackTitle {
     right:         70px;
     height:        9px;
     border-radius: 5px;
-    box-shadow:    1px 1px 0px #000;
 }
 
 #scrubber {
@@ -199,7 +198,7 @@ td.trackTitle {
     display: none;
 }
 
-#currentTimeDisplay {
+#currTimeDisplay {
     position:    fixed;
     left:        70px;
     bottom:      6px;

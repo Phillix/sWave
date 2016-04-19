@@ -13,12 +13,6 @@
     along with Macgril.  If not, see <http://www.gnu.org/licenses/>
 */
 
-var currTimeDis;
-var durTime;
-var progressBar;
-var scrubber;
-var src;
-
 function initAudioSystem() {
     sysAudioContext   = new AudioContext();
     sysAudioAnalyser  = sysAudioContext.createAnalyser();
@@ -45,16 +39,6 @@ function setSysVol(level) {
 
 function seek(x) {
     src.currentTime = x;
-}
-
-function playAudioSource(source, timerDis, durationDis, progBar, scrub) {
-    src         = source;
-    currTimeDis = timerDis;
-    durTimeDis  = durationDis;
-    progressBar = progBar;
-    scrubber    = scrub;
-    src.play();
-    startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
 }
 
 function startAudioVisualization(element, width, height) {
@@ -108,11 +92,6 @@ function visualize() {
         if (bars[2][i].scale.y === 0)
             bars[2][i].scale.y = 0.1;
     }
-    currTimeDis.innerHTML = formatTime(src.currentTime);
-    //It seems wasteful to constantly update the duration as it shouldn't change 
-    //but this actually prevents bugs like the duration being NaN at the start.
-    durTimeDis.innerHTML  = formatTime(src.duration);
-    progressBar.style.width = scrubber.style.left = Math.floor(src.currentTime * ((window.innerWidth - 204) / src.duration)) + "px";
     setTimeout(requestAnimationFrame(visualize));
     renderer.render(scene, camera);
 }

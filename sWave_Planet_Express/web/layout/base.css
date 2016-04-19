@@ -24,11 +24,9 @@
     right:         0px;
     top:           0px;
     bottom:        0px;
-    padding:       0px;
     z-index:       0;
     padding-left:  14px;
     padding-right: 14px;
-    box-shadow:    inset 0px 0px 6px #000;
 }
 
 #left_sidebar {

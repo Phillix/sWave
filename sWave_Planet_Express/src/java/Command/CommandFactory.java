@@ -65,6 +65,15 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("editSong") ) {
             //Editing a song
             command = new EditSongCommand();
+        } else if ( action.equalsIgnoreCase("requestFriend") ) {
+            //Editing a song
+            command = new RequestFriendCommand();
+        } else if ( action.equalsIgnoreCase("ConfirmFriend") ) {
+            //Editing a song
+            command = new ConfirmFriendCommand();
+        } else if ( action.equalsIgnoreCase("removeFriend") ) {
+            //Editing a song
+            command = new RemoveFriendCommand();
         } else {
             command = new DummyCommand();
         }

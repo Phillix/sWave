@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Phillix
  */
-public class ConfirmFriendCommand implements Command {
+public class RemoveFriendCommand implements Command {
 
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
@@ -25,7 +25,7 @@ public class ConfirmFriendCommand implements Command {
         String friendId = request.getParameter("friendId");
         
         if(u != null && friendId != null && !friendId.isEmpty()) {
-            fd.confirmFriend(u.getUserId(), Integer.valueOf(friendId));
+            fd.removeFriend(u.getUserId(), Integer.valueOf(friendId));
             return "/account.jsp";
         }
         return "/error.jsp";

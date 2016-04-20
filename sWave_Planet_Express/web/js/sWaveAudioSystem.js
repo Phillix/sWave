@@ -4,32 +4,63 @@ var currTimeDis;
 var durTimeDis;
 var progressBar;
 var player;
+var crossfade;
 
-function initsWaveAudio() {
-    //Calls to Macgril Framework's audio.js
-    currTimeDis = $("currTimeDisplay");
-    durTimeDis  = $("durationDisplay");
-    progressBar = $("progress");
-    player      = $("player");
-    initAudioSystem();
-    addAudioSource(player);
-    listenForEvents();
-    player.play();
-    playerUpdate();
-    startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
+function initsWaveAudio(song) {
+    if (player !== null && player !== undefined) {
+        crossfade.src    = player.src;
+        crossfade.volume = player.volume;
+        crossfade.currentTime = player.currentTime;
+        crossfade.play();
+        player.volume = 0.0;
+        crossFade();
+        player.src = song;
+        player.play();
+    }
+    else {
+        currTimeDis = $("currTimeDisplay");
+        durTimeDis  = $("durationDisplay");
+        progressBar = $("progress");
+        player      = new Audio();
+        crossfade   = new Audio();
+        player.src  = song;
+        initAudioSystem();
+        addAudioSource(player);
+        addAudioSource(crossfade);
+        listenForEvents();
+        player.play();
+        playerUpdate();
+        startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
+    }
+}
+
+function crossFade() {
+    var again = false;
+    if (parseFloat(crossfade.volume.toFixed(1)) > 0.0) {
+        crossfade.volume = parseFloat((crossfade.volume - 0.1).toFixed(1));
+        again = true;
+    }
+    if (parseFloat(player.volume.toFixed(1)) < 1.0) {
+        player.volume = parseFloat((player.volume + 0.1).toFixed(1));
+        again = true;
+    }
+    if (again) {
+        setTimeout(function() {
+            crossFade();
+        }, 500);
+    }
 }
 
 function listenForEvents() {
-    $("player").addEventListener("play", function() {
+    player.addEventListener("play", function() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
         $("volSlider").value = $("player").volume * 10;
-        $("speedSlider").value = $("player").playbackRate * 4;
 ;        document.activeElement.blur();
     });
 
-    $("player").addEventListener("pause", function() {
+    player.addEventListener("pause", function() {
         $("playButton").style.display   = "block";
         $("pauseButton1").style.display = "none";
         $("pauseButton2").style.display = "none";
@@ -54,42 +85,42 @@ function listenForEvents() {
             //Don't perform the action if user types the key in an input field
             if (!document.activeElement.toString().contains("HTMLInputElement")) {
                 event.preventDefault();
-                seek($("player").currentTime + 10);
+                seek(player, player.currentTime + 10);
             }
         }
         else if ((event.which === 37) || (event.keyCode === 37)) {
             //Don't perform the action if user types the key in an input field
             if (!document.activeElement.toString().contains("HTMLInputElement")) {
                 event.preventDefault();
-                seek($("player").currentTime - 10);
+                seek(player, player.currentTime - 10);
             }
         }
         else if ((event.which === 38) || (event.keyCode === 38)) {
             //Don't perform the action if user types the key in an input field
             if (!document.activeElement.toString().contains("HTMLInputElement")) {
                 event.preventDefault();
-                seek($("player").currentTime + 30);
+                seek(player, player.currentTime + 30);
             }
         }
         else if ((event.which === 40) || (event.keyCode === 40)) {
             //Don't perform the action if user types the key in an input field
             if (!document.activeElement.toString().contains("HTMLInputElement")) {
                 event.preventDefault();
-                seek($("player").currentTime - 30);
+                seek(player, player.currentTime - 30);
             }
         }
     });
 }
 
 function playPause() {
-    if (!$("player").paused)
-        $("player").pause();
-    else if ($("player").paused)
-        $("player").play();
+    if (!player.paused)
+        player.pause();
+    else if (player.paused)
+        player.play();
 }
 
 function jumpTo(e) {
-    $("player").currentTime = $("player").duration * ((e.clientX - 132) / (window.innerWidth - 202));
+    player.currentTime = player.duration * ((e.clientX - 132) / (window.innerWidth - 202));
 }
 
 function showScrubber() {
@@ -112,5 +143,5 @@ function playerUpdate() {
 }
 
 function updateVol() {
-    $("player").volume = $("volSlider").value / 10;
+    player.volume = $("volSlider").value / 10;
 }

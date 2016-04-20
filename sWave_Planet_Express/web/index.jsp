@@ -44,7 +44,7 @@
     </head>
     <body>
         <header class="panel" id="topbar">
-            <svg onclick="window.open('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
+            <svg onclick="window.location.assign('index.jsp')" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
                     <rect x="0" y="0" width="100" height="100" fill="#fff"/>
                     <ellipse cx="2.5"  cy="0"   rx="30" ry="51" fill="#000"/>
@@ -68,10 +68,10 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a id="index2Link" class="currentPageLink" href="index.jsp">Music</a>
-                <a id="shopLink" href="shop.jsp">Shop</a>
-                <a id="accountLink" href="account.jsp">Account</a>
-                <a id="aboutLink" href="about.jsp">About</a>
+                <a href="music.jsp">Music</a>
+                <a href="shop.jsp">Shop</a>
+                <a href="account.jsp">Account</a>
+                <a href="about.jsp">About</a>
             </nav>
             <div id="header_right">
                 <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
@@ -94,38 +94,8 @@
                 <%}%>
             </div>
         </header>
-        <aside class="panel" id="left_sidebar">
-            <a class="currentPageLink" href="index.jsp"><h2>Now Playing</h2></a>
-            <a href="music.jsp"><h2>Library</h2></a>
-            <a href="playlists.jsp"><h2>Playlists</h2></a>
-            <a href="radioTest.jsp"><h2>Radio Streams</h2></a>
-        </aside>
-        <div id="midsection">
-            <h1 id="songTitle">
-                <%if (session.getAttribute("currentSong") != null) {%>
-                    <%=((Song)session.getAttribute("currentSong")).getTitle()%>
-                    &#160;&#160;-&#160;&#160;
-                    <%=((Song)session.getAttribute("currentSong")).getArtist()%>
-                <%} else {%>
-                    Welcome to sWave<%if (currentUser != null) {%>, <%=currentUser.getFname()%>!<%}
-                }%>
-            </h1>
-            <%if (session.getAttribute("currentSong") != null) {%>
-                <img id="testImage"/>
-                <script>
-                    loadArtwork(<%=((Song)session.getAttribute("currentSong")).getSongId()%>, $("testImage"));
-                </script>
-            <%}%>
-            <select id="visualSelection">
-                <option>Artwork</option>
-                <option>2D Bars</option>
-                <option>3D Bars</option>
-                <option>Wave</option>
-                <option>Particles</option>
-            </select>
-            <div id="visualizer">
-            </div>
-        </div>
+            <!-- STUFF GOES HERE -->
+            
         <footer class="panel" id="base">
             <span id="controls">
                 <svg width="45" height="45" viewBox="0 0 100 100">

@@ -29,15 +29,16 @@ function initAudioSystem() {
 }
 
 function addAudioSource(src) {
-    (sysAudioContext.createMediaElementSource(src)).connect(sysAudioAnalyser);
-    (sysAudioContext.createMediaElementSource(src)).connect(sysAudioAnalyser2);
+    var audioSource = sysAudioContext.createMediaElementSource(src);
+    audioSource.connect(sysAudioAnalyser);
+    audioSource.connect(sysAudioAnalyser2);
 }
 
 function setSysVol(level) {
     sysAudioGain.gain.value = (level + 120) * 0.004166667;
 }
 
-function seek(x) {
+function seek(src, x) {
     src.currentTime = x;
 }
 

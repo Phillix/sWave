@@ -62,9 +62,9 @@ function startAudioVisualization(element, width, height) {
         bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.2, 0.5), new THREE.MeshBasicMaterial({color:0x55B25B})); //Bars
         bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.2, 0.5), new THREE.MeshBasicMaterial({color:0xFF7446})); //Tips
         bars[2][i].position.set(j, 10, 0);
-        bars[1][i].position.set(j, -20, 0);
+        bars[1][i].position.set(j, -20.5, 0);
         //j += 0.7;
-        bars[0][i].position.set(j, -20, 0);
+        bars[0][i].position.set(j, -20.5, 0);
         j += (0.7 * 2);
         scene.add(bars[1][i]);
         scene.add(bars[0][i]);
@@ -82,9 +82,9 @@ function visualize() {
     for (var i = 0; i < 64; i++) {
         bars[2][i].position.y = ((visualData[2][i] - 128) / 5) + 10;
         data = (visualData[1][i] / 8);
-        bars[1][i].position.y = ((data / 4)) - 20;
+        bars[1][i].position.y = (data / 4) - 20.5;
         bars[1][i].scale.y = data;
-        bars[0][i].position.y = ((visualData[0][i] / 8) / 2) - 20;
+        bars[0][i].position.y = ((visualData[0][i] / 8) / 2) - 20.5;
         if (bars[0][i].scale.y === 0)
             bars[0][i].scale.y = 0.1;
         if (bars[1][i].scale.y === 0)

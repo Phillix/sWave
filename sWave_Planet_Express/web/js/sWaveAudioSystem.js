@@ -24,7 +24,9 @@ function listenForEvents() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
-        document.activeElement.blur();
+        $("volSlider").value = $("player").volume * 10;
+        $("speedSlider").value = $("player").playbackRate * 4;
+;        document.activeElement.blur();
     });
 
     $("player").addEventListener("pause", function() {
@@ -107,4 +109,8 @@ function playerUpdate() {
     durTimeDis.innerHTML  = formatTime(durr);
     progressBar.style.width = Math.floor(curr * ((window.innerWidth - 204) / durr)) + "px";
     setTimeout("playerUpdate()", 200);
+}
+
+function updateVol() {
+    $("player").volume = $("volSlider").value / 10;
 }

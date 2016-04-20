@@ -25,8 +25,6 @@
     top:           0px;
     bottom:        0px;
     z-index:       0;
-    padding-left:  14px;
-    padding-right: 14px;
 }
 
 #left_sidebar {
@@ -75,13 +73,13 @@ nav {
 }
 
 nav a {
-    display:       inline-block;
-    height:        24px;
-    text-align:    center;
-    padding-left:  10px;
-    padding-right: 10px;
-    margin:        0px;
-    font-size:     24px;
+    display:        inline-block;
+    height:         24px;
+    text-align:     center;
+    padding-left:   14px;
+    padding-right:  14px;
+    margin:         0px;
+    font-size:      24px;
     padding-top:    14px;
     padding-bottom: 22px;
 }
@@ -151,16 +149,15 @@ td.trackTitle {
 */
 
 li.songListing {
-    margin-top:      10px;
+    margin:          0px;
     display:         block;
     width:           100%;
     height:          100px;
     text-decoration: none;
     padding:         0px;
-    border-style:    solid;
-    border-width:    1px;
-    border-color:    #000;
-    box-shadow:      0px 0px 8px #000;
+    border-top-style: solid;
+    border-width:     1px;
+    border-color:     #000;
     -moz-animation: subtle_fade_right 0.4s;
 }
 
@@ -185,15 +182,16 @@ td.album {
     width: 33%;
 }
 
+td.title {
+    font-size: 24px;
+}
+
 img.artwork {
     position:           absolute;
     top:                0px;
     left:               0px;
     width:              100px;
     height:             100px;
-    box-shadow:         0px 0px 5px;
-    border-right-style: solid;
-    border-width:       1px;
 }
 
 #progress {
@@ -275,9 +273,35 @@ img.artwork {
 }
 
 #libraryTrackList {
-    list-style: none;
-    padding:    0px;
-    margin-top: 74px;
+    list-style:       none;
+    padding:          0px;
+    margin-top:       90px;
+    margin-bottom:    50px;
+}
+
+#omniBar {
+    position: fixed;
+    top:      60px;
+    left:     200px;
+    height:   30px;
+    width:    calc(100% - 200px);
+    padding:  0px;
+    z-index:  2;
+}
+
+#pageSwitcher {
+    display:     block;
+    margin-top:  5px;
+    margin-left: 5px;
+}
+
+a.pageNum {
+    margin-left:   5px;
+    border-radius: 20px;
+    width:         20px;
+    height:        20px;
+    text-align:    center;
+    display:       inline-block;
 }
 
 #newTicketForm {
@@ -334,4 +358,10 @@ span.ticketHeaderRight {
 p.ticketIssue {
     margin-left:  10px;
     margin-right: 10px;
+}
+
+#volControls {
+    position: fixed;
+    right:    0px;
+    bottom:   20px;
 }

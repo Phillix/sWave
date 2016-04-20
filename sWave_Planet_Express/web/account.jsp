@@ -111,12 +111,12 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="account.jsp?view=profile"><h2>Profile</h2></a>
-            <a href="account.jsp?view=orders"><h2>Orders</h2></a>
-            <a href="account.jsp?view=tickets"><h2>Tickets</h2></a>
-            <a href="account.jsp?view=settings"><h2>Settings</h2></a>
+            <a href="account.jsp?view=profile">Profile</a>
+            <a href="account.jsp?view=orders">Orders</a>
+            <a href="account.jsp?view=tickets">Tickets</a>
+            <a href="account.jsp?view=settings">Settings</a>
             <%if (currentUser != null && currentUser.isIsAdmin()) {%>
-                <a href="account.jsp?view=admin"><h2>Admin</h2></a>
+                <a href="account.jsp?view=admin">Admin</a>
             <%}%>
             <div id="visualizer"></div>
         </aside>

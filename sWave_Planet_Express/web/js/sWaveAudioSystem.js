@@ -8,14 +8,14 @@ var crossfade;
 
 function initsWaveAudio(song) {
     if (player !== null && player !== undefined) {
-        crossfade.src    = player.src;
+        crossfade.src = player.src;
         crossfade.volume = player.volume;
         crossfade.currentTime = player.currentTime;
         crossfade.play();
         player.volume = 0.0;
-        crossFade();
         player.src = song;
         player.play();
+        crossFade();
     }
     else {
         currTimeDis = $("currTimeDisplay");
@@ -28,6 +28,9 @@ function initsWaveAudio(song) {
         addAudioSource(player);
         addAudioSource(crossfade);
         listenForEvents();
+        var playTime = lStore("playTime");
+        if (playTime !== null && playTime !== undefined)
+            player.currentTime = playTime;
         player.play();
         playerUpdate();
         startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
@@ -52,6 +55,12 @@ function crossFade() {
 }
 
 function listenForEvents() {
+    window.addEventListener("beforeunload", function() {
+        var curr = player.currentTime;
+        if (curr !== null && curr !== undefined && curr > 0.0)
+            lStore("playTime", curr);
+    });
+    
     player.addEventListener("play", function() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";

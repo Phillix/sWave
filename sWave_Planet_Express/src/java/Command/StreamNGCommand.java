@@ -27,6 +27,7 @@ public class StreamNGCommand implements Command {
             System.out.println("FOUND: " + s.getSongdata().length);
             out.flush();
             out.close();
+            session.setAttribute("currentSongId", Integer.parseInt(request.getParameter("songid")));
             return null; //We don't want to redirect
         } catch (IOException ex) {
             if (DEBUG)

@@ -38,6 +38,14 @@
                 merch = (ArrayList<Merch>)session.getAttribute("searchMerchResults");
                 users = (ArrayList<User>)session.getAttribute("searchUserResults");
             }
+
+            if (session.getAttribute("currentSongId") != null) {%>
+                <script>
+                    function resumePlay() {
+                        streamNG(<%=(int)session.getAttribute("currentSongId")%>);
+                    }
+                </script>
+          <%}
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -65,7 +73,7 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
     </head>
-    <body>
+    <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">

@@ -64,7 +64,6 @@ function startAudioVisualization(element, width, height) {
         bars[0][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.2, 0.5), new THREE.MeshBasicMaterial({color:0xFF7446})); //Tips
         bars[2][i].position.set(j, 10, 0);
         bars[1][i].position.set(j, -20.5, 0);
-        //j += 0.7;
         bars[0][i].position.set(j, -20.5, 0);
         j += (0.7 * 2);
         scene.add(bars[1][i]);

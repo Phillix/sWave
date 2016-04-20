@@ -16,7 +16,7 @@
 function lStore(x, y) {
     if (y === "del")
         window.localStorage.removeItem(x);
-    else if (y !== null)
+    else if (y !== null && y !== undefined)
         window.localStorage.setItem(x, y);
     else
         return window.localStorage.getItem(x);

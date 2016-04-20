@@ -35,7 +35,14 @@
             if (request.getParameter("pageNum") != null) {
                 pageNum = Integer.parseInt(request.getParameter("pageNum"));
             }
-        %>
+
+            if (session.getAttribute("currentSongId") != null) {%>
+                <script>
+                    function resumePlay() {
+                        streamNG(<%=(int)session.getAttribute("currentSongId")%>);
+                    }
+                </script>
+            <%}%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Library - sWave</title>
@@ -58,7 +65,7 @@
         <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
-    <body>
+    <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">

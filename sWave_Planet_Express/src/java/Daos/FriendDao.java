@@ -125,6 +125,63 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         return friends;
     }
     
+    /**
+     * 
+     * @param userId the id of the user you wish to return pending requests belonging to
+     * @return a Collection of friends whose status is 'p' (pending)
+     */
+    public ArrayList<Friend> getPendingFriendRequests(int userId) {
+
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+        Friend f              = null;
+        ArrayList<Friend> friends;
+
+        try {
+            con = getConnection();
+            ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
+                                       " WHERE " + ID + " = ? OR " + FRIENDID + " = ? AND " + STATUS + " = 'p'" +
+                                       " ORDER BY " + DATE);
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            rs     = ps.executeQuery();
+            friends = new ArrayList<>();
+
+            while(rs.next()) {
+                f = new Friend();
+
+                f.setUserId(rs.getInt(ID));
+                f.setFriendId(rs.getInt(FRIENDID));
+                f.setFriendshipDate(rs.getDate(DATE).toString());
+                f.setStatus(rs.getString(STATUS).charAt(0));
+
+                friends.add(f);
+            }
+        }
+        catch(Exception e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+                if (rs != null)
+                    rs.close();
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return null;
+            }
+        }
+        return friends;
+    }
+    
     public int removeFriend(int userId,int friendId) {
         Connection con       = null;
         PreparedStatement ps = null;

@@ -55,6 +55,17 @@ public class FriendDaoTest {
         assertEquals(expResult, result);
     }
     
+//    /**
+//     * Test of getPendingFriendRequests method, of class FriendDao.
+//     */
+//    @Test
+//    public void testGetPendingFriendRequests() {
+//        
+//        int userId = -1;
+//        ArrayList<Friend> result = instance.getPendingFriendRequests(userId);
+//        System.out.println(result.get(0));
+//    }  
+    
     /**
      * Test of confirmFriend method, of class FriendDao.
      */

@@ -16,6 +16,7 @@ public interface FriendDaoInterface {
     
     public int requestFriend(Friend f);
     public ArrayList<Friend> getUserFriends(int userId);
+    public ArrayList<Friend> getPendingFriendRequests(int userId);
     public int removeFriend(int userId, int friendId);
     public int confirmFriend(int userId, int friendId);
 }

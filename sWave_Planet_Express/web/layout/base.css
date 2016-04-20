@@ -317,8 +317,12 @@ h3.ticketHeader {
     padding:          10px;
 }
 
-aside h2 {
-    margin-left: 10px;
+aside a {
+    display:   block;
+    font-size: 24px;
+    width:     184px;
+    padding:   8px;
+    margin:    0px;
 }
 
 span.ticketHeaderRight {

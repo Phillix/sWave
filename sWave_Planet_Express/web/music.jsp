@@ -102,9 +102,9 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="playing.jsp"><h2>Now Playing</h2></a>
-            <a class="currentPageLink" href="music.jsp"><h2>Library</h2></a>
-            <a href="playlists.jsp"><h2>Playlists</h2></a>
+            <a href="playing.jsp">Now Playing</a>
+            <a class="currentPageLink" href="music.jsp">Library</a>
+            <a href="playlists.jsp">Playlists</a>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">

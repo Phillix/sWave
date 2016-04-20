@@ -3,3 +3,11 @@
 #visualizer {
     background-color: transparent;
 }
+
+aside a:hover {
+    background-color: rgba(49, 146, 153, 0.6);
+}
+
+.currentPageLink {
+    background-color: rgba(49, 146, 153, 0.6);
+}

@@ -6,8 +6,8 @@ function loadArtwork(songid, image) {
     formdata.append("action", "loadArtwork");
     formdata.append("songid", songid);
     request.onload = function() {
-        blob = this.response;
-        if (blob != null && blob.size != 0)
+        var blob = this.response;
+        if (blob !== null && blob.size !== 0)
             image.src = genURL(blob);
         else
             image.src = "images/MP3.png";
@@ -15,3 +15,18 @@ function loadArtwork(songid, image) {
     request.send(formdata);
 }
 
+function loadUserPicture() {
+    var request  = new XMLHttpRequest();
+    var formdata = new FormData();
+    request.responseType = 'blob';
+    request.open("POST", "UserActionServlet", true);
+    formdata.append("action", "loadUserPicture");
+    request.onload = function() {
+        var blob = this.response;
+        if (blob !== null && blob.size !== 0)
+            $("userPic").src = genURL(blob);
+        else
+            $("userPic").src = "images/test.png";
+    };
+    request.send(formdata);
+}

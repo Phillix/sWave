@@ -19,4 +19,5 @@ public interface UserDaoInterface {
     public int updateUser(User u);
     public ArrayList<User> searchUsers(String searchWord);
     public int addUserPicture(int id, byte[] buffer);
+    public byte[] getUserPicture(int id);
 }

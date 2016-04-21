@@ -99,7 +99,9 @@
                 <input type="hidden" name="action" value="search"/>
                 <input type="search" name="searchterm" placeholder="Search"/>
             </form>
+            <a id="hi" download/>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            <script>loadUserPicture(<%=currentUser.getUserId()%>)</script>
             <div id="userMenu" class="panel">
                 <%if (currentUser != null) {%>
                     <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>

@@ -184,10 +184,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             if(rs.next()) {
                 String dbPass = rs.getString(PASSWORD);
-                Blob picture = rs.getBlob(PICTURE);
-                byte pic[] = null;
-                if (picture != null)
-                    pic = picture.getBytes(1, (int)picture.length());
                 if(ms.checkPassword(password.toCharArray(), dbPass)) {
                     u = new User();
                     u.setUserId(rs.getInt(USERID));
@@ -201,7 +197,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
                     u.setCity(rs.getString(CITY));
                     u.setCounty(rs.getString(COUNTY));
                     u.setSkin(rs.getString(SKIN));
-                    u.setPicture(pic);
                     u.setIsAdmin(rs.getBoolean(ADMIN));
 
                     return u;
@@ -610,5 +605,44 @@ public class UsersDao extends Dao implements UserDaoInterface {
             }
         }
         return OTHER;
+    }
+
+    @Override
+    public byte[] getUserPicture(int id) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+
+        try {
+            con          = getConnection();
+            String query = "SELECT " + PICTURE + " FROM " + TABLE_NAME + " WHERE " + USERID + " = ?";
+            ps           = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if(rs.next()) {
+                Blob b = rs.getBlob(PICTURE);
+                return b.getBytes(1, (int)b.length());
+            }
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+        }
+        finally {
+            try {
+                if(rs  != null)
+                    rs.close();
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

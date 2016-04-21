@@ -29,6 +29,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("uploadUserPicture") ) {
             //Allows Picture Uploading
             command = new UploadUserPictureCommand();
+        } else if ( action.equalsIgnoreCase("LoadUserPicture") ) {
+            //Allows Picture Loading
+            command = new LoadUserPictureCommand();
         } else if ( action.equalsIgnoreCase("search") ) {
             //For searching for songs
             command = new SearchCommand();

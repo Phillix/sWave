@@ -348,4 +348,40 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             }
         }
     }
+    
+    public int getMaxPlaylistOrder(int playlistId) {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            con = getConnection();
+            ps = con.prepareStatement("SELECT MAX(" + ORDER + ") FROM " + TABLE_NAME + " WHERE " + PLAYLISTID + " = ?");
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                return rs.getInt("MAX("+ORDER+")");
+            }
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
+            }
+        }
+        return OTHER;
+    }    
 }

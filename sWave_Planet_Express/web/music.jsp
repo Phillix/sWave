@@ -308,13 +308,14 @@
         <div id="addToPlaylist">
             <form action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="addSongToPlaylist"/>
+                <input id="song" type="hidden" name="songId"/>
                 <label>Playlist: </label> 
-                <select>
+                <select name="playlistId">
                     <%
                         PlaylistDao playDao = new PlaylistDao();
                         for (Playlist p : playDao.getUserPlaylists(currentUser.getUserId())) {%>
                             <option>
-                                <%=p.getTitle()%>
+                                <%=p.getPlaylistId()%>
                             </option>
                         <%}%>
                 </select><br/>

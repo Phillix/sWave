@@ -182,6 +182,7 @@ public class ID3V2 {
     }
     
     private static String processGenre() {
+        System.out.println("Found TCON");
         String genre = processTextFrame("TCON");
         if (!genre.isEmpty()) {
             //An opening bracket tells us that an ID3V1 genre ID is used
@@ -230,8 +231,8 @@ public class ID3V2 {
             desc += descChar;
             descChar = (char)buffer.get();
         }
-        
-        byte artwork[] = new byte[size - (buffer.position() - headerStart)];
+
+        byte artwork[] = new byte[size - ((buffer.position() + 1) - headerStart)];
         buffer.get(artwork);
 
         return artwork;

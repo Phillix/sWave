@@ -175,8 +175,8 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
 
     @Override
     public void addSongToPlaylist(int s, int p) {
-        PlayTrack track = new PlayTrack(s, p, 0);
         PlayTracksDao playDao = new PlayTracksDao();
+        PlayTrack track = new PlayTrack(s, p, playDao.getMaxPlaylistOrder(p) + 1);
         playDao.createPlayTrack(track);
     }
 }

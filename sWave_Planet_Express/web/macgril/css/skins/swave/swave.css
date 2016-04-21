@@ -31,32 +31,24 @@ button {
     padding-bottom: 4px;
     padding-left: 6px;
     padding-right: 6px;
-    background-image: URL("images/button_default.png");
-    background-size: 100% 100%;
-}
-
-button:hover {
-    background-image: URL("images/button_hover.png");
-}
-
-button:active {
-    background-image: URL("images/button_press.png");
+    color:         #e3e3e3;
+    background-color: rgba(49, 146, 153, 0.1);
 }
 
 input {
     color: #e3e3e3;
+    background-color: rgba(49, 146, 153, 0.1);
     border: none;
     font-size: 12px;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 6px;
     padding-right: 6px;
-    background-color: rgba(0, 0, 0, 0.7);
     -moz-transition: 0.4s;
 }
 
 input:focus {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(49, 146, 153, 0.2);
     -moz-transition: 0.4s;
 }
 

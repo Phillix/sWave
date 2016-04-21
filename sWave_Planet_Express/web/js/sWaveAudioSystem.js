@@ -12,10 +12,11 @@ function initsWaveAudio(song) {
         crossfade.volume = player.volume;
         crossfade.currentTime = player.currentTime;
         crossfade.play();
+        var oldVol = player.volume;
         player.volume = 0.0;
         player.src = song;
         player.play();
-        crossFade();
+        crossFade(oldVol);
     }
     else {
         currTimeDis = $("currTimeDisplay");
@@ -32,26 +33,28 @@ function initsWaveAudio(song) {
         if (playTime !== null && playTime !== undefined)
             player.currentTime = playTime;
         player.play();
+        $("volSlider").value = player.volume * 10;
         playerUpdate();
         startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
     }
 }
 
-function crossFade() {
+function crossFade(oldVol) {
     var again = false;
     if (parseFloat(crossfade.volume.toFixed(1)) > 0.0) {
         crossfade.volume = parseFloat((crossfade.volume - 0.1).toFixed(1));
         again = true;
     }
-    if (parseFloat(player.volume.toFixed(1)) < 1.0) {
+    if (parseFloat(player.volume.toFixed(1)) < oldVol) {
         player.volume = parseFloat((player.volume + 0.1).toFixed(1));
         again = true;
     }
     if (again) {
         setTimeout(function() {
-            crossFade();
+            crossFade(oldVol);
         }, 500);
-    }
+    } else
+        $("volSlider").value = player.volume * 10;
 }
 
 function listenForEvents() {
@@ -65,8 +68,7 @@ function listenForEvents() {
         $("playButton").style.display   = "none";
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
-        $("volSlider").value = $("player").volume * 10;
-;        document.activeElement.blur();
+        document.activeElement.blur();
     });
 
     player.addEventListener("pause", function() {

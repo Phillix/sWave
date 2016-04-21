@@ -41,32 +41,45 @@
     cursor: pointer;
 }
 
-#header_right {
-    position: fixed;
-    top:      18px;
-    right:    20px;
-}
-
-#logOutButton {
-    position: fixed;
-    top:      19px;
-    right:    10px;
-}
-
 #searchBox {
     position: fixed;
     top:      20px;
-    right:    90px;
+    right:    70px;
 }
 
 #searchBox input {
     width: 120px;
 }
 
-#userNameLink {
+#searchBox input:focus {
+    width: 220px;
+}
+
+#userPic {
     position: fixed;
-    top:      21px;
-    right:    230px;
+    top:      5px;
+    right:    10px;
+    z-index:  4;
+    cursor:   pointer;
+}
+
+#userMenu {
+    display:  none;
+    position: fixed;
+    top:      0px;
+    right:    0px;
+    padding:  10px;
+    z-index:  3;
+    -moz-animation: fadein 0.4s;
+}
+
+#userNameDisplay {
+    margin-right: 70px;
+}
+
+#logOutButton {
+    float:      right;
+    margin-top: 60px;
 }
 
 nav {

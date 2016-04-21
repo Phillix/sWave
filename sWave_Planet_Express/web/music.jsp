@@ -62,6 +62,7 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/sWaveScripts.js"></script>
         <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
@@ -94,24 +95,21 @@
                 <!-- Bunching up the anchor tags removes the gaps between them caused the tabbing and inline-block -->
                 <a class="currentPageLink" href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
             </nav>
-            <div id="header_right">
-                <form id="searchBox" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="search"/>
-                    <input type="search" name="searchterm" placeholder="Search"/>
-                </form>
+            <form id="searchBox" action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="search"/>
+                <input type="search" name="searchterm" placeholder="Search"/>
+            </form>
+            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            <div id="userMenu" class="panel">
                 <%if (currentUser != null) {%>
-                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
-                    &#160;&#160;
+                    <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                     <form id="logOutButton" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="logout"/>
                         <input type="submit" value="Log Out"/>
                     </form>
                 <%} else {
                         response.sendRedirect("login.jsp?refer=music.jsp");
-                %>
-                    <!-- In case the redirect fails for any reason provide a link -->
-                    <a href="login.jsp">Log In</a>
-                <%}%>
+                    }%>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
@@ -324,7 +322,6 @@
             </form>
         </div>
         <div id="wallpaper"></div>
-        <audio id="player"></audio>
     </body>
 </html>
 

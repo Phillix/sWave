@@ -160,7 +160,6 @@
             <span id="durationDisplay">--:--</span>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player"></audio>
     </body>
 </html>
 

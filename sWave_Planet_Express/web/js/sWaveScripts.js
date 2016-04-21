@@ -29,3 +29,10 @@ function hideCustomAlert() {
     $("customAlert").style.top = "-50px";
     $("customAlert").style.MozTransform = "scale(1.0)";
 }
+
+function showHideUserMenu() {
+    if ($("userMenu").style.display == "block")
+        $("userMenu").style.display = "none";
+    else
+        $("userMenu").style.display = "block";
+}

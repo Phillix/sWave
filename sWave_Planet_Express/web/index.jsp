@@ -132,7 +132,6 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player"></audio>
     </body>
 </html>
 

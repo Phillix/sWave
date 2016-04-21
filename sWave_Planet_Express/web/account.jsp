@@ -131,6 +131,7 @@
         <div id="midsection">
             <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
+                    <img style="float:left; margin-top: 80px; margin-left:20px; margin-right:20px; box-shadow:0px 0px 4px #000;" src="images/test.png" width="200" height="200"/>
                     <h3>Username: <%=currentUser.getUsername()%></h3>
                     <h3>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h3>
                     <h3>Email: <%=currentUser.getEmail()%></h3>
@@ -314,6 +315,5 @@
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
         </footer>
         <div id="wallpaper"></div>
-        <audio id="player"></audio>
     </body>
 </html>

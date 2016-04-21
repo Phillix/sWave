@@ -4,16 +4,6 @@
     background-color: transparent;
 }
 
-input {
-    color: #e3e3e3;
-    background-color: rgba(49, 146, 153, 0.1);
-}
-
-button {
-    color: #e3e3e3;
-    background-color: rgba(49, 146, 153, 0.1);
-}
-
 aside a:hover {
     background-color: rgba(49, 146, 153, 0.2);
 }

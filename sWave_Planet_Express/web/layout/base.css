@@ -56,11 +56,12 @@
 }
 
 #userPic {
-    position: fixed;
-    top:      5px;
-    right:    10px;
-    z-index:  4;
-    cursor:   pointer;
+    position:      fixed;
+    top:           5px;
+    right:         10px;
+    z-index:       4;
+    cursor:        pointer;
+    border-radius: 60px;
 }
 
 #userMenu {

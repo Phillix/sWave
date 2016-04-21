@@ -66,6 +66,7 @@
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/sWaveScripts.js"></script>
         <script src="js/ajax_uploader.js"></script>
+        <script src="js/ajax_image_uploader.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
         <header class="panel" id="topbar">
@@ -132,6 +133,9 @@
             <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
                     <img style="float:left; margin-top: 80px; margin-left:20px; margin-right:20px; box-shadow:0px 0px 4px #000;" src="images/test.png" width="200" height="200"/>
+                    <br/><br/><br/><br/>
+                    <input id="userPicField" type="file" accept="image/*" name="userPicField"/>
+                    <button onclick="uploadUserPicture()">Upload</button>
                     <h3>Username: <%=currentUser.getUsername()%></h3>
                     <h3>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h3>
                     <h3>Email: <%=currentUser.getEmail()%></h3>

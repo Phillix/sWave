@@ -574,4 +574,41 @@ public class UsersDao extends Dao implements UserDaoInterface {
         }
         return users;
     }
+
+    @Override
+    public int addUserPicture(int id, byte[] buffer) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+
+        try{
+            con          = getConnection();
+            String query = "UPDATE " + TABLE_NAME + " SET " + PICTURE + " = ? WHERE " + USERID + " = ?";
+            ps           = con.prepareStatement(query);
+            Blob b = con.createBlob();
+            b.setBytes(1, buffer);
+            ps.setBlob(1, b);
+            ps.setInt(2, id);
+            if (ps.executeUpdate() > 0)
+                return SUCCESS;
+        }
+        catch (SQLException ex2) {
+            if (DEBUG)
+                ex2.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return SQLEX;
+            }
+        }
+        return OTHER;
+    }
 }

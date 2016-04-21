@@ -24,8 +24,11 @@ public class CommandFactory {
             //Closes ticket
             command = new CloseTicketCommand();
         } else if ( action.equalsIgnoreCase("upload") ) {
-            //Allows File Uploading
+            //Allows Song Uploading
             command = new UploadCommand();
+        } else if ( action.equalsIgnoreCase("uploadUserPicture") ) {
+            //Allows Picture Uploading
+            command = new UploadUserPictureCommand();
         } else if ( action.equalsIgnoreCase("search") ) {
             //For searching for songs
             command = new SearchCommand();

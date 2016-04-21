@@ -18,4 +18,5 @@ public interface UserDaoInterface {
     public int changeSkin(String skin, int userid);
     public int updateUser(User u);
     public ArrayList<User> searchUsers(String searchWord);
+    public int addUserPicture(int id, byte[] buffer);
 }

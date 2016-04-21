@@ -15,4 +15,3 @@ function loadArtwork(songid, image) {
     request.send(formdata);
 }
 
-

@@ -1,9 +1,9 @@
-function streamNG(songid) {
+function stream(songid) {
     var request  = new XMLHttpRequest();
     var formdata = new FormData();
     request.responseType = 'blob';
     request.open("POST", "UserActionServlet", true);
-    formdata.append("action", "streamNG");
+    formdata.append("action", "stream");
     formdata.append("songid", songid);
     request.onload = function() {
         blob = this.response;

@@ -17,12 +17,16 @@
             if (session == null) {
                 response.sendRedirect("login.jsp?refer=music.jsp");
             }
-            User currentUser = (User)session.getAttribute("user");
-
+            
+            User currentUser = new User(); //Avoids null pointers
+            
+            if ((User)session.getAttribute("user") != null)
+                currentUser = (User)session.getAttribute("user");
+            else
+                response.sendRedirect("login.jsp?refer=music.jsp");
+            
             String skin = "swave";
-            if (currentUser != null) {
-                skin = currentUser.getSkin();
-            }
+            skin = currentUser.getSkin();
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
 
@@ -39,7 +43,7 @@
             if (session.getAttribute("currentSongId") != null) {%>
                 <script>
                     function resumePlay() {
-                        streamNG(<%=(int)session.getAttribute("currentSongId")%>);
+                        stream(<%=(int)session.getAttribute("currentSongId")%>);
                     }
                 </script>
             <%}%>
@@ -66,7 +70,7 @@
         <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
+    <body onload="loadUserPicture();<%if (session.getAttribute("currentSongId") != null) {%> resumePlay()<%}%>">
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -99,19 +103,13 @@
                 <input type="hidden" name="action" value="search"/>
                 <input type="search" name="searchterm" placeholder="Search"/>
             </form>
-            <a id="hi" download/>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
-            <script>loadUserPicture(<%=currentUser.getUserId()%>)</script>
             <div id="userMenu" class="panel">
-                <%if (currentUser != null) {%>
-                    <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
-                    <form id="logOutButton" action="UserActionServlet" method="POST">
-                        <input type="hidden" name="action" value="logout"/>
-                        <input type="submit" value="Log Out"/>
-                    </form>
-                <%} else {
-                        response.sendRedirect("login.jsp?refer=music.jsp");
-                    }%>
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <form id="logOutButton" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="logout"/>
+                    <input type="submit" value="Log Out"/>
+                </form>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
@@ -147,119 +145,29 @@
             <%
                 Song s;
                 for (int i = (pageNum * 15) - 15; (i < pageNum * 15) && i < songs.size(); i++) {
-                    s = songs.get(i);%>
-                    <style>
-                        td.label {
-                            width:50px;
-                        }
-                    </style>
+                    s = songs.get(i);
+            %>
                     <li class="panel songListing">
-                        <table style="font-size: 14px; width:100%; height:100%; position:relative; top: 0px; left:0px; right:0px;">
-                            <tr>
-                                <td rowspan="4" class="artwork">
-                                    <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
-                                    <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
-                                </td>
-                                <td colspan="6" class="title">
-                                        <%if (DEBUG) {%>
-                                            ID: <%=s.getSongId()%>.&#160;
-                                        <%}%>
-                                        <%=s.getTitle()%>
-                                </td>
-                                <td class="actionButton">
-                                    <button onclick="$('overlay').style.display='block'; $('addToPlaylist').style.display='block'">P</button>
-                                    <!--
-                                    <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
-                                        <input type="hidden" name="action" value="addSongToPlaylist"/>
-                                        <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                        <input type="hidden" name="playlistid" value="0"/>
-                                        <input type="submit" value="P"/>
-                                    </form>
-                                    -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">
-                                    <%if (!s.getArtist().equals("artist")) {%>
-                                        <strong>Artist:</strong>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td class="artist">
-                                    <%if (!s.getArtist().equals("artist")) {%>
-                                        <%=s.getArtist()%>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td class="label">
-                                    <%if (s.getYear() > 0) {%>
-                                        <strong>Year:</strong>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td>
-                                    <%if (s.getYear() > 0) {%>
-                                        <%=s.getYear()%>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td class="label">
-                                    <strong>Price:</strong>
-                                </td>
-                                <td>
-                                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                                    <%=f.format(s.getPrice())%>
-                                </td>
-                                <td class="actionButton">
-                                    <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
-                                        <input type="hidden" name="action" value="addSongToCart"/>
-                                        <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                        <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
-                                        <input type="submit" value="C"/>
-                                    </form>
-                                </td>
-                            <tr/>
-                            <tr>
-                                <td class="label">
-                                    <%if (!s.getAlbum().equals("album")) {%>
-                                        <strong>Album:</strong>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td class="album">
-                                    <%if (!s.getAlbum().equals("album")) {%>
-                                        <%=s.getAlbum()%>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td class="label">
-                                    <%if (!s.getGenre().equals("genre")) {%>
-                                        <strong>Genre:</strong>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td>
-                                    <%if (!s.getGenre().equals("genre")) {%>
-                                        <%=s.getGenre()%>
-                                    <%} else {%>
-                                        &#160;
-                                    <%}%>
-                                </td>
-                                <td colspan="2">
-                                    &#160;
-                                </td>
-                                <td class="actionButton">
-                                    <button onclick="streamNG(<%=s.getSongId()%>);">&#9658;</button>
-                                </td>
-                            </tr>
-                        </table>
+                        <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
+                        <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
+                        <%if (DEBUG) {%>
+                            ID: <%=s.getSongId()%>.&#160;
+                        <%}%>
+                        <span class="songTitle"><%=s.getTitle()%></span><br/>
+                        <%=s.getArtist()%>
+                        <%=s.getYear()%>
+                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                        <%=f.format(s.getPrice())%>
+                        <%=s.getAlbum()%>
+                        <%=s.getGenre()%>
+                        <button onclick="$('overlay').style.display='block'; $('addToPlaylist').style.display='block'">P</button>
+                        <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
+                            <input type="hidden" name="action" value="addSongToCart"/>
+                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                            <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
+                            <input type="submit" value="C"/>
+                        </form>
+                        <button onclick="stream(<%=s.getSongId()%>);">&#9658;</button>
                     </li>
                 <%}%>
             </ul>

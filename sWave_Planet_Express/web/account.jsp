@@ -38,7 +38,7 @@
             if (session.getAttribute("currentSongId") != null) {%>
                 <script>
                     function resumePlay() {
-                        streamNG(<%=(int)session.getAttribute("currentSongId")%>);
+                        stream(<%=(int)session.getAttribute("currentSongId")%>);
                     }
                 </script>
           <%}
@@ -65,8 +65,9 @@
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/sWaveScripts.js"></script>
+        <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_uploader.js"></script>
-        <script src="js/ajax_image_uploader.js"></script>
+        <script src="js/ajax_streamer.js"></script>
     </head>
     <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
         <header class="panel" id="topbar">
@@ -99,24 +100,17 @@
                 <a class="currentPageLink" href="account.jsp">Account</a>
                 <a href="about.jsp">About</a>
             </nav>
-            <div id="header_right">
-                <form id="searchBox" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="search"/>
-                    <input type="search" name="searchterm" placeholder="Search"/>
+            <form id="searchBox" action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="search"/>
+                <input type="search" name="searchterm" placeholder="Search"/>
+            </form>
+            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            <div id="userMenu" class="panel">
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <form id="logOutButton" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="logout"/>
+                    <input type="submit" value="Log Out"/>
                 </form>
-                <%if (currentUser != null) {%>
-                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
-                    &#160;&#160;
-                    <form id="logOutButton" action="UserActionServlet" method="POST">
-                        <input type="hidden" name="action" value="logout"/>
-                        <input type="submit" value="Log Out"/>
-                    </form>
-                <%} else {
-                        response.sendRedirect("login.jsp?refer=account.jsp?view=" + request.getParameter("view"));
-                %>
-                    <!-- In case the redirect fails for any reason provide a link -->
-                    <a href="login.jsp">Log In</a>
-                <%}%>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
@@ -129,35 +123,31 @@
             <%}%>
             <div id="visualizer"></div>
         </aside>
-        <div id="midsection">
+        <div id="midSectionAccount">
             <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
-                    <img style="float:left; margin-top: 80px; margin-left:20px; margin-right:20px; box-shadow:0px 0px 4px #000;" src="images/test.png" width="200" height="200"/>
-                    <br/><br/><br/><br/>
-                    <input id="userPicField" type="file" accept="image/*" name="userPicField"/>
-                    <button onclick="uploadUserPicture()">Upload</button>
-                    <h3>Username: <%=currentUser.getUsername()%></h3>
-                    <h3>Full Name: <%=currentUser.getFname() + " " + currentUser.getLname()%></h3>
-                    <h3>Email: <%=currentUser.getEmail()%></h3>
-                    <h3>Address:<br/>
-                        <%=currentUser.getAdd1()%>,<br/>
-                        <%=currentUser.getAdd2()%>,<br/>
-                        <%=currentUser.getCity()%>,<br/>
-                        <%=currentUser.getCounty()%><br/></h3>
-                    <br/>
-                    <h2>Edit Details</h2>
-                    <form action="UserActionServlet" method="POST">
+                    <div id="profileRight">
+                        <img id="largeUserPic" src="images/test.png" width="200" height="200"/>
+                        <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
+                        <h5><u>Upload New Picture</u></h5>
+                    </div>
+                    <h1><%=currentUser.getFname()%>'s Profile</h1>
+                    <form action="UserActionServlet" method="POST" id="profileDetailsForm">
                         <input type="hidden" name="action" value="updateDetails"/>
-                        <input name="username" type="text" placeholder="Username"/><br/><br/>
-                        <input name="email" type="text" placeholder="Email" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$"/><br/><br/>
-                        <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name"/><br/><br/>
-                        <input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name"/><br/><br/>
-                        <input type="text" name="add1" placeholder="Address Line 1"/><br/><br/>
-                        <input type="text" name="add2" placeholder="Address Line 2"/><br/><br/>
-                        <input type="text" name="city" placeholder="City"/><br/><br/>
-                        <input type="text" name="county" placeholder="County"/><br/><br/>
-                        <input type="submit" value="Update"/>
-                    </form><br/><br/>
+                        <label>Username: </label><input name="username" type="text" placeholder="Username" value="<%=currentUser.getUsername()%>"/><br/><br/>
+                        <label>Email: </label><input name="email" type="text" placeholder="Email" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$" value="<%=currentUser.getEmail()%>"/><br/><br/>
+                        <label>First Name: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name" value="<%=currentUser.getFname()%>"/><br/><br/>
+                        <label>Last Name: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name" value="<%=currentUser.getLname()%>"/><br/><br/>
+                        <label>Address Line 1: </label><input type="text" name="add1" placeholder="Address Line 1" value="<%=currentUser.getAdd1()%>"/><br/><br/>
+                        <label>Address Line 2: </label><input type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
+                        <label>City: </label><input type="text" name="city" placeholder="City" value="<%=currentUser.getCity()%>"/><br/><br/>
+                        <label>County: </label><input type="text" name="county" placeholder="County" value="<%=currentUser.getCounty()%>"/><br/><br/>
+                        <input type="submit" value="Update Details"/><br/>
+                        <input id="userPicField" type="file" accept="image/*" name="userPicField"/>
+                        <button onclick="uploadUserPicture()">Upload</button>
+                        <progress id="uploadProgress2" max="100" value="0"></progress>
+                        <span id="progressInfo2"></span>
+                    </form>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
                     <h1>My Orders</h1>
                     <ul>
@@ -293,30 +283,20 @@
             }%>
         </div>
         <footer class="panel" id="base">
-            <span id="controls">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" points="72.5,35 72.5,65 47.5,50"/>
-                    <polygon class="iconPolyFilled" points="47.5,35 47.5,65 22.5,50"/>
-                </svg>
-                <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
-                    <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
-                    <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
-                </svg>
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" points="27.5,35 27.5,65 52.5,50"/>
-                    <polygon class="iconPolyFilled" points="52.5,35 52.5,65 77.5,50"/>
-                </svg>
+            <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">
+                <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
+                <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
+                <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
+            </svg>
+            <span id="volControls">
+                <label>Volume</label>
+                <input id="volSlider" oninput="updateVol()" type="range" min="0" max="10"/>
             </span>
-            <span id="trackTimer">
-                --:-- / --:--
-            </span>
+            <span id="currTimeDisplay">--:--</span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
             <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
             <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span id="durationDisplay">--:--</span>
         </footer>
         <div id="wallpaper"></div>
     </body>

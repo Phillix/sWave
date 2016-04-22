@@ -15,3 +15,7 @@ aside a:hover {
 a.currentPageNum {
     background-color: rgba(49, 146, 153, 0.1);
 }
+
+#midSectionAccount {
+    background-color: rgba(0, 0, 0, 0.9);
+}

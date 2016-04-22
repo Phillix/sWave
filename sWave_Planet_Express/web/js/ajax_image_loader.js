@@ -15,7 +15,7 @@ function loadArtwork(songid, image) {
     request.send(formdata);
 }
 
-function loadUserPicture() {
+function loadUserPicture(onAccountPage) {
     var request  = new XMLHttpRequest();
     var formdata = new FormData();
     request.responseType = 'blob';
@@ -23,10 +23,12 @@ function loadUserPicture() {
     formdata.append("action", "loadUserPicture");
     request.onload = function() {
         var blob = this.response;
-        if (blob !== null && blob.size !== 0)
-            $("userPic").src = genURL(blob);
-        else
-            $("userPic").src = "images/test.png";
+        if (blob !== null && blob.size !== 0) {
+            var url = genURL(blob);
+            $("userPic").src = url;
+            if (onAccountPage)
+                $("largeUserPic").src = url;
+        }
     };
     request.send(formdata);
 }

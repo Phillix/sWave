@@ -167,12 +167,12 @@ td.trackTitle {
 */
 
 li.songListing {
-    margin:          0px;
-    display:         block;
-    width:           100%;
-    height:          100px;
-    text-decoration: none;
-    padding:         0px;
+    margin:           0px;
+    display:          block;
+    width:            100%;
+    height:           100px;
+    text-decoration:  none;
+    padding:          0px;
     border-top-style: solid;
     border-width:     1px;
     border-color:     #000;
@@ -184,32 +184,10 @@ li.songListing {
     -moz-transform: scale(1.02);
 }
 
-td.actionButton {
-    width: 20px;
-}
-
-td.artwork {
-    width:  110px;
-}
-            
-td.artist {
-    width: 33%;
-}
-            
-td.album {
-    width: 33%;
-}
-
-td.title {
-    font-size: 24px;
-}
-
 img.artwork {
-    position:           absolute;
-    top:                0px;
-    left:               0px;
-    width:              100px;
-    height:             100px;
+    float:  left;
+    width:  100px;
+    height: 100px;
 }
 
 #progress {
@@ -382,4 +360,46 @@ p.ticketIssue {
     position: fixed;
     right:    0px;
     bottom:   20px;
+}
+
+#midSectionAccount {
+    position:   fixed;
+    top:        60px;
+    left:       200px;
+    right:      0px;
+    height:     calc(100% - 150px);
+    width:      calc(100% - 240px);
+    overflow-Y: scroll;
+    bottom:     50px;
+    padding:    20px;
+}
+
+#profileDetailsForm {
+    display:   block;
+    left:      20px;
+    right:     20px;
+    top:       140px;
+    max-width: 500px;
+}
+
+#profileDetailsForm input {
+    float: right;
+}
+
+#largeUserPic {
+}
+
+#nameDisplay {
+    text-decoration: underline;
+}
+
+#profileRight {
+    float: right;
+}
+
+span.songTitle {
+    display:       block;
+    font-size:     24px;
+    margin:        0px;
+    padding:       0px;
 }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  *            session
  * @author Brian Millar
  */
-public class StreamNGCommand implements Command {
+public class StreamCommand implements Command {
 
     private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
@@ -24,7 +24,6 @@ public class StreamNGCommand implements Command {
             Song s = dao.getSongById(Integer.parseInt(request.getParameter("songid")));
             OutputStream out = response.getOutputStream();
             out.write(s.getSongdata());
-            System.out.println("FOUND: " + s.getSongdata().length);
             out.flush();
             out.close();
             session.setAttribute("currentSongId", Integer.parseInt(request.getParameter("songid")));

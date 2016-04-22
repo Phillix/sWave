@@ -131,7 +131,7 @@ function playPause() {
 }
 
 function jumpTo(e) {
-    player.currentTime = player.duration * ((e.clientX - 132) / (window.innerWidth - 202));
+    player.currentTime = player.duration * ((e.clientX - 132) / (document.body.scrollWidth - 204));
 }
 
 function showScrubber() {
@@ -149,7 +149,12 @@ function playerUpdate() {
     //It seems wasteful to constantly update the duration as it shouldn't change 
     //but this actually prevents bugs like the duration being NaN at the start.
     durTimeDis.innerHTML  = formatTime(durr);
-    progressBar.style.width = Math.floor(curr * ((window.innerWidth - 204) / durr)) + "px";
+    progressBar.style.width = Math.floor(((document.body.scrollWidth - 204) / durr) * curr) + "px";
+    /* window.innerWidth causes a bug when the song list is long enough to cause 
+     * scrolling as the scrollbar makes the page narrower yet the value of 
+     * window.innerWidth remains the same resulting in the progress bar
+     * progressing past the end of its container by the width of the scrollbar.
+    */
     setTimeout("playerUpdate()", 200);
 }
 

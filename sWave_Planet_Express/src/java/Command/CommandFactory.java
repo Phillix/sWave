@@ -29,7 +29,7 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("uploadUserPicture") ) {
             //Allows Picture Uploading
             command = new UploadUserPictureCommand();
-        } else if ( action.equalsIgnoreCase("LoadUserPicture") ) {
+        } else if ( action.equalsIgnoreCase("loadUserPicture") ) {
             //Allows Picture Loading
             command = new LoadUserPictureCommand();
         } else if ( action.equalsIgnoreCase("search") ) {
@@ -62,9 +62,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("loadArtwork") ) {
             //Load Album Artwork
             command = new LoadArtworkCommand();
-        } else if ( action.equalsIgnoreCase("streamNG") ) {
+        } else if ( action.equalsIgnoreCase("stream") ) {
             //Begin Stream using Next Gen Streaming System ;)
-            command = new StreamNGCommand();
+            command = new StreamCommand();
         } else if ( action.equalsIgnoreCase("deleteFromPlaylist") ) {
             //Deleting a song from a playlist
             command = new DeleteFromPlaylistCommand();

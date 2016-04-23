@@ -8,15 +8,20 @@ var crossfade;
 
 function initsWaveAudio(song) {
     if (player !== null && player !== undefined) {
-        crossfade.src = player.src;
-        crossfade.volume = player.volume;
-        crossfade.currentTime = player.currentTime;
-        crossfade.play();
-        var oldVol = player.volume;
-        player.volume = 0.0;
-        player.src = song;
-        player.play();
-        crossFade(oldVol);
+        if (player.paused == false && player.ended == false) {
+            crossfade.src = player.src;
+            crossfade.volume = player.volume;
+            crossfade.currentTime = player.currentTime;
+            crossfade.play();
+            var oldVol = player.volume;
+            player.volume = 0.0;
+            player.src = song;
+            player.play();
+            crossFade(oldVol);
+        } else {
+            player.src = song;
+            player.play();
+        }
     }
     else {
         currTimeDis = $("currTimeDisplay");

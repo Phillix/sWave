@@ -23,15 +23,13 @@
                 response.sendRedirect("account.jsp?view=profile");
             }
             
-            if (session == null) {
-                response.sendRedirect("login.jsp?refer=account.jsp&view=" + request.getParameter("view"));
-            }
-            
-            User currentUser = (User)session.getAttribute("user");
-
+            User currentUser = null;
             String skin = "swave";
 
-            if (currentUser != null) {
+            if (session == null || (User)session.getAttribute("user") == null)
+                response.sendRedirect("login.jsp?refer=account.jsp&view=" + request.getParameter("view"));
+            else {
+                currentUser = (User)session.getAttribute("user");
                 skin = currentUser.getSkin();
             }
 
@@ -63,7 +61,7 @@
         <script src="js/ajax_uploader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
-    <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic'), $('largeUserPic')); resumePlay()">
+    <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic') <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>, $('largeUserPic')<%}%>); resumePlay()">
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -96,6 +94,15 @@
                 <input type="hidden" name="action" value="search"/>
                 <input type="search" name="searchterm" placeholder="Search"/>
             </form>
+            <svg id="cartIcon" onclick="window.location.assign('cart.jsp')" viewBox="0 0 100 100">
+                <circle class="iconCircleFilled" cx="78" cy="24" r="4"/>
+                <rect class="iconRectFilled" x="76" y="22" width="4" height="8"/>
+                <polygon class="iconPolyFilled" points="15,30 25,70 70,70 80,30"/>
+                <rect class="iconRectFilled" x="64" y="65" width="4" height="12"/>
+                <rect class="iconRectFilled" x="33" y="75" width="37" height="4"/>
+                <circle class="iconCircleFilled" cx="33" cy="78" r="5"/>
+                <circle class="iconCircleFilled" cx="67" cy="78" r="5"/>
+            </svg>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             <div id="userMenu" class="panel">
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>

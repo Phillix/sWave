@@ -13,14 +13,13 @@
 <html>
     <head>
         <%
-            if (session == null) {
-                response.sendRedirect("login.jsp?refer=playlists.jsp");
-            }
-            User currentUser = (User)session.getAttribute("user");
-
+            User currentUser = null;
             String skin = "swave";
-            
-            if (currentUser != null) {
+
+            if (session == null || (User)session.getAttribute("user") == null)
+                response.sendRedirect("login.jsp?refer=playlists.jsp");
+            else {
+                currentUser = (User)session.getAttribute("user");
                 skin = currentUser.getSkin();
             }
 
@@ -85,6 +84,15 @@
                 <input type="hidden" name="action" value="search"/>
                 <input type="search" name="searchterm" placeholder="Search"/>
             </form>
+            <svg id="cartIcon" onclick="window.location.assign('cart.jsp')" viewBox="0 0 100 100">
+                <circle class="iconCircleFilled" cx="78" cy="24" r="4"/>
+                <rect class="iconRectFilled" x="76" y="22" width="4" height="8"/>
+                <polygon class="iconPolyFilled" points="15,30 25,70 70,70 80,30"/>
+                <rect class="iconRectFilled" x="64" y="65" width="4" height="12"/>
+                <rect class="iconRectFilled" x="33" y="75" width="37" height="4"/>
+                <circle class="iconCircleFilled" cx="33" cy="78" r="5"/>
+                <circle class="iconCircleFilled" cx="67" cy="78" r="5"/>
+            </svg>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             <div id="userMenu" class="panel">
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
@@ -101,32 +109,41 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <h1>Playlists</h1>
-            <form action="UserActionServlet" method="POST">
-                <input type="hidden" name="action" value="createPlaylist"/>
-                <input type="text" name="playlistTitle" placeholder="Playlist Title"/>
-                <input type="submit" value="Create"/>
-            </form>
-            <ul>
+            <div id="omniBar" class="panel">
+                <form id="createPlaylistForm" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="createPlaylist"/>
+                    <label>New Playlist: </label>
+                    <input required type="text" name="playlistTitle" placeholder="Playlist Title"/>
+                    <input type="submit" value="Create"/>
+                </form>
+            </div>
+            <ul id="libraryTrackList">
             <%
                 PlaylistDao playlists = new PlaylistDao();
                 ArrayList<Playlist> playlistz = playlists.getUserPlaylists(currentUser.getUserId());
-                for (Playlist p : playlistz) {%>
-                    <li>
+                ArrayList<Song> contents;
+                for (Playlist p : playlistz) {
+                    contents = p.getPlaylistContents();
+                    %>
+                    <li class="panel listing">
                         <h3><%=p.getTitle()%></h3>
-                        <button>Play</button><br/>
-                        <ol>
-                            <%for (Song s : p.getPlaylistContents()) {%>
+                        <span>Songs: <%=contents.size()%></span>
+                        <button onclick="$('contentsOf<%=p.getPlaylistId()%>').style.display='block';">View Songs</button>
+                        <ol id="contentsOf<%=p.getPlaylistId()%>" style="display:none;">
+                            <%for (Song s : contents) {%>
                                 <li>
                                     <%=s.getTitle()%>&#160;|&#160;<%=s.getArtist()%>
                                 </li>
                             <%}%>
                         </ol>
-                        <form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="deletePlaylist"/>
-                            <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
-                            <input type="submit" value="Delete"/>
-                        </form>
+                        <div style="float:right;">
+                            <form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="deletePlaylist"/>
+                                <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
+                                <input type="submit" value="Delete"/>
+                            </form>
+                            <button>Play</button>
+                        </div>
                     </li>
                 <%}
             %>

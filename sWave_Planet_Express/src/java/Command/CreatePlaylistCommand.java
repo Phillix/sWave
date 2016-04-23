@@ -25,7 +25,7 @@ public class CreatePlaylistCommand implements Command {
             pd.createPlayList(p);
             return "/playlists.jsp";
         }
-        return "/error.jsp?=Playlist%20could%20not%20be%20created";
+        return "/error.jsp?msg=Playlist%20could%20not%20be%20created";
     }
     
 }

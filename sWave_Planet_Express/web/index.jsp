@@ -10,15 +10,12 @@
     <head>
         <%
             User currentUser = null;
+            String skin = "swave";
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=index.jsp");
-            else
+            else {
                 currentUser = (User)session.getAttribute("user");
-
-            String skin = "swave";
-
-            if (currentUser != null) {
                 skin = currentUser.getSkin();
             }
         %>
@@ -74,11 +71,19 @@
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
             </nav>
-            <a id="cartLink" style="margin-left: 20px;" href="cart.jsp">View My Cart</a>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
                 <input type="search" name="searchterm" placeholder="Search"/>
             </form>
+            <svg id="cartIcon" onclick="window.location.assign('cart.jsp')" viewBox="0 0 100 100">
+                <circle class="iconCircleFilled" cx="78" cy="24" r="4"/>
+                <rect class="iconRectFilled" x="76" y="22" width="4" height="8"/>
+                <polygon class="iconPolyFilled" points="15,30 25,70 70,70 80,30"/>
+                <rect class="iconRectFilled" x="64" y="65" width="4" height="12"/>
+                <rect class="iconRectFilled" x="33" y="75" width="37" height="4"/>
+                <circle class="iconCircleFilled" cx="33" cy="78" r="5"/>
+                <circle class="iconCircleFilled" cx="67" cy="78" r="5"/>
+            </svg>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             <div id="userMenu" class="panel">
                 <%if (currentUser != null) {%>

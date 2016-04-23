@@ -13,15 +13,13 @@
 <html>
     <head>
         <%
-            if (session == null) {
-                response.sendRedirect("login.jsp?refer=cart.jsp");
-            }
-
-            User currentUser = (User)session.getAttribute("user");
-
+            User currentUser = null;
             String skin = "swave";
 
-            if (currentUser != null) {
+            if (session == null || (User)session.getAttribute("user") == null)
+                response.sendRedirect("login.jsp?refer=cart.jsp");
+            else {
+                currentUser = (User)session.getAttribute("user");
                 skin = currentUser.getSkin();
             }
         %>

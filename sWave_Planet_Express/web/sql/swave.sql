@@ -80,7 +80,7 @@ CREATE TABLE SONGS (
 
 CREATE TABLE MERCH (
     MERCHID SMALLINT    NOT NULL AUTO_INCREMENT,
-    TITLE   VARCHAR(20) NOT NULL,
+    TITLE   VARCHAR(30) NOT NULL,
     PRICE   FLOAT(5, 2) UNSIGNED NOT NULL,
     THREED  VARCHAR(10),
     CONSTRAINT PK_MERCHID PRIMARY KEY(MERCHID)
@@ -160,6 +160,11 @@ CREATE TABLE PLAYTRACKS (
 
 INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "CN", "1337", null, false);
 INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "K", "flat", null, true);
+INSERT INTO USERS VALUES (1, "colonelPanic", "m'lady@neckbeard.com", "Todd", "Beardsley", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "The Basement", "Moms House", "Neo Tokyo", "D", "1337", null, false);
+INSERT INTO USERS VALUES (2, "hereComesDaPane", "ceo@macrohard.com", "Gill", "Bates", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "23 unhello", "Other Street", "South Cali", "CN", "flat", null, false);
+INSERT INTO USERS VALUES (3, "croak&dagger", "feels@goodman.com", "Pepe", "Frog", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "Smackdown Hotel", "Jabroni Drive", "Know Your Role Boulevard", "CN", "flat", null, false);
+INSERT INTO USERS VALUES (4, "cymbolic", "widerthan@mile.com", "Moon", "River", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "Round The Bend", "Rainbows End", "Mississippi", "C", "flat", null, false);
+INSERT INTO USERS VALUES (5, "suiteserenity", "hippiedaze@dmt.com", "Sage", "Sapphire", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "7 Heaven", "The Walls Are Melting", "San Diego", "G", "flat", null, false);
 
 INSERT INTO SONGS VALUES (-1, "Track 1", "Title", "Artist", "Album", "Genre", 1970, 420, 2.99, "Public Domain", 0, NULL, NULL, NULL);
 
@@ -185,6 +190,12 @@ INSERT INTO TICKETS VALUES (-1, -1, "my pc is on fire", "2009-12-3", false);
 
 INSERT INTO MERCH VALUES(-1, "Mug", 9.99, NULL);
 INSERT INTO MERCH VALUES(-2, "T-Shirt", 29.99, NULL);
+INSERT INTO MERCH VALUES(1,"sWave Headphones", 34.99, NULL);
+INSERT INTO MERCH VALUES(2,"1/4 inch Jack Cable", 1.99, NULL);
+INSERT INTO MERCH VALUES(3,"So-knee Boombox Audio System", 239.90, NULL);
+INSERT INTO MERCH VALUES(4, "So-Knee Wireless Speaker", 64.99, NULL);
+INSERT INTO MERCH VALUES(5, "sWave: Behind The Music DVD", 19.99, NULL);
+INSERT INTO MERCH VALUES(6, "Banana Y-Pod Nano", 199.50, NULL);
 
 INSERT INTO ORDERMERCH VALUES(-1, -1, 1, 9.99, NULL);
 INSERT INTO ORDERMERCH VALUES(-3, -1, 1, 8.50, NULL);

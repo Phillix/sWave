@@ -102,81 +102,20 @@ nav a {
     padding-bottom: 22px;
 }
 
-nav a:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-/*
-table {
-    width:   100%;
-    margin:  0px;
-    padding: 0px;
-    border:  none;
-}
-
-tr {
-    color:  #000;
-    margin: 0px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-tr.sec {
-
-}
-
-tr.playing {
-    background-color: #fff;
-}
-
-td {
-    margin:  0px;
-    margin:  0px;
-    border:  none;
-    padding: 8px;
-}
-
-td.move {
-    height: 40px;
-    width:  18px;
-    cursor: grab;
-}
-
-td.move img {
-    display: block;
-    height:  100%;
-    width:   100%;
-}
-
-td.art {
-    width:  40px;
-    height: 40px;
-}
-
-td.art img {
-    display: block;
-    height:  100%;
-    width:   100%;
-}
-
-td.trackTitle {
-    padding-left:  10px;
-    padding-right: 10px;
-    max-width:     400px;
-}
-*/
-
-li.songListing {
+li.listing {
     margin:           0px;
     display:          block;
     width:            100%;
-    height:           100px;
     text-decoration:  none;
     padding:          0px;
     border-top-style: solid;
     border-width:     1px;
     border-color:     #000;
     -moz-animation: subtle_fade_right 0.4s;
+}
+
+li.songListing {
+    height: 100px;
 }
 
 .playing {
@@ -269,10 +208,8 @@ img.artwork {
 }
 
 #libraryTrackList {
-    list-style:       none;
-    padding:          0px;
-    margin-top:       90px;
-    margin-bottom:    50px;
+    margin-top:    90px;
+    margin-bottom: 50px;
 }
 
 #omniBar {
@@ -338,11 +275,14 @@ h3.ticketHeader {
 }
 
 aside a {
-    display:   block;
-    font-size: 24px;
-    width:     184px;
-    padding:   8px;
-    margin:    0px;
+    display:     block;
+    font-size:   24px;
+    width:       180px;
+    padding-top:    8px;
+    padding-bottom: 8px;
+    padding-left:   12px;
+    padding-right:  8px;
+    margin:      0px;
 }
 
 span.ticketHeaderRight {
@@ -362,14 +302,13 @@ p.ticketIssue {
     bottom:   20px;
 }
 
-#midSectionAccount {
+#midSectionInside {
     position:   fixed;
     top:        60px;
     left:       200px;
     right:      0px;
     height:     calc(100% - 150px);
     width:      calc(100% - 240px);
-    overflow-Y: scroll;
     bottom:     50px;
     padding:    20px;
 }
@@ -393,8 +332,15 @@ p.ticketIssue {
     text-decoration: underline;
 }
 
-#profileRight {
-    float: right;
+#profileSidebar {
+    position:          fixed;
+    right:             0px;
+    top:               60px;
+    height:            calc(100% - 150px);
+    width:             200px;
+    padding:           20px;
+    border-width:      1px;
+    border-left-style: solid;
 }
 
 span.songTitle {
@@ -402,4 +348,68 @@ span.songTitle {
     font-size:     24px;
     margin:        0px;
     padding:       0px;
+}
+
+ul {
+    list-style: none;
+    padding:    0px;
+}
+
+#addToPlaylist {
+    position:   fixed;
+    width:      200px;
+    height:     100px;
+    left:       calc(50% - 100px);
+    top:        calc(50% - 50px);
+    z-index:    20;
+    display:    none;
+    -moz-animation: expand 0.6s;
+}
+
+#overlay {
+    position:         fixed;
+    top:              0px;
+    left:             0px;
+    z-index:          10;
+    background-color: rgba(0, 0, 0, 0.7);
+    width:            100%;
+    height:           100%;
+    display:          none;
+    -moz-animation:   expand 0.4s;
+}
+
+#songInfoDisplay {
+    position: absolute;
+    display:  none;
+    left:     70px;
+    top:      5px;
+    -moz-animation: expand 0.4s;
+}
+
+#volIcon {
+    width:  24px;
+    height: 24px;
+}
+
+#visualSelection {
+    position: absolute;
+    bottom:   10px;
+    right:    10px;
+}
+
+#songInfoDisplayLarge {
+    position:    absolute;
+    left:        20px;
+    top:         0px;
+    font-weight: normal;
+    display:     none;
+    -moz-animation: fadeRight 0.8s;
+}
+
+#songArtLarge {
+    position: absolute;
+    top:      10px;
+    right:    10px;
+    width:    200px;
+    height:   200px
 }

@@ -29,14 +29,6 @@
             if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
                 %><script>alert("Added to Cart");</script><%
             }
-
-            if (session.getAttribute("currentSongId") != null) {%>
-                <script>
-                    function resumePlay() {
-                        streamNG(<%=(int)session.getAttribute("currentSongId")%>);
-                    }
-                </script>
-          <%}
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -57,8 +49,10 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/ajax_streamer.js"></script>
+        <script src="js/ajax_image_loader.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
+    <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -84,29 +78,20 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a class="currentPageLink" href="playing.jsp">Music</a>
-                <a href="shop.jsp">Shop</a>
-                <a href="account.jsp">Account</a>
-                <a href="about.jsp">About</a>
+                <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
+                <a class="currentPageLink" href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
             </nav>
-            <div id="header_right">
-                <form id="searchBox" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="search"/>
-                    <input type="search" name="searchterm" placeholder="Search"/>
+            <form id="searchBox" action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="search"/>
+                <input type="search" name="searchterm" placeholder="Search"/>
+            </form>
+            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            <div id="userMenu" class="panel">
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <form id="logOutButton" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="logout"/>
+                    <input type="submit" value="Log Out"/>
                 </form>
-                <%if (currentUser != null) {%>
-                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
-                    &#160;&#160;
-                    <form id="logOutButton" action="UserActionServlet" method="POST">
-                        <input type="hidden" name="action" value="logout"/>
-                        <input type="submit" value="Log Out"/>
-                    </form>
-                <%} else {
-                        response.sendRedirect("login.jsp?refer=playlists.jsp");
-                %>
-                    <!-- In case the redirect fails for any reason provide a link -->
-                    <a href="login.jsp">Log In</a>
-                <%}%>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
@@ -148,30 +133,24 @@
             </ul>
         </div>
         <footer class="panel" id="base">
-            <span id="controls">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" points="72.5,35 72.5,65 47.5,50"/>
-                    <polygon class="iconPolyFilled" points="47.5,35 47.5,65 22.5,50"/>
+            <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">
+                <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
+                <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
+                <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
+            </svg>
+            <span id="songInfoDisplay"></span>
+            <span id="volControls">
+                <svg id="volIcon" viewBox="0 0 100 100">
+                    <polygon class="iconPolyFilled" points="75,20 75,80 25,50"/>
+                    <rect class="iconRectFilled" x="25" y="40" width="30" height="20"/>
+                    <circle class="iconCircleFilled" cx="70" cy="50" r="10"/>
                 </svg>
-                <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
-                    <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
-                    <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
-                </svg>
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <circle class="iconCircleStroked" cx="50" cy="50" r="40"/>
-                    <polygon class="iconPolyFilled" points="27.5,35 27.5,65 52.5,50"/>
-                    <polygon class="iconPolyFilled" points="52.5,35 52.5,65 77.5,50"/>
-                </svg>
+                <input id="volSlider" oninput="updateVol()" type="range" min="0" max="10"/>
             </span>
-            <span id="trackTimer">
-                --:-- / --:--
-            </span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
-            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span id="currTimeDisplay">--:--</span>
+            <span onclick="jumpTo(event)" id="progressBG"></span>
+            <span onclick="jumpTo(event)" id="progress"></span>
+            <span id="durationDisplay">--:--</span>
         </footer>
         <div id="wallpaper"></div>
     </body>

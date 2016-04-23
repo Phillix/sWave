@@ -1,10 +1,12 @@
 package Dtos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Austin
  */
-public class CartItem {
+public class CartItem implements Serializable {
     private boolean type; //True for song, false for merch
     private int prodId;
     private int qty;

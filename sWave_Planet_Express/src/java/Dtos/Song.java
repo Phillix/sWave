@@ -29,19 +29,16 @@ public class Song implements Serializable {
      * Default constructor to initialize a default song
      */
     public Song() {
-        filename  = "filename";
-        title     = "title";
-        artist    = "artist";
-        album     = "album";
-        genre     = "genre";
-        year      = 0;
-        duration  = 0;
-        price     = 0.00;
-        license   = "license";
+        filename  = "untitled";
+        title     = "Unknown";
+        artist    = "Unknown";
+        album     = "Unknown";
+        genre     = "Unknown";
+        price     = 2.99; //Our Default Price
+        license   = "Unknown";
         playCount = 0;
-        uploaded  = null;
-        artwork   = null;
-        songdata  = null;
+        uploaded  = new Date(System.currentTimeMillis()); 
+        //Capture Moment of Object Creation as Upload Time
     }
 
     /**

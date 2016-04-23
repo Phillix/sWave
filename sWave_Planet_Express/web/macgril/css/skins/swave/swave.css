@@ -84,6 +84,11 @@ input:focus {
     fill:   none;
 }
 
+.iconCircleFilled {
+    stroke: none;
+    fill:   #e3e3e3;
+}
+
 .iconPolyFilled {
     stroke: none;
     fill:   #e3e3e3;

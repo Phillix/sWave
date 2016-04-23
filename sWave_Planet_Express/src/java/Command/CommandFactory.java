@@ -65,6 +65,9 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("stream") ) {
             //Begin Stream using Next Gen Streaming System ;)
             command = new StreamCommand();
+        } else if ( action.equalsIgnoreCase("songInfoDisplay") ) {
+            //Used to display song info after streaming has begun
+            command = new SongInfoDisplayCommand();
         } else if ( action.equalsIgnoreCase("deleteFromPlaylist") ) {
             //Deleting a song from a playlist
             command = new DeleteFromPlaylistCommand();

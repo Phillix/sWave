@@ -24,14 +24,6 @@
             if (currentUser != null) {
                 skin = currentUser.getSkin();
             }
-
-            if (session.getAttribute("currentSongId") != null) {%>
-                <script>
-                    function resumePlay() {
-                        streamNG(<%=(int)session.getAttribute("currentSongId")%>);
-                    }
-                </script>
-          <%}
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -53,8 +45,9 @@
         <script src="macgril/js/audio.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
+        <script src="js/ajax_streamer.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
+    <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -146,18 +139,24 @@
             </ul>
         </div>
         <footer class="panel" id="base">
-            <span id="controls">
-                <!-- Hiding Next and Previous Buttons until Playlist Backend Functionality Compete-->
-                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/rw.png"/>
-                <img id="playPauseButton" onclick="playPause()" src="images/play.png"/>
-                <img style="visibility: hidden; width: 30px; height:30px; position:relative; top:-5px;" src="images/fw.png"/>
+            <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">
+                <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
+                <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
+                <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
+            </svg>
+            <span id="songInfoDisplay"></span>
+            <span id="volControls">
+                <svg id="volIcon" viewBox="0 0 100 100">
+                    <polygon class="iconPolyFilled" points="75,20 75,80 25,50"/>
+                    <rect class="iconRectFilled" x="25" y="40" width="30" height="20"/>
+                    <circle class="iconCircleFilled" cx="70" cy="50" r="10"/>
+                </svg>
+                <input id="volSlider" oninput="updateVol()" type="range" min="0" max="10"/>
             </span>
-            <span id="trackTimer">
-                --:-- / --:--
-            </span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
-            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span id="currTimeDisplay">--:--</span>
+            <span onclick="jumpTo(event)" id="progressBG"></span>
+            <span onclick="jumpTo(event)" id="progress"></span>
+            <span id="durationDisplay">--:--</span>
         </footer>
         <div id="wallpaper"></div>
     </body>

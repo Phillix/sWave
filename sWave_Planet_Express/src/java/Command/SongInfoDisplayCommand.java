@@ -3,7 +3,7 @@ package Command;
 import Daos.SongDao;
 import Dtos.Song;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  *            session
  * @author Brian Millar
  */
-public class StreamCommand implements Command {
+public class SongInfoDisplayCommand implements Command {
 
     private static final boolean DEBUG = sWave.Server.DEBUGGING;
 
@@ -20,8 +20,8 @@ public class StreamCommand implements Command {
         try {
             SongDao dao = new SongDao();
             Song s = dao.getSongById(Integer.parseInt(request.getParameter("songid")));
-            OutputStream out = response.getOutputStream();
-            out.write(s.getSongdata());
+            Writer out = response.getWriter();
+            out.write(String.format("%s :  %s", s.getArtist(), s.getTitle()));
             out.flush();
             out.close();
             return null; //We don't want to redirect
@@ -31,12 +31,4 @@ public class StreamCommand implements Command {
         }
         return null;
     }
-    
-    /*
-        Create a hash of the mp3 data and store it in database.
-        Use a hashmap to store songdata on the heap.
-        When starting new stream get song hash and see if its in the hashmap
-        before reading from DB.
-    */
-    
 }

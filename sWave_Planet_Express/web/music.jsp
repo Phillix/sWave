@@ -39,14 +39,7 @@
             if (request.getParameter("pageNum") != null) {
                 pageNum = Integer.parseInt(request.getParameter("pageNum"));
             }
-
-            if (session.getAttribute("currentSongId") != null) {%>
-                <script>
-                    function resumePlay() {
-                        stream(<%=(int)session.getAttribute("currentSongId")%>);
-                    }
-                </script>
-            <%}%>
+        %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
         <title>Library - sWave</title>
@@ -70,7 +63,7 @@
         <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
-    <body onload="loadUserPicture();<%if (session.getAttribute("currentSongId") != null) {%> resumePlay()<%}%>">
+    <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -96,7 +89,7 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <!-- Bunching up the anchor tags removes the gaps between them caused the tabbing and inline-block -->
+                <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a class="currentPageLink" href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
@@ -146,8 +139,8 @@
                 Song s;
                 for (int i = (pageNum * 15) - 15; (i < pageNum * 15) && i < songs.size(); i++) {
                     s = songs.get(i);
-            %>
-                    <li class="panel songListing">
+                    %>
+                    <li class="panel listing songListing">
                         <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
                         <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                         <%if (DEBUG) {%>
@@ -160,6 +153,9 @@
                         <%=f.format(s.getPrice())%>
                         <%=s.getAlbum()%>
                         <%=s.getGenre()%>
+                        <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) > 60480000)) {%>
+                            <span style="color:red;">[NEW]</span>
+                        <%}%>
                         <button onclick="$('overlay').style.display='block'; $('addToPlaylist').style.display='block'">P</button>
                         <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="addSongToCart"/>
@@ -167,7 +163,7 @@
                             <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
                             <input type="submit" value="C"/>
                         </form>
-                        <button onclick="stream(<%=s.getSongId()%>);">&#9658;</button>
+                        <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>
                     </li>
                 <%}%>
             </ul>
@@ -178,44 +174,22 @@
                 <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
                 <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
             </svg>
+            <span id="songInfoDisplay"></span>
             <span id="volControls">
-                <label>Volume</label>
+                <svg id="volIcon" viewBox="0 0 100 100">
+                    <polygon class="iconPolyFilled" points="75,20 75,80 25,50"/>
+                    <rect class="iconRectFilled" x="25" y="40" width="30" height="20"/>
+                    <circle class="iconCircleFilled" cx="70" cy="50" r="10"/>
+                </svg>
                 <input id="volSlider" oninput="updateVol()" type="range" min="0" max="10"/>
             </span>
             <span id="currTimeDisplay">--:--</span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
-            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span onclick="jumpTo(event)" id="progressBG"></span>
+            <span onclick="jumpTo(event)" id="progress"></span>
             <span id="durationDisplay">--:--</span>
         </footer>
         <div id="overlay" onclick="this.style.display='none'; $('addToPlaylist').style.display='none';"></div>
-        <style>
-            #addToPlaylist {
-                position: fixed;
-                width:    200px;
-                height:   100px;
-                left:     calc(50% - 100px);
-                top:      calc(50% - 50px);
-                background-color: rgba(255, 255, 255, 0.7);
-                box-shadow: 0px 0px 4px #000;
-                z-index:    20;
-                display:    none;
-                -moz-animation: expand 0.6s;
-            }
-            
-            #overlay {
-                position:         fixed;
-                top:              0px;
-                left:             0px;
-                z-index:          10;
-                background-color: rgba(0, 0, 0, 0.7);
-                width:            100%;
-                height:           100%;
-                display:          none;
-                -moz-animation: expand 0.4s;
-            }
-        </style>
-        <div id="addToPlaylist">
+        <div id="addToPlaylist" class="panel">
             <form action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="addSongToPlaylist"/>
                 <input id="song" type="hidden" name="songId"/>

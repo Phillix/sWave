@@ -57,7 +57,7 @@ function startAudioVisualization(element, width, height) {
 
     bars = new Array(new Array(40), new Array(40), new Array(40));
 
-    var j = -40.0;
+    var j = -50.0;
     for (var i = 0; i < 64; i++) {
         bars[2][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.2, 0.5), new THREE.MeshBasicMaterial({color:0x9F42C2})); //Wave
         bars[1][i] = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.2, 0.5), new THREE.MeshBasicMaterial({color:0x55B25B})); //Bars

@@ -161,3 +161,8 @@ function playerUpdate() {
 function updateVol() {
     player.volume = $("volSlider").value / 10;
 }
+
+function resumePlay(onPlayingPage) {
+    if (lStore("currentSongId") !== null && lStore("currentSongId") !== undefined)
+        stream(lStore("currentSongId"), onPlayingPage);
+}

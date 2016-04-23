@@ -1,3 +1,5 @@
+<%@page import="Daos.FriendDao"%>
+<%@page import="Dtos.Friend"%>
 <%@page import="Daos.SongDao"%>
 <%@page import="Dtos.Order"%>
 <%@page import="java.text.NumberFormat"%>
@@ -34,14 +36,6 @@
             }
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
-            
-            if (session.getAttribute("currentSongId") != null) {%>
-                <script>
-                    function resumePlay() {
-                        stream(<%=(int)session.getAttribute("currentSongId")%>);
-                    }
-                </script>
-          <%}
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -69,7 +63,7 @@
         <script src="js/ajax_uploader.js"></script>
         <script src="js/ajax_streamer.js"></script>
     </head>
-    <body <%if (session.getAttribute("currentSongId") != null) {%>onload="resumePlay()"<%}%>>
+    <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic'), $('largeUserPic')); resumePlay()">
         <header class="panel" id="topbar">
             <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
                 <mask id="mask" x="0" y="0" width="100" height="100">
@@ -95,10 +89,8 @@
                 <text class="iconText" x="100" y="68" font-size="60">sWave</text>
             </svg>
             <nav>
-                <a href="playing.jsp">Music</a>
-                <a href="shop.jsp">Shop</a>
-                <a class="currentPageLink" href="account.jsp">Account</a>
-                <a href="about.jsp">About</a>
+                <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
+                <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a class="currentPageLink" href="account.jsp">Account</a><a href="about.jsp">About</a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
@@ -123,13 +115,16 @@
             <%}%>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionAccount">
+        <div id="midSectionInside">
             <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
-                    <div id="profileRight">
+                    <div id="profileSidebar">
                         <img id="largeUserPic" src="images/test.png" width="200" height="200"/>
                         <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
                         <h5><u>Upload New Picture</u></h5>
+                        <input id="userPicField" onchange="uploadUserPicture(<%=currentUser.getUserId()%>)" type="file" accept="image/*" name="userPicField"/><br/>
+                        <progress id="uploadProgress2" max="100" value="0"></progress><br/>
+                        <span id="progressInfo2"></span><br/>
                     </div>
                     <h1><%=currentUser.getFname()%>'s Profile</h1>
                     <form action="UserActionServlet" method="POST" id="profileDetailsForm">
@@ -142,39 +137,72 @@
                         <label>Address Line 2: </label><input type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
                         <label>City: </label><input type="text" name="city" placeholder="City" value="<%=currentUser.getCity()%>"/><br/><br/>
                         <label>County: </label><input type="text" name="county" placeholder="County" value="<%=currentUser.getCounty()%>"/><br/><br/>
-                        <input type="submit" value="Update Details"/><br/>
-                        <input id="userPicField" type="file" accept="image/*" name="userPicField"/>
-                        <button onclick="uploadUserPicture()">Upload</button>
-                        <progress id="uploadProgress2" max="100" value="0"></progress>
-                        <span id="progressInfo2"></span>
-                    </form>
+                        <input type="submit" value="Update Details"/>
+                    </form><br/><br/>
+                    <h1>Friends</h1>
+                    <table>
+                        <tr>
+                        <%
+                            FriendDao fdao = new FriendDao();
+                            ArrayList<Friend> friends = fdao.getUserFriends(currentUser.getUserId());
+                            for (Friend f : friends) {
+                        %>
+                        <td>
+                            <img id="face<%=f.getUserId()%>" width="100" height="100"/>
+                            <script>loadUserPicture(<%=f.getUserId()%>, $("face<%=f.getUserId()%>"))</script>
+                        </td>
+                        <%}%>
+                        </tr>
+                    </table>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
                     <h1>My Orders</h1>
                     <ul>
-                    <%OrderDao orders = new OrderDao();
-                    SongDao songs = new SongDao();
-                    for (UltimateOrder theOrder : orders.getFullOrders(currentUser.getUserId())) {%>
-                    <li>
-                        <strong>Date:</strong> <%=theOrder.getDateOrdered()%><br/>
-                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                        <strong>Total:</strong> <%=f.format(theOrder.calcTotal())%><br/>
-                        <strong>Songs purchased:</strong> <%=theOrder.getSongSize()%><br/>
-                        <ol>
-                        <%for(int i = 0; i < theOrder.getSongSize(); i++) {
-                            Song s = songs.getSongById(theOrder.getSongId(i));
-                        %>
-                            <li><strong>Title:</strong> <%=s.getTitle()%> <strong>Artist:</strong><%=s.getArtist()%> <strong>Price:</strong><%=f.format(theOrder.getSongPrice(i))%></li>
-                        <%}%>
-                        </ol>
-                        <strong>Merch purchased:</strong> <%=theOrder.getMerchSize()%><br/>
-                        <ol>
-                        <%for(int i = 0; i < theOrder.getMerchSize(); i++) {%>
-                            <li><strong>Title:</strong> <%=theOrder.getTitle(i)%> <strong>Quantity:</strong> <%=theOrder.getQty(i)%> <strong>Price:</strong> <%=f.format(theOrder.getMerchPrice(i))%></li>      
-                        <%}%>
-                        </ol>
-                        <hr/>
-                    </li>
-                <%}%></ul><%
+                        <%OrderDao orders = new OrderDao();
+                        SongDao songs = new SongDao();
+                        int count = 1;
+                        for (UltimateOrder theOrder : orders.getFullOrders(currentUser.getUserId())) {%>
+                        <li class="listing <%if (count % 2 == 0) {%>listingEven<%}%>">
+                            <br/>
+                            <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
+                            <table style="padding:10px;" width="100%">
+                                <tr>
+                                    <td><strong>Date:</strong> <%=theOrder.getDateOrdered()%></td>
+                                    <td><strong>Songs:</strong> <%=theOrder.getSongSize()%></td>
+                                    <td><strong>Merch:</strong> <%=theOrder.getMerchSize()%></td>
+                                </tr>
+                                <tr>
+                                    <td>&#160;</td>
+                                    <td>&#160;</td>
+                                    <td>&#160;</td>
+                                </tr>
+                                <%for(int i = 0; i < theOrder.getSongSize(); i++) {
+                                    Song s = songs.getSongById(theOrder.getSongId(i));%>
+                                    <tr>
+                                        <td><%=s.getTitle()%></td>
+                                        <td><%=s.getArtist()%></td>
+                                        <td><%=f.format(theOrder.getSongPrice(i))%></td>
+                                    </tr>
+                                <%}%>
+                                <tr>
+                                    <td>&#160;</td>
+                                    <td>&#160;</td>
+                                    <td>&#160;</td>
+                                </tr>
+                                <%for(int i = 0; i < theOrder.getMerchSize(); i++) {%>
+                                    <tr>
+                                        <td><%=theOrder.getTitle(i)%></td>
+                                        <td><%=theOrder.getQty(i)%></td>
+                                        <td><%=f.format(theOrder.getMerchPrice(i))%></td>
+                                    </tr>
+                                <%}%>
+                                <tr>
+                                    <td>&#160;</td>
+                                    <td>&#160;</td>
+                                    <td><%=f.format(theOrder.calcTotal())%> <strong>Total</strong></td>
+                                </tr>
+                            </table>
+                        </li>
+                <% count++;}%></ul><%
                 } else if (request.getParameter("view").equals("tickets")) {
                     if (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed")) {%>
                         <h1>Closed Tickets</h1>
@@ -288,14 +316,18 @@
                 <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
                 <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
             </svg>
+            <span id="songInfoDisplay"></span>
             <span id="volControls">
-                <label>Volume</label>
+                <svg id="volIcon" viewBox="0 0 100 100">
+                    <polygon class="iconPolyFilled" points="75,20 75,80 25,50"/>
+                    <rect class="iconRectFilled" x="25" y="40" width="30" height="20"/>
+                    <circle class="iconCircleFilled" cx="70" cy="50" r="10"/>
+                </svg>
                 <input id="volSlider" oninput="updateVol()" type="range" min="0" max="10"/>
             </span>
             <span id="currTimeDisplay">--:--</span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progressBG"></span>
-            <span onclick="jumpTo(event)" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="progress"></span>
-            <img src="images/scrubber.png" onmouseover="showScrubber()" onmouseout="hideScrubber()" id="scrubber"/>
+            <span onclick="jumpTo(event)" id="progressBG"></span>
+            <span onclick="jumpTo(event)" id="progress"></span>
             <span id="durationDisplay">--:--</span>
         </footer>
         <div id="wallpaper"></div>

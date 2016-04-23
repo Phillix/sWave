@@ -19,17 +19,12 @@ public class LoadUserPictureCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         try {
-            HttpSession session = request.getSession();
-            if ((User)session.getAttribute("user") != null) {
-                User u = (User)session.getAttribute("user");
-                OutputStream out = response.getOutputStream();
-                UsersDao dao = new UsersDao();
-                System.out.println(dao.getUserPicture(u.getUserId()).length);
-                out.write(dao.getUserPicture(u.getUserId()));
-                out.flush();
-                out.close();
-                return null; //We don't want to redirect
-            } else return "/login.jsp";
+            OutputStream out = response.getOutputStream();
+            UsersDao dao = new UsersDao();
+            out.write(dao.getUserPicture(Integer.parseInt(request.getParameter("userid"))));
+            out.flush();
+            out.close();
+            return null; //We don't want to redirect
         } catch (IOException ex) {
             if (DEBUG)
                 ex.printStackTrace();

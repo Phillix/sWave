@@ -22,7 +22,7 @@ function uploadSongs() {
     };
 }
 
-function uploadUserPicture() {
+function uploadUserPicture(userid) {
     var request  = new XMLHttpRequest();
     var formdata = new FormData();
     var picture  = $("userPicField").files[0];
@@ -40,6 +40,7 @@ function uploadUserPicture() {
 
     request.upload.onload = function(event) {
         $("progressInfo2").innerHTML = "Done";
-        loadUserPicture(true);
+        loadUserPicture(userid, $("userPic"));
+        loadUserPicture(userid, $("largeUserPic"));
     };
 }

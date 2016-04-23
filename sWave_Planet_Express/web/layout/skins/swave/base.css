@@ -5,7 +5,7 @@
 }
 
 aside a:hover {
-    background-color: rgba(49, 146, 153, 0.2);
+    background-color: rgba(49, 146, 153, 0.1);
 }
 
 .currentPageLink {
@@ -16,6 +16,23 @@ a.currentPageNum {
     background-color: rgba(49, 146, 153, 0.1);
 }
 
-#midSectionAccount {
+#midSectionInside {
     background-color: rgba(0, 0, 0, 0.9);
+}
+
+nav a:hover {
+    background-color: rgba(49, 146, 153, 0.1);
+}
+
+.listingEven {
+    background-color: rgba(49, 146, 153, 0.1);
+}
+
+#profileSidebar {
+    border-color:     #000;
+    background-color: transparent;
+}
+
+.largeVisualizer {
+    background-color: rgba(0, 0, 0, 0.7);
 }

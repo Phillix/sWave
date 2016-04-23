@@ -4,7 +4,6 @@ import Daos.SongDao;
 import Dtos.Song;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +55,6 @@ public class UploadCommand implements Command {
                     track.setSongdata(buffer);
                     track.setFilename(fileName.substring(0, fileName.length() - 4));
                     track.setTitle(fileName.substring(0, fileName.length() - 4));
-                    track.setUploaded(new Date(System.currentTimeMillis()));
                     //The ID3 extractors will set whatever data they can find
                     ID3V1.extractTags(track);
                     ID3V2.extractTags(track);

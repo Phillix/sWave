@@ -127,7 +127,6 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
      * @return Collection of playlists beloning to the user
      */
     public ArrayList<Playlist> getUserPlaylists(int userId) {
-        
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -176,7 +175,52 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
     @Override
     public void addSongToPlaylist(int s, int p) {
         PlayTracksDao playDao = new PlayTracksDao();
+        System.out.println(playDao.getMaxPlaylistOrder(p) + 1);
         PlayTrack track = new PlayTrack(s, p, playDao.getMaxPlaylistOrder(p) + 1);
         playDao.createPlayTrack(track);
+    }
+
+    @Override
+    public Playlist getPlaylistById(int id) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Playlist> playlists = null;
+
+        try {
+            con = getConnection();
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
+
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                Playlist p = new Playlist();
+                p.setPlaylistId(rs.getInt(ID));
+                p.setUserId(rs.getInt(USERID));
+                p.setTitle(rs.getString(TITLE));
+                return p;
+            }
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

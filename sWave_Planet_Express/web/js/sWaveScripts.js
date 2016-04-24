@@ -36,3 +36,9 @@ function showHideUserMenu() {
     else
         $("userMenu").style.display = "block";
 }
+
+function clearlStore() {
+    lStore("currentSongId", "del");
+    lStore("playTime", "del");
+    alert("Your Locally Stored Settings & Data were Cleared.");
+}

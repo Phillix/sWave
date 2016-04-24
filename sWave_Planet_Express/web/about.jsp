@@ -95,7 +95,7 @@
         <aside class="panel" id="left_sidebar">
             <div id="visualizer"></div>
         </aside>
-        <div id="midsection">
+        <div id="midSectionInside">
             <h1>Project sWave</h1>
             <h3>Brought to you by Team Planet Express</h3>
             Planet Express is:

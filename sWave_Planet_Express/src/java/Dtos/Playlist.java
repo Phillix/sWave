@@ -53,15 +53,18 @@ public class Playlist {
     }
     
     public ArrayList<Song> getPlaylistContents() {
-        ArrayList<Song> songs = new ArrayList<>();
+        ArrayList<Song> songs  = new ArrayList<>();
         PlayTracksDao trackDao = new PlayTracksDao();
         SongDao songDao = new SongDao();
         ArrayList<PlayTrack> playTracks = trackDao.getPlayTracksInPlaylist(playlistId);
-        
-        for(PlayTrack pt : playTracks) {
+        for(PlayTrack pt : playTracks)
             songs.add(songDao.getSongById(pt.getSongId()));
-        }
         return songs;
+    }
+    
+    public int getSize() {
+        PlayTracksDao trackDao = new PlayTracksDao();
+        return trackDao.getPlayTracksInPlaylist(playlistId).size();
     }
 
     @Override

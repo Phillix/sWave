@@ -117,7 +117,7 @@
                     <input type="submit" value="Create"/>
                 </form>
             </div>
-            <ul id="libraryTrackList">
+            <ul id="itemList">
             <%
                 PlaylistDao playlists = new PlaylistDao();
                 ArrayList<Playlist> playlistz = playlists.getUserPlaylists(currentUser.getUserId());
@@ -128,14 +128,7 @@
                     <li class="panel listing">
                         <h3><%=p.getTitle()%></h3>
                         <span>Songs: <%=contents.size()%></span>
-                        <button onclick="$('contentsOf<%=p.getPlaylistId()%>').style.display='block';">View Songs</button>
-                        <ol id="contentsOf<%=p.getPlaylistId()%>" style="display:none;">
-                            <%for (Song s : contents) {%>
-                                <li>
-                                    <%=s.getTitle()%>&#160;|&#160;<%=s.getArtist()%>
-                                </li>
-                            <%}%>
-                        </ol>
+                        <a href="playlist.jsp?playlist=<%=p.getPlaylistId()%>">View Playlist</a>
                         <div style="float:right;">
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="deletePlaylist"/>

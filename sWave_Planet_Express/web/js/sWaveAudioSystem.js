@@ -139,14 +139,6 @@ function jumpTo(e) {
     player.currentTime = player.duration * ((e.clientX - 132) / (document.body.scrollWidth - 204));
 }
 
-function showScrubber() {
-    $("scrubber").style.MozTransform = "scale(1.0)";
-}
-
-function hideScrubber() {
-    $("scrubber").style.MozTransform = "scale(0.0)";
-}
-
 function playerUpdate() {
     var curr = player.currentTime;
     var durr = player.duration;

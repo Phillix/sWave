@@ -13,4 +13,5 @@ public interface PlaylistDaoInterface {
     public int deletePlaylist(int id);
     public ArrayList<Playlist> getUserPlaylists(int userId);
     public void addSongToPlaylist(int s, int p);
+    public Playlist getPlaylistById(int id);
 }

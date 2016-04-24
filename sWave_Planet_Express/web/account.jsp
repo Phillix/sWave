@@ -128,7 +128,7 @@
                     <div id="profileSidebar">
                         <img id="largeUserPic" src="images/test.png" width="200" height="200"/>
                         <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
-                        <h5><u>Upload New Picture</u></h5>
+                        <h5><u>Upload New Picture (MAX 64kb)</u></h5>
                         <input id="userPicField" onchange="uploadUserPicture(<%=currentUser.getUserId()%>)" type="file" accept="image/*" name="userPicField"/><br/>
                         <progress id="uploadProgress2" max="100" value="0"></progress><br/>
                         <span id="progressInfo2"></span><br/>
@@ -167,10 +167,10 @@
                         <%OrderDao orders = new OrderDao();
                         SongDao songs = new SongDao();
                         int count = 1;
+                        NumberFormat f = NumberFormat.getCurrencyInstance();
                         for (UltimateOrder theOrder : orders.getFullOrders(currentUser.getUserId())) {%>
                         <li class="listing <%if (count % 2 == 0) {%>listingEven<%}%>">
                             <br/>
-                            <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
                             <table style="padding:10px;" width="100%">
                                 <tr>
                                     <td><strong>Date:</strong> <%=theOrder.getDateOrdered()%></td>
@@ -292,7 +292,9 @@
                             <input type="submit" value="Apply"/><br/><br/>
                         </form>
                         <em>Your Skin Preference will stored in our database and maintained across machines.</em>
-                        <br/><br/>
+                        <br/>
+                        <button onclick="clearlStore()">Clear Local Data</button>
+                        <br/>
                         <strong>NOTE:</strong> The following settings are LOCAL to your machine, you will need to <em><u>export</u></em> these settings to use them on another machine.
                         <br/><br/>
                         <button>Import Settings</button>&#160;<button>Export Settings</button><br/><br/>

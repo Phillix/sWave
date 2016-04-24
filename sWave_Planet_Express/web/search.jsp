@@ -123,6 +123,7 @@
                 Showing <%=songs.size() + merch.size() + users.size()%> Results for "<%=term%>"</h2>
                 <table>
                 <%
+                    NumberFormat f = NumberFormat.getCurrencyInstance();
                     for (Song s : songs) {%>
                     <tr <%if (session.getAttribute("currentSong") != null && ((Song)session.getAttribute("currentSong")).getSongId() == s.getSongId()) {%>class="playing"<%}%>>
                             <%if (DEBUG) {%>
@@ -132,7 +133,6 @@
                             <td><%=s.getArtist()%></td>
                             <td><%=s.getGenre()%></td>
                             <td><%=s.getYear()%></td>
-                            <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
                             <td><%=f.format(s.getPrice())%></td>
                             <td><form action="UserActionServlet" method="POST">
                                     <input type="hidden" name="action" value="addSongToCart"/>
@@ -154,7 +154,6 @@
                                 <td><%=m.getMerchId()%></td>
                             <%}%>
                             <td><%=m.getTitle()%></td>
-                            <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
                             <td><%=f.format(m.getPrice())%></td>
                             <td><form action="UserActionServlet" method="POST">
                                     <input type="hidden" name="action" value="addMerchToCart"/>

@@ -139,9 +139,10 @@
                     <%}%>
                 </span>
             </div>
-            <ul id="libraryTrackList">
+            <ul id="itemList">
             <%
                 Song s;
+                NumberFormat f = NumberFormat.getCurrencyInstance();
                 for (int i = (pageNum * 15) - 15; (i < pageNum * 15) && i < songs.size(); i++) {
                     s = songs.get(i);
                     %>
@@ -154,14 +155,13 @@
                         <span class="songTitle"><%=s.getTitle()%></span><br/>
                         <%=s.getArtist()%>
                         <%=s.getYear()%>
-                        <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
                         <%=f.format(s.getPrice())%>
                         <%=s.getAlbum()%>
                         <%=s.getGenre()%>
                         <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) > 60480000)) {%>
                             <span style="color:red;">[NEW]</span>
                         <%}%>
-                        <button onclick="$('overlay').style.display='block'; $('addToPlaylist').style.display='block'">P</button>
+                        <button onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">P</button>
                         <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="addSongToCart"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
@@ -197,7 +197,7 @@
         <div id="addToPlaylist" class="panel">
             <form action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="addSongToPlaylist"/>
-                <input id="song" type="hidden" name="songId"/>
+                <input id="songId" type="hidden" name="songId"/>
                 <label>Playlist: </label> 
                 <select name="playlistId">
                     <%

@@ -102,31 +102,27 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
+            <a href="cart.jsp">Go to Cart</a>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-        <table>
-            <%
-            MerchDao dao = new MerchDao();
-            for (Merch m : dao.viewMerchAlpha()) {%>
-                <tr>
-                    <%if (DEBUG) {%>
-                        <td><%=m.getMerchId()%></td>
-                    <%}%>
-                    <td><%=m.getTitle()%></td>
-                    <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                    <td><%=f.format(m.getPrice())%></td>
-                    <td><form action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addMerchToCart"/>
-                            <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
-                            <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
-                            <input type="number" value="1" min="1" name="qty"/>
-                            <input type="submit" value="Add to Cart"/>
-                        </form>
-                    </td>
-                </tr>
-        <%}%>
-        </table>
+            <div id="omniBar" class="panel"></div>
+            <ul id="itemList">
+                <%
+                MerchDao dao = new MerchDao();
+                NumberFormat f = NumberFormat.getCurrencyInstance();
+                for (Merch m : dao.viewMerchAlpha()) {%>
+                    <li class="panel listing songListing">
+                        <img class="artwork" alt="Picture of <%=m.getTitle()%>" src="images/merch/<%=m.getTitle()%>.jpg"/>
+                        <%if (DEBUG) {%>
+                            <%=m.getMerchId()%>
+                        <%}%>
+                        <%=m.getTitle()%><br/>
+                        <%=f.format(m.getPrice())%>
+                        <a href="product.jsp?item=<%=m.getMerchId()%>">View Item</a>
+                    </li>
+            <%}%>
+            </ul>
         </div>
         <footer class="panel" id="base">
             <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">

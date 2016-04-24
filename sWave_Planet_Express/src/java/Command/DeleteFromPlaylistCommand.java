@@ -23,7 +23,7 @@ public class DeleteFromPlaylistCommand implements Command {
             PlayTrack pt   = new PlayTrack(songId, playlistId, 0);
             int result     = ptf.deletePlayTrack(pt);
             
-            if (result == 0) return "/playlists.jsp";
+            if (result == 0) return "/playlist.jsp?playlist=" + playlist;
         }
         return "/error.jsp?msg=The%20song%20was%20not%20deleted%20from%20the%20playlist%20successfully.";
     }

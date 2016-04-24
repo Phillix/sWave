@@ -105,8 +105,10 @@ public class MerchDao extends Dao implements MerchDaoInterface {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new Merch(rs.getString(TITLE),
-                                 rs.getDouble(PRICE));
+                Merch m = new Merch(rs.getString(TITLE),
+                                    rs.getDouble(PRICE));
+                m.setMerchId(rs.getInt(ID));
+                return m;
             }
         }
         catch (SQLException ex1) {

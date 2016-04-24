@@ -97,15 +97,18 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
+            <a href="javascript:history.back()">Back</a>
+            <a href="shop.jsp">Go to Shop</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midsection">
+        <div id="midSectionInside">
             <h1>My Cart</h1>
-            <a href="creditCard.jsp">Proceed To Checkout</a>
+            <a href="checkout.jsp">Proceed To Checkout</a>
             <ul>
             <%
                 if (session.getAttribute("cart") != null) {
                     ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
+                    NumberFormat f = NumberFormat.getCurrencyInstance();
                     for (CartItem c : cart) {
                         Object x;
 
@@ -115,20 +118,20 @@
                         }
                         else {
                             MerchDao mdao = new MerchDao();
+                            System.out.println(c.getProdId());
                             x = mdao.getMerchById(c.getProdId());
                         }
                     %>
                         <li>
                             <%if (x instanceof Song) {%>
-                            <h3>Song:</h3>
-                            <span>Title: <%=((Song)x).getTitle()%></span><br/>
-                            <span>Artist: <%=((Song)x).getArtist()%></span><br/>
+                                <h3>Song:</h3>
+                                <span>Title: <%=((Song)x).getTitle()%></span><br/>
+                                <span>Artist: <%=((Song)x).getArtist()%></span><br/>
                             <%} else {%>
                                 <h3>Merch Item:</h3>
                                 <span>Name: <%=((Merch)x).getTitle()%></span><br/>
                                 <span>Quantity: <%=c.getQty()%></span><br/>
                             <%}%>
-                            <%NumberFormat f = NumberFormat.getCurrencyInstance();%>
                             <span>Price: <%=f.format(c.getPrice())%></span>
                         </li>
                 <%}

@@ -15,7 +15,8 @@ public class AddMerchToCartCommand implements Command {
     @Override
     public String executeCommand(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        //TEMP NULL FOR IMAGE UNTILL FUNCTIONALITY ADDED
+        //TEMP NULL FOR IMAGE UNTIL FUNCTIONALITY ADDED
+        System.out.println(request.getParameter("merchid"));
         CartItem item = new CartItem(false, Integer.parseInt(request.getParameter("merchid")), Integer.parseInt(request.getParameter("qty")), Double.parseDouble(request.getParameter("price")), null);
         if (session.getAttribute("cart") == null)
             session.setAttribute("cart", new ArrayList<>());

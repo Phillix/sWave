@@ -132,7 +132,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(7, u.getAdd2());
             ps.setString(8, u.getCity());
             ps.setString(9, u.getCounty());
-            ps.setString(10,  u.getSkin());
+            ps.setString(10, u.getSkin());
             ps.setBlob(11, b);
             ps.setBoolean(12, u.isIsAdmin());
 
@@ -622,7 +622,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             if(rs.next()) {
                 Blob b = rs.getBlob(PICTURE);
-                return b.getBytes(1, (int)b.length());
+                if (b != null)
+                    return b.getBytes(1, (int)b.length());
             }
         }
         catch (SQLException ex2) {

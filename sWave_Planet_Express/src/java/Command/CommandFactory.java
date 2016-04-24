@@ -68,13 +68,19 @@ public class CommandFactory {
         } else if ( action.equalsIgnoreCase("songInfoDisplay") ) {
             //Used to display song info after streaming has begun
             command = new SongInfoDisplayCommand();
+        } else if ( action.equalsIgnoreCase("addSongToPlaylist") ) {
+            //Adding a song to a playlist
+            command = new AddSongToPlaylistCommand();
         } else if ( action.equalsIgnoreCase("deleteFromPlaylist") ) {
             //Deleting a song from a playlist
             command = new DeleteFromPlaylistCommand();
+        } else if ( action.equalsIgnoreCase("moveSongInPlaylist") ) {
+            //Moving a song up or down in a playlist
+            command = new MoveSongInPlaylistCommand();
         } else if ( action.equalsIgnoreCase("editSong") ) {
             //Editing a song
             command = new EditSongCommand();
-        } else if ( action.equalsIgnoreCase("requestFriend") ) {
+        }else if ( action.equalsIgnoreCase("requestFriend") ) {
             //Editing a song
             command = new RequestFriendCommand();
         } else if ( action.equalsIgnoreCase("ConfirmFriend") ) {

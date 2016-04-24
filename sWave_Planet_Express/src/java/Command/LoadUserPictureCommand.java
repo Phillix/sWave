@@ -21,8 +21,11 @@ public class LoadUserPictureCommand implements Command {
         try {
             OutputStream out = response.getOutputStream();
             UsersDao dao = new UsersDao();
-            out.write(dao.getUserPicture(Integer.parseInt(request.getParameter("userid"))));
-            out.flush();
+            byte picture[] = dao.getUserPicture(Integer.parseInt(request.getParameter("userid")));
+            if (picture != null) {
+                out.write(picture);
+                out.flush();
+            }
             out.close();
             return null; //We don't want to redirect
         } catch (IOException ex) {

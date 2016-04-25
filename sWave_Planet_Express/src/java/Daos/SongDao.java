@@ -73,11 +73,6 @@ public class SongDao extends Dao implements SongDaoInterface {
             rs           = ps.executeQuery();
 
             while (rs.next()) {
-                Blob artworkBlob = rs.getBlob(SONGDATA);
-                byte art[]       = null;
-                if (artworkBlob != null)
-                    art = artworkBlob.getBytes(1, (int)artworkBlob.length());
-
                 Song s = new Song(rs.getInt(SONGID),
                                   rs.getString(FILENAME),
                                   rs.getString(TITLE),
@@ -90,7 +85,7 @@ public class SongDao extends Dao implements SongDaoInterface {
                                   rs.getString(LICENSE),
                                   rs.getInt(PLAYCOUNT),
                                   rs.getDate(UPLOADDATE),
-                                  art); //We don't want the songdata here
+                                  null); //We don't want the songdata or artwork here
                 songs.add(s);
             }
             return songs;

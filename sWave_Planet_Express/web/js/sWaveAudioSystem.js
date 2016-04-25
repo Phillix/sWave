@@ -42,6 +42,11 @@ function initsWaveAudio(song) {
         playerUpdate();
         startAudioVisualization("visualizer", $("visualizer").offsetWidth, $("visualizer").offsetHeight);
     }
+
+    if (lStore("volume") !== null && lStore("volume") !== undefined) {
+        player.volume = lStore("volume");
+        $("volSlider").value = Math.floor(lStore("volume") * 10);
+    }
 }
 
 function crossFade(oldVol) {
@@ -157,6 +162,7 @@ function playerUpdate() {
 
 function updateVol() {
     player.volume = $("volSlider").value / 10;
+    lStore("volume", player.volume);
 }
 
 function resumePlay(onPlayingPage) {

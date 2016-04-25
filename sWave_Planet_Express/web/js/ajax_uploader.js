@@ -19,6 +19,7 @@ function uploadSongs() {
 
     request.upload.onload = function(event) {
         $("progressInfo").innerHTML = "Done";
+        notify($("notifier"), "Upload Complete", 3000);
     };
 }
 

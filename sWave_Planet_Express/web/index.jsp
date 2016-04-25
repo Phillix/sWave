@@ -37,6 +37,7 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/windowing.js"></script>
         <script src="macgril/js/audio.js"></script>
+        <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/ajax_image_loader.js"></script>
@@ -117,6 +118,7 @@
             <span onclick="jumpTo(event)" id="progress"></span>
             <span id="durationDisplay">--:--</span>
         </footer>
+        <div id="notifier" class="panel"></div>
         <div id="wallpaper"></div>
     </body>
 </html>

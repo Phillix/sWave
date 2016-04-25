@@ -53,6 +53,7 @@
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/audio.js"></script>
         <script src="macgril/js/datetime.js"></script>
+        <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/sWaveScripts.js"></script>
@@ -119,14 +120,6 @@
             <%
                 SongDao dao = new SongDao();
                 ArrayList<Song> songs = dao.getAllSongs();
-                
-                if (request.getParameter("sorting") != null) {
-                    String sorting = request.getParameter("sorting");
-                    if (sorting.equals("natural")) {
-                        //Collections.sort(songs, );
-                    }
-                }
-                
                 int numPages = (int)Math.ceil(songs.size() / 15.0);
                 if (pageNum < 1 || pageNum > numPages) pageNum = 1;
             %>
@@ -151,7 +144,12 @@
                         <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
                         <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                         <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
-                            <span class="songTitle"><%=s.getTitle()%></span><br/>
+                            <span class="songTitle"><%=s.getTitle()%>
+                                <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) < 172800000)) {%>
+                                    <span class="newBadge">New</span>
+                                <%}%>
+
+                            </span><br/>
                         <%}%>
                         <%if (s.getArtist() != null && !s.getArtist().isEmpty() && !s.getArtist().equalsIgnoreCase("Artist")) {%>
                             <span class="songArtist"><%=s.getArtist()%></span><br/>
@@ -159,23 +157,22 @@
                         <%if (s.getAlbum() != null && !s.getAlbum().isEmpty() && !s.getAlbum().equalsIgnoreCase("Album")) {%>
                             <span class="songAlbum"><%=s.getAlbum()%></span><br/>
                         <%}%>
-                        <%if (s.getYear() != 0) {%>
+                        <%boolean yearShown = false; if (s.getYear() != 0) { yearShown = true;%>
                             <span class="songYear"><%=s.getYear()%></span>
+                        <%}%>
+                        <%if (s.getGenre() != null && !s.getGenre().isEmpty() && !s.getGenre().equalsIgnoreCase("Genre")) {%>
+                            <span <%if (yearShown) {%>class="songGenre">&#160;|&#160;<%} else {%>class="songYear"><%}%><%=s.getGenre()%></span>
                         <%}%>
                         <!--
                         <%=f.format(s.getPrice())%>
-                        <%=s.getGenre()%>
-                        <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) > 60480000)) {%>
-                            <span style="color:red;">[NEW]</span>
-                        <%}%>
                         <button onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">P</button>
                         <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="addSongToCart"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                             <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
                             <input type="submit" value="C"/>
-                        </form>
-                        <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>-->
+                        </form>-->
+                        <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>
                     </li>
                 <%}%>
             </ul>
@@ -218,6 +215,7 @@
                 <input type="submit" value="Add"/>
             </form>
         </div>
+        <div id="notifier" class="panel"></div>
         <div id="wallpaper"></div>
     </body>
 </html>

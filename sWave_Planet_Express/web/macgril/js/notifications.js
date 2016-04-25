@@ -13,13 +13,8 @@
     along with Macgril.  If not, see <http://www.gnu.org/licenses/>
 */
 
-function notify(notifier, msg, timeout, desktop) {
-    $(notifier).innerHTML = msg;
-    $(notifier).style.display = block;
-    if (desktop) {
-        var perm = Notification.requestPermission();
-        if (perm != "denied")
-            
-    }
-    setTimeout(function () {$(notifier).style.display = "none";}, timeout);
+function notify(notifier, msg, timeout) {
+    notifier.innerText     = msg;
+    notifier.style.display = "block";
+    setTimeout(function () {notifier.style.display = "none";}, timeout);
 }

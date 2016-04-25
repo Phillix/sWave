@@ -36,6 +36,7 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/windowing.js"></script>
         <script src="macgril/js/audio.js"></script>
+        <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/sWaveAudioSystem.js"></script>
         <script src="js/ajax_streamer.js"></script>
@@ -96,7 +97,7 @@
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <div id="midUnderlayOmni" class="panel"></div>
+            <div id="midUnderlay" class="panel"></div>
             <h1>Project sWave</h1>
             <h3>Brought to you by Team Planet Express</h3>
             Planet Express is:
@@ -105,6 +106,7 @@
                 <li>Brian Millar</li>
                 <li>Philip Carey</li>
             </ul>
+            <button onclick="notify($('notifier'), 'Hello World, This is a Test m9!', 10000)">Test</button>
         </div>
         <footer class="panel" id="base">
             <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">
@@ -126,6 +128,7 @@
             <span onclick="jumpTo(event)" id="progress"></span>
             <span id="durationDisplay">--:--</span>
         </footer>
+        <div id="notifier" class="panel"></div>
         <div id="wallpaper"></div>
     </body>
 </html>

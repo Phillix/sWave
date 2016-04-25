@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  * @author Austin
  */
 public class MerchDaoTest {
-    
+    static MyDataSource ds = new MyDataSource();
     Merch m;
-    MerchDao instance = new MerchDao();;
+    MerchDao instance = new MerchDao(ds);;
     public MerchDaoTest() {
     }
     

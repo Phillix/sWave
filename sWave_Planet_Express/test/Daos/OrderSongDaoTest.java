@@ -14,13 +14,14 @@ import static org.junit.Assert.*;
  * @author Phillix
  */
 public class OrderSongDaoTest {
-    
-    OrderSongDao instance;
+    static MyDataSource ds = new MyDataSource();
+    static OrderSongDao instance;
     public OrderSongDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        instance = new OrderSongDao(ds);
     }
     
     @AfterClass
@@ -54,7 +55,6 @@ public class OrderSongDaoTest {
     @Test
     public void testGetOrderSongInOrder() {
         
-        instance = new OrderSongDao();
         ArrayList<OrderSong> os = instance.getOrderSongInOrder(-1);
         for(OrderSong o : os) {
             System.out.println(o);

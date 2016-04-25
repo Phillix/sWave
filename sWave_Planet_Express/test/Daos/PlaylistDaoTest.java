@@ -19,13 +19,14 @@ import static org.junit.Assert.*;
  * @author Phillix
  */
 public class PlaylistDaoTest {
-    
+    static MyDataSource ds = new MyDataSource();
     static PlaylistDao instance;
     public PlaylistDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        instance = new PlaylistDao(ds);
     }
     
     @AfterClass
@@ -34,7 +35,7 @@ public class PlaylistDaoTest {
     
     @Before
     public void setUp() {
-        instance = new PlaylistDao();
+        
     }
     
     @After

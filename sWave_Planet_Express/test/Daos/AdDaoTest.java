@@ -13,13 +13,14 @@ import static org.junit.Assert.*;
  * @author Austin
  */
 public class AdDaoTest {
-    
-    AdDao instance = new AdDao();
+    static MyDataSource ds = new MyDataSource();
+    static AdDao instance;
     public AdDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        instance = new AdDao(ds);
     }
     
     @AfterClass

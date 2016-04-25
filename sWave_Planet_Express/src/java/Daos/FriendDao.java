@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -20,6 +21,21 @@ public class FriendDao extends Dao implements FriendDaoInterface {
     private final String FRIENDID    = "FRIENDID";
     private final String DATE        = "FRIENDSHIPDATE";
     private final String STATUS      = "STATUS";
+    
+    /**
+     * Default Constructor for FriendDao
+     */
+    public FriendDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for FriendDao
+     * @param ds The DataSource to use for connections
+     */
+    public FriendDao(DataSource ds) {
+        super(ds);
+    }
     
     /**
      * 

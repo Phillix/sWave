@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
  * @author Phillix
  */
 public class FriendDaoTest {
+    static MyDataSource ds = new MyDataSource();
     static Friend f;
     static FriendDao instance;
     
@@ -27,7 +28,7 @@ public class FriendDaoTest {
     
     @BeforeClass
     public static void setUpClass() {
-        instance = new FriendDao();
+        instance = new FriendDao(ds);
         f = new Friend(-1,-2);
         instance.removeFriend(-1,-2);
     }

@@ -18,13 +18,14 @@ public class UsersDaoTest {
     User u;
     static UsersDao ud;
     static UserSecurity us = new UserSecurity();
+    static MyDataSource ds = new MyDataSource();
     
     public UsersDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        ud = new UsersDao();
+        ud = new UsersDao(ds);
     }
     
     @AfterClass

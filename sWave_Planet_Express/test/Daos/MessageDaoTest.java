@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
  * @author Phillix
  */
 public class MessageDaoTest {
+    static MyDataSource ds = new MyDataSource();
     static Message m;
     static MessageDao instance;
     
@@ -27,7 +28,7 @@ public class MessageDaoTest {
     
     @BeforeClass
     public static void setUpClass() {
-        instance = new MessageDao();
+        instance = new MessageDao(ds);
     }
     
     @AfterClass

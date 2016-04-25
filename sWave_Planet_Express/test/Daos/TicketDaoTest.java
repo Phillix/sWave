@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  */
 
 public class TicketDaoTest {
-
+    static MyDataSource ds = new MyDataSource();
     static TicketDao instance;
 
     public TicketDaoTest() {
@@ -24,7 +24,7 @@ public class TicketDaoTest {
 
     @BeforeClass
     public static void setUpClass() {
-        instance = new TicketDao();
+        instance = new TicketDao(ds);
     }
 
     @AfterClass

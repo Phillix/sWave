@@ -21,8 +21,10 @@ public class StreamCommand implements Command {
             SongDao dao = new SongDao();
             Song s = dao.getSongById(Integer.parseInt(request.getParameter("songid")));
             OutputStream out = response.getOutputStream();
-            out.write(s.getSongdata());
-            out.flush();
+            if (s != null) {
+                out.write(s.getSongdata());
+                out.flush();
+            }
             out.close();
             return null; //We don't want to redirect
         } catch (IOException ex) {

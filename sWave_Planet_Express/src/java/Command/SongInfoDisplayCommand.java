@@ -21,8 +21,10 @@ public class SongInfoDisplayCommand implements Command {
             SongDao dao = new SongDao();
             Song s = dao.getSongById(Integer.parseInt(request.getParameter("songid")));
             Writer out = response.getWriter();
-            out.write(String.format("%s :  %s", s.getArtist(), s.getTitle()));
-            out.flush();
+            if (s != null) {
+                out.write(String.format("%s :  %s", s.getArtist(), s.getTitle()));
+                out.flush();
+            }
             out.close();
             return null; //We don't want to redirect
         } catch (IOException ex) {

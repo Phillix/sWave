@@ -158,8 +158,8 @@ CREATE TABLE PLAYTRACKS (
 
 /* TEST DATA */
 
-INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "CN", "1337", null, false);
-INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "K", "flat", null, true);
+INSERT INTO USERS VALUES (-1, "appelman", "ceo@banana.com", "Steev", "Jubs", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "1 hello", "Some Street", "New Yorko", "CN", "flat", null, false);
+INSERT INTO USERS VALUES (-2, "dj_man", "admin@swave.com", "DJ", "sWave", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "kek", "lel", "Dublin", "K", "swave", null, true);
 INSERT INTO USERS VALUES (1, "colonelPanic", "m'lady@neckbeard.com", "Todd", "Beardsley", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "The Basement", "Moms House", "Neo Tokyo", "D", "1337", null, false);
 INSERT INTO USERS VALUES (2, "hereComesDaPane", "ceo@macrohard.com", "Gill", "Bates", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "23 unhello", "Other Street", "South Cali", "CN", "flat", null, false);
 INSERT INTO USERS VALUES (3, "croak&dagger", "feels@goodman.com", "Pepe", "Frog", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "Smackdown Hotel", "Jabroni Drive", "Know Your Role Boulevard", "CN", "flat", null, false);
@@ -197,9 +197,9 @@ INSERT INTO TICKETS VALUES (-1, -1, "my pc is on fire", "2009-12-3", false);
 
 INSERT INTO MERCH VALUES(-1, "Mug", 9.99, NULL);
 INSERT INTO MERCH VALUES(-2, "T-Shirt", 29.99, NULL);
-INSERT INTO MERCH VALUES(1,"sWave Headphones", 34.99, NULL);
-INSERT INTO MERCH VALUES(2,"1/4 inch Jack Cable", 1.99, NULL);
-INSERT INTO MERCH VALUES(3,"So-knee Boombox Audio System", 239.90, NULL);
+INSERT INTO MERCH VALUES(1, "sWave Headphones", 34.99, NULL);
+INSERT INTO MERCH VALUES(2, "1/4 inch Jack Cable", 1.99, NULL);
+INSERT INTO MERCH VALUES(3, "So-knee Boombox Audio System", 239.90, NULL);
 INSERT INTO MERCH VALUES(4, "So-Knee Wireless Speaker", 64.99, NULL);
 INSERT INTO MERCH VALUES(5, "sWave: Behind The Music DVD", 19.99, NULL);
 INSERT INTO MERCH VALUES(6, "Banana Y-Pod Nano", 199.50, NULL);

@@ -15,13 +15,14 @@ import static org.junit.Assert.*;
  * @author Phillix
  */
 public class OrderDaoTest {
-    
-    OrderDao instance;
+    static MyDataSource ds = new MyDataSource();
+    static OrderDao instance;
     public OrderDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        instance = new OrderDao(ds);
     }
     
     @AfterClass
@@ -30,7 +31,7 @@ public class OrderDaoTest {
     
     @Before
     public void setUp() {
-        instance = new OrderDao();
+        
     }
     
     @After

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.DataSource;
 
 /**
  *
@@ -22,6 +23,21 @@ public class MessageDao extends Dao implements MessageDaoInterface {
     private final String DATE        = "MSGDATE";
     private final String CONTENT     = "CONTENT";
     private final String STATUS      = "STATUS"; // 0 for unread 1 for read
+    
+    /**
+     * Default Constructor for MessageDao
+     */
+    public MessageDao() {
+        super();
+    }
+    
+    /**
+     * Parameterized Constructor for MessageDao
+     * @param ds The DataSource to use for connections
+     */
+    public MessageDao(DataSource ds) {
+        super(ds);
+    }
     
     /**
      * 

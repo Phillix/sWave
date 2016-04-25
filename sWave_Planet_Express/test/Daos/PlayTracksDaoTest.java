@@ -19,14 +19,14 @@ import static org.junit.Assert.*;
  * @author Phillix
  */
 public class PlayTracksDaoTest {
-    
+    static MyDataSource ds = new MyDataSource();
     static PlayTracksDao instance;
     public PlayTracksDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        instance = new PlayTracksDao();
+        instance = new PlayTracksDao(ds);
     }
     
     @AfterClass
@@ -60,7 +60,6 @@ public class PlayTracksDaoTest {
      */
     @Test
     public void testgetAllSongIds() {
-        
         int expResult = -1;
         ArrayList<PlayTrack> songIds = instance.getPlayTracksInPlaylist(-1);
         int result = songIds.get(0).getSongId();

@@ -226,7 +226,8 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
         PreparedStatement ps = null;
 
         try {
-            con = getConnection();
+            if(pt.getPlaylistOrder() != 0 ) {
+                con = getConnection();
             ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " - 1 "
                     + "WHERE " + PLAYLISTID + " = ? AND " + ORDER + " = ?");
             ps.setInt(1, pt.getPlaylistId());
@@ -234,11 +235,13 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             ps.executeUpdate();
 
             ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " + 1 "
-                    + "WHERE " + PLAYLISTID + " = ? AND " + SONGID + " = ?");
+                    + "WHERE " + PLAYLISTID + " = ? AND " + SONGID + " != ?");
             ps.setInt(1, pt.getPlaylistId());
             ps.setInt(2, pt.getSongId());
-
+            ps.executeUpdate();
+            
             return SUCCESS;
+            }
 
         }
         catch (SQLException e) {
@@ -259,6 +262,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+        return OTHER;
     }
     
     /**
@@ -272,20 +276,21 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
         PreparedStatement ps = null;
         
         try {
-            con = getConnection();
-            
-            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " + 1 "
-                    + "WHERE " + PLAYLISTID + " = ? AND " + ORDER + " = ?");
-            ps.setInt(1, pt.getPlaylistId());
-            ps.setInt(2, pt.getPlaylistOrder() - 1);
-            ps.executeUpdate();
+            if(pt.getPlaylistOrder() != getMaxPlaylistOrder(pt.getPlaylistId())) {
+                con = getConnection();
+                ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " + 1 "
+                        + "WHERE " + PLAYLISTID + " = ? AND " + ORDER + " = ?");
+                ps.setInt(1, pt.getPlaylistId());
+                ps.setInt(2, pt.getPlaylistOrder() - 1);
+                ps.executeUpdate();
 
-            ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " - 1 "
-                    + "WHERE " + PLAYLISTID + " = ? AND " + SONGID + " = ?");
-            ps.setInt(1, pt.getPlaylistId());
-            ps.setInt(2, pt.getSongId());
+                ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + ORDER + " = " + ORDER + " - 1 "
+                        + "WHERE " + PLAYLISTID + " = ? AND " + SONGID + " != ?");
+                ps.setInt(1, pt.getPlaylistId());
+                ps.setInt(2, pt.getSongId());
 
-            return SUCCESS;
+                return SUCCESS;
+            }
             
         }
         catch (SQLException e) {
@@ -306,6 +311,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+        return OTHER;
     }
     
     /**

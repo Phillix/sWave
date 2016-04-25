@@ -182,6 +182,41 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
 
     @Override
     public Playlist getPlaylistById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con       = null;
+        PreparedStatement ps = null;
+        ResultSet rs         = null;
+
+        try {
+            con = getConnection();
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
+
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                Playlist p = new Playlist(rs.getInt(USERID), rs.getString(TITLE));
+                p.setPlaylistId(rs.getInt(ID));
+                return p;
+            }
+        }
+        catch (SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

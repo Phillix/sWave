@@ -109,7 +109,8 @@
             <a href="cart.jsp">Go to Cart</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionInside">
+        <div id="midsection">
+            <div id="midUnderlay" class="panel"></div>
             <%if (m != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
                 <img width="200" height="200" src="images/merch/<%=m.getTitle()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>

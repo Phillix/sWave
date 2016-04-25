@@ -111,7 +111,8 @@
             <a href="playlists.jsp">Back to Playlists</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionInside">
+        <div id="midsection">
+            <div id="midUnderlay" class="panel"></div>
             <div id="coverFlow">
                 <%
                 for (int i = 1; i <= songs.size(); i++) {%>

@@ -101,7 +101,8 @@
             <a href="shop.jsp">Go to Shop</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionInside">
+        <div id="midsection">
+            <div id="midUnderlay" class="panel"></div>
             <h1>My Cart</h1>
             <a href="checkout.jsp">Proceed To Checkout</a>
             <ul>

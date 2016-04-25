@@ -105,7 +105,8 @@
             <a href="cart.jsp">Go to Cart</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midsection">
+        <div id="midsection" class="noPadding">
+            <div id="midUnderlayOmni" class="panel"></div>
             <div id="omniBar" class="panel"></div>
             <ul id="itemList">
                 <%

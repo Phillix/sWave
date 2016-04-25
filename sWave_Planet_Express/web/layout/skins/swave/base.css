@@ -1,5 +1,9 @@
 /*Skin specific overrides for base.css*/
 
+body {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 #visualizer {
     background-color: transparent;
 }

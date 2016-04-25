@@ -99,7 +99,8 @@
             <a href="cart.jsp">Back to Cart</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionInside">
+        <div id="midsection">
+            <div id="midUnderlay" class="panel"></div>
             <form onsubmit="if (!validateCardNum()) {event.preventDefault(); alert('Please Enter a Valid Credit Card Number in the Format Shown')}" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="checkout"/>
                 <h2>Shipping Address</h2>

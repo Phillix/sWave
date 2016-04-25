@@ -100,8 +100,9 @@
             <a href="music.jsp">Library</a>
             <a href="playlists.jsp">Playlists</a>
         </aside>
-        <div id="midSectionInside">
-            <img id="songArtLarge"/>
+        <img id="songArtLarge"/>
+        <div id="midsection">
+            <div id="midUnderlay" class="panel"></div>
             <h1 id="songInfoDisplayLarge"></h1>
             <%if (session.getAttribute("currentSong") != null) {%>
                 <img id="testImage"/>

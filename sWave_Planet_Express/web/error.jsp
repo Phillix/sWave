@@ -99,7 +99,7 @@
             <a href="javascript:history.back()">Back</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionInside">
+        <div id="midsection">
             <h1>sWave Error</h1>
             <%if (request.getParameter("msg") != null) {%>
                 <p><%=request.getParameter("msg")%></p>

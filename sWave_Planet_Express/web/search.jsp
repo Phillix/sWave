@@ -117,7 +117,8 @@
         <aside class="panel" id="left_sidebar">
             <div id="visualizer"></div>
         </aside>
-        <div id="midsection">
+        <div id="midsection" class="noPadding">
+            <div id="midUnderlay" class="panel"></div>
             <h2 id="numResultsDisplay"><%if (term == null && songs == null && merch == null && users == null) {%>
                 No Results<%} else {%>
                 Showing <%=songs.size() + merch.size() + users.size()%> Results for "<%=term%>"</h2>

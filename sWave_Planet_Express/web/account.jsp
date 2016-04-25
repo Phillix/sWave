@@ -122,7 +122,8 @@
             <%}%>
             <div id="visualizer"></div>
         </aside>
-        <div id="midSectionInside">
+        <div id="midsection">
+            <div id="midUnderlay" class="panel"></div>
             <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
                     <div id="profileSidebar">
@@ -301,10 +302,14 @@
                         <label>Screensaver</label><input type="checkbox"/><br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
+                                <div id="omniBar" class="panel">
+                                    sWave System Server
+                                    &#160;&#160;|&#160;&#160;
+                                    CPUs: <%=sWave.Server.CPUs%>
+                                    &#160;&#160;|&#160;&#160;
+                                    JVM Heap: <%=sWave.Server.JVMHEAP%>
+                                </div>
                                 <h1>Admin Panel</h1>
-                                <h3>System</h3>
-                                <h5>CPUs: <%=sWave.Server.CPUs%></h5>
-                                <h5>JVM Heap: <%=sWave.Server.JVMHEAP%></h5>
                                 <h3>Upload Tracks</h3>
                                 <h5><u>Note: Only audio files under 16MB can be uploaded.</u></h5>
                                 <h5><u>Note: You may upload up to 100MB at a time.</u></h5>

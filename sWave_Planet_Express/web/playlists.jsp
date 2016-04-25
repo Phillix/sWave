@@ -108,7 +108,7 @@
             <a class="currentPageLink" href="playlists.jsp">Playlists</a>
             <div id="visualizer"></div>
         </aside>
-        <div id="midsection" class="noPadding">
+        <div id="midSectionNoPadding" class="noPadding">
             <div id="midUnderlayOmni" class="panel"></div>
             <div id="omniBar" class="panel">
                 <form id="createPlaylistForm" action="UserActionServlet" method="POST">

@@ -130,7 +130,7 @@
                 int numPages = (int)Math.ceil(songs.size() / 15.0);
                 if (pageNum < 1 || pageNum > numPages) pageNum = 1;
             %>
-        <div id="midsection" class="noPadding">
+        <div id="midSectionNoPadding">
             <div id="midUnderlayOmni" class="panel"></div>
             <div id="omniBar" class="panel">
                 <span id="pageSwitcher">

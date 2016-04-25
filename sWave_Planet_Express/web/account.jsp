@@ -113,19 +113,20 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="account.jsp?view=profile">Profile</a>
-            <a href="account.jsp?view=orders">Orders</a>
-            <a href="account.jsp?view=tickets">Tickets</a>
-            <a href="account.jsp?view=settings">Settings</a>
+            <a href="account.jsp?view=profile" <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>class="currentPageLink"<%}%>>Profile</a>
+            <a href="account.jsp?view=friends" <%if (request.getParameter("view") != null && request.getParameter("view").equals("friends")) {%>class="currentPageLink"<%}%>>Friends</a>
+            <a href="account.jsp?view=orders" <%if (request.getParameter("view") != null && request.getParameter("view").equals("orders")) {%>class="currentPageLink"<%}%>>Orders</a>
+            <a href="account.jsp?view=tickets" <%if (request.getParameter("view") != null && request.getParameter("view").equals("tickets")) {%>class="currentPageLink"<%}%>>Tickets</a>
+            <a href="account.jsp?view=settings" <%if (request.getParameter("view") != null && request.getParameter("view").equals("settings")) {%>class="currentPageLink"<%}%>>Settings</a>
             <%if (currentUser != null && currentUser.isIsAdmin()) {%>
-                <a href="account.jsp?view=admin">Admin</a>
+                <a href="account.jsp?view=admin" <%if (request.getParameter("view") != null && request.getParameter("view").equals("admin")) {%>class="currentPageLink"<%}%>>Admin</a>
             <%}%>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
-            <div id="midUnderlay" class="panel"></div>
             <%if (request.getParameter("view") != null && currentUser != null) {
                 if (request.getParameter("view").equals("profile")) {%>
+                    <div id="midUnderlay" class="panel"></div>
                     <div id="profileSidebar">
                         <img id="largeUserPic" src="images/test.png" width="200" height="200"/>
                         <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
@@ -146,23 +147,9 @@
                         <label>City: </label><input type="text" name="city" placeholder="City" value="<%=currentUser.getCity()%>"/><br/><br/>
                         <label>County: </label><input type="text" name="county" placeholder="County" value="<%=currentUser.getCounty()%>"/><br/><br/>
                         <input type="submit" value="Update Details"/>
-                    </form><br/><br/>
-                    <h1>Friends</h1>
-                    <table>
-                        <tr>
-                        <%
-                            FriendDao fdao = new FriendDao();
-                            ArrayList<Friend> friends = fdao.getUserFriends(currentUser.getUserId());
-                            for (Friend f : friends) {
-                        %>
-                        <td>
-                            <img id="face<%=f.getUserId()%>" width="100" height="100"/>
-                            <script>loadUserPicture(<%=f.getUserId()%>, $("face<%=f.getUserId()%>"))</script>
-                        </td>
-                        <%}%>
-                        </tr>
-                    </table>
+                    </form>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
+                    <div id="midUnderlay" class="panel"></div>
                     <h1>My Orders</h1>
                     <ul>
                         <%OrderDao orders = new OrderDao();
@@ -219,6 +206,7 @@
                         <h1>Open Tickets</h1>
                         <a href="account.jsp?view=tickets&ticketView=closed">Closed Tickets</a>
                     <%}%>
+                    <div id="midUnderlay" class="panel"></div>
                     <button id="cancelNewTicketButton" style="display:none;" onclick="$('newTicketForm').style.display='none'; $('cancelNewTicketButton').style.display='none'; $('newTicketButton').style.display='block'">Cancel</button>
                     <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'">Open Ticket</button><br/>
                     <form id="newTicketForm" action="UserActionServlet" method="POST">
@@ -265,7 +253,25 @@
                                 }
                               }
                         }
-                   } else if (request.getParameter("view").equals("settings")) {%>
+                   } else if (request.getParameter("view").equals("friends")) {%>
+                        <div id="midUnderlay" class="panel"></div>
+                        <h1>Friends</h1>
+                        <ul>
+                            <%
+                                FriendDao fdao = new FriendDao();
+                                UsersDao  udao = new UsersDao();
+                                for (Friend f : fdao.getUserFriends(currentUser.getUserId())) {%>
+                                    <li>
+                                        <img id="face<%=f.getFriendId()%>" src="images/test.png" width="100" height="100"/>
+                                        <script>loadUserPicture(<%=f.getFriendId()%>, $('face<%=f.getFriendId()%>'))</script>
+                                        <%=udao.getUserById(f.getFriendId()).getFname()%>&#160;
+                                        <%=udao.getUserById(f.getFriendId()).getLname()%>&#160;
+                                        (<%=udao.getUserById(f.getFriendId()).getUsername()%>)
+                                    </li>
+                              <%}%>
+                        </ul>
+                   <%} else if (request.getParameter("view").equals("settings")) {%>
+                        <div id="midUnderlay" class="panel"></div>
                         <form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="changeSkin"/>
                             <!--
@@ -302,6 +308,7 @@
                         <label>Screensaver</label><input type="checkbox"/><br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
+                                <div id="midUnderlayOmni" class="panel"></div>
                                 <div id="omniBar" class="panel">
                                     sWave System Server
                                     &#160;&#160;|&#160;&#160;

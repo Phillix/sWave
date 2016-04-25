@@ -1,3 +1,7 @@
+h1 {
+    margin-top: 0px;
+}
+
 #topbar {
     position:   fixed;
     top:        0px;
@@ -349,10 +353,39 @@ p.ticketIssue {
 }
 
 span.songTitle {
-    display:       block;
-    font-size:     24px;
-    margin:        0px;
+    position:      relative;
+    font-size:     26px;
+    top:           4px;
+    left:          10px;
     padding:       0px;
+    margin:        0px;
+}
+
+span.songArtist {
+    position:      relative;
+    font-size:     18px;
+    top:           4px;
+    left:          10px;
+    padding:       0px;
+    margin:        0px;
+}
+
+span.songAlbum {
+    position:      relative;
+    font-size:     16px;
+    top:           4px;
+    left:          10px;
+    padding:       0px;
+    margin:        0px;
+}
+
+span.songYear {
+    position:      relative;
+    font-size:     14px;
+    top:           4px;
+    left:          10px;
+    padding:       0px;
+    margin:        0px;
 }
 
 ul {

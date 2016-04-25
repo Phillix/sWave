@@ -150,14 +150,20 @@
                     <li class="panel listing songListing">
                         <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
                         <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
-                        <%if (DEBUG) {%>
-                            ID: <%=s.getSongId()%>.&#160;
+                        <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
+                            <span class="songTitle"><%=s.getTitle()%></span><br/>
                         <%}%>
-                        <span class="songTitle"><%=s.getTitle()%></span><br/>
-                        <%=s.getArtist()%>
-                        <%=s.getYear()%>
+                        <%if (s.getArtist() != null && !s.getArtist().isEmpty() && !s.getArtist().equalsIgnoreCase("Artist")) {%>
+                            <span class="songArtist"><%=s.getArtist()%></span><br/>
+                        <%}%>
+                        <%if (s.getAlbum() != null && !s.getAlbum().isEmpty() && !s.getAlbum().equalsIgnoreCase("Album")) {%>
+                            <span class="songAlbum"><%=s.getAlbum()%></span><br/>
+                        <%}%>
+                        <%if (s.getYear() != 0) {%>
+                            <span class="songYear"><%=s.getYear()%></span>
+                        <%}%>
+                        <!--
                         <%=f.format(s.getPrice())%>
-                        <%=s.getAlbum()%>
                         <%=s.getGenre()%>
                         <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) > 60480000)) {%>
                             <span style="color:red;">[NEW]</span>
@@ -169,7 +175,7 @@
                             <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
                             <input type="submit" value="C"/>
                         </form>
-                        <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>
+                        <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>-->
                     </li>
                 <%}%>
             </ul>

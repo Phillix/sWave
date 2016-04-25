@@ -106,7 +106,11 @@ public class Song implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        if (title != null && !title.isEmpty()) {
+            if (title.length() > 50)
+                title = title.substring(0, 47) + "...";
+            this.title = title;
+        }
     }
 
     public String getArtist() {
@@ -114,7 +118,11 @@ public class Song implements Serializable {
     }
 
     public void setArtist(String artist) {
-        this.artist = artist;
+        if (artist != null && !artist.isEmpty()) {
+            if (artist.length() > 50)
+                artist = artist.substring(0, 47) + "...";
+            this.artist = artist;
+        }
     }
 
     public String getAlbum() {
@@ -122,7 +130,11 @@ public class Song implements Serializable {
     }
 
     public void setAlbum(String album) {
-        this.album = album;
+        if (album != null && !album.isEmpty()) {
+            if (album.length() > 50)
+                album = album.substring(0, 47) + "...";
+            this.album = album;
+        }
     }
 
     public String getGenre() {
@@ -130,7 +142,11 @@ public class Song implements Serializable {
     }
 
     public void setGenre(String genre) {
-        this.genre = genre;
+        if (genre != null && !genre.isEmpty()) {
+            if (genre.length() > 50)
+                genre = genre.substring(0, 47) + "...";
+            this.genre = genre;
+        }
     }
 
     public int getYear() {

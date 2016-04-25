@@ -170,14 +170,14 @@ public class ID3V2 {
 
     private static String processTextFrame(String frameId) {
         System.out.println("Found " + frameId);
-        int size = buffer.getInt();
-        int flags[] = {buffer.get(), buffer.get()};
+        int size     = buffer.getInt();
+        int flags[]  = {buffer.get(), buffer.get()};
         int encoding = buffer.get();
-        String text = "";
+        String text  = "";
         for (int i = 0; i < (size - 1); i++)
             text += (char)buffer.get();
-        if (text.length() > 255)
-            text = text.substring(0, 250) + "...";
+        if (text.length() > 50)
+            text = text.substring(0, 47) + "...";
         return text;
     }
     

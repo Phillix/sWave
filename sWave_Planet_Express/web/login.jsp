@@ -14,8 +14,8 @@
         <link rel="stylesheet" type="text/css" href="layout/login.css"/>
         <script type="text/javascript" src="macgril/js/dom.js"></script>
         <script type="text/javascript" src="macgril/js/validation.js"></script>
-        <script type="text/javascript" src="js/sWaveScripts.js"></script>
-        <script type="text/javascript" src="js/sWaveValidation.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript" src="js/validation.js"></script>
     </head>
     <body <%if (request.getParameter("failed") != null) {%>onload="quickShake('loginBox', false)"<%}%>>
 

@@ -5,8 +5,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Song"%>
-<%@page import="Dtos.Ad"%>
-<%@page import="Daos.AdDao"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,38 +37,15 @@
         <script src="macgril/js/dom.js"></script>
         <script src="macgril/js/io.js"></script>
         <script src="macgril/js/datetime.js"></script>
-        <script src="macgril/js/windowing.js"></script>
         <script src="macgril/js/audio.js"></script>
         <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/sWaveAudioSystem.js"></script>
-        <script src="js/ajax_streamer.js"></script>
+        <script src="js/audio_system.js"></script>
+        <script src="js/streamer.js"></script>
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
-            <svg onclick="window.location.assign('index.jsp')" id="header_logo" width="194" height="60" viewBox="0 0 300 100">
-                <mask id="mask" x="0" y="0" width="100" height="100">
-                    <rect x="0" y="0" width="100" height="100" fill="#fff"/>
-                    <ellipse cx="2.5"  cy="0"   rx="30" ry="51" fill="#000"/>
-                    <ellipse cx="2.5"  cy="100" rx="30" ry="51" fill="#000"/>
-                    <ellipse cx="97.5" cy="0"   rx="70" ry="51" fill="#000"/>
-                    <ellipse cx="97.5" cy="100" rx="70" ry="51" fill="#000"/>
-                </mask>
-                <rect class="iconRectFilled" x="6"   y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="12"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="18"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="24"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="30"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="36"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="42"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="48"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="54"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="60"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="66"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="72"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <rect class="iconRectFilled" x="78"  y="0" width="3" height="100" mask="url(#mask)"/>
-                <text class="iconText" x="100" y="68" font-size="60">sWave</text>
-            </svg>
+            <%=sWave.Graphics.s_logo%>
             <nav>
                 <a href="playing.jsp">Music</a>
                 <a href="shop.jsp">Shop</a>
@@ -141,26 +116,7 @@
             %>
             </ul>
         </div>
-        <footer class="panel" id="base">
-            <svg id="playPauseButton" width="50" height="50" onclick="playPause()" viewBox="20 20 70 60">
-                <polygon class="iconPolyFilled" id="playButton" points="33,25 33,75 80,50"/>
-                <rect class="iconRectFilled" id="pauseButton1" x="35" y="25" width="10" height="50"/>
-                <rect class="iconRectFilled" id="pauseButton2" x="55" y="25" width="10" height="50"/>
-            </svg>
-            <span id="songInfoDisplay"></span>
-            <span id="volControls">
-                <svg id="volIcon" viewBox="0 0 100 100">
-                    <polygon class="iconPolyFilled" points="75,20 75,80 25,50"/>
-                    <rect class="iconRectFilled" x="25" y="40" width="30" height="20"/>
-                    <circle class="iconCircleFilled" cx="70" cy="50" r="10"/>
-                </svg>
-                <input id="volSlider" oninput="updateVol()" type="range" min="0" max="10"/>
-            </span>
-            <span id="currTimeDisplay">--:--</span>
-            <span onclick="jumpTo(event)" id="progressBG"></span>
-            <span onclick="jumpTo(event)" id="progress"></span>
-            <span id="durationDisplay">--:--</span>
-        </footer>
+        <%=sWave.UI.footer%>
         <div id="notifier" class="panel"></div>
         <div id="wallpaper"></div>
     </body>

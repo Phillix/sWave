@@ -130,12 +130,12 @@ li.listing {
     border-top-style: solid;
     border-width:     1px;
     border-color:     #000;
+    background-color: transparent;
     -moz-animation: subtle_fade_right 0.4s;
 }
 
 li.songListing {
     height: 100px;
-    background-color: transparent;
 }
 
 .playing {

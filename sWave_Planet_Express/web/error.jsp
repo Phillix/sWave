@@ -1,8 +1,3 @@
-<%@page import="Dtos.Merch"%>
-<%@page import="Daos.MerchDao"%>
-<%@page import="java.text.NumberFormat"%>
-<%@page import="Dtos.Song"%>
-<%@page import="Daos.SongDao"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,10 +35,10 @@
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/notifications.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/sWaveAudioSystem.js"></script>
-        <script src="js/sWaveScripts.js"></script>
-        <script src="js/ajax_image_loader.js"></script>
-        <script src="js/ajax_streamer.js"></script>
+        <script src="js/audio_system.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/image_loader.js"></script>
+        <script src="js/streamer.js"></script>
     </head>
     <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">

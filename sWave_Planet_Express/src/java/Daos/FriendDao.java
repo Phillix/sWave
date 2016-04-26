@@ -100,7 +100,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         try {
             con = getConnection();
             ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
-                                       " WHERE " + ID + " = ? OR " + FRIENDID + " = ? AND " + STATUS + " = 'c'" +
+                                       " WHERE (" + ID + " = ? OR " + FRIENDID + " = ?) AND " + STATUS + " = 'c'" +
                                        " ORDER BY " + DATE);
             ps.setInt(1, userId);
             ps.setInt(2, userId);
@@ -157,7 +157,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         try {
             con = getConnection();
             ps  = con.prepareStatement("SELECT * FROM " + TABLE_NAME +
-                                       " WHERE " + ID + " = ? OR " + FRIENDID + " = ? AND " + STATUS + " = 'p'" +
+                                       " WHERE (" + ID + " = ? OR " + FRIENDID + " = ?) AND " + STATUS + " = 'p'" +
                                        " ORDER BY " + DATE);
             ps.setInt(1, userId);
             ps.setInt(2, userId);
@@ -204,8 +204,8 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         
         try {
             con = getConnection();
-            ps = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE " + ID + " = ? OR " + FRIENDID + " = ? " +
-                                      "AND " + FRIENDID + " = ? OR " + ID + " = ?");
+            ps = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE (" + ID + " = ? OR " + FRIENDID + " = ? )" +
+                                      "AND (" + FRIENDID + " = ? OR " + ID + " = ?)");
            
             ps.setInt(1, userId);
             ps.setInt(2, userId);
@@ -242,8 +242,8 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         try {
             con = getConnection();
             ps = con.prepareStatement("UPDATE " + TABLE_NAME + " SET " + STATUS + " = 'c' " +
-                                      "WHERE " + ID + " = ? OR " + FRIENDID + " = ? " +
-                                      "AND " + FRIENDID + " = ? OR " + ID + " = ?");
+                                      "WHERE (" + ID + " = ? OR " + FRIENDID + " = ?) " +
+                                      "AND (" + FRIENDID + " = ? OR " + ID + " = ?)");
             
             ps.setInt(1, userId);
             ps.setInt(2, userId);

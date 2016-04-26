@@ -18,7 +18,6 @@ public class RemoveFriendCommand implements Command {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
         String friendId = request.getParameter("friendId");
-        System.out.println(Integer.valueOf(friendId));
         if(u != null && friendId != null && !friendId.isEmpty()) {
             fd.removeFriend(u.getUserId(), Integer.valueOf(friendId));
             return "/account.jsp?view=friends";

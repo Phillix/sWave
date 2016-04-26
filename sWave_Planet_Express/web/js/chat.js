@@ -19,3 +19,10 @@ function fetchMessage(messageId) {
     };
     request.send(formdata);
 }
+
+function showHideChat() {
+    if (document.getElementById("chat").style.height === "280px")
+        $("chat").style.height = "30px";
+    else
+        $("chat").style.height = "280px";
+}

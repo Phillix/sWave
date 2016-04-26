@@ -1,4 +1,5 @@
 <%@page import="Daos.SongDao"%>
+<%@page import="Dtos.Song"%>
 <%@page import="Daos.FriendDao"%>
 <%@page import="Dtos.Friend"%>
 <%@page import="Dtos.Order"%>

@@ -141,6 +141,30 @@
                     s = songs.get(i);
                     %>
                     <li class="panel listing songListing">
+                        <span style="float:right; margin-right: 10px;">
+                            <form id="add<%=s.getSongId()%>ToCart" style="display:none;" action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="addSongToCart"/>
+                                <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
+                                <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
+                            </form>
+                            <%=f.format(s.getPrice())%>
+                            <svg style="cursor:pointer;" onclick="$('add<%=s.getSongId()%>ToCart').submit()" width="40" height="40" viewBox="0 0 100 100">
+                                <mask id="mask2" x="0" y="0" width="100" height="100">
+                                    <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+                                    <rect x="32" y="47" width="30" height="5" fill="#000"/>
+                                    <rect x="44" y="35" width="5" height="30" fill="#000"/>
+                                </mask>
+                                <circle class="iconCircleFilled" cx="78" cy="24" r="4"/>
+                                <rect class="iconRectFilled" x="76" y="22" width="4" height="8"/>
+                                <polygon class="iconPolyFilled" points="15,30 25,70 70,70 80,30" mask="url(#mask2)"/>
+                                <rect class="iconRectFilled" x="64" y="65" width="4" height="12"/>
+                                <rect class="iconRectFilled" x="33" y="75" width="37" height="4"/>
+                                <circle class="iconCircleFilled" cx="33" cy="78" r="5"/>
+                                <circle class="iconCircleFilled" cx="67" cy="78" r="5"/>
+                            </svg>
+                            <button onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">P</button>
+                            <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>
+                        </span>
                         <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
                         <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                         <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
@@ -163,16 +187,6 @@
                         <%if (s.getGenre() != null && !s.getGenre().isEmpty() && !s.getGenre().equalsIgnoreCase("Genre")) {%>
                             <span <%if (yearShown) {%>class="songGenre">&#160;|&#160;<%} else {%>class="songYear"><%}%><%=s.getGenre()%></span>
                         <%}%>
-                        <!--
-                        <%=f.format(s.getPrice())%>
-                        <button onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">P</button>
-                        <form style="display:inline; margin-right:10px;" action="UserActionServlet" method="POST">
-                            <input type="hidden" name="action" value="addSongToCart"/>
-                            <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                            <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
-                            <input type="submit" value="C"/>
-                        </form>-->
-                        <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>
                     </li>
                 <%}%>
             </ul>
@@ -207,9 +221,7 @@
                     <%
                         PlaylistDao playDao = new PlaylistDao();
                         for (Playlist p : playDao.getUserPlaylists(currentUser.getUserId())) {%>
-                            <option>
-                                <%=p.getPlaylistId()%>
-                            </option>
+                            <option value="<%=p.getPlaylistId()%>"><%=p.getTitle()%></option>
                         <%}%>
                 </select><br/>
                 <input type="submit" value="Add"/>

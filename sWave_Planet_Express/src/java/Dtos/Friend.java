@@ -85,12 +85,6 @@ public class Friend {
         if (this.friendId != other.friendId) {
             return false;
         }
-        if (!Objects.equals(this.friendshipDate, other.friendshipDate)) {
-            return false;
-        }
-        if (this.status != other.status) {
-            return false;
-        }
         return true;
     }
 

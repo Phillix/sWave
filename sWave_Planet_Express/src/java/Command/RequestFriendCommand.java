@@ -28,7 +28,7 @@ public class RequestFriendCommand implements Command {
         if(u != null && friendId != null && !friendId.isEmpty()) {
             Friend f = new Friend(u.getUserId(), Integer.valueOf(friendId));
             fd.requestFriend(f);
-            return "/account.jsp";
+            return "/account.jsp?view=friends";
         }
         return "/error.jsp";
     }

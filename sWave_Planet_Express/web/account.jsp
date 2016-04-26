@@ -61,6 +61,7 @@
         <script src="js/ajax_image_loader.js"></script>
         <script src="js/ajax_uploader.js"></script>
         <script src="js/ajax_streamer.js"></script>
+        <script src="js/chat.js"></script>
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic') <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>, $('largeUserPic')<%}%>); resumePlay()">
         <header class="panel" id="topbar">
@@ -146,7 +147,36 @@
                         <label>Address Line 1: </label><input type="text" name="add1" placeholder="Address Line 1" value="<%=currentUser.getAdd1()%>"/><br/><br/>
                         <label>Address Line 2: </label><input type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
                         <label>City: </label><input type="text" name="city" placeholder="City" value="<%=currentUser.getCity()%>"/><br/><br/>
-                        <label>County: </label><input type="text" name="county" placeholder="County" value="<%=currentUser.getCounty()%>"/><br/><br/>
+                        <label>County: </label>
+                        <select name="county">
+                            <option value="CW" <%if (currentUser.getCounty().equals("CW")) {%>selected<%}%>>Carlow</option>
+                            <option value="CN" <%if (currentUser.getCounty().equals("CN")) {%>selected<%}%>>Cavan</option>
+                            <option value="CL" <%if (currentUser.getCounty().equals("CL")) {%>selected<%}%>>Clare</option>
+                            <option value="C" <%if (currentUser.getCounty().equals("C")) {%>selected<%}%>>Cork</option>
+                            <option value="DL" <%if (currentUser.getCounty().equals("DL")) {%>selected<%}%>>Donegal</option>
+                            <option value="D" <%if (currentUser.getCounty().equals("D")) {%>selected<%}%>>Dublin</option>
+                            <option value="G" <%if (currentUser.getCounty().equals("G")) {%>selected<%}%>>Galway</option>
+                            <option value="K" <%if (currentUser.getCounty().equals("K")) {%>selected<%}%>>Kerry</option>
+                            <option value="KD" <%if (currentUser.getCounty().equals("KD")) {%>selected<%}%>>Kildare</option>
+                            <option value="KK" <%if (currentUser.getCounty().equals("KK")) {%>selected<%}%>>Kilkenny</option>
+                            <option value="LS" <%if (currentUser.getCounty().equals("LS")) {%>selected<%}%>>Laois</option>
+                            <option value="LM" <%if (currentUser.getCounty().equals("LM")) {%>selected<%}%>>Leitrim</option>
+                            <option value="LK" <%if (currentUser.getCounty().equals("LK")) {%>selected<%}%>>Limerick</option>
+                            <option value="LF" <%if (currentUser.getCounty().equals("LF")) {%>selected<%}%>>Longford</option>
+                            <option value="L" <%if (currentUser.getCounty().equals("L")) {%>selected<%}%>>Louth</option>
+                            <option value="M" <%if (currentUser.getCounty().equals("M")) {%>selected<%}%>>Mayo</option>
+                            <option value="MH" <%if (currentUser.getCounty().equals("MH")) {%>selected<%}%>>Meath</option>
+                            <option value="MO" <%if (currentUser.getCounty().equals("MO")) {%>selected<%}%>>Monaghan</option>
+                            <option value="O" <%if (currentUser.getCounty().equals("O")) {%>selected<%}%>>Offaly</option>
+                            <option value="R" <%if (currentUser.getCounty().equals("R")) {%>selected<%}%>>Roscommon</option>
+                            <option value="S" <%if (currentUser.getCounty().equals("S")) {%>selected<%}%>>Sligo</option>
+                            <option value="T" <%if (currentUser.getCounty().equals("T")) {%>selected<%}%>>Tipperary</option>
+                            <option value="WF" <%if (currentUser.getCounty().equals("WF")) {%>selected<%}%>>Waterford</option>
+                            <option value="WM" <%if (currentUser.getCounty().equals("WM")) {%>selected<%}%>>Westmeath</option>
+                            <option value="WX" <%if (currentUser.getCounty().equals("WX")) {%>selected<%}%>>Wexford</option>
+                            <option value="W" <%if (currentUser.getCounty().equals("W")) {%>selected<%}%>>Wicklow</option>
+                        </select>
+                        <br/><br/>
                         <input type="submit" value="Update Details"/>
                     </form>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
@@ -257,18 +287,39 @@
                    } else if (request.getParameter("view").equals("friends")) {%>
                         <div id="midUnderlay" class="panel"></div>
                         <h1>Friends</h1>
+                        <h3>Requests</h3>
                         <ul>
-                            <%
-                                FriendDao fdao = new FriendDao();
-                                UsersDao  udao = new UsersDao();
-                                for (Friend f : fdao.getUserFriends(currentUser.getUserId())) {%>
-                                    <li>
+                            <%FriendDao fdao = new FriendDao();
+                              UsersDao  udao = new UsersDao();
+                              for (Friend f : fdao.getPendingFriendRequests(currentUser.getUserId())) {%>
+                                  <li>
                                         <img id="face<%=f.getFriendId()%>" src="images/test.png" width="100" height="100"/>
-                                        <script>loadUserPicture(<%=f.getFriendId()%>, $('face<%=f.getFriendId()%>'))</script>
+                                        <script>loadUserPicture(<%=f.getFriendId()%>, $('face<%=f.getFriendId()%>'));</script>
                                         <%=udao.getUserById(f.getFriendId()).getFname()%>&#160;
                                         <%=udao.getUserById(f.getFriendId()).getLname()%>&#160;
-                                        (<%=udao.getUserById(f.getFriendId()).getUsername()%>)
+                                        (<%=udao.getUserById(f.getFriendId()).getUsername()%>)<br/>
+                                        <form action="UserActionServlet" method="POST">
+                                            <input type="hidden" name="action" value="confirmFriend"/>
+                                            <input type="hidden" name="friendId" value="<%=f.getFriendId()%>"/>
+                                            <input type="submit" value="Accept"/>
+                                        </form>
                                     </li>
+                              <%}%>
+                        </ul>
+                        <hr/>
+                        <ul>
+                            <%
+                                for (Friend f : fdao.getUserFriends(currentUser.getUserId())) {%>
+                                    <%if (f.getStatus() == 'c') {%>
+                                        <li>
+                                            <img id="face<%=f.getFriendId()%>2" src="images/test.png" width="100" height="100"/>
+                                            <script>loadUserPicture(<%=f.getFriendId()%>, $('face<%=f.getFriendId()%>2'))</script>
+                                            <%=udao.getUserById(f.getFriendId()).getFname()%>&#160;
+                                            <%=udao.getUserById(f.getFriendId()).getLname()%>&#160;
+                                            (<%=udao.getUserById(f.getFriendId()).getUsername()%>)<br/>
+                                            <button onclick="openChat(<%=f.getFriendId()%>)">Chat</button>
+                                        </li>
+                                    <%}%>
                               <%}%>
                         </ul>
                    <%} else if (request.getParameter("view").equals("settings")) {%>
@@ -354,5 +405,19 @@
         </footer>
         <div id="notifier" class="panel"></div>
         <div id="wallpaper"></div>
+	<div id="chat">
+		<span id="chatHeader" onclick="showHideChat()">
+			<span id="chatFriendName">
+				Someone
+			</span>
+		</span>
+		<div id="chatMessages">
+			<ul id="theMessages">
+			</ul>
+		</div>
+		<span id="chatFooter">
+			<input type="text" id="chatTextBox" placeholder="Type to Chat"/>
+		</span>
+	</div>
     </body>
 </html>

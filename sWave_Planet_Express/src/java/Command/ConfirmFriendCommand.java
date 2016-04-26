@@ -26,7 +26,7 @@ public class ConfirmFriendCommand implements Command {
         
         if(u != null && friendId != null && !friendId.isEmpty()) {
             fd.confirmFriend(u.getUserId(), Integer.valueOf(friendId));
-            return "/account.jsp";
+            return "/account.jsp?view=friends";
         }
         return "/error.jsp";
     }

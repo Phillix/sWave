@@ -1,3 +1,5 @@
+<%@page import="Dtos.Friend"%>
+<%@page import="Daos.FriendDao"%>
 <%@page import="Dtos.Merch"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.NumberFormat"%>
@@ -166,12 +168,39 @@
                                 </form>
                             </td>
                         </tr>
-                <%} for (User u : users) {%>
+                <%}
+                Friend fnd = null;
+                FriendDao fdao = new FriendDao();
+                ArrayList<Friend> friends = fdao.getUserFriends(currentUser.getUserId());
+                ArrayList<Friend> pending = fdao.getPendingFriendRequests(currentUser.getUserId());
+
+                for (User u : users) {%>
                     <tr>
                         <%if (DEBUG) {%>
-                                <td><%=u.getUserId()%></td>
+                            <td><%=u.getUserId()%></td>
                         <%}%>
                             <td><%=u.getUsername()%></td>
+                        <%
+                        fnd = new Friend(currentUser.getUserId(), u.getUserId());
+                        if (friends.contains(fnd)) {%>
+                            <form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="removeFriend"/>
+                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                <input type="submit" value="Unfriend"/>
+                            </form>
+                        <%} else if (pending.contains(fnd)) {%>
+                            <form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="confirmFriend"/>
+                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                <input type="submit" value="Accept"/>
+                            </form>
+                        <%} else {%>
+                            <form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="requestFriend"/>
+                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                <input type="submit" value="Befriend"/>
+                            </form>
+                        <%}%>
                     </tr>
                 <%}%>
                 </table>

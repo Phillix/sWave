@@ -26,7 +26,7 @@ public class RemoveFriendCommand implements Command {
         
         if(u != null && friendId != null && !friendId.isEmpty()) {
             fd.removeFriend(u.getUserId(), Integer.valueOf(friendId));
-            return "/account.jsp";
+            return "/account.jsp?view=friends";
         }
         return "/error.jsp";
     }

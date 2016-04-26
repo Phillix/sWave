@@ -45,7 +45,7 @@
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <a href="playing.jsp">Music</a>
                 <a href="shop.jsp">Shop</a>

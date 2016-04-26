@@ -104,7 +104,7 @@ public class MessageDao extends Dao implements MessageDaoInterface {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
-        Message m              = null;
+        Message m            = null;
         ArrayList<Message> conversation;
 
         try {

@@ -94,7 +94,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
-        Friend f              = null;
+        Friend f             = null;
         ArrayList<Friend> friends;
 
         try {
@@ -151,7 +151,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         Connection con       = null;
         PreparedStatement ps = null;
         ResultSet rs         = null;
-        Friend f              = null;
+        Friend f             = null;
         ArrayList<Friend> friends;
 
         try {

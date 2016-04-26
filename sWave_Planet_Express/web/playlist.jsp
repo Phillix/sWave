@@ -59,7 +59,7 @@
     </head>
     <body onkeypress="checkKey(event)" onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay(); flow(<%=songs.size()%>);">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a href="playing.jsp">Music</a><a class="currentPageLink" href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>

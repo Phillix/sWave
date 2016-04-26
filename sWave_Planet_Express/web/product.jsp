@@ -56,7 +56,7 @@
     </head>
     <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a href="playing.jsp">Music</a><a class="currentPageLink" href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
@@ -85,6 +85,8 @@
             <%if (m != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
                 <img width="200" height="200" src="images/merch/<%=m.getTitle()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
+                <div id="inlineRenderer">
+                </div>
                 <h2><%=m.getTitle()%></h2>
                 <h5>Price: <%=f.format(m.getPrice())%></h5>
                 <h1><%=m.getMerchId()%></h1>

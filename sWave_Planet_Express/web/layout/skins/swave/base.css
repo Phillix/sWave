@@ -40,3 +40,11 @@ nav a:hover {
 .largeVisualizer {
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+button.danger {
+    background-color: rgba(227, 25, 44, 0.3);
+}
+
+input.danger {
+    background-color: rgba(227, 25, 44, 0.3);
+}

@@ -70,7 +70,7 @@
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
@@ -160,24 +160,26 @@
                             <td><%=u.getUsername()%></td>
                         <%
                         fnd = new Friend(currentUser.getUserId(), u.getUserId());
-                        if (friends.contains(fnd)) {%>
+                        if (friends.contains(fnd) && !pending.contains(fnd)) {%>
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="removeFriend"/>
                                 <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
                                 <input type="submit" value="Unfriend"/>
+                            </form>        
+                        <%} else if (!pending.contains(fnd)) {%>
+                            <form action="UserActionServlet" method="POST">
+                                <input type="hidden" name="action" value="requestFriend"/>
+                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
+                                <input type="submit" value="Befriend"/>
                             </form>
-                        <%} else if (pending.contains(fnd)) {%>
+                        <%} else if (friends.contains(fnd) && friends.get(friends.indexOf(fnd)).getFriendId() == currentUser.getUserId()) {%>
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="confirmFriend"/>
                                 <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
                                 <input type="submit" value="Accept"/>
                             </form>
                         <%} else {%>
-                            <form action="UserActionServlet" method="POST">
-                                <input type="hidden" name="action" value="requestFriend"/>
-                                <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input type="submit" value="Befriend"/>
-                            </form>
+                            Pending
                         <%}%>
                     </tr>
                 <%}%>

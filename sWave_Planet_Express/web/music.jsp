@@ -58,7 +58,7 @@
     </head>
     <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a class="currentPageLink" href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
@@ -107,7 +107,7 @@
                     s = songs.get(i);
                     %>
                     <li class="panel listing songListing">
-                        <span style="float:right; margin-right: 10px;">
+                        <span class="listingRight">
                             <form id="add<%=s.getSongId()%>ToCart" style="display:none;" action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="addSongToCart"/>
                                 <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>

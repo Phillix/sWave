@@ -1,3 +1,4 @@
+<%@page import="Daos.MessageDao"%>
 <%@page import="Daos.SongDao"%>
 <%@page import="Dtos.Song"%>
 <%@page import="Daos.FriendDao"%>
@@ -32,6 +33,11 @@
             }
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
+            
+            FriendDao fdao = new FriendDao();
+            UsersDao  udao = new UsersDao();
+            ArrayList<Friend> pending = fdao.getPendingFriendRequests(currentUser.getUserId());
+            ArrayList<Friend> friends = fdao.getUserFriends(currentUser.getUserId());
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -62,7 +68,7 @@
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic') <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>, $('largeUserPic')<%}%>); resumePlay()">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a class="currentPageLink" href="account.jsp">Account</a><a href="about.jsp">About</a>
@@ -255,40 +261,63 @@
                         <div id="midUnderlay" class="panel"></div>
                         <h1>Friends</h1>
                         <h3>Requests</h3>
-                        <ul>
-                            <%FriendDao fdao = new FriendDao();
-                              UsersDao  udao = new UsersDao();
-                              for (Friend f : fdao.getPendingFriendRequests(currentUser.getUserId())) {%>
-                                  <li>
-                                        <img id="face<%=f.getFriendId()%>" src="images/test.png" width="100" height="100"/>
-                                        <script>loadUserPicture(<%=f.getFriendId()%>, $('face<%=f.getFriendId()%>'));</script>
-                                        <%=udao.getUserById(f.getFriendId()).getFname()%>&#160;
-                                        <%=udao.getUserById(f.getFriendId()).getLname()%>&#160;
-                                        (<%=udao.getUserById(f.getFriendId()).getUsername()%>)<br/>
-                                        <form action="UserActionServlet" method="POST">
-                                            <input type="hidden" name="action" value="confirmFriend"/>
-                                            <input type="hidden" name="friendId" value="<%=f.getFriendId()%>"/>
-                                            <input type="submit" value="Accept"/>
-                                        </form>
-                                    </li>
-                              <%}%>
-                        </ul>
-                        <hr/>
-                        <ul>
-                            <%
-                                for (Friend f : fdao.getUserFriends(currentUser.getUserId())) {%>
-                                    <%if (f.getStatus() == 'c') {%>
+                        <%if (pending.size() == 0) {%>
+                            <h3>Nobody wants to be your Friend</h3>
+                        <%} else {%>
+                            <ul>
+                                <%for (Friend f : pending) {%>
+                                    <%if (f.getFriendId() == currentUser.getUserId()) {%>
                                         <li>
-                                            <img id="face<%=f.getFriendId()%>2" src="images/test.png" width="100" height="100"/>
-                                            <script>loadUserPicture(<%=f.getFriendId()%>, $('face<%=f.getFriendId()%>2'))</script>
-                                            <%=udao.getUserById(f.getFriendId()).getFname()%>&#160;
-                                            <%=udao.getUserById(f.getFriendId()).getLname()%>&#160;
-                                            (<%=udao.getUserById(f.getFriendId()).getUsername()%>)<br/>
-                                            <button onclick="openChat(<%=f.getFriendId()%>)">Chat</button>
+                                            <img id="face<%=f.getFriendId()%>" src="images/test.png" width="100" height="100"/>
+                                            <script>loadUserPicture(<%=f.getUserId()%>, $('face<%=f.getUserId()%>'));</script>
+                                            <%=udao.getUserById(f.getUserId()).getFname()%>&#160;
+                                            <%=udao.getUserById(f.getUserId()).getLname()%>&#160;
+                                            (<%=udao.getUserById(f.getUserId()).getUsername()%>)<br/>
+                                            <form action="UserActionServlet" method="POST">
+                                                <input type="hidden" name="action" value="confirmFriend"/>
+                                                <input type="hidden" name="friendId" value="<%=f.getUserId()%>"/>
+                                                <input type="submit" value="Accept"/>
+                                            </form>
                                         </li>
                                     <%}%>
-                              <%}%>
+                                  <%}%>
+                            </ul>
+                        <%}%>
+                        <hr/>
+                        <%if (friends.size() == 0) {%>
+                                <h3>You have yet to discover the magic of friendship :^(</h3>
+                        <%} else {%>
+                        <ul>
+                            <%for (Friend f : friends) {%>
+                                <%if (f.getStatus() == 'c') {%>
+                                    <li class="panel listing songListing">
+                                        <img class="artwork" id="face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2" src="images/test.png" width="100" height="100"/>
+                                        <script>loadUserPicture(<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>, $('face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2'))</script>
+                                        <span class="songTitle"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getFname()%>&#160;<%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getLname()%></span><br/>
+                                        <span class="songArtist"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getUsername()%></span>
+                                        <span class="listingRight">
+                                            <form action="UserActionServlet" method="POST">
+                                                <input type="hidden" name="action" value="removeFriend"/>
+                                                <input type="hidden" name="friendId" value="<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>"/>
+                                                <input type="submit" class="danger" value="Unfriend"/>
+                                            </form>
+                                            <button onclick="openChat(<%=f.getFriendId()%>)">Chat</button>
+                                        </span>
+                                    </li>
+                                <%} else if (f.getStatus() == 'p' && f.getUserId() == currentUser.getUserId()) {%>
+                                    <li class="panel listing songListing">
+                                        <img class="artwork" id="face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2" src="images/test.png" width="100" height="100"/>
+                                        <script>loadUserPicture(<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>, $('face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2'))</script>
+                                        <span class="songTitle"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getFname()%>&#160;<%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getLname()%></span><br/>
+                                        <span class="songArtist"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getUsername()%></span>
+                                        <span class="listingRight">
+                                            Pending
+                                        </span>
+                                    </li>
+                              <%}
+                            }%>
                         </ul>
+                        <%}%>
                    <%} else if (request.getParameter("view").equals("settings")) {%>
                         <div id="midUnderlay" class="panel"></div>
                         <form action="UserActionServlet" method="POST">
@@ -355,12 +384,15 @@
         <div id="wallpaper"></div>
 	<div id="chat">
 		<span id="chatHeader" onclick="showHideChat()">
-			<span id="chatFriendName">
-				Someone
-			</span>
+			<select onchange="fetchMessages(this.value)">
+                            <%for (Friend friendo : friends) {%>
+                                <option value="<%=friendo.getFriendId()%>"><%=udao.getUserById(friendo.getFriendId()).getUsername()%></option>
+                            <%}%>
+                        </select>
 		</span>
 		<div id="chatMessages">
 			<ul id="theMessages">
+                            
 			</ul>
 		</div>
 		<span id="chatFooter">

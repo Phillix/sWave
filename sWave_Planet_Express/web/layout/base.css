@@ -407,6 +407,11 @@ span.newBadge {
     background-color: rgba(227, 25, 44, 0.3);
 }
 
+span.listingRight {
+    float:        right;
+    margin-right: 10px;
+}
+
 ul {
     list-style: none;
     padding:    0px;

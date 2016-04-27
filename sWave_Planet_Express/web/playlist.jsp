@@ -40,7 +40,7 @@
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title><%if (p != null) {%><%=p.getTitle()%><%} else {%>Playlist<%}%> - sWave</title>
+        <title><%if (p != null) {%><%=p.getTitle()%><%} else {%><%=messages.getString("playlistVar")%><%}%> - sWave</title>
         <!-- Import base Macgril CSS rules -->
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <!-- Import Macgril's set of CSS animations -->

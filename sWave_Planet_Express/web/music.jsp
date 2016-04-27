@@ -38,9 +38,8 @@
 
             ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Library - sWave</title>
+        <title><%=messages.getString("libraryVar")%> - sWave</title>
         <!-- Import base Macgril CSS rules -->
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <!-- Import Macgril's set of CSS animations -->
@@ -62,7 +61,7 @@
         <script src="js/image_loader.js"></script>
         <script src="js/streamer.js"></script>
     </head>
-    <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
+    <body lang="<%=currentLocale.getLanguage()%>" onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">
             <%=sWave.Graphics.getLogo()%>
             <nav>
@@ -78,6 +77,18 @@
 
             <div id="userMenu" class="panel">
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <form id="langForm" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="updateDetails"/>
+                    <input type="hidden" name="refPage" value="music.jsp"/>
+                    <select name="lang" onchange="$('langForm').submit()">
+                        <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
+                        <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
+                        <option value="de" <%if (currentLocale.getLanguage().equals("de")) {%>selected<%}%>>German</option>
+                        <option value="it" <%if (currentLocale.getLanguage().equals("it")) {%>selected<%}%>>Italian</option>
+                        <option value="jp" <%if (currentLocale.getLanguage().equals("jp")) {%>selected<%}%>>Japanese</option>
+                        <option value="ru" <%if (currentLocale.getLanguage().equals("ru")) {%>selected<%}%>>Russian</option>
+                    </select>
+                </form>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
                     <input type="submit" value="<%=messages.getString("logoutVar")%>"/>

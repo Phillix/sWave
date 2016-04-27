@@ -28,6 +28,8 @@ public class UpdateDetailsCommand implements Command {
             String city     = request.getParameter("city");
             String county   = request.getParameter("county");
             String skin     = request.getParameter("skin");
+            String lang     = request.getParameter("lang");
+            String refPage  = request.getParameter("refPage");
             
             if (email != null && !email.isEmpty()) {
                 u.setEmail(email);
@@ -55,8 +57,18 @@ public class UpdateDetailsCommand implements Command {
             if (skin != null && !skin.isEmpty()) {
                 u.setSkin(skin);
             }
+            
+            if (lang != null && !lang.isEmpty()) {
+                u.setLangPref(lang);
+            }
+            
             int result = ud.updateUser(u);
-            if (result == 0) return "/account.jsp?view=profile";
+            if (result == 0) {
+                if (refPage != null && !refPage.isEmpty())
+                    return "/" + refPage;
+                else
+                    return "/account.jsp?view=profile";
+            }
         }
         
         return "/error.jsp?msg=An%20error%20occured%20updating%20details";

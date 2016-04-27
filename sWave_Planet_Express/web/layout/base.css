@@ -295,14 +295,18 @@ h3.ticketHeader {
 }
 
 aside a {
-    display:     block;
-    font-size:   24px;
-    width:       180px;
+    display:        block;
+    font-size:      24px;
+    width:          180px;
     padding-top:    8px;
     padding-bottom: 8px;
     padding-left:   12px;
     padding-right:  8px;
-    margin:      0px;
+    margin:         0px;
+    word-wrap:      break-word;
+    word-break:     keep-all;
+    hyphens:        auto;
+    text-align:     left;
 }
 
 span.ticketHeaderRight {

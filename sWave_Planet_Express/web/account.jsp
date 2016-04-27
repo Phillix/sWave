@@ -47,7 +47,7 @@
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Account - sWave</title>
+        <title><%=messages.getString("accountNavVar")%> - sWave</title>
         <link rel="stylesheet" type="text/css" href="macgril/css/animation.css"/>
         <!-- Import base Macgril CSS rules -->
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>

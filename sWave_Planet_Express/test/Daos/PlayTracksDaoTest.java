@@ -27,10 +27,6 @@ public class PlayTracksDaoTest {
         instance = new PlayTracksDao(ds);
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         p1 = new PlayTrack(-1, -1, 1);

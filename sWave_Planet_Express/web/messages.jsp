@@ -60,7 +60,7 @@
            %> 
         <ul>
             <li>
-                <h3>Sent from <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
+                <h3><%=messages.getString("sentFromVar")%> <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
                 <br/>
                 <span>
                     <%=m.getContent()%>
@@ -75,7 +75,7 @@
          %>
          <ul>
             <li>
-                <h3>Sent to <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
+                <h3><%=messages.getString("sentToVar")%> <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
                 <br/>
                 <span>
                     <%=m.getContent()%>

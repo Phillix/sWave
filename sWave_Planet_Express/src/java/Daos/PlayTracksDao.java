@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * The PlayTracksDao class is used for communicating with PlayTracks table in the database
  * @author Phillix
  */
 public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
@@ -37,7 +37,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for creating a new PlayTrack
      * @param pt the data to write to database
      * @return int value indicating errors or success
      */
@@ -80,8 +80,8 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     }
 
     /**
-     * 
-     * @param pt playtrack to delete
+     * This method is used for deleting a PlayTrack
+     * @param pt PlayTrack to delete
      * @return int value indicating errors or success
      */
     public int deletePlayTrack(PlayTrack pt) {
@@ -98,9 +98,9 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             ps.setInt(1, pt.getSongId());
             ps.setInt(2, pt.getPlaylistId());
 
-            ps.executeUpdate();
+            int result = ps.executeUpdate();
             cascadeOrderOnDelete(pt);
-            return SUCCESS;
+            if (result > 0) return SUCCESS;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -120,10 +120,11 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+        return OTHER;
     }
     
     /**
-     * 
+     * This method is used for deleting all songs within a particular Playlist
      * @param playlistId the playlist the tracks belong to
      * @return int value indicating errors or success
      */
@@ -139,8 +140,8 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
             ps = con.prepareStatement(query);
             ps.setInt(1, playlistId);
 
-            ps.executeUpdate();
-            return SUCCESS;
+            int result = ps.executeUpdate();
+            if (result > 0) return SUCCESS;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -160,12 +161,13 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+        return OTHER;
     }
     
     /**
-     * 
-     * @param playlistId the id of the playlist the songs belong to
-     * @return arraylist of playtracks belonging to playlist
+     * This method returns all tracks within a single Playlist
+     * @param playlistId the id of the Playlist the songs belong to
+     * @return an ArrayList of PlayTracks belonging to Playlist
      */
     public ArrayList<PlayTrack> getPlayTracksInPlaylist(int playlistId) {
 
@@ -216,7 +218,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for moving the track down in the Playlist
      * @param pt the track to move down
      * @return int value indicating errors or success
      */
@@ -266,7 +268,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for moving a track up in a Playlist
      * @param pt the track to move up
      * @return int value indicating errors or success
      */
@@ -355,6 +357,11 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
         }
     }
     
+    /**
+     * This method is used for getting the max order in the Playlist
+     * @param playlistId
+     * @return 
+     */
     public int getMaxPlaylistOrder(int playlistId) {
         
         Connection con = null;
@@ -364,6 +371,7 @@ public class PlayTracksDao extends Dao implements PlayTracksDaoInterface {
         try {
             con = getConnection();
             ps = con.prepareStatement("SELECT MAX(" + ORDER + ") FROM " + TABLE_NAME + " WHERE " + PLAYLISTID + " = ?");
+            ps.setInt(1, playlistId);
             rs = ps.executeQuery();
             
             if(rs.next()) {

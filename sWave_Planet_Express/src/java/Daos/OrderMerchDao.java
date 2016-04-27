@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * The OrderMerchDao class is used for communicating with OrderMerch table in the database
  * @author Phillix
  */
 public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
@@ -166,6 +166,7 @@ public class OrderMerchDao extends Dao implements OrderMerchDaoInterface {
      * @param orderId the id of the order to be deleted
      * @return an int indicating success, failure or exceptions
      */
+    @Override
     public int deleteOrderMerch(int orderId) {
         Connection con = null;
         PreparedStatement ps = null;

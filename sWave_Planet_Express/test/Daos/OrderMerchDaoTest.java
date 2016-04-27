@@ -2,7 +2,6 @@ package Daos;
 
 import Dtos.OrderMerch;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,10 +21,6 @@ public class OrderMerchDaoTest {
     @BeforeClass
     public static void setUpClass() {
         instance = new OrderMerchDao(ds);
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
     }
     
     @Before

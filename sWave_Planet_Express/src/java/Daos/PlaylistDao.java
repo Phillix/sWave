@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * This class is used for interacting the the Playlist table in the database
  * @author Phillix
  * @author Brian Millar
  */
@@ -39,7 +39,7 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for creating a new Playlist
      * @param p the playlist to create
      * @return int value indicating errors or success
      */
@@ -58,8 +58,8 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
             ps.setInt(2, p.getUserId());
             ps.setString(3, p.getTitle());
 
-            ps.executeUpdate();
-            return SUCCESS;
+            int result = ps.executeUpdate();
+            if (result > 0) return SUCCESS;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -79,10 +79,11 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+        return OTHER;
     }
     
     /**
-     * 
+     * This method is used for deleting a Playlist by id
      * @param id id of the playlist to delete
      * @return int value indicating errors or success
      */
@@ -98,8 +99,8 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
-            ps.executeUpdate();
-            return SUCCESS;
+            int result = ps.executeUpdate();
+            if (result > 0) return SUCCESS;
         }
         catch (SQLException e) {
             if(DEBUG)
@@ -119,6 +120,7 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
                 return CONNCLOSEFAIL;
             }
         }
+        return OTHER;
     }
     
     /**
@@ -173,6 +175,11 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
         }
     }
 
+    /**
+     * This method is used for adding a Song to a Playlist
+     * @param s The id of the song you wish to add
+     * @param p The id of the Playlist you wish to add the song to
+     */
     @Override
     public void addSongToPlaylist(int s, int p) {
         PlayTracksDao playDao = new PlayTracksDao();
@@ -180,6 +187,11 @@ public class PlaylistDao extends Dao implements PlaylistDaoInterface {
         playDao.createPlayTrack(track);
     }
 
+    /**
+     * This method is used for getting a Playlist by it's id
+     * @param id the id of the Playlist you want to get
+     * @return a Playlist object matching the id of the argument
+     */
     @Override
     public Playlist getPlaylistById(int id) {
         Connection con       = null;

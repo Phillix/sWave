@@ -167,7 +167,8 @@ INSERT INTO USERS VALUES (3, "croak&dagger", "feels@goodman.com", "Pepe", "Frog"
 INSERT INTO USERS VALUES (4, "cymbolic", "widerthan@mile.com", "Moon", "River", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "Round The Bend", "Rainbows End", "Mississippi", "C", "flat", "fr", null, false);
 INSERT INTO USERS VALUES (5, "suiteserenity", "hippiedaze@dmt.com", "Sage", "Sapphire", "a20abc570d9b856d2b489d48b899cd252454e9ea017ac130$1bdded0391ecaafea329ec8c5609e9edb5a6afab64b8f3a4", "7 Heaven", "The Walls Are Melting", "San Diego", "G", "flat", "de", null, false);
 
-INSERT INTO SONGS VALUES (-1, "Track 1", "Title", "Artist", "Album", "Genre", 1970, 420, 2.99, "Public Domain", 0, NULL, NULL, NULL);
+INSERT INTO SONGS VALUES (-1, "Track 1", "Title1", "Artist1", "Album1", "Genre1", 1970, 420, 2.99, "Public Domain", 0, NULL, NULL, NULL);
+INSERT INTO SONGS VALUES (-2, "Track 2", "Title2", "Artist2", "Album2", "Genre2", 1971, 421, 2.98, "Public Domains", 1, NULL, NULL, NULL);
 
 INSERT INTO ORDERS VALUES (-1, -1, '1970-1-1', 15.50);
 INSERT INTO ORDERS VALUES (-2, -2, '1971-1-1', 16.20);

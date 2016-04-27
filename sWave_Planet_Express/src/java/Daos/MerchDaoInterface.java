@@ -14,4 +14,5 @@ public interface MerchDaoInterface {
     public Merch getMerchById(int merchid);
     public ArrayList<Merch> getMerchInOrder(ArrayList<OrderMerch> ids);
     public ArrayList<Merch> searchMerch(String searchWord);
+    public int removeMerch(int id);
 }

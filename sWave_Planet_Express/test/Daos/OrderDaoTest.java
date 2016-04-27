@@ -1,10 +1,7 @@
 package Daos;
 
 import Dtos.Order;
-import Dtos.UltimateOrder;
-import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,11 +9,15 @@ import static org.junit.Assert.*;
 
 /**
  *
+ * @author Austin
  * @author Phillix
  */
 public class OrderDaoTest {
     static MyDataSource ds = new MyDataSource();
     static OrderDao instance;
+    static int orderId;
+    static Order o;
+    static final int USERID = 1;
     public OrderDaoTest() {
     }
     
@@ -25,117 +26,81 @@ public class OrderDaoTest {
         instance = new OrderDao(ds);
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
-        
+        o = new Order(USERID, 10);
+        instance.createOrder(o);
+        orderId = instance.getCurrentOrder(USERID).getOrderId();
     }
     
     @After
     public void tearDown() {
+        instance.deleteOrder(orderId);
+        
     }
-
-//    /**
-//     * Test of createOrder method, of class OrderDao.
-//     */
-//    @Test
-//    public void testCreateOrder() {
-//        
-//        int userId = -1;
-//        Order o = new Order(userId,99.99);
-//        int expResult = 0;
-//        int result = instance.createOrder(o);
-//        assertEquals(expResult, result);   
-//    }
     
     /**
-     * Test of getUserOrders method, of class OrderDao.
+     * Test for createOrder method being valid, of class OrderDao.
      */
     @Test
-    public void testGetUserOrders() {
-        
-        int userId = -1;
-        Order o = new Order();
-        o.setOrderId(-1);
-        o.setDateOrdered("1970-1-1");
-        o.setTotal(15.50);
-        o.setUserId(-1);
+    public void testCreateOrderValid() {
+        Order o1 = instance.getCurrentOrder(USERID);
+        boolean result = o1 != null;
         boolean expResult = true;
-        ArrayList<Order> orders = instance.getUserOrders(userId);
-        boolean result = orders.get(0).equals(o);
         assertEquals(expResult, result);
     }
     
     /**
-     * Test of getFullOrders method, of class OrderDao.
+     * Test for createOrder method being invalid, of class OrderDao.
      */
     @Test
-    public void testGetFullOrders() {
-        
-        int userId = -1;
-        ArrayList<UltimateOrder> orders = instance.getFullOrders(userId);
-        UltimateOrder uo = orders.get(0);
-        System.out.println("Order total: " + uo.calcTotal());
-        System.out.println("Date Ordered: " + uo.getDateOrdered());
-        
-        int merchSize = uo.getMerchSize();
-        int songSize = uo.getSongSize();
-        
-        if(orders != null) {
-            if(songSize > merchSize) {
-                for(int i = 0; i < songSize; i++) {
-                    System.out.println("song id: " + uo.getSongId(i));
-                    System.out.println("song price: " + uo.getSongPrice(i));
-
-                    if(i < merchSize) {
-                        System.out.println("merch title: " + uo.getTitle(i));
-                        System.out.println("merch qty: " + uo.getQty(i));
-                        System.out.println("merch price: " + uo.getMerchPrice(i));
-                    }
-                }
-            } else if(songSize < merchSize) {
-                for(int i = 0; i < merchSize; i++) {
-                        System.out.println("merch title: " + uo.getTitle(i));
-                        System.out.println("merch qty: " + uo.getQty(i));
-                        System.out.println("merch price: " + uo.getMerchPrice(i));
-
-                    if(i < songSize) {
-                        System.out.println("song id: " + uo.getSongId(i));
-                        System.out.println("song price: " + uo.getSongPrice(i));
-                    }
-                }
-            } else {
-                for(int i = 0; i < songSize; i++) {
-                    System.out.println("song id: " + uo.getSongId(i));
-                    System.out.println("song price: " + uo.getSongPrice(i));
-                    
-                    System.out.println("merch title: " + uo.getTitle(i));
-                    System.out.println("merch qty: " + uo.getQty(i));
-                    System.out.println("merch price: " + uo.getMerchPrice(i));
-                } 
-            }
-        }
-        
+    public void testCreateOrderInvalid() {
+        Order o1 = instance.getCurrentOrder(USERID);
+        int result = orderId;
+        int expResult = orderId + 1;
+        assertNotEquals(expResult, result);
     }
     
     /**
-    * Test of getCurrentOrder method, of class OrderDao.
-    */
+     * Test for getCurrentOrder method being valid, of class OrderDao.
+     */
     @Test
-    public void testGetCurrentOrder() {
-        
-        int userId = -1;
-        Order o = new Order();
-        o.setOrderId(-1);
-        o.setDateOrdered("1970-01-01");
-        o.setTotal(15.50);
-        o.setUserId(-1);
+    public void testGetCurrentOrderValid() {
+        Order o1 = instance.getCurrentOrder(USERID);
+        o.setOrderId(o1.getOrderId());
+        boolean result = o.equals(o1);
         boolean expResult = true;
-        Order dbOrder = instance.getCurrentOrder(userId);
-        boolean result = dbOrder.equals(o);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test for getCurrentOrder method being invalid, of class OrderDao.
+     */
+    @Test
+    public void testGetCurrentOrderInvalid() {
+        Order o1 = instance.getCurrentOrder(USERID);
+        boolean result = o.equals(o1);
+        boolean expResult = false;
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test for getUserOrders method being valid, of class OrderDao.
+     */
+    @Test
+    public void testGetUserOrdersValid() {
+        boolean result = instance.getUserOrders(USERID).size() == 1;
+        boolean expResult = true;
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test for getUserOrders method being invalid, of class OrderDao.
+     */
+    @Test
+    public void testGetUserOrdersInvalid() {
+        boolean result = instance.getUserOrders(3).size() > 0;
+        boolean expResult = false;
         assertEquals(expResult, result);
     }
 }

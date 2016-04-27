@@ -6,17 +6,18 @@
 <html>
     <head>
         <%
-            User currentUser = null;
-            String skin = "swave";
+            User currentUser     = null;
+            String skin          = sWave.Server.DEFAULT_SKIN;
+            Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=music.jsp");
             else {
-                currentUser = (User)session.getAttribute("user");
-                skin = currentUser.getSkin();
+                currentUser   = (User)session.getAttribute("user");
+                skin          = currentUser.getSkin();
+                currentLocale = new Locale(currentUser.getLangPref());
             }
-            
-            Locale currentLocale    = new Locale(currentUser.getLangPref());
+
             ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -52,7 +53,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -62,7 +63,7 @@
                 <%}%>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>

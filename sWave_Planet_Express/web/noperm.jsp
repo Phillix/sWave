@@ -1,10 +1,12 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     User currentUser = (User)session.getAttribute("user");
 
-    String skin = "swave";
+    String skin = sWave.Server.DEFAULT_SKIN;
 
     if (currentUser != null) {
         skin = currentUser.getSkin();

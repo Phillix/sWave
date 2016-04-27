@@ -12,14 +12,16 @@
 <html>
     <head>
         <%
-            User currentUser = null;
-            String skin = "swave";
+            User currentUser     = null;
+            String skin          = sWave.Server.DEFAULT_SKIN;
+            Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=music.jsp");
             else {
-                currentUser = (User)session.getAttribute("user");
-                skin = currentUser.getSkin();
+                currentUser   = (User)session.getAttribute("user");
+                skin          = currentUser.getSkin();
+                currentLocale = new Locale(currentUser.getLangPref());
             }
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
@@ -34,7 +36,6 @@
                 pageNum = Integer.parseInt(request.getParameter("pageNum"));
             }
 
-            Locale currentLocale    = new Locale(currentUser.getLangPref());
             ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -74,11 +75,12 @@
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+
             <div id="userMenu" class="panel">
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>
@@ -112,13 +114,13 @@
                     s = songs.get(i);
                     %>
                     <li class="panel listing songListing">
-                        <span class="listingRight">
+                        <div class="listingRight">
+                            <span class="songPrice"><%=f.format(s.getPrice())%></span>
                             <form id="add<%=s.getSongId()%>ToCart" style="display:none;" action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="addSongToCart"/>
                                 <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                                 <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
                             </form>
-                            <%=f.format(s.getPrice())%>
                             <svg style="cursor:pointer;" onclick="$('add<%=s.getSongId()%>ToCart').submit()" width="40" height="40" viewBox="0 0 100 100">
                                 <mask id="mask2" x="0" y="0" width="100" height="100">
                                     <rect x="0" y="0" width="100" height="100" fill="#fff"/>
@@ -133,15 +135,24 @@
                                 <circle class="iconCircleFilled" cx="33" cy="78" r="5"/>
                                 <circle class="iconCircleFilled" cx="67" cy="78" r="5"/>
                             </svg>
-                            <button onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">P</button>
-                            <button onclick='stream(<%=s.getSongId()%>);'>&#9658;</button>
-                        </span>
+                            <svg width="40" height="40" viewBox="0 0 100 100" onclick="$('overlay').style.display='block'; $('songId').value='<%=s.getSongId()%>'; $('addToPlaylist').style.display='block';">
+                                <mask id="mask3" x="0" y="0" width="100" height="100">
+                                    <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+                                    <rect x="28.5" y="34.5" width="20" height="5" fill="#000"/>
+                                    <rect x="35.5" y="27" width="5" height="20" fill="#000"/>
+                                </mask>
+                                <rect class="iconRectFilled" x="25" y="22.5" width="50" height="60" mask="url(#mask3)"/>
+                            </svg>
+                            <svg width="40" height="40" viewBox="0 0 100 100" onclick='stream(<%=s.getSongId()%>);'>
+                                <polygon class="iconPolyFilled" points="33,25 33,75 80,50"/>
+                            </svg>
+                        </div>
                         <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
                         <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                         <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
                             <span class="songTitle"><%=s.getTitle()%>
                                 <%if (s.getUploaded() != null && ((System.currentTimeMillis() - s.getUploaded().getTime()) < 172800000)) {%>
-                                    <span class="newBadge">New</span>
+                                    <span class="newBadge"><%=messages.getString("newVar")%></span>
                                 <%}%>
 
                             </span><br/>

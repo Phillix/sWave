@@ -1,3 +1,5 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Dtos.Merch"%>
 <%@page import="Daos.MerchDao"%>
 <%@page import="Daos.SongDao"%>
@@ -11,15 +13,19 @@
 <html>
     <head>
         <%
-            User currentUser = null;
-            String skin = "swave";
+            User currentUser     = null;
+            String skin          = sWave.Server.DEFAULT_SKIN;
+            Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=cart.jsp");
             else {
-                currentUser = (User)session.getAttribute("user");
-                skin = currentUser.getSkin();
+                currentUser   = (User)session.getAttribute("user");
+                skin          = currentUser.getSkin();
+                currentLocale = new Locale(currentUser.getLangPref());
             }
+
+            ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">

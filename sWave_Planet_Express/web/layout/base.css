@@ -407,9 +407,16 @@ span.newBadge {
     background-color: rgba(227, 25, 44, 0.3);
 }
 
-span.listingRight {
+div.listingRight {
     float:        right;
     margin-right: 10px;
+    margin-top:   30px;
+}
+
+span.songPrice {
+    position:  relative;
+    top:       -14px;
+    font-size: 14px;
 }
 
 ul {

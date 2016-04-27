@@ -1,18 +1,24 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%
-            User currentUser = null;
-            String skin = "swave";
+            User currentUser     = null;
+            String skin          = sWave.Server.DEFAULT_SKIN;
+            Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=about.jsp");
             else {
-                currentUser = (User)session.getAttribute("user");
-                skin = currentUser.getSkin();
+                currentUser   = (User)session.getAttribute("user");
+                skin          = currentUser.getSkin();
+                currentLocale = new Locale(currentUser.getLangPref());
             }
+            
+            ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -42,11 +48,11 @@
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a class="currentPageLink" href="about.jsp">About</a>
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a class="currentPageLink" href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -54,7 +60,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>
@@ -64,8 +70,8 @@
         <div id="midsection">
             <div id="midUnderlay" class="panel"></div>
             <h1>Project sWave</h1>
-            <h3>Brought to you by Team Planet Express</h3>
-            Planet Express is:
+            <h3><%=messages.getString("broughtVar")%></h3>
+            <%=messages.getString("planetExpressIsVar")%>:
             <ul>
                 <li>Austin Foley</li>
                 <li>Brian Millar</li>

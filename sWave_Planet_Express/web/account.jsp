@@ -1,3 +1,5 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Daos.MessageDao"%>
 <%@page import="Daos.SongDao"%>
 <%@page import="Dtos.Song"%>
@@ -22,14 +24,16 @@
                 response.sendRedirect("account.jsp?view=profile");
             }
             
-            User currentUser = null;
-            String skin = "swave";
+            User currentUser     = null;
+            String skin          = sWave.Server.DEFAULT_SKIN;
+            Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=account.jsp&view=" + request.getParameter("view"));
             else {
-                currentUser = (User)session.getAttribute("user");
-                skin = currentUser.getSkin();
+                currentUser   = (User)session.getAttribute("user");
+                skin          = currentUser.getSkin();
+                currentLocale = new Locale(currentUser.getLangPref());
             }
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
@@ -38,6 +42,8 @@
             UsersDao  udao = new UsersDao();
             ArrayList<Friend> pending = fdao.getPendingFriendRequests(currentUser.getUserId());
             ArrayList<Friend> friends = fdao.getUserFriends(currentUser.getUserId());
+
+            ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -71,11 +77,11 @@
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a class="currentPageLink" href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a class="currentPageLink" href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -83,16 +89,16 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="account.jsp?view=profile" <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>class="currentPageLink"<%}%>>Profile</a>
-            <a href="account.jsp?view=friends" <%if (request.getParameter("view") != null && request.getParameter("view").equals("friends")) {%>class="currentPageLink"<%}%>>Friends</a>
-            <a href="account.jsp?view=orders" <%if (request.getParameter("view") != null && request.getParameter("view").equals("orders")) {%>class="currentPageLink"<%}%>>Orders</a>
-            <a href="account.jsp?view=tickets" <%if (request.getParameter("view") != null && request.getParameter("view").equals("tickets")) {%>class="currentPageLink"<%}%>>Tickets</a>
-            <a href="account.jsp?view=settings" <%if (request.getParameter("view") != null && request.getParameter("view").equals("settings")) {%>class="currentPageLink"<%}%>>Settings</a>
+            <a href="account.jsp?view=profile" <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>class="currentPageLink"<%}%>><%=messages.getString("profileVar")%></a>
+            <a href="account.jsp?view=friends" <%if (request.getParameter("view") != null && request.getParameter("view").equals("friends")) {%>class="currentPageLink"<%}%>><%=messages.getString("friendsVar")%></a>
+            <a href="account.jsp?view=orders" <%if (request.getParameter("view") != null && request.getParameter("view").equals("orders")) {%>class="currentPageLink"<%}%>><%=messages.getString("ordersVar")%></a>
+            <a href="account.jsp?view=tickets" <%if (request.getParameter("view") != null && request.getParameter("view").equals("tickets")) {%>class="currentPageLink"<%}%>><%=messages.getString("ticketsVar")%></a>
+            <a href="account.jsp?view=settings" <%if (request.getParameter("view") != null && request.getParameter("view").equals("settings")) {%>class="currentPageLink"<%}%>><%=messages.getString("settingsVar")%></a>
             <%if (currentUser != null && currentUser.isIsAdmin()) {%>
                 <a href="account.jsp?view=admin" <%if (request.getParameter("view") != null && request.getParameter("view").equals("admin")) {%>class="currentPageLink"<%}%>>Admin</a>
             <%}%>
@@ -105,22 +111,22 @@
                     <div id="profileSidebar">
                         <img id="largeUserPic" src="images/test.png" width="200" height="200"/>
                         <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
-                        <h5><u>Upload New Picture (MAX 64kb)</u></h5>
+                        <h5><u><%=messages.getString("uploadNewPictureVar")%> (<%=messages.getString("maxVar")%> 64kb)</u></h5>
                         <input id="userPicField" onchange="uploadUserPicture(<%=currentUser.getUserId()%>)" type="file" accept="image/*" name="userPicField"/><br/>
                         <progress id="uploadProgress2" max="100" value="0"></progress><br/>
                         <span id="progressInfo2"></span><br/>
                     </div>
-                    <h1><%=currentUser.getFname()%>'s Profile</h1>
+                    <h1><%=currentUser.getFname()%>'s <%=messages.getString("profileVar")%></h1>
                     <form action="UserActionServlet" method="POST" id="profileDetailsForm">
                         <input type="hidden" name="action" value="updateDetails"/>
-                        <label>Username: </label><input name="username" type="text" placeholder="Username" value="<%=currentUser.getUsername()%>"/><br/><br/>
-                        <label>Email: </label><input name="email" type="text" placeholder="Email" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$" value="<%=currentUser.getEmail()%>"/><br/><br/>
-                        <label>First Name: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="First Name" value="<%=currentUser.getFname()%>"/><br/><br/>
-                        <label>Last Name: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="Last Name" value="<%=currentUser.getLname()%>"/><br/><br/>
-                        <label>Address Line 1: </label><input type="text" name="add1" placeholder="Address Line 1" value="<%=currentUser.getAdd1()%>"/><br/><br/>
-                        <label>Address Line 2: </label><input type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
-                        <label>City: </label><input type="text" name="city" placeholder="City" value="<%=currentUser.getCity()%>"/><br/><br/>
-                        <label>County: </label>
+                        <label><%=messages.getString("usernameVar")%>: </label><input name="username" type="text" placeholder="<%=messages.getString("usernameVar")%>" value="<%=currentUser.getUsername()%>"/><br/><br/>
+                        <label><%=messages.getString("emailVar")%>: </label><input name="email" type="text" placeholder="<%=messages.getString("emailVar")%>" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$" value="<%=currentUser.getEmail()%>"/><br/><br/>
+                        <label><%=messages.getString("firstNameVar")%>: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="<%=messages.getString("firstNameVar")%>" value="<%=currentUser.getFname()%>"/><br/><br/>
+                        <label><%=messages.getString("lastNameVar")%>: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="<%=messages.getString("lastNameVar")%>" value="<%=currentUser.getLname()%>"/><br/><br/>
+                        <label><%=messages.getString("addressLine1Var")%>: </label><input type="text" name="add1" placeholder="Address Line 1" value="<%=currentUser.getAdd1()%>"/><br/><br/>
+                        <label><%=messages.getString("addressLine2Var")%>: </label><input type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
+                        <label><%=messages.getString("cityVar")%>: </label><input type="text" name="city" placeholder="<%=messages.getString("cityVar")%>" value="<%=currentUser.getCity()%>"/><br/><br/>
+                        <label><%=messages.getString("countyVar")%>: </label>
                         <select name="county">
                             <option value="CW" <%if (currentUser.getCounty().equals("CW")) {%>selected<%}%>>Carlow</option>
                             <option value="CN" <%if (currentUser.getCounty().equals("CN")) {%>selected<%}%>>Cavan</option>
@@ -150,7 +156,7 @@
                             <option value="W" <%if (currentUser.getCounty().equals("W")) {%>selected<%}%>>Wicklow</option>
                         </select>
                         <br/><br/>
-                        <input type="submit" value="Update Details"/>
+                        <input type="submit" value="<%=messages.getString("updateDetailsVar")%>"/>
                     </form>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
                     <div id="midUnderlay" class="panel"></div>

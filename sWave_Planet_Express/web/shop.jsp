@@ -1,3 +1,5 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Daos.SongDao"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="Dtos.Merch"%>
@@ -11,14 +13,16 @@
 <html>
     <head>
         <%
-            User currentUser = null;
-            String skin = "swave";
+            User currentUser     = null;
+            String skin          = sWave.Server.DEFAULT_SKIN;
+            Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
                 response.sendRedirect("login.jsp?refer=shop.jsp");
             else {
-                currentUser = (User)session.getAttribute("user");
-                skin = currentUser.getSkin();
+                currentUser   = (User)session.getAttribute("user");
+                skin          = currentUser.getSkin();
+                currentLocale = new Locale(currentUser.getLangPref());
             }
 
             final boolean DEBUG = sWave.Server.DEBUGGING;
@@ -26,6 +30,8 @@
             if (request.getParameter("addedToCart") != null && request.getParameter("addedToCart").equals("yes")) {
                 %><script>alert("Added to Cart");</script><%
             }
+
+            ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -55,7 +61,7 @@
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a class="currentPageLink" href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a class="currentPageLink" href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>

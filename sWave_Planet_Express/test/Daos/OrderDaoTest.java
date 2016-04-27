@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Class for testing OrderDao methods, for valid and invalid
  * @author Austin
  * @author Phillix
  */

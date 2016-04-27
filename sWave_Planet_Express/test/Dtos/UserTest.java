@@ -531,7 +531,7 @@ public class UserTest {
      */
     @Test
     public void testToStringValid() {
-        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=CN, skin=swave, isAdmin=false}";
+        String expResult = "User{userId=0, email=email, password=password, username=username, fname=fname, lname=lname, add1=add1, add2=add2, city=city, county=CN, skin=swave, langPref=en, isAdmin=false}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

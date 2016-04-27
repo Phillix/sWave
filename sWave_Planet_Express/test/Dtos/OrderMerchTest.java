@@ -122,7 +122,7 @@ public class OrderMerchTest {
      */
     @Test
     public void testGetQtyValid() {
-        int expResult = -1;
+        int expResult = 1;
         int result = instance.getQty();
         assertEquals(expResult, result);
     }
@@ -163,7 +163,7 @@ public class OrderMerchTest {
      */
     @Test
     public void testGetPricePaidValid() {
-        double expResult = -9.99;
+        double expResult = 9.99;
         double result = instance.getPricePaid();
         assertEquals(expResult, result, 0.0);
     }
@@ -204,7 +204,7 @@ public class OrderMerchTest {
      */
     @Test
     public void testToStringValid() {
-        String expResult = "OrderMerch{orderId=-1, merchId=-1, qty=-1, pricePaid=-9.99}";
+        String expResult = "OrderMerch{orderId=-1, merchId=-1, qty=1, pricePaid=9.99}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

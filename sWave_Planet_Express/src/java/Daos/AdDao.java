@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 /**
- *
+ * The AdDao class is used for communicating with Ad table in the database
  * @author Phillix
  */
 public class AdDao extends Dao implements AdDaoInterface {

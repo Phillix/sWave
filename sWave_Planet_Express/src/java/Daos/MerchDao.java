@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * The MerchDao class is used for communicating with Merch table in the database
+ * @author Austin
  * @author Phillix
  */
 public class MerchDao extends Dao implements MerchDaoInterface {
@@ -21,6 +22,7 @@ public class MerchDao extends Dao implements MerchDaoInterface {
     private final String ID         = "MERCHID";
     private final String TITLE      = "TITLE";
     private final String PRICE      = "PRICE";
+    private final String THREED     = "THREED";
 
     /**
      * Default Constructor for MerchDao
@@ -51,13 +53,14 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         try {
 
             con = getConnection();
-            String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?)";
+            String query = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?)";
 
             ps = con.prepareStatement(query);
 
             ps.setInt(1, m.getMerchId());
             ps.setString(2, m.getTitle());
             ps.setDouble(3, m.getPrice());
+            ps.setString(4, m.getThreed());
 
             ps.executeUpdate();
             return SUCCESS;
@@ -86,13 +89,13 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         }
     }
     
-        /**
-         * 
-         * @param merchid
-         * @return a Merch object with the given id
-         */
-        @Override
-        public Merch getMerchById(int merchid) {
+    /**
+     * This method is used for getting a Merch object based on its id
+     * @param merchid
+     * @return a Merch object with the given id
+     */
+    @Override
+    public Merch getMerchById(int merchid) {
         Connection con        = null;
         PreparedStatement ps  = null;
         ResultSet rs          = null;
@@ -106,7 +109,8 @@ public class MerchDao extends Dao implements MerchDaoInterface {
 
             if (rs.next()) {
                 Merch m = new Merch(rs.getString(TITLE),
-                                    rs.getDouble(PRICE));
+                                    rs.getDouble(PRICE),
+                                    rs.getString(THREED));
                 m.setMerchId(rs.getInt(ID));
                 return m;
             }
@@ -321,5 +325,47 @@ public class MerchDao extends Dao implements MerchDaoInterface {
             }
         }
         return merch;
+    }
+    
+    /**
+     * Method for removing merchandise from the database
+     * @param id The id of the merchandise you want to remove
+     * @return An integer value representing success or failure or exceptions
+     */
+    @Override
+    public int removeMerch(int id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+
+            con = getConnection();
+            ps = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE " + ID + " = ?");
+            ps.setInt(1, id);
+            int result = ps.executeUpdate();
+            if (result > 0) return SUCCESS;
+        }
+        catch(Exception e) {
+            if(DEBUG) {
+                e.printStackTrace();
+            }
+            return OTHER;
+        }
+        finally {
+            try {
+                if(ps != null) {
+                    ps.close();
+                }
+                if(con != null) {
+                    freeConnection(con);
+                }
+            }
+            catch(SQLException e) {
+                if(DEBUG) {
+                    e.printStackTrace();
+                }
+                return SQLEX;
+            }
+        }
+        return OTHER;
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * The MessageDao class is used for communicating with Message table in the database
  * @author Phillix
  */
 public class MessageDao extends Dao implements MessageDaoInterface {
@@ -40,7 +40,7 @@ public class MessageDao extends Dao implements MessageDaoInterface {
     }
     
     /**
-     * 
+     * This message is used for creating a message
      * @param m the message to write to database
      * @return int value indicating success/failures
      */
@@ -95,7 +95,7 @@ public class MessageDao extends Dao implements MessageDaoInterface {
     }
     
     /**
-     * 
+     * This message is used for getting the entire conversation between two Users
      * @param friendId retrieve conversation from this users id
      * @return Collection of Message objects
      */
@@ -153,6 +153,11 @@ public class MessageDao extends Dao implements MessageDaoInterface {
         return conversation;
     }
     
+    /**
+     * This method is used for marking a message as being read by flipping the status
+     * @param msgId the id of the message being marked as read
+     * @return an int value indicating success, failure or exceptions
+     */
     public int markAsRead(int msgId) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -188,6 +193,11 @@ public class MessageDao extends Dao implements MessageDaoInterface {
         return OTHER;
     }
     
+    /**
+     * This method is used for deleting a conversation between two users
+     * @param friendId The id of the friend deleting messages
+     * @return an int value indicating success, failure or exceptions
+     */
     public int deleteConversation(int friendId) {
         Connection con       = null;
         PreparedStatement ps = null;

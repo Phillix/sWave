@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * The FriendDao class is used for communicating with FriendDao table in the database
  * @author Phillix
  */
 public class FriendDao extends Dao implements FriendDaoInterface {
@@ -38,7 +38,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for sending a Friend request from one User to another
      * @param f the friend you wish to befriend
      * @return int value indicating success/failures
      */
@@ -85,7 +85,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for getting a List of all of a Users friends
      * @param userId the user the friendlist belongs to
      * @return ArrayList of friend objects
      */
@@ -142,7 +142,7 @@ public class FriendDao extends Dao implements FriendDaoInterface {
     }
     
     /**
-     * 
+     * This method is used for getting a List of a Users pending requests
      * @param userId the id of the user you wish to return pending requests belonging to
      * @return a Collection of friends whose status is 'p' (pending)
      */
@@ -198,6 +198,12 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         return friends;
     }
     
+    /**
+     * This method is used for removing a friend or canceling a friend request
+     * @param userId The id of the User
+     * @param friendId The id of the Users friend
+     * @return an int indicating success, failure or exceptions
+     */
     public int removeFriend(int userId,int friendId) {
         Connection con       = null;
         PreparedStatement ps = null;
@@ -235,6 +241,12 @@ public class FriendDao extends Dao implements FriendDaoInterface {
         return OTHER;
     }
     
+    /**
+     * This method is used for confirming a friend request between two Users
+     * @param userId The id of the User who sent the Friend request
+     * @param friendId The id of the User who received the Friend request
+     * @return an int value indication success, failure or exceptions
+     */
     public int confirmFriend(int userId, int friendId) {
         Connection con       = null;
         PreparedStatement ps = null;

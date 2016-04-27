@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 /**
  * The MerchDao class is used for communicating with Merch table in the database
+ * @author Austin
  * @author Phillix
  */
 public class MerchDao extends Dao implements MerchDaoInterface {
@@ -88,13 +89,13 @@ public class MerchDao extends Dao implements MerchDaoInterface {
         }
     }
     
-        /**
-         * 
-         * @param merchid
-         * @return a Merch object with the given id
-         */
-        @Override
-        public Merch getMerchById(int merchid) {
+    /**
+     * This method is used for getting a Merch object based on its id
+     * @param merchid
+     * @return a Merch object with the given id
+     */
+    @Override
+    public Merch getMerchById(int merchid) {
         Connection con        = null;
         PreparedStatement ps  = null;
         ResultSet rs          = null;

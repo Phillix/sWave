@@ -14,7 +14,7 @@ function uploadSongs() {
 
     request.upload.onprogress = function(event) {
         $("uploadProgress").value = (100 / event.total) * event.loaded;
-        $("progressInfo").innerHTML = "Uploaded " + (event.loaded / (1024 * 1024)) + " of " + (event.total / (1024 * 1024)) + " MB.";
+        $("progressInfo").innerHTML = "Uploaded " + (event.loaded / (1024 * 1024)).toFixed(2) + " of " + (event.total / (1024 * 1024)).toFixed(2) + " MB.";
     };
 
     request.upload.onload = function(event) {
@@ -35,12 +35,11 @@ function uploadUserPicture(userid) {
 
     request.upload.onprogress = function(event) {
         $("uploadProgress2").value = (100 / event.total) * event.loaded;
-        $("progressInfo2").innerHTML = "Uploaded " + (event.loaded / (1024 * 1024)) + " of " + (event.total / (1024 * 1024)) + " MB.";
     };
 
 
     request.upload.onload = function(event) {
-        $("progressInfo2").innerHTML = "Done";
+        notify($("notifier"), "Upload Complete", 3000);
         loadUserPicture(userid, $("userPic"));
         loadUserPicture(userid, $("largeUserPic"));
     };

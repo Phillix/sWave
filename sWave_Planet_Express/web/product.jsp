@@ -69,7 +69,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="Search"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -77,7 +77,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="Log Out"/>
                 </form>
             </div>
         </header>
@@ -90,18 +90,17 @@
             <div id="midUnderlay" class="panel"></div>
             <%if (m != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                <img width="200" height="200" src="images/merch/<%=m.getTitle()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
+                <img width="200" height="200" src="images/merch/<%=m.getMerchId()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
                 <div id="inlineRenderer">
                 </div>
                 <h2><%=m.getTitle()%></h2>
-                <h5>Price: <%=f.format(m.getPrice())%></h5>
-                <h1><%=m.getMerchId()%></h1>
+                <span><%=messages.getString("priceVar")%>: <%=f.format(m.getPrice())%></span>
                 <form action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="addMerchToCart"/>
                     <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
                     <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
                     <input type="number" value="1" min="1" name="qty"/>
-                    <input type="submit" value="Add to Cart"/>
+                    <input class="button" type="submit" value="Add to Cart"/>
                 </form>
             <%}%>
         </div>

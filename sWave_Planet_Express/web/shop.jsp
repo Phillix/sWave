@@ -65,7 +65,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="Search"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -73,12 +73,12 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="Log Out"/>
                 </form>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="cart.jsp">Go to Cart</a>
+            <a href="cart.jsp"><%=messages.getString("goToCartVar")%></a>
             <div id="visualizer"></div>
         </aside>
         <div id="midSectionNoPadding" class="noPadding">
@@ -90,13 +90,20 @@
                 NumberFormat f = NumberFormat.getCurrencyInstance();
                 for (Merch m : dao.viewMerchAlpha()) {%>
                     <li class="panel listing songListing">
-                        <img class="artwork" alt="Picture of <%=m.getTitle()%>" src="images/merch/<%=m.getTitle()%>.jpg"/>
-                        <%if (DEBUG) {%>
-                            <%=m.getMerchId()%>
-                        <%}%>
-                        <%=m.getTitle()%><br/>
-                        <%=f.format(m.getPrice())%>
-                        <a href="product.jsp?item=<%=m.getMerchId()%>">View Item</a>
+                        <img class="artwork" alt="<%=messages.getString("pictureOfVar")%> <%=m.getTitle()%>" src="images/merch/<%=m.getMerchId()%>.jpg"/>
+                        <span class="songTitle">
+                            <%if (DEBUG) {%>
+                                <%=m.getMerchId()%>
+                            <%}%>
+                            <%=m.getTitle()%>
+                        </span><br/><br/>
+                        <span class="songArtist">
+                            <a href="product.jsp?item=<%=m.getMerchId()%>"><%=messages.getString("viewItemVar")%></a>
+                        </span>
+                        <br/>
+                        <div class="listingRight">
+                            <%=f.format(m.getPrice())%>
+                        </div>
                     </li>
             <%}%>
             </ul>

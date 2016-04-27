@@ -7,20 +7,22 @@ import java.util.Properties;
  * @author Brian Millar
  */
 public class Server {
+    
+    public static boolean IS_SERVER = false;
 
     public static boolean DEBUGGING = true;
     public static boolean TESTING   = false;
 
     private static final boolean HAS_SSL  = false;
 
-    public static final String DOMAIN         = "localhost";
+    public static final String DOMAIN         = IS_SERVER ? "139.59.166.250" : "localhost";
     public static final String MYSQL_USERNAME = "root";
-    public static final String MYSQL_PASSWORD = "";
+    public static final String MYSQL_PASSWORD = IS_SERVER ? "rainbowdash" : "";
     public static final String DATABASE_NAME  = "SWAVE";
     public static final String TEST_DB_NAME   = "SWAVE_TEST";
     public static final String DB_NAME        = TESTING ? TEST_DB_NAME : DATABASE_NAME;
     public static final int    MYSQL_PORT     = 3306;
-    public static final int    TOMCAT_PORT    = 8084;
+    public static final int    TOMCAT_PORT    = 8080;
     public static final String PROTOCOL       = HAS_SSL ? "https://" : "http://";
     public static final String DB_PROTOCOL    = "jdbc:mysql://";
     public static final String DB_DRIVER      = "com.mysql.jdbc.Driver";

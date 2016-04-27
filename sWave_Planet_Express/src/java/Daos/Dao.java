@@ -1,7 +1,6 @@
 package Daos;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -78,6 +77,8 @@ public class Dao {
             }
         } catch (SQLException ex) {
             System.out.println("Connection failed");
+            if (DEBUG)
+                ex.printStackTrace();
         }
         return con;
     }

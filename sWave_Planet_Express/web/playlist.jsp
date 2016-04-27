@@ -72,7 +72,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="Search"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -80,7 +80,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="Log Out"/>
                 </form>
             </div>
         </header>
@@ -111,20 +111,20 @@
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                             <input type="hidden" name="playlistid" value="<%=p.getPlaylistId()%>"/>
                             <input type="hidden" name="direction" value="up"/>
-                            <input type="submit" value="Move Up"/>
+                            <input class="button" type="submit" value="Move Up"/>
                         </form>
                         <form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="moveSongInPlaylist"/>
                             <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                             <input type="hidden" name="playlistid" value="<%=p.getPlaylistId()%>"/>
                             <input type="hidden" name="direction" value="down"/>
-                            <input type="submit" value="Move Down"/>
+                            <input class="button" type="submit" value="Move Down"/>
                         </form>
                         <form action="UserActionServlet" method="POST">
                             <input type="hidden" name="action" value="deleteFromPlaylist"/>
                             <input type="hidden" name="songId" value="<%=s.getSongId()%>"/>
                             <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
-                            <input type="submit" value="Remove"/>
+                            <input class="button" type="submit" value="Remove"/>
                         </form>
                     </li>
                     <%}%>

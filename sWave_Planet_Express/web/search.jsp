@@ -84,14 +84,14 @@
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="search"/>
-                    <input type="search" name="searchterm" placeholder="Search"/>
+                    <input type="search" class="text" name="searchterm" placeholder="Search"/>
                 </form>
                 <%if (currentUser != null) {%>
                     <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
                     &#160;&#160;
                     <form id="logOutButton" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="logout"/>
-                        <input type="submit" value="Log Out"/>
+                        <input class="button" type="submit" value="Log Out"/>
                     </form>
                 <%} else {
                         response.sendRedirect("login.jsp?refer=search.jsp");
@@ -126,13 +126,13 @@
                                     <input type="hidden" name="action" value="addSongToCart"/>
                                     <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
                                     <input type="hidden" name="price" value="<%=s.getPrice()%>"/>
-                                    <input type="submit" value="Add to Cart"/>
+                                    <input class="button" type="submit" value="Add to Cart"/>
                                 </form>
                             </td>
                             <td><form action="UserActionServlet" method="POST">
                                     <input type="hidden" name="action" value="stream"/>
                                     <input type="hidden" name="songid" value="<%=s.getSongId()%>"/>
-                                    <input type="submit" value="Play"/>
+                                    <input class="button" type="submit" value="Play"/>
                                 </form>
                             </td>
                         </tr>
@@ -148,7 +148,7 @@
                                     <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
                                     <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
                                     <input type="number" value="1" min="1" name="qty"/>
-                                    <input type="submit" value="Add to Cart"/>
+                                    <input class="button" type="submit" value="Add to Cart"/>
                                 </form>
                             </td>
                         </tr>
@@ -170,19 +170,19 @@
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="removeFriend"/>
                                 <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input type="submit" value="Unfriend"/>
+                                <input class="button danger" type="submit" value="Unfriend"/>
                             </form>        
                         <%} else if (!pending.contains(fnd)) {%>
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="requestFriend"/>
                                 <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input type="submit" value="Befriend"/>
+                                <input class="button" type="submit" value="Befriend"/>
                             </form>
                         <%} else if (friends.contains(fnd) && friends.get(friends.indexOf(fnd)).getFriendId() == currentUser.getUserId()) {%>
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="confirmFriend"/>
                                 <input type="hidden" name="friendId" value="<%=u.getUserId()%>"/>
-                                <input type="submit" value="Accept"/>
+                                <input class="button" type="submit" value="Accept"/>
                             </form>
                         <%} else {%>
                             Pending

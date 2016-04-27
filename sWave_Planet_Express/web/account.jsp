@@ -81,7 +81,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -89,7 +89,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
+                    <input type="submit" class="button" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>
@@ -100,7 +100,7 @@
             <a href="account.jsp?view=tickets" <%if (request.getParameter("view") != null && request.getParameter("view").equals("tickets")) {%>class="currentPageLink"<%}%>><%=messages.getString("ticketsVar")%></a>
             <a href="account.jsp?view=settings" <%if (request.getParameter("view") != null && request.getParameter("view").equals("settings")) {%>class="currentPageLink"<%}%>><%=messages.getString("settingsVar")%></a>
             <%if (currentUser != null && currentUser.isIsAdmin()) {%>
-                <a href="account.jsp?view=admin" <%if (request.getParameter("view") != null && request.getParameter("view").equals("admin")) {%>class="currentPageLink"<%}%>>Admin</a>
+            <a href="account.jsp?view=admin" <%if (request.getParameter("view") != null && request.getParameter("view").equals("admin")) {%>class="currentPageLink"<%}%>><%=messages.getString("adminVar")%></a>
             <%}%>
             <div id="visualizer"></div>
         </aside>
@@ -109,23 +109,23 @@
                 if (request.getParameter("view").equals("profile")) {%>
                     <div id="midUnderlay" class="panel"></div>
                     <div id="profileSidebar">
-                        <img id="largeUserPic" src="images/test.png" width="200" height="200"/>
-                        <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
-                        <h5><u><%=messages.getString("uploadNewPictureVar")%> (<%=messages.getString("maxVar")%> 64kb)</u></h5>
-                        <input id="userPicField" onchange="uploadUserPicture(<%=currentUser.getUserId()%>)" type="file" accept="image/*" name="userPicField"/><br/>
+                        <img onclick="$('userPicField').click()" id="largeUserPic" src="images/test.png" width="200" height="200"/>
                         <progress id="uploadProgress2" max="100" value="0"></progress><br/>
                         <span id="progressInfo2"></span><br/>
+                        <h5><u><%=messages.getString("uploadNewPictureVar")%> (<%=messages.getString("maxVar")%> 64kb)</u></h5>
+                        <input id="userPicField" onchange="uploadUserPicture(<%=currentUser.getUserId()%>)" type="file" accept="image/*" name="userPicField"/>
+                        <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
                     </div>
                     <h1><%=currentUser.getFname()%>'s <%=messages.getString("profileVar")%></h1>
                     <form action="UserActionServlet" method="POST" id="profileDetailsForm">
                         <input type="hidden" name="action" value="updateDetails"/>
-                        <label><%=messages.getString("usernameVar")%>: </label><input name="username" type="text" placeholder="<%=messages.getString("usernameVar")%>" value="<%=currentUser.getUsername()%>"/><br/><br/>
-                        <label><%=messages.getString("emailVar")%>: </label><input name="email" type="text" placeholder="<%=messages.getString("emailVar")%>" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$" value="<%=currentUser.getEmail()%>"/><br/><br/>
-                        <label><%=messages.getString("firstNameVar")%>: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="<%=messages.getString("firstNameVar")%>" value="<%=currentUser.getFname()%>"/><br/><br/>
-                        <label><%=messages.getString("lastNameVar")%>: </label><input pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="<%=messages.getString("lastNameVar")%>" value="<%=currentUser.getLname()%>"/><br/><br/>
-                        <label><%=messages.getString("addressLine1Var")%>: </label><input type="text" name="add1" placeholder="Address Line 1" value="<%=currentUser.getAdd1()%>"/><br/><br/>
-                        <label><%=messages.getString("addressLine2Var")%>: </label><input type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
-                        <label><%=messages.getString("cityVar")%>: </label><input type="text" name="city" placeholder="<%=messages.getString("cityVar")%>" value="<%=currentUser.getCity()%>"/><br/><br/>
+                        <label><%=messages.getString("usernameVar")%>: </label><input class="text" name="username" type="text" placeholder="<%=messages.getString("usernameVar")%>" value="<%=currentUser.getUsername()%>"/><br/><br/>
+                        <label><%=messages.getString("emailVar")%>: </label><input class="text" name="email" type="text" placeholder="<%=messages.getString("emailVar")%>" pattern="(.*)(\@)(.*)[.][a-z]{2,3}$" value="<%=currentUser.getEmail()%>"/><br/><br/>
+                        <label><%=messages.getString("firstNameVar")%>: </label><input class="text" pattern="^[A-Z]{1}[a-z]{2,19}$" name="fname" type="text" placeholder="<%=messages.getString("firstNameVar")%>" value="<%=currentUser.getFname()%>"/><br/><br/>
+                        <label><%=messages.getString("lastNameVar")%>: </label><input class="text" pattern="^[A-Z]{1}[a-z]{2,19}$" name="lname" type="text" placeholder="<%=messages.getString("lastNameVar")%>" value="<%=currentUser.getLname()%>"/><br/><br/>
+                        <label><%=messages.getString("addressLine1Var")%>: </label><input class="text" type="text" name="add1" placeholder="Address Line 1" value="<%=currentUser.getAdd1()%>"/><br/><br/>
+                        <label><%=messages.getString("addressLine2Var")%>: </label><input class="text" type="text" name="add2" placeholder="Address Line 2" value="<%=currentUser.getAdd2()%>"/><br/><br/>
+                        <label><%=messages.getString("cityVar")%>: </label><input class="text" type="text" name="city" placeholder="<%=messages.getString("cityVar")%>" value="<%=currentUser.getCity()%>"/><br/><br/>
                         <label><%=messages.getString("countyVar")%>: </label>
                         <select name="county">
                             <option value="CW" <%if (currentUser.getCounty().equals("CW")) {%>selected<%}%>>Carlow</option>
@@ -156,7 +156,7 @@
                             <option value="W" <%if (currentUser.getCounty().equals("W")) {%>selected<%}%>>Wicklow</option>
                         </select>
                         <br/><br/>
-                        <input type="submit" value="<%=messages.getString("updateDetailsVar")%>"/>
+                        <input class="button" type="submit" value="<%=messages.getString("updateDetailsVar")%>"/>
                     </form>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
                     <div id="midUnderlay" class="panel"></div>
@@ -223,7 +223,7 @@
                         <input type="hidden" name="action" value="createTicket"/>
                         <input type="hidden" name="userId" value="<%=currentUser.getUserId()%>"/>
                         <textarea id="ticketIssue" name="issue" placeholder="Use this area to describe your issue"></textarea><br/><br/>
-                        <input type="submit" value="Open"/>
+                        <input class="button" type="submit" value="Open"/>
                     </form>
                     <%
                         TicketDao tickDao = new TicketDao();
@@ -242,7 +242,7 @@
                                         <form style="margin-left:10px;" method="POST" action="UserActionServlet">
                                             <input type="hidden" name="action" value="closeTicket"/>
                                             <input type="hidden" name="ticketId" value="<%=t.getTicketId()%>"/>
-                                            <input type="submit" value="Close"/>
+                                            <input class="button" type="submit" value="Close"/>
                                         </form>
                                         <br/>
                                     </li>
@@ -282,7 +282,7 @@
                                             <form action="UserActionServlet" method="POST">
                                                 <input type="hidden" name="action" value="confirmFriend"/>
                                                 <input type="hidden" name="friendId" value="<%=f.getUserId()%>"/>
-                                                <input type="submit" value="Accept"/>
+                                                <input class="button" type="submit" value="Accept"/>
                                             </form>
                                         </li>
                                     <%}%>
@@ -305,7 +305,7 @@
                                             <form action="UserActionServlet" method="POST">
                                                 <input type="hidden" name="action" value="removeFriend"/>
                                                 <input type="hidden" name="friendId" value="<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>"/>
-                                                <input type="submit" class="danger" value="Unfriend"/>
+                                                <input type="submit" class="button danger" value="Unfriend"/>
                                             </form>
                                             <button onclick="openChat(<%=f.getFriendId()%>)">Chat</button>
                                         </span>
@@ -350,7 +350,7 @@
                                 <option onmouseover="previewSkin('9x')" <%if (currentUser.getSkin().toLowerCase().equals("9x")) {%>selected="selected"<%}%>>9x</option>
                             </select>
                                 <br/><br/>
-                            <input type="submit" value="Apply"/><br/><br/>
+                            <input class="button" type="submit" value="Apply"/><br/><br/>
                         </form>
                         <em>Your Skin Preference will stored in our database and maintained across machines.</em>
                         <br/>
@@ -402,7 +402,7 @@
 			</ul>
 		</div>
 		<span id="chatFooter">
-			<input type="text" id="chatTextBox" placeholder="Type to Chat"/>
+			<input class="text" type="text" id="chatTextBox" placeholder="Type to Chat"/>
 		</span>
 	</div>
     </body>

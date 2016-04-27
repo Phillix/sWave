@@ -61,14 +61,14 @@
             <div id="header_right">
                 <form id="searchBox" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="search"/>
-                    <input type="search" name="searchterm" placeholder="Search"/>
+                    <input type="search" class="text" name="searchterm" placeholder="Search"/>
                 </form>
                 <%if (currentUser != null) {%>
                     <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
                     &#160;&#160;
                     <form id="logOutButton" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="logout"/>
-                        <input type="submit" value="Log Out"/>
+                        <input class="button" type="submit" value="Log Out"/>
                     </form>
                 <%} else {
                         response.sendRedirect("login.jsp?refer=cart.jsp");

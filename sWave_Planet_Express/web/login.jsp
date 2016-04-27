@@ -53,21 +53,21 @@
                 <%if (request.getParameter("refer") != null) {%>
                     <input type="hidden" name="refer" value="<%=request.getParameter("refer")%>"/>
                 <%}%>
-                <input id="emailLoginField" class="text" type="text" name="email" placeholder="Email"/><br/>
-                <input id="passwordLoginField" class="text" type="password" name="password" placeholder="Password"/>
+                <input required id="emailLoginField" class="text" type="email" name="email" onkeyup="validateEmail('emailLoginField', 'green', 'red')" placeholder="Email"/><br/>
+                <input required id="passwordLoginField" class="text" type="password" name="password" placeholder="Password"/>
                 <br/><br/>
-                <input class="lButton" id="loginButton" type="submit" value="Login"/>
-                <input class="lButton" onclick="event.preventDefault(); $('loginForm').style.display='none'; $('registerForm').style.display='block';" type="button" value="Sign Up"/>
+                <input class="button lButton" id="loginButton" type="submit" value="Login"/>
+                <input class="button lButton" onclick="event.preventDefault(); $('loginForm').style.display='none'; $('registerForm').style.display='block';" type="button" value="Sign Up"/>
             </form>
             <form id="registerForm" onsubmit="validateRegistration(event)" style="display:none;" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="register"/>
-                <input id="usernameRegField" name="username" type="text" placeholder="Username"/><br/>
-                <input id="emailRegField" name="email" type="text" placeholder="Email"/><br/>
-                <input id="passwordRegField" name="password" type="password" placeholder="Password"/><br/>
-                <input id="fnameRegField" name="fname" type="text" placeholder="First Name"/><br/>
-                <input id="lnameRegField" name="lname" type="text" placeholder="Last Name"/><br/>
-                <input class="lButton" type="submit" value="Sign Up"/>
-                <input class="lButton" onclick="event.preventDefault(); $('registerForm').style.display='none'; $('loginForm').style.display='block';" type="button" value="Log In"/>
+                <input required id="usernameRegField" name="username" class="text" type="text" placeholder="Username"/><br/>
+                <input required id="emailRegField" name="email" class="text" type="email" onkeyup="validateEmail('emailRegField', 'green', 'red')" placeholder="Email"/><br/>
+                <input required id="passwordRegField" name="password" class="text" type="password" placeholder="Password"/><br/>
+                <input required id="fnameRegField" name="fname" class="text" type="text" placeholder="First Name"/><br/>
+                <input required id="lnameRegField" name="lname" class="text" type="text" placeholder="Last Name"/><br/>
+                <input class="button lButton" type="submit" value="Sign Up"/>
+                <input class="button lButton" onclick="event.preventDefault(); $('registerForm').style.display='none'; $('loginForm').style.display='block';" type="button" value="Log In"/>
             </form>
         </div>
         <div id="wallpaper"></div>

@@ -52,7 +52,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -60,7 +60,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
         </header>

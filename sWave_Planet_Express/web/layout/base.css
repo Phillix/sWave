@@ -83,6 +83,14 @@ h1 {
     border-radius: 60px;
 }
 
+#userPicField {
+    display: none;
+}
+
+#uploadProgress2 {
+    width: 100%;
+}
+
 #userMenu {
     display:  none;
     position: fixed;
@@ -90,7 +98,7 @@ h1 {
     right:    0px;
     padding:  10px;
     z-index:  3;
-    -moz-animation: fadein 0.4s;
+    -moz-animation: expand 0.4s;
 }
 
 #userNameDisplay {
@@ -98,8 +106,13 @@ h1 {
 }
 
 #logOutButton {
-    float:      right;
-    margin-top: 60px;
+    float: right;
+}
+
+#langForm {
+    float:        left;
+    margin-top:   10px;
+    margin-right: 20px;
 }
 
 nav {
@@ -334,11 +347,16 @@ p.ticketIssue {
     max-width: 500px;
 }
 
-#profileDetailsForm input {
+#profileDetailsForm input, select {
     float: right;
 }
 
 #largeUserPic {
+    cursor: pointer;
+}
+
+#largeUserPic:hover {
+    opacity: 0.7;
 }
 
 #nameDisplay {
@@ -530,6 +548,7 @@ ul {
     z-index:  -1;
     top:      60px;
     left:     200px;
+    padding:  0px;
     width:    calc(100% - 200px);
     height:   calc(100% - 110px);
 }
@@ -537,6 +556,7 @@ ul {
 #midUnderlayOmni {
     position: fixed;
     z-index:  -1;
+    padding:  0px;
     top:      90px;
     left:     200px;
     width:    calc(100% - 200px);
@@ -565,6 +585,7 @@ ul {
     background-color:   rgba(0, 0, 0, 0.9);
     box-shadow:         0px 0px 4px #000;
     -webkit-transition: 0.4s;
+    display: none;
 }
 
 #chatHeader {

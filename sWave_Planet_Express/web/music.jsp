@@ -70,13 +70,15 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
 
             <div id="userMenu" class="panel">
-                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
+                <a href="account.jsp?view=friends"><%=messages.getString("friendsVar")%></a><br/>
+                <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
                 <form id="langForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="updateDetails"/>
                     <input type="hidden" name="refPage" value="music.jsp"/>
@@ -91,9 +93,10 @@
                 </form>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="<%=messages.getString("logoutVar")%>"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
+
         </header>
         <aside class="panel" id="left_sidebar">
             <a href="playing.jsp"><%=messages.getString("nowPlayingVar")%></a>
@@ -158,7 +161,7 @@
                                 <polygon class="iconPolyFilled" points="33,25 33,75 80,50"/>
                             </svg>
                         </div>
-                        <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/MP3.png"/>
+                        <img class="artwork" id="artwork<%=s.getSongId()%>" alt="Artwork for <%=s.getAlbum()%>" src="images/artwork.png"/>
                         <script>loadArtwork(<%=s.getSongId()%>, $("artwork<%=s.getSongId()%>"))</script>
                         <%if (s.getTitle() != null && !s.getTitle().isEmpty() && !s.getTitle().equalsIgnoreCase("Title")) {%>
                             <span class="songTitle"><%=s.getTitle()%>
@@ -198,7 +201,7 @@
                             <option value="<%=p.getPlaylistId()%>"><%=p.getTitle()%></option>
                         <%}%>
                 </select><br/>
-                <input type="submit" value="Add"/>
+                <input class="button" type="submit" value="Add"/>
             </form>
         </div>
         <div id="notifier" class="panel"></div>

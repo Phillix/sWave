@@ -24,18 +24,30 @@ a:hover {
 }
 
 button {
-    border: none;
-    border-radius: 3px;
-    font-size: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
-    color:         #e3e3e3;
+    border:           none;
+    border-radius:    3px;
+    font-size:        12px;
+    padding-top:      4px;
+    padding-bottom:   4px;
+    padding-left:     6px;
+    padding-right:    6px;
+    color:            #e3e3e3;
     background-color: rgba(49, 146, 153, 0.1);
 }
 
-input {
+input.button {
+    border:           none;
+    border-radius:    3px;
+    font-size:        12px;
+    padding-top:      4px;
+    padding-bottom:   4px;
+    padding-left:     6px;
+    padding-right:    6px;
+    color:            #e3e3e3;
+    background-color: rgba(49, 146, 153, 0.1);
+}
+
+input.text {
     color: #e3e3e3;
     background-color: rgba(49, 146, 153, 0.1);
     border: none;
@@ -47,9 +59,21 @@ input {
     -moz-transition: 0.4s;
 }
 
-input:focus {
+input.text:focus {
     background-color: rgba(49, 146, 153, 0.2);
     -moz-transition: 0.4s;
+}
+
+select {
+    color:            #e3e3e3;
+    background-color: rgba(49, 146, 153, 0.1);
+    border:           none;
+    font-size:        12px;
+    padding-top:      4px;
+    padding-bottom:   4px;
+    padding-left:     6px;
+    padding-right:    6px;
+    -moz-transition:  0.4s;
 }
 
 .panel {

@@ -67,7 +67,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="Search"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -75,7 +75,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="Log Out"/>
                 </form>
             </div>
         </header>
@@ -91,8 +91,8 @@
                 <form id="createPlaylistForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="createPlaylist"/>
                     <label>New Playlist: </label>
-                    <input required type="text" name="playlistTitle" placeholder="Playlist Title"/>
-                    <input type="submit" value="Create"/>
+                    <input required type="text" class="text" name="playlistTitle" placeholder="Playlist Title"/>
+                    <input class="button" type="submit" value="Create"/>
                 </form>
             </div>
             <ul id="itemList">
@@ -111,7 +111,7 @@
                             <form action="UserActionServlet" method="POST">
                                 <input type="hidden" name="action" value="deletePlaylist"/>
                                 <input type="hidden" name="playlistId" value="<%=p.getPlaylistId()%>"/>
-                                <input type="submit" value="Delete"/>
+                                <input class="button danger" type="submit" value="Delete"/>
                             </form>
                             <button>Play</button>
                         </div>

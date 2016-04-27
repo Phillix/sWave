@@ -56,7 +56,7 @@
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="Search"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -64,7 +64,7 @@
                 <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" value="Log Out"/>
+                    <input class="button" type="submit" value="Log Out"/>
                 </form>
             </div>
         </header>
@@ -81,8 +81,8 @@
                     <a href="account.jsp?view=profile">Add One Now</a><br/>
                 <h2>Enter Card Details</h2>
                 <h5>Note: We do not store your card details</h5>
-                <input id="cardNumField" onkeyup="validateCardNum()" required type="text" name="card_num" placeholder="xxxx-xxxx-xxxx-xxxx"/><br/>
-                <input type="submit" value="Buy"/>
+                <input id="cardNumField" onkeyup="validateCardNum()" required class="text" type="text" name="card_num" placeholder="xxxx-xxxx-xxxx-xxxx"/><br/>
+                <input class="button" type="submit" value="Buy"/>
             </form>
         </div>
         <%=sWave.UI.footer%>

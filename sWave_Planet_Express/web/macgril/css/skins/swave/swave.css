@@ -24,6 +24,7 @@ a:hover {
 }
 
 button {
+    outline:          none;
     border:           none;
     border-radius:    3px;
     font-size:        12px;
@@ -33,6 +34,10 @@ button {
     padding-right:    6px;
     color:            #e3e3e3;
     background-color: rgba(49, 146, 153, 0.1);
+}
+
+input {
+    outline: none;
 }
 
 input.button {
@@ -74,6 +79,21 @@ select {
     padding-left:     6px;
     padding-right:    6px;
     -moz-transition:  0.4s;
+}
+
+input.slider {
+    appearance:      none;
+    -moz-appearance: none;
+}
+
+progress {
+    outline:         none;
+    appearance:      none;
+    -moz-appearance: none;
+}
+
+-moz-progress-bar {
+    background-color: pink;
 }
 
 .panel {

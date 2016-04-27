@@ -85,13 +85,29 @@
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            
             <div id="userMenu" class="panel">
-                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
+                <a href="account.jsp?view=friends"><%=messages.getString("friendsVar")%></a><br/>
+                <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
+                <form id="langForm" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="updateDetails"/>
+                    <input type="hidden" name="refPage" value="music.jsp"/>
+                    <select name="lang" onchange="$('langForm').submit()">
+                        <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
+                        <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
+                        <option value="de" <%if (currentLocale.getLanguage().equals("de")) {%>selected<%}%>>German</option>
+                        <option value="it" <%if (currentLocale.getLanguage().equals("it")) {%>selected<%}%>>Italian</option>
+                        <option value="jp" <%if (currentLocale.getLanguage().equals("jp")) {%>selected<%}%>>Japanese</option>
+                        <option value="ru" <%if (currentLocale.getLanguage().equals("ru")) {%>selected<%}%>>Russian</option>
+                    </select>
+                </form>
                 <form id="logOutButton" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="logout"/>
-                    <input type="submit" class="button" value="<%=messages.getString("logoutVar")%>"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
             </div>
+            
         </header>
         <aside class="panel" id="left_sidebar">
             <a href="account.jsp?view=profile" <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>class="currentPageLink"<%}%>><%=messages.getString("profileVar")%></a>
@@ -297,28 +313,28 @@
                             <%for (Friend f : friends) {%>
                                 <%if (f.getStatus() == 'c') {%>
                                     <li class="panel listing songListing">
-                                        <img class="artwork" id="face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2" src="images/test.png" width="100" height="100"/>
-                                        <script>loadUserPicture(<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>, $('face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2'))</script>
-                                        <span class="songTitle"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getFname()%>&#160;<%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getLname()%></span><br/>
-                                        <span class="songArtist"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getUsername()%></span>
-                                        <span class="listingRight">
+                                        <div class="listingRight">
                                             <form action="UserActionServlet" method="POST">
                                                 <input type="hidden" name="action" value="removeFriend"/>
                                                 <input type="hidden" name="friendId" value="<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>"/>
                                                 <input type="submit" class="button danger" value="Unfriend"/>
-                                            </form>
+                                            </form><br/>
                                             <button onclick="openChat(<%=f.getFriendId()%>)">Chat</button>
-                                        </span>
-                                    </li>
-                                <%} else if (f.getStatus() == 'p' && f.getUserId() == currentUser.getUserId()) {%>
-                                    <li class="panel listing songListing">
+                                        </div>
                                         <img class="artwork" id="face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2" src="images/test.png" width="100" height="100"/>
                                         <script>loadUserPicture(<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>, $('face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2'))</script>
                                         <span class="songTitle"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getFname()%>&#160;<%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getLname()%></span><br/>
                                         <span class="songArtist"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getUsername()%></span>
-                                        <span class="listingRight">
+                                    </li>
+                                <%} else if (f.getStatus() == 'p' && f.getUserId() == currentUser.getUserId()) {%>
+                                    <li class="panel listing songListing">
+                                        <div class="listingRight">
                                             Pending
-                                        </span>
+                                        </div>
+                                        <img class="artwork" id="face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2" src="images/test.png" width="100" height="100"/>
+                                        <script>loadUserPicture(<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>, $('face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2'))</script>
+                                        <span class="songTitle"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getFname()%>&#160;<%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getLname()%></span><br/>
+                                        <span class="songArtist"><%=udao.getUserById(f.getUserId() == currentUser.getUserId() ? f.getFriendId() : f.getUserId()).getUsername()%></span>
                                     </li>
                               <%}
                             }%>

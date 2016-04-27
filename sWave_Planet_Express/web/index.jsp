@@ -60,7 +60,9 @@
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
             
             <div id="userMenu" class="panel">
-                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
+                <%if (currentUser != null) {%>
+                    <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a><br/><br/>
+                <%}%>
                 <a href="account.jsp?view=friends"><%=messages.getString("friendsVar")%></a><br/>
                 <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
                 <form id="langForm" action="UserActionServlet" method="POST">

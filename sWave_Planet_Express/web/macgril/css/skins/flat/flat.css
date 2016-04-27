@@ -24,15 +24,15 @@ a:hover {
 }
 
 button {
-	border: none;
-	border-radius: 3px;
-	font-size: 12px;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-left: 6px;
-	padding-right: 6px;
+	border:           none;
+	border-radius:    0px;
+	font-size:        12px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	padding-left:     6px;
+	padding-right:    6px;
 	background-image: URL("images/button_default.png");
-	background-size: 100% 100%;
+	background-size:  100% 100%;
 }
 
 button:hover {
@@ -44,15 +44,15 @@ button:active {
 }
 
 input {
-    color: #000;
-	border: none;
-	font-size: 12px;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-left: 6px;
-	padding-right: 6px;
+        color:            #000;
+	border:           none;
+	font-size:        12px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	padding-left:     6px;
+	padding-right:    6px;
 	background-color: rgba(255, 255, 255, 0.6);
-        -moz-transition: 0.4s;
+        -moz-transition:  0.4s;
 }
 
 input:focus {

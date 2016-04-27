@@ -658,3 +658,7 @@ li.chatMessageMe {
     text-shadow:      0px 0px 1px #000;
     box-shadow:       1px 1px 3px #000;
 }
+
+#volSlider {
+    margin-bottom: 3px;
+}

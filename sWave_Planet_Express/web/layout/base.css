@@ -463,12 +463,13 @@ ul {
 }
 
 #songArtLarge {
+    position:     fixed;
     display:      block;
-    width:        30%;
-    height:       30%;
-    margin-top:   10%;
-    margin-left:  auto;
-    margin-right: auto;
+    height:       400px;
+    width:        400px;
+    top:          calc(50% - 200px); 
+    left:         calc(50% - 200px);
+    right:        calc(50% - 200px);
     box-shadow:   0px 0px 20px #000;
 }
 

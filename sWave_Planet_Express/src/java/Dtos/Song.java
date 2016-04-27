@@ -251,5 +251,4 @@ public class Song implements Serializable {
             return false;
         return Objects.equals(this.genre, other.genre);
     }
-
 }

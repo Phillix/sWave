@@ -33,6 +33,9 @@
             if (request.getParameter("pageNum") != null) {
                 pageNum = Integer.parseInt(request.getParameter("pageNum"));
             }
+
+            Locale currentLocale    = new Locale(currentUser.getLangPref());
+            ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -62,10 +65,6 @@
         <header class="panel" id="topbar">
             <%=sWave.Graphics.getLogo()%>
             <nav>
-                <%
-                    Locale currentLocale = new Locale("jp");
-                    ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
-                %>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a class="currentPageLink" href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
@@ -99,7 +98,7 @@
             <div id="midUnderlayOmni" class="panel"></div>
             <div id="omniBar" class="panel">
                 <span id="pageSwitcher">
-                    Page: 
+                    <%=messages.getString("paginationVar")%>: 
                     <%for (int i = 1; i <= numPages; i++) {%>
                         <a href="music.jsp?pageNum=<%=i%>" class="pageNum <%if (i == pageNum) {%>currentPageNum<%}%>"><%=i%></a>
                     <%}%>

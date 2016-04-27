@@ -1,3 +1,5 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +15,9 @@
                 currentUser = (User)session.getAttribute("user");
                 skin = currentUser.getSkin();
             }
+            
+            Locale currentLocale    = new Locale(currentUser.getLangPref());
+            ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
@@ -43,7 +48,7 @@
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a class="currentPageLink" href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a class="currentPageLink" href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
@@ -62,9 +67,9 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a class="currentPageLink" href="playing.jsp">Now Playing</a>
-            <a href="music.jsp">Library</a>
-            <a href="playlists.jsp">Playlists</a>
+            <a class="currentPageLink" href="playing.jsp"><%=messages.getString("nowPlayingVar")%></a>
+            <a href="music.jsp"><%=messages.getString("libraryVar")%></a>
+            <a href="playlists.jsp"><%=messages.getString("playlistsVar")%></a>
         </aside>
         <img id="songArtLarge"/>
         <div id="midsection">

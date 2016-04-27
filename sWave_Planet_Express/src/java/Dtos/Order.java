@@ -31,43 +31,83 @@ public class Order {
         this.total = total;
     }
 
+    /**
+     * Getting the id of the order
+     * @return the id of the order
+     */
     public int getOrderId() {
         return orderId;
     }
-
+    
+    /**
+     * Setting the id of the order
+     * @param orderId the new id of the order
+     */
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
+    /**
+     * Getting the user id from the order
+     * @return the user id
+     */
     public int getUserId() {
         return userId;
     }
-
+    
+    /**
+     * Setting the user id for the order
+     * @param userId the new user id for the order
+     */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /**
+     * Getting the date the order was placed
+     * @return the date the order was placed
+     */
     public String getDateOrdered() {
         return dateOrdered;
     }
 
+    /**
+     * Setting the date that the order was placed
+     * @param dateOrdered the new date that the order is placed
+     */
     public void setDateOrdered(String dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
 
+    /**
+     * Getting the total cost of the order
+     * @return the total cost of the order
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Setting the total cost of the order
+     * @param total the new total cost of the order
+     */
     public void setTotal(double total) {
         this.total = total;
     }
 
+    /**
+     * The toString method for providing an easy way of printing all details of the Order
+     * @return a String representing all details of the order
+     */
     @Override
     public String toString() {
         return "Order{" + "orderId=" + orderId + ", userId=" + userId + ", dateOrdered=" + dateOrdered + ", total=" + total + '}';
     }
 
+    /**
+     * A hash code method for hashing each Order
+     * @return an int with the hash of this Order
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -78,6 +118,11 @@ public class Order {
         return hash;
     }
 
+    /**
+     * An equals method for checking if this Order is equal to another object
+     * @param obj The object you wish to compare this Order to
+     * @return a boolean value representing if this Order is equal to the argument
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null)

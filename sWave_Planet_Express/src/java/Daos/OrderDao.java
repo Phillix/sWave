@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * The OrderDao class is used for communicating with Order table in the database
  * @author Phillix
  */
 public class OrderDao extends Dao implements OrderDaoInterface {
@@ -246,5 +246,43 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             }
         }
         return o;
+    }
+    
+    /**
+     * This method is used for deleting an order based on order id
+     * @param orderId The id of the order to be deleted
+     * @return an int indicating success, failure, or exceptions
+     */
+    public int deleteOrder(int orderId) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+            ps  = con.prepareStatement("DELETE FROM " + TABLE_NAME +
+                                       " WHERE " + ID + " = ?");
+            ps.setInt(1, orderId);
+            int result = ps.executeUpdate();
+            if (result > 0) return SUCCESS;
+        }
+        catch(Exception e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return OTHER;
+        }
+        finally {
+            try {
+                if(ps != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if(DEBUG)
+                    e.printStackTrace();
+                return SQLEX;
+            }
+        }
+        return OTHER;
     }
 }

@@ -10,4 +10,5 @@ import java.util.ArrayList;
 public interface OrderSongDaoInterface {
     public int createOrderSong(OrderSong os);
     public ArrayList<OrderSong> getOrderSongInOrder(int orderId);
+    public int deleteOrderSong(int orderId);
 }

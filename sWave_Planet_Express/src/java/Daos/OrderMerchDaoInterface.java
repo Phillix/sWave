@@ -10,4 +10,5 @@ import java.util.ArrayList;
 public interface OrderMerchDaoInterface {
     public int createOrder(OrderMerch om);
     public ArrayList<OrderMerch> getOrderMerchInOrder(int orderId);
+    public int deleteOrderMerch(int orderId);
 }

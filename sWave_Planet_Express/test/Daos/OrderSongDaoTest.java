@@ -1,21 +1,22 @@
 package Daos;
 
 import Dtos.OrderSong;
-import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Class for testing OrderSongDao methods, for valid and invalid
+ * @author Austin
  * @author Phillix
  */
 public class OrderSongDaoTest {
     static MyDataSource ds = new MyDataSource();
     static OrderSongDao instance;
+    static OrderSong os;
+    static OrderSong os1;
     public OrderSongDaoTest() {
     }
     
@@ -24,40 +25,74 @@ public class OrderSongDaoTest {
         instance = new OrderSongDao(ds);
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
+        os = new OrderSong();
+        instance.createOrderSong(os);
     }
     
     @After
     public void tearDown() {
+        instance.deleteOrderSong(os.getOrderId());
     }
 
     /**
-     * Test of createOrderSong method, of class OrderSongDao.
+     * Test of createOrder method being valid, of class OrderSongDao.
      */
-//    @Test
-//    public void testCreateOrderSong() {
-//        
-//        OrderSong os = new OrderSong(-1,-1, 7.00);
-//        instance = new OrderSongDao();
-//        int expResult = 0;
-//        int result = instance.createOrderSong(os);
-//        assertEquals(expResult, result);
-//    }
+    @Test
+    public void testCreateOrderValid() {
+        boolean result = instance.getOrderSongInOrder(os.getOrderId()).size() == 0;
+        boolean expResult = false;
+        assertEquals(expResult, result);
+    }
     
     /**
-    * Test of getOrderSongInOrder method, of class OrderSongDao.
-    */
+     * Test of createOrder method being invalid, of class OrderSongDao.
+     */
     @Test
-    public void testGetOrderSongInOrder() {
-        
-        ArrayList<OrderSong> os = instance.getOrderSongInOrder(-1);
-        for(OrderSong o : os) {
-            System.out.println(o);
-        }
+    public void testCreateOrderInvalid() {
+        boolean result = instance.getOrderSongInOrder(3).size() == 0;
+        boolean expResult = true;
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getOrderSongInOrderValid method being valid, of class OrderSongDao.
+     */
+    @Test
+    public void testGetOrderSongInOrderValid() {
+        boolean result = instance.getOrderSongInOrder(os.getOrderId()).size() == 1;
+        boolean expResult = true;
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getOrderSongInOrderValid method being invalid, of class OrderSongDao.
+     */
+    @Test
+    public void testGetOrderSongInOrderInvalid() {
+        boolean result = instance.getOrderSongInOrder(os.getOrderId()).size() == 0;
+        boolean expResult = false;
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of deleteOrderSong method being valid, of class OrderSongDao.
+     */
+    @Test
+    public void testDeleteOrderSongValid() {
+        int result = instance.deleteOrderSong(os.getOrderId());
+        int expResult = 0;
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of deleteOrderSong method being invalid, of class OrderSongDao.
+     */
+    @Test
+    public void testDeleteOrderSongInvalid() {
+        int result = instance.deleteOrderSong(4);
+        int expResult = -5;
+        assertEquals(expResult, result);
     }
 }

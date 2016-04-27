@@ -1,3 +1,5 @@
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Dtos.Playlist"%>
 <%@page import="Daos.PlaylistDao"%>
@@ -60,12 +62,16 @@
         <header class="panel" id="topbar">
             <%=sWave.Graphics.getLogo()%>
             <nav>
+                <%
+                    Locale currentLocale = new Locale("jp");
+                    ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
+                %>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a class="currentPageLink" href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a class="currentPageLink" href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" name="searchterm" placeholder="Search"/>
+                <input type="search" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -78,9 +84,9 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="playing.jsp">Now Playing</a>
-            <a class="currentPageLink" href="music.jsp">Library</a>
-            <a href="playlists.jsp">Playlists</a>
+            <a href="playing.jsp"><%=messages.getString("nowPlayingVar")%></a>
+            <a class="currentPageLink" href="music.jsp"><%=messages.getString("libraryVar")%></a>
+            <a href="playlists.jsp"><%=messages.getString("playlistsVar")%></a>
             <div id="visualizer"></div>
         </aside>
             <%

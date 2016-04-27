@@ -33,6 +33,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
     private final String CITY       = "CITY";
     private final String COUNTY     = "COUNTY";
     private final String SKIN       = "SKIN";
+    private final String LANG       = "LANGPREF";
     private final String PICTURE    = "PICTURE";
     private final String ADMIN      = "ADMIN";
     
@@ -107,7 +108,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
         try {
             con          = getConnection();
-            Blob b       = null;
             String query = "INSERT INTO " +
                            TABLE_NAME + " (" +
                            EMAIL      + ", " +
@@ -120,7 +120,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
                            CITY       + ", " +
                            COUNTY     + ", " +
                            SKIN       + ", " +
-                           PICTURE    + ", " +
+                           LANG       + ", " +
                            ADMIN      + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
@@ -133,7 +133,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(8, u.getCity());
             ps.setString(9, u.getCounty());
             ps.setString(10, u.getSkin());
-            ps.setBlob(11, b);
+            ps.setString(11, u.getLangPref());
             ps.setBoolean(12, u.isIsAdmin());
 
             if (ps.executeUpdate() > 0)
@@ -197,6 +197,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
                     u.setCity(rs.getString(CITY));
                     u.setCounty(rs.getString(COUNTY));
                     u.setSkin(rs.getString(SKIN));
+                    u.setLangPref(rs.getString(LANG));
                     u.setIsAdmin(rs.getBoolean(ADMIN));
 
                     return u;
@@ -422,11 +423,6 @@ public class UsersDao extends Dao implements UserDaoInterface {
 
             if(rs.next()) {
                 String dbPass = rs.getString(PASSWORD);
-                Blob picture = rs.getBlob(PICTURE);
-                byte pic[] = null;
-                if (picture != null)
-                    pic = picture.getBytes(1, (int)picture.length());
-
                 u = new User();
                 u.setUserId(rs.getInt(USERID));
                 u.setUsername(rs.getString(UNAME));
@@ -439,7 +435,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
                 u.setCity(rs.getString(CITY));
                 u.setCounty(rs.getString(COUNTY));
                 u.setSkin(rs.getString(SKIN));
-                u.setPicture(pic);
+                u.setLangPref(rs.getString(LANG));
                 u.setIsAdmin(rs.getBoolean(ADMIN));
 
                 return u;
@@ -479,7 +475,7 @@ public class UsersDao extends Dao implements UserDaoInterface {
             con          = getConnection();
             String query = "UPDATE " + TABLE_NAME + " SET " + EMAIL + " = ?, " + USER_NAME + " = ?, "
                     + FNAME + " = ?, " + LNAME + " = ?, " + ADD1 + " = ?, " + ADD2 + " = ?, " + CITY + " = ?, " + COUNTY + " = ?, " + SKIN
-                    + " = ? WHERE " + USERID + " = ?";
+                    + " = ?, " + LANG + " = ? WHERE " + USERID + " = ?";
             ps           = con.prepareStatement(query);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getUsername());
@@ -490,7 +486,8 @@ public class UsersDao extends Dao implements UserDaoInterface {
             ps.setString(7, u.getCity());
             ps.setString(8, u.getCounty());
             ps.setString(9, u.getSkin());
-            ps.setInt(10, u.getUserId());
+            ps.setString(10, u.getLangPref());
+            ps.setInt(11, u.getUserId());
             int result = ps.executeUpdate();
             if (result > 0) return SUCCESS;
 
@@ -522,10 +519,10 @@ public class UsersDao extends Dao implements UserDaoInterface {
     @Override
     public ArrayList<User> searchUsers(String searchWord) {
         
-        Connection con = null;
+        Connection con       = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        User u = null;
+        ResultSet rs         = null;
+        User u               = null;
         ArrayList<User> users;
 
         try {

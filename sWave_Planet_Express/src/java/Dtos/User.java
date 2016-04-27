@@ -6,8 +6,17 @@ import java.util.Objects;
 /**
  *
  * @author Phillix
+ * @author Brian Millar
  */
 public class User implements Serializable {
+    
+    /*
+        The user picture is not used in this DTO as it is never loaded into the 
+        object. Passing large binary data around with the object is too 
+        inefficient, instead we use the userId to look up the picture through 
+        the DAO when we need it rather than always carrying it around.
+    */
+    
     private int     userId;
     private String  email;
     private String  password;
@@ -19,7 +28,7 @@ public class User implements Serializable {
     private String  city;
     private String  county;
     private String  skin;
-    private byte[]  picture;
+    private String  langPref;
     private boolean isAdmin;
 
     public User() {
@@ -33,11 +42,11 @@ public class User implements Serializable {
         city     = "city";
         county   = "CN";
         skin     = "swave";
-        picture  = null;
+        langPref = "en";
         isAdmin  = false;
     }
 
-    public User(String email, String password, String username, String fname, String lname, String add1, String add2, String city, String county, String skin, byte[] picture, boolean isAdmin) {
+    public User(String email, String password, String username, String fname, String lname, String add1, String add2, String city, String county, String skin, String lang, boolean isAdmin) {
         this.email    = email;
         this.password = password;
         this.username = username;
@@ -48,7 +57,7 @@ public class User implements Serializable {
         this.city     = city;
         this.county   = county;
         this.skin     = skin;
-        this.picture  = picture;
+        this.langPref = lang;
         this.isAdmin  = isAdmin;
     }
 
@@ -140,12 +149,12 @@ public class User implements Serializable {
         this.skin = skin;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getLangPref() {
+        return langPref;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public void setLangPref(String langPref) {
+        this.langPref = langPref;
     }
 
     public boolean isIsAdmin() {
@@ -158,7 +167,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId + ", email=" + email + ", password=" + password + ", username=" + username + ", fname=" + fname + ", lname=" + lname + ", add1=" + add1 + ", add2=" + add2 + ", city=" + city + ", county=" + county + ", skin=" + skin + ", isAdmin=" + isAdmin + '}';
+        return "User{" + "userId=" + userId + ", email=" + email + ", password=" + password + ", username=" + username + ", fname=" + fname + ", lname=" + lname + ", add1=" + add1 + ", add2=" + add2 + ", city=" + city + ", county=" + county + ", skin=" + skin + ", langPref=" + langPref + ", isAdmin=" + isAdmin + '}';
     }
 
     @Override

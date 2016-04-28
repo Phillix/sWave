@@ -40,6 +40,7 @@ function showHideUserMenu() {
 function clearlStore() {
     lStore("currentSongId", "del");
     lStore("playTime", "del");
-    lStore("volume", "del")
+    lStore("volume", "del");
+    lStore("isPaused", "del");
     notify($("notifier"), "Your Locally Stored Settings & Data were Cleared.", 4000);
 }

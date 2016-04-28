@@ -36,6 +36,16 @@ button {
     background-color: rgba(49, 146, 153, 0.1);
 }
 
+textarea {
+    font:             regularRaleway;
+    font-size:        12px;
+    padding:          10px;
+    border:           none;
+    outline:          none;
+    color:            #e3e3e3;
+    background-color: rgba(49, 146, 153, 0.1);
+}
+
 input {
     outline: none;
 }

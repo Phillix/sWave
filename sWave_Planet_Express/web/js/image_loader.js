@@ -15,7 +15,7 @@ function loadArtwork(songid, image, image2) {
             });
         }
         else
-            image.src = "images/MP3.png";
+            image.src = "images/artwork.png";
     };
     request.send(formdata);
 }

@@ -24,7 +24,7 @@
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title>Welcome to sWave</title>
+        <title><%=messages.getString("welcomeVar")%></title>
         <!-- Import base Macgril CSS rules -->
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <!-- Import Macgril's set of CSS animations -->
@@ -44,17 +44,18 @@
         <script src="js/audio_system.js"></script>
         <script src="js/image_loader.js"></script>
         <script src="js/streamer.js"></script>
+        <script src="js/scripts.js"></script>
     </head>
     <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">
             <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
-                <a href="playing.jsp">Music</a><a href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
             <form id="searchBox" action="UserActionServlet" method="POST">
                 <input type="hidden" name="action" value="search"/>
-                <input type="search" class="text" name="searchterm" placeholder="Search"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
             </form>
             <%=sWave.Graphics.s_cart%>
             <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
@@ -67,7 +68,7 @@
                 <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
                 <form id="langForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="updateDetails"/>
-                    <input type="hidden" name="refPage" value="music.jsp"/>
+                    <input type="hidden" name="refPage" value="index.jsp"/>
                     <select name="lang" onchange="$('langForm').submit()">
                         <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
                         <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
@@ -85,11 +86,22 @@
             
         </header>
         <aside class="panel" id="left_sidebar" style="right:0px; left: unset;">
+            <%
+                AdDao ads = new AdDao();
+                int check = (int)Math.ceil(Math.random() * ads.getMaxAdId());
+                Ad ad = ads.getAd(check);
+            %>
+            <iframe id="ads" src="<%=ad.getAdUrl()%>"></iframe>
+            <strong><%=messages.getString("advertVar")%></strong>
             <div id="visualizer" style="right:0px; left:unset;"></div>
         </aside>
         <div id="midsection" style="left:0px; right:200px;">
             <div id="midUnderlay" class="panel" style="left:0px; right:200px;"></div>
-            <h1>Welcome to Project sWave</h1>
+            <h1><%=messages.getString("welcomeVar")%></h1>
+            <p>
+                <%=messages.getString("introVar")%>
+            </p>
+            <video id="promoVid" src="videos/promo.webm" width="640" height="480"></video>
         </div>
         <%=sWave.UI.footer%>
         <div id="notifier" class="panel"></div>

@@ -1,4 +1,4 @@
-function stream(songid, onPlayingPage) {
+function stream(songid, onPlayingPage, resuming) {
     var request  = new XMLHttpRequest();
     var formdata = new FormData();
     request.responseType = 'blob';
@@ -11,6 +11,9 @@ function stream(songid, onPlayingPage) {
             initsWaveAudio(genURL(blob));
             lStore("currentSongId", songid);
             setSongInfoDisplay(songid, onPlayingPage);
+            if (resuming)
+                if (lStore("isPaused") !== null && lStore("isPaused") !== undefined)
+                    player.pause();
         }
     };
     request.send(formdata);

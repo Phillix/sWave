@@ -87,6 +87,10 @@ h1 {
     display: none;
 }
 
+#uploadProgress {
+    width: 400px;
+}
+
 #uploadProgress2 {
     width: 100%;
 }
@@ -661,4 +665,10 @@ li.chatMessageMe {
 
 #volSlider {
     margin-bottom: 3px;
+}
+
+#ads {
+    border: none;
+    width:  200px;
+    height: 200px;
 }

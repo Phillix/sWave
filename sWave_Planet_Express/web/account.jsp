@@ -92,7 +92,7 @@
                 <a href="account.jsp?view=settings"><%=messages.getString("settingsVar")%></a><br/>
                 <form id="langForm" action="UserActionServlet" method="POST">
                     <input type="hidden" name="action" value="updateDetails"/>
-                    <input type="hidden" name="refPage" value="music.jsp"/>
+                    <input type="hidden" name="refPage" value="account.jsp<%if (request.getParameter("view") != null) {%>?view=<%=request.getParameter("view")%><%}%>"/>
                     <select name="lang" onchange="$('langForm').submit()">
                         <option value="en" <%if (currentLocale.getLanguage().equals("en")) {%>selected<%}%>>English</option>
                         <option value="fr" <%if (currentLocale.getLanguage().equals("fr")) {%>selected<%}%>>French</option>
@@ -247,19 +247,24 @@
                         for (Ticket t : tickDao.getAllTickets()) {
                             if (!t.isResolved() ^ (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed"))) {
                             if (currentUser.isIsAdmin()) {%>
+                                <br/>
                                 <ul class="ticketList">
-                                    <li class="panel ticket">
+                                    <li class="panel listing songListing">
                                         <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><a href="mailto:<%=userDao.getUserById(t.getUserId()).getEmail()%>" target="_blank"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u></a>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
                                         <br/>
                                         <p class="ticketIssue">
                                             <%=t.getIssue()%>
                                         </p>
                                         <br/>
-                                        <form style="margin-left:10px;" method="POST" action="UserActionServlet">
-                                            <input type="hidden" name="action" value="closeTicket"/>
-                                            <input type="hidden" name="ticketId" value="<%=t.getTicketId()%>"/>
-                                            <input class="button" type="submit" value="Close"/>
-                                        </form>
+                                        <%if (!t.isResolved()) {%>
+                                            <div class="listingRight">
+                                                <form style="margin-left:10px;" method="POST" action="UserActionServlet">
+                                                    <input type="hidden" name="action" value="closeTicket"/>
+                                                    <input type="hidden" name="ticketId" value="<%=t.getTicketId()%>"/>
+                                                    <input class="button" type="submit" value="Close"/>
+                                                </form>
+                                            </div>
+                                        <%}%>
                                         <br/>
                                     </li>
                                 </ul>
@@ -378,23 +383,19 @@
                         <label>Screensaver</label><input type="checkbox"/><br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
-                                <div id="midUnderlayOmni" class="panel"></div>
-                                <div id="omniBar" class="panel">
-                                    sWave System Server
-                                    &#160;&#160;|&#160;&#160;
-                                    CPUs: <%=sWave.Server.CPUs%>
-                                    &#160;&#160;|&#160;&#160;
-                                    JVM Heap: <%=sWave.Server.JVMHEAP%>
-                                </div>
-                                <h1>Admin Panel</h1>
-                                <h3>Upload Tracks</h3>
-                                <h5><u>Note: Only audio files under 16MB can be uploaded.</u></h5>
-                                <h5><u>Note: You may upload up to 100MB at a time.</u></h5>
+                                <div id="midUnderlay" class="panel"></div>
+                                <h1><%=messages.getString("adminPanelVar")%></h1>
+                                <h3><u>sWave <%=messages.getString("systemServerVar")%></u></h3>
+                                <strong>CPUs:</strong> <%=sWave.Server.CPUs%><br/>
+                                <strong>JVM <%=messages.getString("heapVar")%>:</strong> <%=sWave.Server.JVMHEAP%><br/><br/>
+                                <h3><u><%=messages.getString("uploadTracksVar")%></u></h3>
+                                <u><%=messages.getString("note2Var")%>)</u><br/>
+                                <u><%=messages.getString("note3Var")%></u><br/><br/>
                                 <input id="fileSelector" type="file" name="songBlob" accept="audio/mpeg" onchange="showSizes()" multiple/><br/>
-                                <span id="fileSizes"></span>
+                                <span id="fileSizes"></span><br/><br/>
+                                <progress id="uploadProgress" max="100" value="0"></progress><span id="fileSizes"></span><br/>
+                                <span id="progressInfo"></span><br/>
                                 <button onclick="uploadSongs()">Upload</button>
-                                <progress id="uploadProgress" max="100" value="0"></progress>
-                                <span id="progressInfo"></span>
                             <%} else {
                                 response.sendRedirect("noperm.jsp");
                               }

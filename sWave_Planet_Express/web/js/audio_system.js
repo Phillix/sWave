@@ -79,12 +79,14 @@ function listenForEvents() {
         $("pauseButton1").style.display = "block";
         $("pauseButton2").style.display = "block";
         document.activeElement.blur();
+        lStore("isPaused", "del");
     });
 
     player.addEventListener("pause", function() {
         $("playButton").style.display   = "block";
         $("pauseButton1").style.display = "none";
         $("pauseButton2").style.display = "none";
+        lStore("isPaused", "true");
     });
     
     document.body.addEventListener("keypress", function(event) {
@@ -97,7 +99,7 @@ function listenForEvents() {
              * moment then plays again from the start instantly.
              */
             var currEl = document.activeElement.toString();
-            if (!currEl.contains("HTMLInputElement") && !currEl.contains("HTMLButtonElement")) {
+            if (!currEl.contains("HTMLInputElement") && !currEl.contains("HTMLButtonElement") && !currEl.contains("HTMLSelectElement") && !currEl.contains("HTMLTextAreaElement")) {
                 event.preventDefault();
                 playPause();
             }
@@ -167,5 +169,5 @@ function updateVol() {
 
 function resumePlay(onPlayingPage) {
     if (lStore("currentSongId") !== null && lStore("currentSongId") !== undefined)
-        stream(lStore("currentSongId"), onPlayingPage);
+        stream(lStore("currentSongId"), onPlayingPage, true);
 }

@@ -100,15 +100,15 @@
                     %>
                         <li>
                             <%if (x instanceof Song) {%>
-                                <h3>Song:</h3>
-                                <span>Title: <%=((Song)x).getTitle()%></span><br/>
-                                <span>Artist: <%=((Song)x).getArtist()%></span><br/>
+                                <h3><%=messages.getString("songVar")%>:</h3>
+                                <span><%=messages.getString("titleVar")%>: <%=((Song)x).getTitle()%></span><br/>
+                                <span><%=messages.getString("artistVar")%>: <%=((Song)x).getArtist()%></span><br/>
                             <%} else {%>
-                                <h3>Merch Item:</h3>
-                                <span>Name: <%=((Merch)x).getTitle()%></span><br/>
-                                <span>Quantity: <%=c.getQty()%></span><br/>
+                                <h3><%=messages.getString("merchItemVar")%>:</h3>
+                                <span><%=messages.getString("nameVar")%>: <%=((Merch)x).getTitle()%></span><br/>
+                                <span><%=messages.getString("quantityVar")%>: <%=c.getQty()%></span><br/>
                             <%}%>
-                            <span>Price: <%=f.format(c.getPrice())%></span>
+                            <span><%=messages.getString("priceVar")%>: <%=f.format(c.getPrice())%></span>
                         </li>
                 <%}
                 }

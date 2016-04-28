@@ -173,6 +173,7 @@ INSERT INTO FRIEND VALUES(-1,2,'2015-1-1','c');
 INSERT INTO FRIEND VALUES(2,1,'1990-1-1','c');
 INSERT INTO FRIEND VALUES(2,-2,'2016-1-1','p');
 INSERT INTO FRIEND VALUES(3,5,'2016-4-1','p');
+INSERT INTO FRIEND VALUES(-2,1,'2016-7-8','c');
 
 INSERT INTO SONGS VALUES (-1, "Track 1", "Title", "Artist", "Album", "Genre", 1970, 420, 2.99, "Public Domain", 0, NULL, NULL, NULL);
 
@@ -209,3 +210,7 @@ INSERT INTO ORDERMERCH VALUES(-1, -1, 1, 9.99, NULL);
 INSERT INTO ORDERMERCH VALUES(-3, -1, 1, 8.50, NULL);
 
 INSERT INTO MESSAGE VALUES(-1, -1, -2, "2009-12-3", "oh hai mark!", false);
+INSERT INTO MESSAGE VALUES(1, -2, -1, "2009-12-4", "mr. appelman we meet again!", false);
+INSERT INTO MESSAGE VALUES(2, 1, -2, "2009-12-5", "My laptop wont work now", false);
+INSERT INTO MESSAGE VALUES(3, -2, 1, "2009-12-6", "What happened?", false);
+INSERT INTO MESSAGE VALUES(4, 1, -2, "2009-12-7", "Nothing is doing anything,Laptop is all jumpy", false);

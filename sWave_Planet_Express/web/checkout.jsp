@@ -41,6 +41,7 @@
         <script src="macgril/js/audio.js"></script>
         <script src="macgril/js/datetime.js"></script>
         <script src="macgril/js/notifications.js"></script>
+        <script src="macgril/js/validation.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/audio_system.js"></script>
         <script src="js/scripts.js"></script>
@@ -49,7 +50,7 @@
     </head>
     <body onload="<%if (currentUser != null) {%>loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); <%}%>resumePlay()">
         <header class="panel" id="topbar">
-            <%=sWave.Graphics.s_logo%>
+            <%=sWave.Graphics.getLogo()%>
             <nav>
                 <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
                 <a href="playing.jsp">Music</a><a class="currentPageLink" href="shop.jsp">Shop</a><a href="account.jsp">Account</a><a href="about.jsp">About</a>
@@ -69,7 +70,7 @@
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="cart.jsp">Back to Cart</a>
+            <a href="cart.jsp"><%=messages.getString("goToCartVar")%></a>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
@@ -81,7 +82,7 @@
                     <a href="account.jsp?view=profile">Add One Now</a><br/>
                 <h2>Enter Card Details</h2>
                 <h5>Note: We do not store your card details</h5>
-                <input id="cardNumField" onkeyup="validateCardNum()" required class="text" type="text" name="card_num" placeholder="xxxx-xxxx-xxxx-xxxx"/><br/>
+                <input id="cardNumField" onkeyup="validateCreditCard('cardNumField', 'green', 'red')" required class="text" type="text" name="card_num" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                 <input class="button" type="submit" value="Buy"/>
             </form>
         </div>

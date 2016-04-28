@@ -89,6 +89,11 @@ function listenForEvents() {
         lStore("isPaused", "true");
     });
     
+    player.addEventListener("ended", function() {
+       if (lStore("inPlayList") !== null && lStore("inPlayList") !== undefined)
+           streamNext();
+    });
+    
     document.body.addEventListener("keypress", function(event) {
         if ((event.which === 32) || (event.keyCode === 32)) {
             /*

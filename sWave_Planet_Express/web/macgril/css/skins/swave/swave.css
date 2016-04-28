@@ -50,9 +50,19 @@ input {
     outline: none;
 }
 
+input.number {
+    appearance:       none;
+    -moz-appearance:  none;
+    border:           none;
+    outline:          none;
+    width:            50px;
+    color:            #e3e3e3;
+    background-color: rgba(49, 146, 153, 0.1);
+}
+
 input.button {
     border:           none;
-    border-radius:    3px;
+    border-radius:    0px;
     font-size:        12px;
     padding-top:      4px;
     padding-bottom:   4px;

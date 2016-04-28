@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * This class is used for communicating with the Tickets table in the database
  * @author Phillix
  * @author Austin
  */
@@ -263,6 +263,47 @@ public class TicketDao extends Dao implements TicketDaoInterface {
                                        ID         + " = ?");
             ps.setBoolean(1, isResolved);
             ps.setInt(2, ticketId);
+
+            int result = ps.executeUpdate();
+
+            if (result > 0)
+                return SUCCESS;
+        }
+        catch(SQLException e) {
+            if(DEBUG)
+                e.printStackTrace();
+            return SQLEX;
+        }
+        finally {
+            try {
+                if(ps  != null)
+                    ps.close();
+                if(con != null)
+                    freeConnection(con);
+            }
+            catch(SQLException e) {
+                if (DEBUG)
+                    e.printStackTrace();
+                return CONNCLOSEFAIL;
+            }
+        }
+        return OTHER;
+    }
+    
+    /**
+     * This method is used for deleting a ticket
+     * @param ticketId the id of the ticket you want to delete
+     * @return an int representing success, failure or exceptions
+     */
+    public int deleteTicket(int ticketId) {
+        Connection con       = null;
+        PreparedStatement ps = null;
+        try {
+            con = getConnection();
+            ps  = con.prepareStatement("DELETE FROM "  +
+                                       TABLE_NAME + " WHERE "       +
+                                       ID  + " = ?");
+            ps.setInt(1, ticketId);
 
             int result = ps.executeUpdate();
 

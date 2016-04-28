@@ -62,7 +62,6 @@ public class MerchDaoTest {
      */
     @Test
     public void testGetMerchByIdValid() {
-        instance.createMerch(m);
         Merch m1 = instance.getMerchById(10);
         assertEquals(m, m1);
     }
@@ -72,7 +71,6 @@ public class MerchDaoTest {
      */
     @Test
     public void testGetMerchByIdInvalid() {
-        instance.createMerch(m);
         Merch m1 = instance.getMerchById(6);
         assertNotEquals(m, m1);
     }

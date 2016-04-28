@@ -41,7 +41,6 @@ public class FriendDaoTest {
      */
     @Test
     public void testConfirmFriendValid() {
-        instance.requestFriend(f1);
         instance.confirmFriend(-1, -2);
         boolean expResult = true;
         boolean result = instance.getUserFriends(-1).stream().anyMatch(f -> f.getFriendId() == -2);
@@ -53,7 +52,6 @@ public class FriendDaoTest {
      */
     @Test
     public void testConfirmFriendInvalid() {
-        instance.requestFriend(f1);
         instance.confirmFriend(-1, -2);
         boolean expResult = false;
         boolean result = instance.getUserFriends(-1).stream().anyMatch(f -> f.getFriendId() == -3);
@@ -65,8 +63,6 @@ public class FriendDaoTest {
      */
     @Test
     public void testGetPendingFriendRequestsValid() {
-        instance.requestFriend(f1);
-        instance.requestFriend(f2);
         ArrayList<Friend> friends = instance.getPendingFriendRequests(-2);
         boolean result = friends.size() == 2;
         boolean expResult = true;

@@ -2,16 +2,14 @@ package Daos;
 
 import Dtos.Song;
 import java.sql.Date;
-import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * This test class tests all of the methods from the SongDao class
  * @author Austin
  */
 public class SongDaoTest {
@@ -25,10 +23,6 @@ public class SongDaoTest {
     @BeforeClass
     public static void setUpClass() {
         instance = new SongDao(md);
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
     }
     
     @Before

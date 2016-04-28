@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
- *
+ * This class is used for interacting with the Song table in the database
  * @author Austin
  * @author Brian Millar
  */

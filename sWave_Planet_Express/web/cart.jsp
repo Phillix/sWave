@@ -1,12 +1,12 @@
-<%@page import="java.util.ResourceBundle"%>
-<%@page import="java.util.Locale"%>
 <%@page import="Dtos.Merch"%>
+<%@page import="Dtos.Song"%>
 <%@page import="Daos.MerchDao"%>
 <%@page import="Daos.SongDao"%>
 <%@page import="Dtos.CartItem"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.NumberFormat"%>
-<%@page import="Dtos.Song"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Dtos.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,18 +18,18 @@
             Locale currentLocale = new Locale("en");
 
             if (session == null || (User)session.getAttribute("user") == null)
-                response.sendRedirect("login.jsp?refer=cart.jsp");
+                response.sendRedirect("login.jsp?refer=about.jsp");
             else {
                 currentUser   = (User)session.getAttribute("user");
                 skin          = currentUser.getSkin();
                 currentLocale = new Locale(currentUser.getLangPref());
             }
-
+            
             ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="images/favicon.png">
-        <title><%=messages.getString("chatVar")%> - sWave</title>
+        <title><%=messages.getString("myCartVar")%> sWave</title>
         <!-- Import base Macgril CSS rules -->
         <link rel="stylesheet" type="text/css" href="macgril/css/base.css"/>
         <!-- Import Macgril's set of CSS animations -->
@@ -48,45 +48,38 @@
         <script src="js/three.min.js"></script>
         <script src="js/audio_system.js"></script>
         <script src="js/streamer.js"></script>
+        <script src="js/image_loader.js"></script>
     </head>
     <body onload="loadUserPicture(<%=currentUser.getUserId()%>, $('userPic')); resumePlay()">
         <header class="panel" id="topbar">
             <%=sWave.Graphics.getLogo()%>
             <nav>
-                <a href="playing.jsp">Music</a>
-                <a href="shop.jsp">Shop</a>
-                <a href="account.jsp">Account</a>
-                <a href="about.jsp">About</a>
+                <!-- Bunching up the anchor tags removes the gaps between them caused by the tabbing and inline-block -->
+                <a href="playing.jsp"><%=messages.getString("musicNavVar")%></a><a href="shop.jsp"><%=messages.getString("shopNavVar")%></a><a href="account.jsp"><%=messages.getString("accountNavVar")%></a><a class="currentPageLink" href="about.jsp"><%=messages.getString("aboutNavVar")%></a>
             </nav>
-            <div id="header_right">
-                <form id="searchBox" action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="search"/>
-                    <input type="search" class="text" name="searchterm" placeholder="Search"/>
+            <form id="searchBox" action="UserActionServlet" method="POST">
+                <input type="hidden" name="action" value="search"/>
+                <input type="search" class="text" name="searchterm" placeholder="<%=messages.getString("searchVar")%>"/>
+            </form>
+            <%=sWave.Graphics.s_cart%>
+            <img id="userPic" onclick="showHideUserMenu()" width="50" height="50" src="images/test.png"/>
+            <div id="userMenu" class="panel">
+                <a id="userNameDisplay" href="account.jsp?view=profile"><%=currentUser.getUsername()%></a>
+                <form id="logOutButton" action="UserActionServlet" method="POST">
+                    <input type="hidden" name="action" value="logout"/>
+                    <input class="button" type="submit" value="<%=messages.getString("logoutVar")%>"/>
                 </form>
-                <%if (currentUser != null) {%>
-                    <a id="userNameLink" href="account.jsp"><%=currentUser.getUsername()%></a>
-                    &#160;&#160;
-                    <form id="logOutButton" action="UserActionServlet" method="POST">
-                        <input type="hidden" name="action" value="logout"/>
-                        <input class="button" type="submit" value="Log Out"/>
-                    </form>
-                <%} else {
-                        response.sendRedirect("login.jsp?refer=cart.jsp");
-                %>
-                    <!-- In case the redirect fails for any reason provide a link -->
-                    <a href="login.jsp">Log In</a>
-                <%}%>
             </div>
         </header>
         <aside class="panel" id="left_sidebar">
-            <a href="javascript:history.back()">Back</a>
-            <a href="shop.jsp">Go to Shop</a>
+            <a href="javascript:history.back()"><%=messages.getString("backVar")%></a>
+            <a href="shop.jsp"><%=messages.getString("goToShopVar")%></a>
             <div id="visualizer"></div>
         </aside>
         <div id="midsection">
             <div id="midUnderlay" class="panel"></div>
-            <h1>My Cart</h1>
-            <a href="checkout.jsp">Proceed To Checkout</a>
+            <h1><%=messages.getString("myCartVar")%></h1>
+            <a href="checkout.jsp"><%=messages.getString("proceedToCheckoutVar")%></a>
             <ul>
             <%
                 if (session.getAttribute("cart") != null) {

@@ -90,18 +90,20 @@
             <div id="midUnderlay" class="panel"></div>
             <%if (m != null) {
                 NumberFormat f = NumberFormat.getCurrencyInstance();%>
-                <img width="200" height="200" src="images/merch/<%=m.getMerchId()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
+                <img style="float:left;" width="200" height="200" src="images/merch/<%=m.getMerchId()%>.jpg" alt="Picture of <%=m.getTitle()%>"/>
                 <div id="inlineRenderer">
                 </div>
-                <h2><%=m.getTitle()%></h2>
-                <span><%=messages.getString("priceVar")%>: <%=f.format(m.getPrice())%></span>
-                <form action="UserActionServlet" method="POST">
-                    <input type="hidden" name="action" value="addMerchToCart"/>
-                    <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/>
-                    <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
-                    <input type="number" value="1" min="1" name="qty"/>
-                    <input class="button" type="submit" value="Add to Cart"/>
-                </form>
+                <div id="productInfo">
+                    <h2><%=m.getTitle()%></h2>
+                    <span><%=messages.getString("priceVar")%>: <%=f.format(m.getPrice())%></span>
+                    <form action="UserActionServlet" method="POST">
+                        <input type="hidden" name="action" value="addMerchToCart"/>
+                        <input type="hidden" name="merchid" value="<%=m.getMerchId()%>"/><br/>
+                        <input type="hidden" name="price" value="<%=m.getPrice()%>"/>
+                        <input class="number" type="number" value="1" min="1" name="qty"/>
+                        <input class="button" type="submit" value="<%=messages.getString("addToCartVar")%>"/>
+                    </form>
+                </div>
             <%}%>
         </div>
         <%=sWave.UI.footer%>

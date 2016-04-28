@@ -107,6 +107,9 @@
                 NumberFormat f = NumberFormat.getCurrencyInstance();
                 for (Merch m : dao.viewMerchAlpha()) {%>
                     <li class="panel listing songListing">
+                        <div class="listingRight">
+                            <%=f.format(m.getPrice())%>
+                        </div>
                         <img class="artwork" alt="<%=messages.getString("pictureOfVar")%> <%=m.getTitle()%>" src="images/merch/<%=m.getMerchId()%>.jpg"/>
                         <span class="songTitle">
                             <%if (DEBUG) {%>
@@ -117,10 +120,6 @@
                         <span class="songArtist">
                             <a href="product.jsp?item=<%=m.getMerchId()%>"><%=messages.getString("viewItemVar")%></a>
                         </span>
-                        <br/>
-                        <div class="listingRight">
-                            <%=f.format(m.getPrice())%>
-                        </div>
                     </li>
             <%}%>
             </ul>

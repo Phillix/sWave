@@ -1,3 +1,4 @@
+<%@page import="Dtos.Message"%>
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.Locale"%>
 <%@page import="Daos.MessageDao"%>
@@ -42,6 +43,8 @@
             UsersDao  udao = new UsersDao();
             ArrayList<Friend> pending = fdao.getPendingFriendRequests(currentUser.getUserId());
             ArrayList<Friend> friends = fdao.getUserFriends(currentUser.getUserId());
+            MessageDao mdao = new MessageDao();
+            ArrayList<Message> conversation = null;
 
             ResourceBundle messages = ResourceBundle.getBundle("i18n.content", currentLocale);
         %>
@@ -112,6 +115,7 @@
         <aside class="panel" id="left_sidebar">
             <a href="account.jsp?view=profile" <%if (request.getParameter("view") != null && request.getParameter("view").equals("profile")) {%>class="currentPageLink"<%}%>><%=messages.getString("profileVar")%></a>
             <a href="account.jsp?view=friends" <%if (request.getParameter("view") != null && request.getParameter("view").equals("friends")) {%>class="currentPageLink"<%}%>><%=messages.getString("friendsVar")%></a>
+            <a href="account.jsp?view=messages" <%if (request.getParameter("view") != null && request.getParameter("view").equals("messages")) {%>class="currentPageLink"<%}%>><%=messages.getString("messagesVar")%></a>
             <a href="account.jsp?view=orders" <%if (request.getParameter("view") != null && request.getParameter("view").equals("orders")) {%>class="currentPageLink"<%}%>><%=messages.getString("ordersVar")%></a>
             <a href="account.jsp?view=tickets" <%if (request.getParameter("view") != null && request.getParameter("view").equals("tickets")) {%>class="currentPageLink"<%}%>><%=messages.getString("ticketsVar")%></a>
             <a href="account.jsp?view=settings" <%if (request.getParameter("view") != null && request.getParameter("view").equals("settings")) {%>class="currentPageLink"<%}%>><%=messages.getString("settingsVar")%></a>
@@ -128,7 +132,7 @@
                         <img onclick="$('userPicField').click()" id="largeUserPic" src="images/test.png" width="200" height="200"/>
                         <progress id="uploadProgress2" max="100" value="0"></progress><br/>
                         <span id="progressInfo2"></span><br/>
-                        <h5><u><%=messages.getString("uploadNewPictureVar")%> (<%=messages.getString("maxVar")%> 64kb)</u></h5>
+                        <h5><u><%=messages.getString("clickPicVar")%> (<%=messages.getString("maxVar")%> 64kb)</u></h5>
                         <input id="userPicField" onchange="uploadUserPicture(<%=currentUser.getUserId()%>)" type="file" accept="image/*" name="userPicField"/>
                         <h2 id="nameDisplay"><%=(currentUser.getFname() + " " + currentUser.getLname())%></h2>
                     </div>
@@ -176,7 +180,7 @@
                     </form>
                 <%} else if (request.getParameter("view").equals("orders")) {%>
                     <div id="midUnderlay" class="panel"></div>
-                    <h1>My Orders</h1>
+                    <h1><%=messages.getString("myOrdersVar")%></h1>
                     <ul>
                         <%OrderDao orders = new OrderDao();
                         SongDao songs = new SongDao();
@@ -224,17 +228,58 @@
                             </table>
                         </li>
                 <% count++;}%></ul><%
-                } else if (request.getParameter("view").equals("tickets")) {
+                } else if (request.getParameter("view").equals("messages")) {
+                    for(Friend f : friends) {
+
+                    if(f.getUserId() != currentUser.getUserId())
+                        conversation = mdao.getConversation(f.getUserId());
+
+                    else
+                        conversation = mdao.getConversation(f.getFriendId());
+                    for(Message m : conversation) {
+                        if(m.getSender() != currentUser.getUserId()) {
+                            User u = udao.getUserById(m.getSender());
+                        %> 
+                    <ul>
+                        <li>
+                            <h3><%=messages.getString("sentFromVar")%> <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
+                            <br/>
+                            <span>
+                                <%=m.getContent()%>
+                            </span>
+                            <br/><br/>
+                        </li>
+                    </ul>
+                    <%
+                              }
+                              else {
+                                  User u = udao.getUserById(m.getReceiver());
+                     %>
+                     <ul>
+                        <li>
+                            <h3><%=messages.getString("sentToVar")%> <%=u.getUsername()%><span><u><%=m.getDate()%></u></span></h3>
+                            <br/>
+                            <span>
+                                <%=m.getContent()%>
+                            </span>
+                            <br/><br/>
+                        </li>
+                    </ul>
+                      <%        }
+                          }
+                        }  
+                    %>
+                <%} else if (request.getParameter("view").equals("tickets")) {
                     if (request.getParameter("ticketView") != null && request.getParameter("ticketView").equals("closed")) {%>
-                        <h1>Closed Tickets</h1>
-                        <a href="account.jsp?view=tickets">Open Tickets</a>
+                        <h1><%=messages.getString("closedTicketsVar")%></h1>
+                        <a href="account.jsp?view=tickets"><%=messages.getString("openTicketsVar")%></a>
                     <%} else {%>
-                        <h1>Open Tickets</h1>
-                        <a href="account.jsp?view=tickets&ticketView=closed">Closed Tickets</a>
+                        <h1><%=messages.getString("openTicketsVar")%></h1>
+                        <a href="account.jsp?view=tickets&ticketView=closed"><%=messages.getString("closedTicketsVar")%></a>
                     <%}%>
                     <div id="midUnderlay" class="panel"></div>
                     <button id="cancelNewTicketButton" style="display:none;" onclick="$('newTicketForm').style.display='none'; $('cancelNewTicketButton').style.display='none'; $('newTicketButton').style.display='block'">Cancel</button>
-                    <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'">Open Ticket</button><br/>
+                    <button id="newTicketButton" onclick="$('newTicketForm').style.display='block'; $('newTicketButton').style.display='none'; $('cancelNewTicketButton').style.display='block'"><%=messages.getString("openTicketButtonVar")%></button><br/>
                     <form id="newTicketForm" action="UserActionServlet" method="POST">
                         <input type="hidden" name="action" value="createTicket"/>
                         <input type="hidden" name="userId" value="<%=currentUser.getUserId()%>"/>
@@ -250,7 +295,7 @@
                                 <br/>
                                 <ul class="ticketList">
                                     <li class="panel listing songListing">
-                                        <h3 class="ticketHeader">Ticket <%=t.getTicketId()%><span class="ticketHeaderRight"><a href="mailto:<%=userDao.getUserById(t.getUserId()).getEmail()%>" target="_blank"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u></a>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
+                                        <h3 class="ticketHeader"><%=messages.getString("ticketVar")%> <%=t.getTicketId()%><span class="ticketHeaderRight"><a href="mailto:<%=userDao.getUserById(t.getUserId()).getEmail()%>" target="_blank"><u><%=userDao.getUserById(t.getUserId()).getUsername()%></u></a>&#160;&#160;&#160;<u><%=t.getDateRaised()%></u></span></h3>
                                         <br/>
                                         <p class="ticketIssue">
                                             <%=t.getIssue()%>
@@ -323,8 +368,7 @@
                                                 <input type="hidden" name="action" value="removeFriend"/>
                                                 <input type="hidden" name="friendId" value="<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>"/>
                                                 <input type="submit" class="button danger" value="Unfriend"/>
-                                            </form><br/>
-                                            <button onclick="openChat(<%=f.getFriendId()%>)">Chat</button>
+                                            </form>
                                         </div>
                                         <img class="artwork" id="face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2" src="images/test.png" width="100" height="100"/>
                                         <script>loadUserPicture(<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>, $('face<%if (f.getUserId() == currentUser.getUserId()) {%><%=f.getFriendId()%><%} else {%><%=f.getUserId()%><%}%>2'))</script>
@@ -377,10 +421,6 @@
                         <br/>
                         <button onclick="clearlStore()">Clear Local Data</button>
                         <br/>
-                        <strong>NOTE:</strong> The following settings are LOCAL to your machine, you will need to <em><u>export</u></em> these settings to use them on another machine.
-                        <br/><br/>
-                        <button>Import Settings</button>&#160;<button>Export Settings</button><br/><br/>
-                        <label>Screensaver</label><input type="checkbox"/><br/>
                     <%} else if (request.getParameter("view").equals("admin")) {
                             if (currentUser.isIsAdmin()) {%>
                                 <div id="midUnderlay" class="panel"></div>

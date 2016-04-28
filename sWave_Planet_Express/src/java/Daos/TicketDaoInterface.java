@@ -14,4 +14,5 @@ public interface TicketDaoInterface {
     public ArrayList<Ticket> getAllTickets();
     public Ticket viewTicket(int ticketId);
     public int changeTicketStatus(int ticketId, boolean isResolved);
+    public int deleteTicket(int ticketId);
 }

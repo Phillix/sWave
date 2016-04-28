@@ -44,7 +44,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Message</h1>
+        <h1><%=messages.getString("messagesVar")%></h1>
         <% 
             for(Friend f : friends) {
                 
